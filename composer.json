@@ -1,0 +1,44 @@
+{
+	"name": "laravel/laravel",
+	"description": "Time Fragment",
+	"keywords": ["framework", "laravel"],
+	"license": "MIT",
+	"require": {
+		"laravel/framework": "4.1.*",
+		"yzalis/identicon": "1.0.*@dev",
+		"intervention/image": "dev-master",
+		"michelf/php-markdown": "1.4.*@dev",
+		"nickcernis/html-to-markdown": "dev-master",
+		"five-say/vendor-cleaner": "dev-master",
+		"blueimp/jquery-file-upload": "dev-master",
+		"symfony/validator": "2.6.*@dev",
+		"symfony/expression-language": "2.6.*@dev"
+	},
+	"autoload": {
+		"classmap": [
+			"app/commands",
+			"app/controllers",
+			"app/models",
+			"app/database/migrations",
+			"app/database/seeds",
+			"app/tests/TestCase.php"
+		]
+	},
+	"scripts": {
+		"post-install-cmd": [
+			"php artisan clear-compiled",
+			"php artisan optimize"
+		],
+		"post-update-cmd": [
+			"php artisan clear-compiled",
+			"php artisan optimize"
+		],
+		"post-create-project-cmd": [
+			"php artisan key:generate"
+		]
+	},
+	"config": {
+		"preferred-install": "dist"
+	},
+	"minimum-stability": "stable"
+}

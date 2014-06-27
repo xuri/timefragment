@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
+-->
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Replace Textareas by Class Name &mdash; CKEditor Sample</title>
+	<script src="../ckeditor.js"></script>
+	<link rel="stylesheet" href="sample.css">
+</head>
+<body>
+	<h1 class="samples">
+		<a href="index.html">CKEditor Samples</a> &raquo; Replace Textarea Elements by Class Name
+	</h1>
+	<div class="description">
+		<p>
+			This sample shows how to automatically replace all <code>&lt;textarea&gt;</code> elements
+			of a given class with a CKEditor instance.
+		</p>
+		<p>
+			To replace a <code>&lt;textarea&gt;</code> element, simply assign it the <code>ckeditor</code>
+			class, as in the code below:
+		</p>
+<pre class="samples">
+&lt;textarea <strong>class="ckeditor</strong>" name="editor1"&gt;&lt;/textarea&gt;
+</pre>
+		<p>
+			Note that other <code>&lt;textarea&gt;</code> attributes (like <code>id</code> or <code>name</code>) need to be adjusted to your document.
+		</p>
+	</div>
+
+		<p>
+			<label for="editor1">
+				Editor 1:
+			</label>
+			<textarea class="ckeditor" cols="80" id="editor1" name="editor1" rows="10">
+
+			</textarea>
+		</p>
+		<p>
+			<input type="submit" value="Submit">
+		</p>
+
+	</div>
+</body>
+</html>
