@@ -70,6 +70,24 @@ Route::group(array('prefix' => 'creative'), function () {
 
 /*
 |--------------------------------------------------------------------------
+| Travel Routes
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::group(array('prefix' => 'travel'), function () {
+    $resource = 'travel';
+    $controller = 'TravelController@';
+    # 分类创意列表
+    Route::get('/'      , array('as' => $resource.'.getIndex', 'uses' => $controller.'getIndex'));
+    # 展示创意内容
+    Route::get('{slug}' , array('as' => $resource.'.show' , 'uses' => $controller.'show'));
+    # 提交创意评论
+    Route::post('{slug}', $controller.'postComment')->before('auth');
+});
+
+/*
+|--------------------------------------------------------------------------
 | Basic Competence (Signin and Signup Routes)
 |--------------------------------------------------------------------------
 |
@@ -237,27 +255,26 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
     Route::group(array('prefix' => 'travel-categories'), function () {
         $resource   = 'travel_categories';
         $controller = 'Admin_TravelCategoriesResource@';
-        Route::get(           '/', array('as' => $resource.'.index'              , 'uses' => $controller.'index'              ));
-        Route::get(      'create', array('as' => $resource.'.create'             , 'uses' => $controller.'create'             ));
-        Route::post(          '/', array('as' => $resource.'.store'              , 'uses' => $controller.'store'              ));
-        Route::get(   '{id}/edit', array('as' => $resource.'.edit'               , 'uses' => $controller.'edit'               ));
-        Route::put(        '{id}', array('as' => $resource.'.update'             , 'uses' => $controller.'update'             ));
-        Route::delete('{id}/edit', array('as' => $resource.'.deleteTravelPicture', 'uses' => $controller.'deleteTravelPicture'));
-        Route::delete(     '{id}', array('as' => $resource.'.destroy'            , 'uses' => $controller.'destroy'            ));
+        Route::get(        '/', array('as'    => $resource.'.index'  , 'uses' => $controller.'index'  ));
+        Route::get(   'create', array('as'    => $resource.'.create' , 'uses' => $controller.'create' ));
+        Route::post(       '/', array('as'    => $resource.'.store'  , 'uses' => $controller.'store'  ));
+        Route::get('{id}/edit', array('as'    => $resource.'.edit'   , 'uses' => $controller.'edit'   ));
+        Route::put(     '{id}', array('as'    => $resource.'.update' , 'uses' => $controller.'update' ));
+        Route::delete(  '{id}', array('as'    => $resource.'.destroy', 'uses' => $controller.'destroy'));
     });
 
     # 去旅行管理
     Route::group(array('prefix' => 'travel'), function () {
         $resource   = 'travel';
         $controller = 'Admin_TravelResource@';
-        Route::get(           '/', array('as' => $resource.'.index'               , 'uses' => $controller.'index'              ));
-        Route::get(      'create', array('as' => $resource.'.create'              , 'uses' => $controller.'create'             ));
-        Route::post(          '/', array('as' => $resource.'.store'               , 'uses' => $controller.'store'              ));
-        Route::get(   '{id}/edit', array('as' => $resource.'.edit'                , 'uses' => $controller.'edit'               ));
-        Route::delete('{id}/edit', array('as' => $resource.'.deleteTravelPicture' , 'uses' => $controller.'deleteTravelPicture'));
-        Route::put(        '{id}', array('as' => $resource.'.update'              , 'uses' => $controller.'update'             ));
-        Route::post(       '{id}', array('as' => $resource.'.postUpload'          , 'uses' => $controller.'postUpload'         ));
-        Route::delete(     '{id}', array('as' => $resource.'.destroy'             , 'uses' => $controller.'destroy'            ));
+        Route::get(           '/', array('as' => $resource.'.index'        , 'uses' => $controller.'index'       ));
+        Route::get(      'create', array('as' => $resource.'.create'       , 'uses' => $controller.'create'      ));
+        Route::post(          '/', array('as' => $resource.'.store'        , 'uses' => $controller.'store'       ));
+        Route::get(   '{id}/edit', array('as' => $resource.'.edit'         , 'uses' => $controller.'edit'        ));
+        Route::put(        '{id}', array('as' => $resource.'.update'       , 'uses' => $controller.'update'      ));
+        Route::post(       '{id}', array('as' => $resource.'.postUpload'   , 'uses' => $controller.'postUpload'  ));
+        Route::delete('{id}/edit', array('as' => $resource.'.deleteUpload' , 'uses' => $controller.'deleteUpload'));
+        Route::delete(     '{id}', array('as' => $resource.'.destroy'      , 'uses' => $controller.'destroy'     ));
     });
 
 });

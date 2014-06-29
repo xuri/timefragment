@@ -20,7 +20,7 @@ class CreatTravelTable extends Migration {
 	        $table->text('title', 100);
 	        $table->text('slug', 255);
 	        $table->text('content');
-	        $table->string('picture')->default('staff/default.jpg');
+	        $table->string('thumbnails')->nullable();
 	        $table->smallInteger('comments_count')->default('0');
 	        $table->text('meta_title', 100);
 	        $table->text('meta_description', 255);

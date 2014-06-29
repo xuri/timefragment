@@ -90,12 +90,12 @@ class TravelController extends BaseResource
         $rules  = array(
             'title'        => 'required|'.$unique,
             'content'      => 'required',
-            'category'     => 'exists:creative_categories,id',
+            'category'     => 'exists:travel_categories,id',
         );
-        $slug = Input::input('title');
-        $hashslug = date('H.i.s').'-'.md5($slug).'.html';
+        $slug      = Input::input('title');
+        $hashslug  = date('H.i.s').'-'.md5($slug).'.html';
         // 自定义验证消息
-        $messages = $this->validatorMessages;
+        $messages  = $this->validatorMessages;
         // 开始验证
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->passes()) {
@@ -135,10 +135,10 @@ class TravelController extends BaseResource
      */
     public function edit($id)
     {
-        $data          = $this->model->find($id);
+        $data = $this->model->find($id);
         $categoryLists = TravelCategories::lists('name', 'id');
-        $creative      = Travel::where('slug', $data->slug)->first();
-        return View::make($this->resourceView.'.edit')->with(compact('data', 'categoryLists', 'creative'));
+        $travel = Travel::where('slug', $data->slug)->first();
+        return View::make($this->resourceView.'.edit')->with(compact('data', 'categoryLists', 'travel'));
     }
 
     /**
@@ -155,7 +155,7 @@ class TravelController extends BaseResource
         $rules  = array(
             'title'        => 'required',
             'content'      => 'required',
-            'category'     => 'exists:creative_categories,id',
+            'category'     => 'exists:travel_categories,id',
         );
         $slug = Input::input('title');
         $hashslug = date('H.i.s').'-'.md5($slug).'.html';
@@ -194,11 +194,11 @@ class TravelController extends BaseResource
     }
 
     /**
-     * 动作：添加创意汇封面图片
+     * 动作：添加资源图片
      * @return Response
      */
-    public function postSingleUpload($id){
-
+    public function postUpload($id)
+    {
         $input = Input::all();
         $rules = array(
             'file' => 'image|max:3000',
@@ -210,26 +210,30 @@ class TravelController extends BaseResource
         {
             return Response::make($validation->errors->first(), 400);
         }
-        // 查找旧图片
-        $model      = $this->model->find($id);
-        $oldpicture = $model->picture;
-        // 删除旧图片
-        File::delete(
-            public_path('uploads/travel/single/'.$oldpicture));
 
-        $file            = Input::file('file');
-        $destinationPath = 'uploads/travel/single/';
-        $ext             = $file->guessClientExtension();  // Get real extension according to mime type
-        $fullname        = $file->getClientOriginalName(); // Client file name, including the extension of the client
-        $hashname        = date('H.i.s').'-'.md5($fullname).'.'.$ext; // Hash processed file name, including the real extension
-        $picture         = Image::make($file->getRealPath());
-        $upload_success  = $picture->resize(585, 347)->save(public_path($destinationPath.$hashname));
+        $file                = Input::file('file');
+        $destinationPath     = 'uploads/travel/';
+        $ext                 = $file->guessClientExtension();  // Get real extension according to mime type
+        $fullname            = $file->getClientOriginalName(); // Client file name, including the extension of the client
+        $hashname            = date('H.i.s').'-'.md5($fullname).'.'.$ext; // Hash processed file name, including the real extension
+        $picture             = Image::make($file->getRealPath());
+        $picture->save(public_path($destinationPath.$hashname));
+        $picture->resize(585, 347)->save(public_path('uploads/travel/single/'.$hashname));
 
-        $model           = $this->model->find($id);
-        $model->picture  = $hashname;
+        $model               = $this->model->find($id);
+        $oldThumbnails       = $model->thumbnails;
+        $model->thumbnails   = $hashname;
         $model->save();
 
-        if( $upload_success ) {
+        File::delete(public_path('uploads/travel/single/'.$oldThumbnails));
+
+        $models              = new TravelPictures;
+        $models->filename    = $hashname;
+        $models->travel_id   = $id;
+        $models->user_id     = Auth::user()->id;
+        $models->save();
+
+        if( $models->save() ) {
            return Response::json('success', 200);
         } else {
            return Response::json('error', 400);
@@ -237,24 +241,22 @@ class TravelController extends BaseResource
     }
 
     /**
-     * 动作：删除去旅行封面图片
+     * 动作：删除资源图片
      * @return Response
      */
-    public function deleteCreativePicture($id)
+    public function deleteUpload($id)
     {
-        // 仅允许对当前旅行分享的封面图片进行删除操作
-        $model   = $this->model->find($id);
-        $picture = $model->picture;
-        if (is_null($picture))
-            return Redirect::back()->with('error', '没有找到对应的图片');
-        elseif ($picture) {
+        // 仅允许对当前创意分享的封面图片进行删除操作
+        $filename = TravelPictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
+        $oldImage = $filename->filename;
 
-        // 删除图片
+        if (is_null($filename))
+            return Redirect::back()->with('error', '没有找到对应的图片');
+        elseif ($filename->delete()) {
+
         File::delete(
-            public_path('uploads/creative/single/'.$picture)
+            public_path('uploads/travel/'.$oldImage)
         );
-        $model->picture = 'staff/default.jpg';
-        $model->save();
             return Redirect::back()->with('success', '图片删除成功。');
         }
 
@@ -262,55 +264,22 @@ class TravelController extends BaseResource
             return Redirect::back()->with('warning', '图片删除失败。');
     }
 
-    public function postUpload($id){
-
-        $input = Input::all();
-        $rules = array(
-            'file' => 'image|max:3000',
-        );
-
-        $validation = Validator::make($input, $rules);
-
-        if ($validation->fails())
-        {
-            return Response::make($validation->errors->first(), 400);
-        }
-
-        $file            = Input::file('file');
-        $destinationPath = 'uploads/creative/';
-        $ext             = $file->guessClientExtension();  // Get real extension according to mime type
-        $fullname        = $file->getClientOriginalName(); // Client file name, including the extension of the client
-        $hashname        = date('H.i.s').'-'.md5($fullname).'.'.$ext; // Hash processed file name, including the real extension
-        $upload_success  = Input::file('file')->move($destinationPath, $hashname);
-        $models = new CreativePictures;
-        $models->filename    = $hashname;
-        $models->creative_id = $id;
-        $models->user_id     = Auth::user()->id;
-        $models->save();
-
-        if( $upload_success ) {
-           return Response::json('success', 200);
-        } else {
-           return Response::json('error', 400);
-        }
-    }
-
     /**
      * 页面：去旅行
      * @return Respanse
      */
-    public function getTravel()
+    public function getIndex()
     {
-        $creative   = Travel::orderBy('created_at', 'desc')->paginate(12);
+        $travel   = Travel::orderBy('created_at', 'desc')->paginate(12);
         $categories = TravelCategories::orderBy('sort_order')->get();
-        return View::make('creative.index')->with(compact('creative', 'categories', 'data'));
+        return View::make('travel.index')->with(compact('travel', 'categories', 'data'));
     }
 
     /**
-     * 分类创意列表
+     * 分类资源列表
      * @return Respanse
      */
-    public function getTravelArticles($category_id)
+    public function getArticles($category_id)
     {
         $articles   = Travel::where('category_id', $category_id)->orderBy('created_at', 'desc')->paginate(5);
         $categories = TravelCategories::orderBy('sort_order')->get();
@@ -318,19 +287,19 @@ class TravelController extends BaseResource
     }
 
     /**
-     * 创意展示页面
+     * 资源展示页面
      * @param  string $slug 创意缩略名
      * @return response
      */
-    public function getTravelShow($slug)
+    public function show($slug)
     {
-        $creative    = Travel::where('slug', $slug)->first();
-        is_null($creative) AND App::abort(404);
+        $travel    = Travel::where('slug', $slug)->first();
+        is_null($travel) AND App::abort(404);
         $categories = TravelCategories::orderBy('sort_order')->get();
-        return View::make('creative.show')->with(compact('creative', 'categories'));
+        return View::make('travel.show')->with(compact('travel', 'categories'));
     }
 
-    public function postTravelComment($slug)
+    public function postComment($slug)
     {
         // 获取评论内容
         $content = e(Input::get('content'));
@@ -338,17 +307,17 @@ class TravelController extends BaseResource
         if (mb_strlen($content)<3)
             return Redirect::back()->withInput()->withErrors($this->messages->add('content', '评论不得少于3个字符。'));
         // 查找对应文章
-        $creative = Travel::where('slug', $slug)->first();
+        $travel = Travel::where('slug', $slug)->first();
         // 创建文章评论
-        $comment  = new TravelComment;
-        $comment->content     = $content;
-        $comment->creative_id = $creative->id;
-        $comment->user_id     = Auth::user()->id;
+        $comment = new TravelComment;
+        $comment->content    = $content;
+        $comment->travel_id  = $travel->id;
+        $comment->user_id    = Auth::user()->id;
         if ($comment->save()) {
             // 创建成功
             // 更新评论数
-            $creative->comments_count = $creative->comments->count();
-            $creative->save();
+            $travel->comments_count = $travel->comments->count();
+            $travel->save();
             // 返回成功信息
             return Redirect::back()->with('success', '评论成功。');
         } else {

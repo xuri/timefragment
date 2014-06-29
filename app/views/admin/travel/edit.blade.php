@@ -1,6 +1,7 @@
 @include('layout.account-header')
 @yield('content')
 {{ script('ckeditor') }}
+ <script src="http://malsup.github.com/jquery.form.js"></script>
 <body class="bg-gray-light">
     @include('layout.admin-navigation')
     @yield('content')
@@ -105,12 +106,24 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label for="article_icon">首页图标</label>
+                                        {{ $errors->first('article_icon', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
+                                        <input class="form-control" type="text" name="article_icon" id="article_icon" value="{{ Input::old('article_icon', $data->article_icon) }}" />
+                                    </div>
+
+                                    <div class="form-group">
                                         <label for="content">内容</label>
                                         {{ $errors->first('content', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
-                                        <textarea rows="10" id="editor11" class="ckeditor form-control" name="content" rows="10">{{ Input::old('content', $data->content) }}
+                                        <textarea rows="10" id="editor1" class="ckeditor form-control" name="content" rows="10">{{ Input::old('content', $data->content) }}
                                         </textarea>
                                     </div>
 
+                                    <div class="form-group">
+                                        <label for="excerpt">摘要</label>
+                                        {{ $errors->first('excerpt', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
+                                        <textarea id="excerpt" class="form-control"
+                                            name="excerpt" rows="5" placeholder="请在这里输入文章摘要……">{{ Input::old('excerpt', $data->excerpt) }}</textarea>
+                                    </div>
                                 </div>
 
                                 {{-- Meta Data tab --}}
@@ -141,21 +154,25 @@
                                             <thead>
                                                 <tr>
                                                     <th>图片</th>
+                                                    <th>文件名</th>
                                                     <th style="width:5em;text-align:center;">操作</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @if ($data->picture)
+                                                @foreach ($article->pictures as $picture)
                                                 <tr>
                                                     <td>
-                                                        <img width="100" height="100" src="{{ route('home') }}/uploads/travel/single/{{ $data->picture }}">
+                                                        <img width="100" height="100" src="{{ route('home') }}/uploads/articles/{{ $picture->filename }}">
+                                                    </td>
+                                                    <td>
+                                                        {{ $picture->filename }}
                                                     </td>
                                                     <td>
                                                         <a href="javascript:void(0)" class="btn btn-xs btn-danger"
-                                                        onclick="modal('{{ route($resource.'.deleteCreativePicture', $data->id) }}')">删除图片</a>
+                                                        onclick="modal('{{ route($resource.'.deleteArticlePicture', $picture->id) }}')">删除图片</a>
                                                     </td>
                                                 </tr>
-                                                @endif
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -187,11 +204,10 @@
                             <div class="control-group p-l-30 p-b-30">
                                 <div class="controls">
                                     <button type="reset" class="btn btn-bordered text-gray-alt">清 空</button>
-                                    <button type="submit" class="btn btn-success">更 新</button>
+                                    <button type="submit" class="btn btn-success">提 交</button>
                                 </div>
                             </div>
                         </form>
-
                     </div>
 
                     <div class="p-lr-30 p-tb-10 pm-lr-10">

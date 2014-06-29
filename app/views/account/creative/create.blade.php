@@ -95,31 +95,6 @@
                             </div>
                         </form>
 
-                        <table class="table table-striped table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>封面图片</th>
-                                    <th style="width:5em;text-align:center;">操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                <tr>
-                                    <td>
-                                        <img width="100" height="100" src="">
-                                    </td>
-                                    <td>
-
-                                        <a href="javascript:void(0)" class="btn btn-xs btn-danger"
-                                        onclick="">删除图片</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <form action="" class="dropzone" id="upload">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                        </form>
                     </div>
 
                 </div>

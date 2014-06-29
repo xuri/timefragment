@@ -74,6 +74,7 @@
                                 <tr>
                                     <th>标题 {{ order_by('title') }}</th>
                                     <th>评论数 {{ order_by('comments_count') }}</th>
+                                    <th>用户 {{ order_by('user_id') }}</th>
                                     <th>创建时间 {{ order_by('created_at', 'desc') }}</th>
                                     <th style="width:7em;text-align:center;">操作</th>
                                 </tr>
@@ -82,12 +83,17 @@
                                 @foreach ($datas as $data)
                                 <tr>
                                     <td>
-                                        <a href="{{ route('about.show', $data->slug) }}" target="_blank">
-                                            <i class="glyphicon glyphicon-share" style="font-size:0.5em;"></i>
+                                        <a href="{{ route('travel.show', $data->slug) }}" target="_blank">
+                                            <i class="glyphicon glyphicon-share" style="font-size:0.8em;"></i>
                                         </a>
                                         {{ $data->title }}
                                     </td>
                                     <td>{{ $data->comments_count }}</td>
+                                    <td>
+                                        <a href="{{ route('users.edit', $data->id) }}" target="_blank">
+                                            <i class="glyphicon glyphicon-user" style="font-size:0.8em;"></i>
+                                        </a>
+                                        {{ $data->user->email }}</td>
                                     <td>{{ $data->created_at }}（{{ $data->friendly_created_at }}）</td>
                                     <td>
                                         <a href="{{ route($resource.'.edit', $data->id) }}" class="btn btn-xs">编辑</a>
@@ -107,7 +113,7 @@
         </div>
 
     </div>
-    <!-- /main content -->
+    {{-- /main content --}}
     <?php
     $modalData['modal'] = array(
         'id'      => 'myModal',
