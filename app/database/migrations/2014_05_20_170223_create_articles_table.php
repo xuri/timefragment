@@ -22,7 +22,7 @@ class CreateArticlesTable extends Migration {
 	        $table->text('article_icon', 100);
 	        $table->text('excerpt');
 	        $table->text('content');
-	        $table->smallInteger('comments_count', 6)->default('0');
+	        $table->smallInteger('comments_count')->default('0');
 	        $table->text('meta_title', 100);
 	        $table->text('meta_description', 255);
 	        $table->text('meta_keywords', 255);
