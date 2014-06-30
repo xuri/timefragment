@@ -930,12 +930,12 @@ function clearTypeFix($slides) {
 			var v = $.css(e,'background-color');
 			if (v && v.indexOf('rgb') >= 0 ) {
 				var rgb = v.match(/\d+/g);
-				return '';
+				return '#'+ hex(rgb[0]) + hex(rgb[1]) + hex(rgb[2]);
 			}
 			if (v && v != 'transparent')
 				return v;
 		}
-		return '';
+		return '#ffffff';
 	};
 	$slides.each(function() { $(this).css('background-color', getBg(this)); });
 };

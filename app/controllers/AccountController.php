@@ -188,9 +188,10 @@ class AccountController extends BaseController
             $user->save();
             // 存储不同尺寸的图片
             $portrait = Image::make($image->getRealPath());
-            $portrait->resize(220, 220)->save(public_path('portrait/large/'.$hashname));
-            $portrait->resize(128, 128)->save(public_path('portrait/medium/'.$hashname));
-            $portrait->resize(64, 64)->save(public_path('portrait/small/'.$hashname));
+            // crop the best fitting 1:1 ratio and resize to custom pixel
+            $portrait->fit(220)->save(public_path('portrait/large/'.$hashname));
+            $portrait->fit(128)->save(public_path('portrait/medium/'.$hashname));
+            $portrait->fit(64)->save(public_path('portrait/small/'.$hashname));
             // 删除旧头像
             File::delete(
                 public_path('portrait/large/'.$oldImage),

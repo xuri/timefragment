@@ -141,7 +141,7 @@ class Admin_CategoryResource extends BaseResource
     }
 
     /**
-     * 动作：添加分类目录图片
+     * 动作：添加资源图片
      * @return Response
      */
     public function postUpload($id)
@@ -170,7 +170,7 @@ class Admin_CategoryResource extends BaseResource
         $model->save();
 
         $thumbnails        = Image::make($file->getRealPath());
-        $upload_success    = $thumbnails->resize(105, 105)->save(public_path($destinationPath.$hashname));
+        $upload_success    = $thumbnails->fit(105, 105)->save(public_path($destinationPath.$hashname));
 
         File::delete(public_path('uploads/categories_thumbnails/'.$oldThumbnails));
 
@@ -182,12 +182,12 @@ class Admin_CategoryResource extends BaseResource
     }
 
     /**
-     * 动作：删除分类目录图片
+     * 动作：删除资源图片
      * @return Response
      */
     public function deleteUpload($id)
     {
-        // 仅允许对当前创意分享的封面图片进行删除操作
+        // 仅允许对当前资源的封面图片进行删除操作
         $model      = $this->model->find($id);
         $thumbnails = $model->thumbnails;
 

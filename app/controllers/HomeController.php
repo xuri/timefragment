@@ -54,6 +54,17 @@ class HomeController extends BaseController {
     }
 
     /**
+     * 视频首页
+     * @return Respanse
+     */
+    public function getVideoIndex()
+    {
+        $articles   = Article::orderBy('created_at', 'desc')->paginate(6);
+        $categories = Category::orderBy('sort_order')->get();
+        return View::make('home.videoindex')->with(compact('articles', 'categories'));
+    }
+
+    /**
      * 分类文章列表
      * @return Respanse
      */

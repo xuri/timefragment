@@ -194,7 +194,30 @@ class CreativeController extends BaseResource
     }
 
     /**
-     * 动作：添加创意汇图片
+     * 资源删除动作
+     * DELETE      /resource/{id}
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $data = $this->model->find($id);
+        if (is_null($data))
+            return Redirect::back()->with('error', '没有找到对应的'.$this->resourceName.'。');
+        elseif ($data)
+        {
+            $model      = $this->model->find($id);
+            $thumbnails = $model->thumbnails;
+            File::delete(public_path('uploads/creative_thumbnails/'.$thumbnails));
+            $data->delete();
+            return Redirect::back()->with('success', $this->resourceName.'删除成功。');
+        }
+        else
+            return Redirect::back()->with('warning', $this->resourceName.'删除失败。');
+    }
+
+    /**
+     * 动作：添加资源图片
      * @return Response
      */
     public function postUpload($id)
@@ -217,15 +240,16 @@ class CreativeController extends BaseResource
         $fullname            = $file->getClientOriginalName(); // Client file name, including the extension of the client
         $hashname            = date('H.i.s').'-'.md5($fullname).'.'.$ext; // Hash processed file name, including the real extension
         $picture             = Image::make($file->getRealPath());
-        $picture->save(public_path($destinationPath.$hashname));
-        $picture->resize(585, 347)->save(public_path('uploads/creative/single/'.$hashname));
+        // crop the best fitting ratio and resize image
+        $picture->fit(1024, 683)->save(public_path($destinationPath.$hashname));
+        $picture->fit(585, 347)->save(public_path('uploads/creative_thumbnails/'.$hashname));
 
         $model               = $this->model->find($id);
         $oldThumbnails       = $model->thumbnails;
         $model->thumbnails   = $hashname;
         $model->save();
 
-        File::delete(public_path('uploads/creative/single/'.$oldThumbnails));
+        File::delete(public_path('uploads/creative_thumbnails/'.$oldThumbnails));
 
         $models              = new CreativePictures;
         $models->filename    = $hashname;
@@ -241,12 +265,12 @@ class CreativeController extends BaseResource
     }
 
     /**
-     * 动作：删除创意汇图片
+     * 动作：删除资源图片
      * @return Response
      */
     public function deleteUpload($id)
     {
-        // 仅允许对当前创意分享的封面图片进行删除操作
+        // 仅允许对当前资源分享的封面图片进行删除操作
         $filename = CreativePictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
         $oldImage = $filename->filename;
 

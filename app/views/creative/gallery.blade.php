@@ -19,9 +19,9 @@
 			<div class="portfolio">
 				<a href="{{ route('creative.show', $single_creative->slug) }}" target="_blank" class="zoom">
 					@if($single_creative->thumbnails)
-					<img src="{{ route('home') }}/uploads/creative/single/{{ $single_creative->thumbnails }}" alt="{{ $single_creative->title }}" title="{{ $single_creative->title }}">
+					<img src="{{ route('home') }}/uploads/creative_thumbnails/{{ $single_creative->thumbnails }}" alt="{{ $single_creative->title }}" title="{{ $single_creative->title }}">
 					@else
-					<img src="{{ route('home') }}/uploads/creative/single/default.jpg" alt="{{ $single_creative->title }}" title="{{ $single_creative->title }}">
+					<img src="{{ route('home') }}/images/thumbnails/creative.jpg" alt="{{ $single_creative->title }}" title="{{ $single_creative->title }}">
 					@endif
 					<div class="hover-items">
 						<span>

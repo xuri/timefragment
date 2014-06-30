@@ -18,7 +18,6 @@
 		<link rel="apple-touch-icon" href="{{ route('home')}}/images/icon/ico-114.png" sizes="114x114">
 		<link rel="apple-touch-icon" href="{{ route('home')}}/images/icon/ico-144.png" sizes="144x144">
 		{{ HTML::style('assets/css/fonts.googleapis.css') }}
-		<!-- <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Raleway:400,700" > -->
 
 		{{-- Stylesheet --}}
 

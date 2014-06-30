@@ -154,7 +154,7 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <img width="100" height="100" src="{{ route('home') }}/uploads/travel/{{ $picture->filename }}">
+                                                        <img width="100" height="100" src="{{ route('home') }}/uploads/creative/{{ $picture->filename }}">
                                                     </td>
                                                     <td style="text-align:center; padding: 50px 0;">
                                                         <a href="javascript:void(0)" class="btn btn-xs btn-danger"
