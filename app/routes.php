@@ -152,10 +152,10 @@ Route::group(array('prefix' => 'account', 'before' => 'auth'), function () {
         Route::get(      'create', array('as' => $resource.'.create'               , 'uses' => $controller.'create'             ));
         Route::post(          '/', array('as' => $resource.'.store'                , 'uses' => $controller.'store'              ));
         Route::get(   '{id}/edit', array('as' => $resource.'.edit'                 , 'uses' => $controller.'edit'               ));
-        Route::delete('{id}/edit', array('as' => $resource.'.deleteTravelPicture'  , 'uses' => $controller.'deleteTravelPicture'));
         Route::put(        '{id}', array('as' => $resource.'.update'               , 'uses' => $controller.'update'             ));
         Route::post(       '{id}', array('as' => $resource.'.postSingleUpload'     , 'uses' => $controller.'postSingleUpload'   ));
         Route::post(       '{id}', array('as' => $resource.'.postUpload'           , 'uses' => $controller.'postUpload'         ));
+        Route::delete('{id}/edit', array('as' => $resource.'.deleteUpload'         , 'uses' => $controller.'deleteUpload'       ));
         Route::delete(     '{id}', array('as' => $resource.'.destroy'              , 'uses' => $controller.'destroy'            ));
     });
     # Album
@@ -202,27 +202,27 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
     Route::group(array('prefix' => 'mycategories'), function () {
         $resource   = 'mycategories';
         $controller = 'Admin_CategoryResource@';
-        Route::get(        '/', array('as' => $resource.'.index'  , 'uses' => $controller.'index'  ));
-        Route::get(   'create', array('as' => $resource.'.create' , 'uses' => $controller.'create' ));
-        Route::post(       '/', array('as' => $resource.'.store'  , 'uses' => $controller.'store'  ));
-        Route::get('{id}/edit', array('as' => $resource.'.edit'   , 'uses' => $controller.'edit'   ));
-        Route::put(     '{id}', array('as' => $resource.'.update' , 'uses' => $controller.'update' ));
-        Route::post(    '{id}', array('as' => $resource.'.postUpload' , 'uses' => $controller.'postUpload'  ));
+        Route::get(           '/', array('as' => $resource.'.index'        , 'uses' => $controller.'index'       ));
+        Route::get(      'create', array('as' => $resource.'.create'       , 'uses' => $controller.'create'      ));
+        Route::post(          '/', array('as' => $resource.'.store'        , 'uses' => $controller.'store'       ));
+        Route::get(   '{id}/edit', array('as' => $resource.'.edit'         , 'uses' => $controller.'edit'        ));
+        Route::put(        '{id}', array('as' => $resource.'.update'       , 'uses' => $controller.'update'      ));
+        Route::post(       '{id}', array('as' => $resource.'.postUpload'   , 'uses' => $controller.'postUpload'  ));
         Route::delete('{id}/edit', array('as' => $resource.'.deleteUpload' , 'uses' => $controller.'deleteUpload'));
-        Route::delete(  '{id}', array('as' => $resource.'.destroy', 'uses' => $controller.'destroy'));
+        Route::delete(     '{id}', array('as' => $resource.'.destroy'      , 'uses' => $controller.'destroy'     ));
     });
     # 文章管理
     Route::group(array('prefix' => 'myarticles'), function () {
         $resource   = 'myarticles';
         $controller = 'Admin_ArticleResource@';
-        Route::get(           '/', array('as' => $resource.'.index'               , 'uses' => $controller.'index'  ));
-        Route::get(      'create', array('as' => $resource.'.create'              , 'uses' => $controller.'create' ));
-        Route::post(          '/', array('as' => $resource.'.store'               , 'uses' => $controller.'store'  ));
-        Route::get(   '{id}/edit', array('as' => $resource.'.edit'                , 'uses' => $controller.'edit'   ));
-        Route::delete('{id}/edit', array('as' => $resource.'.deleteArticlePicture', 'uses' => $controller.'deleteArticlePicture'));
-        Route::put(        '{id}', array('as' => $resource.'.update'              , 'uses' => $controller.'update' ));
-        Route::post(        '{id}', array('as' => $resource.'.postUpload'         , 'uses' => $controller.'postUpload' ));
-        Route::delete(     '{id}', array('as' => $resource.'.destroy'             , 'uses' => $controller.'destroy'));
+        Route::get(           '/', array('as' => $resource.'.index'       , 'uses' => $controller.'index'       ));
+        Route::get(      'create', array('as' => $resource.'.create'      , 'uses' => $controller.'create'      ));
+        Route::post(          '/', array('as' => $resource.'.store'       , 'uses' => $controller.'store'       ));
+        Route::get(   '{id}/edit', array('as' => $resource.'.edit'        , 'uses' => $controller.'edit'        ));
+        Route::delete('{id}/edit', array('as' => $resource.'.deleteUpload', 'uses' => $controller.'deleteUpload'));
+        Route::put(        '{id}', array('as' => $resource.'.update'      , 'uses' => $controller.'update'      ));
+        Route::post(       '{id}', array('as' => $resource.'.postUpload'  , 'uses' => $controller.'postUpload'  ));
+        Route::delete(     '{id}', array('as' => $resource.'.destroy'     , 'uses' => $controller.'destroy'     ));
     });
 
     # 创意汇分类管理
@@ -251,16 +251,18 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
         Route::delete(     '{id}', array('as' => $resource.'.destroy'      , 'uses' => $controller.'destroy'     ));
     });
 
-    # 去旅行分类管理
+    # 去旅行话题管理
     Route::group(array('prefix' => 'travel-categories'), function () {
         $resource   = 'travel_categories';
         $controller = 'Admin_TravelCategoriesResource@';
-        Route::get(        '/', array('as'    => $resource.'.index'  , 'uses' => $controller.'index'  ));
-        Route::get(   'create', array('as'    => $resource.'.create' , 'uses' => $controller.'create' ));
-        Route::post(       '/', array('as'    => $resource.'.store'  , 'uses' => $controller.'store'  ));
-        Route::get('{id}/edit', array('as'    => $resource.'.edit'   , 'uses' => $controller.'edit'   ));
-        Route::put(     '{id}', array('as'    => $resource.'.update' , 'uses' => $controller.'update' ));
-        Route::delete(  '{id}', array('as'    => $resource.'.destroy', 'uses' => $controller.'destroy'));
+        Route::get(           '/', array('as' => $resource.'.index'        , 'uses' => $controller.'index'       ));
+        Route::get(      'create', array('as' => $resource.'.create'       , 'uses' => $controller.'create'      ));
+        Route::post(          '/', array('as' => $resource.'.store'        , 'uses' => $controller.'store'       ));
+        Route::get(   '{id}/edit', array('as' => $resource.'.edit'         , 'uses' => $controller.'edit'        ));
+        Route::put(        '{id}', array('as' => $resource.'.update'       , 'uses' => $controller.'update'      ));
+        Route::post(       '{id}', array('as' => $resource.'.postUpload'   , 'uses' => $controller.'postUpload'  ));
+        Route::delete('{id}/edit', array('as' => $resource.'.deleteUpload' , 'uses' => $controller.'deleteUpload'));
+        Route::delete(     '{id}', array('as' => $resource.'.destroy'      , 'uses' => $controller.'destroy'     ));
     });
 
     # 去旅行管理

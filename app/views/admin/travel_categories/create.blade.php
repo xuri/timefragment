@@ -26,7 +26,7 @@
                         </div>
 
                         <span class="text-gray-dark text-large align-with-button m-r-30">
-                            添加新{{ $resourceName }}
+                            添加{{ $resourceName }}
                         </span>
                     </div>
 
@@ -64,6 +64,13 @@
                                         <label for="name">名称</label>
                                         {{ $errors->first('name', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
                                         <input class="form-control" type="text" name="name" id="name" value="{{ Input::old('name') }}" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="sort_order">简介</label>
+                                        {{ $errors->first('content', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
+                                        <textarea class="form-control" type="text" name="content" id="content" placeholder="请在这里输入话题简介……" rows="9">{{ Input::old('content') }}</textarea>
+                                        {{ $errors->first('content', '<span style="color:#c7254e;margin-top:1em;float:left;">:message</span>') }}
                                     </div>
 
                                     <div class="form-group">

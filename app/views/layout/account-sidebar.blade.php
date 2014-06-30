@@ -31,7 +31,7 @@
         </li>
         <li><a href="{{ route('mycreative.index') }}" class="text-left">我的创意汇</a>
         </li>
-        <li><a href="{{ route('account.album') }}" class="text-left">我的去旅行</a>
+        <li><a href="{{ route('mytravel.index') }}" class="text-left">我的去旅行</a>
         </li>
         <li>
             <a href="#" class="text-left dropdown-toggle" data-toggle="dropdown">

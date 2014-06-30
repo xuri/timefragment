@@ -26,7 +26,7 @@
                         </div>
 
                         <span class="text-gray-dark text-large align-with-button m-r-30">
-                            {{ $resourceName }}模块管理
+                            {{ $resourceName }}管理
                         </span>
 
                     </div>
@@ -49,7 +49,7 @@
 
                     <div class="pull-right m-r-30 mail-nav">
                         <a href="{{ route($resource.'.create') }}" class="btn btn-bordered text-gray-alt">
-                            添加新分类
+                            添加新话题
                         </a>
                     </div>
 

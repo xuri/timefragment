@@ -1,50 +1,47 @@
 <?php
 
-class Admin_ArticleResource extends BaseResource
+class Admin_TravelResource extends BaseResource
 {
     /**
      * 资源视图目录
      * @var string
      */
-    protected $resourceView = 'admin.article';
+    protected $resourceView = 'admin.travel';
 
     /**
      * 资源模型名称，初始化后转为模型实例
      * @var string|Illuminate\Database\Eloquent\Model
      */
-    protected $model = 'Article';
+    protected $model = 'Travel';
 
     /**
      * 资源标识
      * @var string
      */
-    protected $resource = 'myarticles';
+    protected $resource = 'travel';
 
     /**
      * 资源数据库表
      * @var string
      */
-    protected $resourceTable = 'articles';
+    protected $resourceTable = 'travel';
 
     /**
      * 资源名称（中文）
      * @var string
      */
-    protected $resourceName = '文章';
+    protected $resourceName = '去旅行';
 
     /**
      * 自定义验证消息
      * @var array
      */
     protected $validatorMessages = array(
-        'title.required'        => '请填写文章标题。',
-        'title.unique'          => '已有同名文章。',
-        'slug.required'         => '请填写文章 sulg。',
+        'title.required'        => '请填写标题。',
+        'title.unique'          => '已有同名标题。',
         'slug.unique'           => '已有同名 sulg。',
-        'article_icon.required' => '请设置首页图标。',
-        'content.required'      => '请填写文章内容。',
-        'excerpt.required'      => '请填写文章摘要。',
-        'category.exists'       => '请填选择正确的文章分类。',
+        'content.required'      => '请填写内容。',
+        'category.exists'       => '请填选择正确的话题。',
     );
 
     /**
@@ -66,7 +63,7 @@ class Admin_ArticleResource extends BaseResource
         // 构造查询语句
         $query = $this->model->orderBy($orderColumn, $direction);
         isset($title) AND $query->where('title', 'like', "%{$title}%");
-        $datas = $query->paginate(1);
+        $datas = $query->paginate(15);
         return View::make($this->resourceView.'.index')->with(compact('datas'));
     }
 
@@ -77,7 +74,7 @@ class Admin_ArticleResource extends BaseResource
      */
     public function create()
     {
-        $categoryLists = Category::lists('name', 'id');
+        $categoryLists = TravelCategories::lists('name', 'id');
         return View::make($this->resourceView.'.create')->with(compact('categoryLists'));
     }
 
@@ -94,13 +91,13 @@ class Admin_ArticleResource extends BaseResource
         $unique = $this->unique();
         $rules  = array(
             'title'        => 'required|'.$unique,
-            'slug'         => 'required|'.$unique,
             'content'      => 'required',
-            'excerpt'      => 'required',
-            'category'     => 'exists:article_categories,id',
+            'category'     => 'exists:travel_categories,id',
         );
+        $slug      = Input::input('title');
+        $hashslug  = date('H.i.s').'-'.md5($slug).'.html';
         // 自定义验证消息
-        $messages = $this->validatorMessages;
+        $messages  = $this->validatorMessages;
         // 开始验证
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->passes()) {
@@ -110,13 +107,12 @@ class Admin_ArticleResource extends BaseResource
             $model->user_id          = Auth::user()->id;
             $model->category_id      = $data['category'];
             $model->title            = e($data['title']);
-            $model->slug             = e($data['slug']);
-            $model->article_icon     = e($data['article_icon']);
+            $model->slug             = $hashslug;
             $model->content          = e($data['content']);
-            $model->excerpt          = e($data['excerpt']);
-            $model->meta_title       = e($data['meta_title']);
-            $model->meta_description = e($data['meta_description']);
-            $model->meta_keywords    = e($data['meta_keywords']);
+            $model->meta_title       = e($data['title']);
+            $model->meta_description = e($data['title']);
+            $model->meta_keywords    = e($data['title']);
+
             if ($model->save()) {
                 // 添加成功
                 return Redirect::back()
@@ -142,9 +138,9 @@ class Admin_ArticleResource extends BaseResource
     public function edit($id)
     {
         $data          = $this->model->find($id);
-        $categoryLists = Category::lists('name', 'id');
-        $article       = Article::where('slug', $data->slug)->first();
-        return View::make($this->resourceView.'.edit')->with(compact('data', 'categoryLists', 'article'));
+        $categoryLists = TravelCategories::lists('name', 'id');
+        $travel        = Travel::where('slug', $data->slug)->first();
+        return View::make($this->resourceView.'.edit')->with(compact('data', 'categoryLists', 'travel'));
     }
 
     /**
@@ -158,15 +154,15 @@ class Admin_ArticleResource extends BaseResource
         // 获取所有表单数据.
         $data = Input::all();
         // 创建验证规则
-        $rules = array(
-            'title'        => 'required|'.$this->unique('title', $id),
-            'slug'         => 'required|'.$this->unique('slug', $id),
+        $rules  = array(
+            'title'        => 'required',
             'content'      => 'required',
-            'excerpt'      => 'required',
-            'category'     => 'exists:article_categories,id',
+            'category'     => 'exists:travel_categories,id',
         );
+        $slug = Input::input('title');
+        $hashslug = date('H.i.s').'-'.md5($slug).'.html';
         // 自定义验证消息
-        $messages  = $this->validatorMessages;
+        $messages = $this->validatorMessages;
         // 开始验证
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->passes()) {
@@ -174,15 +170,14 @@ class Admin_ArticleResource extends BaseResource
             // 验证成功
             // 更新资源
             $model = $this->model->find($id);
+            $model->user_id          = Auth::user()->id;
             $model->category_id      = $data['category'];
             $model->title            = e($data['title']);
-            $model->slug             = e($data['slug']);
-            $model->article_icon     = e($data['article_icon']);
+            $model->slug             = $hashslug;
             $model->content          = e($data['content']);
-            $model->excerpt          = e($data['excerpt']);
-            $model->meta_title       = e($data['meta_title']);
-            $model->meta_description = e($data['meta_description']);
-            $model->meta_keywords    = e($data['meta_keywords']);
+            $model->meta_title       = e($data['title']);
+            $model->meta_description = e($data['title']);
+            $model->meta_keywords    = e($data['title']);
 
             if ($model->save()) {
                 // 更新成功
@@ -200,6 +195,33 @@ class Admin_ArticleResource extends BaseResource
         }
     }
 
+    /**
+     * 资源删除动作
+     * DELETE      /resource/{id}
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $data = $this->model->find($id);
+        if (is_null($data))
+            return Redirect::back()->with('error', '没有找到对应的'.$this->resourceName.'。');
+        elseif ($data)
+        {
+            $model      = $this->model->find($id);
+            $thumbnails = $model->thumbnails;
+            File::delete(public_path('uploads/travel_thumbnails/'.$thumbnails));
+            $data->delete();
+            return Redirect::back()->with('success', $this->resourceName.'删除成功。');
+        }
+        else
+            return Redirect::back()->with('warning', $this->resourceName.'删除失败。');
+    }
+
+    /**
+     * 动作：添加资源图片
+     * @return Response
+     */
     public function postUpload($id)
     {
         $input = Input::all();
@@ -214,21 +236,30 @@ class Admin_ArticleResource extends BaseResource
             return Response::make($validation->errors->first(), 400);
         }
 
-        $file               = Input::file('file');
-        $destinationPath    = 'uploads/articles/';
-        $ext                = $file->guessClientExtension();  // Get real extension according to mime type
-        $fullname           = $file->getClientOriginalName(); // Client file name, including the extension of the client
-        $hashname           = date('H.i.s').'-'.md5($fullname).'.'.$ext; // Hash processed file name, including the real extension
-        $picture            = Image::make($file->getRealPath());
+        $file                = Input::file('file');
+        $destinationPath     = 'uploads/travel/';
+        $ext                 = $file->guessClientExtension();  // Get real extension according to mime type
+        $fullname            = $file->getClientOriginalName(); // Client file name, including the extension of the client
+        $hashname            = date('H.i.s').'-'.md5($fullname).'.'.$ext; // Hash processed file name, including the real extension
+        $picture             = Image::make($file->getRealPath());
         // crop the best fitting ratio and resize image
         $picture->fit(1024, 683)->save(public_path($destinationPath.$hashname));
-        $models             = new Picture;
-        $models->filename   = $hashname;
-        $models->article_id = $id;
-        $models->user_id    = Auth::user()->id;
+        $picture->fit(585, 347)->save(public_path('uploads/travel_thumbnails/'.$hashname));
+
+        $model               = $this->model->find($id);
+        $oldThumbnails       = $model->thumbnails;
+        $model->thumbnails   = $hashname;
+        $model->save();
+
+        File::delete(public_path('uploads/travel_thumbnails/'.$oldThumbnails));
+
+        $models              = new TravelPictures;
+        $models->filename    = $hashname;
+        $models->travel_id   = $id;
+        $models->user_id     = Auth::user()->id;
         $models->save();
 
-        if($models->save()) {
+        if( $models->save() ) {
            return Response::json('success', 200);
         } else {
            return Response::json('error', 400);
@@ -241,17 +272,16 @@ class Admin_ArticleResource extends BaseResource
      */
     public function deleteUpload($id)
     {
-        // 仅允许对当前文章的图片进行删除操作
-        $filename = Picture::where('id', $id)->where('user_id', Auth::user()->id)->first();
+        // 仅允许对当前资源分享的封面图片进行删除操作
+        $filename = TravelPictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
         $oldImage = $filename->filename;
 
         if (is_null($filename))
             return Redirect::back()->with('error', '没有找到对应的图片');
         elseif ($filename->delete()) {
 
-        // 删除图片
         File::delete(
-            public_path('uploads/articles/'.$oldImage)
+            public_path('uploads/travel/'.$oldImage)
         );
             return Redirect::back()->with('success', '图片删除成功。');
         }
@@ -259,4 +289,5 @@ class Admin_ArticleResource extends BaseResource
         else
             return Redirect::back()->with('warning', '图片删除失败。');
     }
+
 }

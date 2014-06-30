@@ -90,7 +90,7 @@
                                     </td>
                                     <td>{{ $data->comments_count }}</td>
                                     <td>
-                                        <a href="{{ route('users.edit', $data->id) }}" target="_blank">
+                                        <a href="{{ route('users.edit', $data->user->id) }}" target="_blank">
                                             <i class="glyphicon glyphicon-user" style="font-size:0.8em;"></i>
                                         </a>
                                         {{ $data->user->email }}</td>
