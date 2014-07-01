@@ -23,7 +23,7 @@
 							<a href="{{ route('creative.getIndex') }}" class="int-collapse-menu">创意汇</a>
 						</li>
 						<li>
-							<a href="{{ route('portfolio') }}" class="int-collapse-menu">去旅行</a>
+							<a href="{{ route('travel.getIndex') }}" class="int-collapse-menu">去旅行</a>
 						</li>
 						<li>
 							<a href="{{ route('portfolio') }}" class="int-collapse-menu">爱聊吧</a>

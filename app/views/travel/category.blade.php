@@ -20,7 +20,7 @@
                 <div class="section-title text-center">
                     <div>
                         <span class="line big"></span>
-                        <a href="{{ route('home') }}"><span>时光碎片</span></a>
+                        <a href="{{ route('travel.getIndex') }}"><span>时光碎片·去旅行</span></a>
                         <span class="line big"></span>
                     </div>
                     <h1>{{ $current_category->name }}</h1>
@@ -28,7 +28,7 @@
                 {{-- Section title --}}
 
                 <div class="row">
-                    @include('article.list')
+                    @include('travel.list')
                     @yield('content')
                     @include('layout.sidebar')
                     @yield('content')
@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="element-line">
-                            {{ pagination($articles->appends(Input::except('page')), 'layout.home-paginator') }}
+                            {{ pagination($travel->appends(Input::except('page')), 'layout.home-paginator') }}
                         </div>
                     </div>
                 </div>

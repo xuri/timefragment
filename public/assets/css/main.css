@@ -1652,7 +1652,7 @@ footer .social-icon a:hover {
 /*
  *! @ Custom Style
  */
-.media-heading a, .media-heading a:hover, .pager .puls li > a, .pager .puls li > a:hover{
+.media-heading a, .media-heading a:hover, .pager .puls li > a, .pager .puls li > a:hover, p.lead a, p.lead a:hover{
 	-webkit-transition: all 0.2s ease-in-out;
 	-moz-transition: all 0.2s ease-in-out;
 	-o-transition: all 0.2s ease-in-out;
@@ -1665,4 +1665,11 @@ footer .social-icon a:hover {
 
 .media-heading a:hover{
 	color: #428bca;
+}
+
+p.lead a{
+	color: #7c7c7c;
+}
+p.lead a:hover{
+	color: #0098f9;
 }

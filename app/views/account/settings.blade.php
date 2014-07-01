@@ -51,8 +51,8 @@
                                     </svg>
                                 </div>
                             </div>
-                            <div class="text-large text-gray-alt">在线</div>
-                            <a href="pricing.html" class="btn btn-primary btn-lg m-t-10">测试按钮</a>
+                            <div class="text-large text-gray-alt">普通用户</div>
+                            <a href="pricing.html" class="btn btn-primary btn-lg m-t-10">更改账户类型</a>
                         </div>
                         <div class="col-sm-7">
                             <h4>上次成功登陆时间</h4>

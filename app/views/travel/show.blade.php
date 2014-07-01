@@ -20,18 +20,24 @@
 				<div class="section-title text-center">
 					<div>
 						<span class="line big"></span>
-						<span><a href="{{ route('home') }}">时光碎片</a></span>
+						<span><a href="{{ route('travel.getIndex') }}">时光碎片·去旅行</a></span>
 						<span class="line big"></span>
 					</div>
 					<h1>{{ $travel->title }}</h1>
 					<div>
 						<span class="line"></span>
-						<span>{{ $travel->meta_title }}</span>
+						<span>{{ $travel->category->name }}</span>
 						<span class="line"></span>
 					</div>
+					@if($travel->user->nickname)
 					<p class="lead">
-						{{ $travel->meta_description }}
+						来自 {{ $travel->user->nickname }} 的创意，发布于{{ $travel->friendly_created_at }}
 					</p>
+					@else
+					<p class="lead">
+						发布于{{ $travel->friendly_created_at }}
+					</p>
+					@endif
 				</div>
 				{{-- Section title --}}
 

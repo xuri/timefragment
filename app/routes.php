@@ -61,9 +61,9 @@ Route::group(array('prefix' => 'creative'), function () {
     $resource = 'creative';
     $controller = 'CreativeController@';
     # 分类创意列表
-    Route::get('/'      , array('as' => $resource.'.getIndex', 'uses' => $controller.'getIndex'));
+    Route::get(      '/', array('as' => $resource.'.getIndex', 'uses' => $controller.'getIndex'));
     # 展示创意内容
-    Route::get('{slug}' , array('as' => $resource.'.show' , 'uses' => $controller.'show'));
+    Route::get( '{slug}', array('as' => $resource.'.show'    , 'uses' => $controller.'show'    ));
     # 提交创意评论
     Route::post('{slug}', $controller.'postComment')->before('auth');
 });
@@ -79,11 +79,13 @@ Route::group(array('prefix' => 'travel'), function () {
     $resource = 'travel';
     $controller = 'TravelController@';
     # 分类创意列表
-    Route::get('/'      , array('as' => $resource.'.getIndex', 'uses' => $controller.'getIndex'));
+    Route::get(            '/', array('as' => $resource.'.getIndex', 'uses' => $controller.'getIndex'));
+    # 分类列表
+    Route::get('category/{id}', array('as' => $resource.'.category', 'uses' => $controller.'category'));
     # 展示创意内容
-    Route::get('{slug}' , array('as' => $resource.'.show' , 'uses' => $controller.'show'));
+    Route::get(       '{slug}', array('as' => $resource.'.show'    , 'uses' => $controller.'show'    ));
     # 提交创意评论
-    Route::post('{slug}', $controller.'postComment')->before('auth');
+    Route::post(      '{slug}', $controller.'postComment')->before('auth');
 });
 
 /*

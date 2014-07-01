@@ -20,7 +20,7 @@
 				<div class="section-title text-center">
 					<div>
 						<span class="line big"></span>
-						<span>读万卷书·行万里路</span>
+						<a href="{{ route('home') }}"><span>时光碎片</span></a>
 						<span class="line big"></span>
 					</div>
 					<h1 class="item_right">去旅行</h1>
@@ -30,7 +30,7 @@
 						<span class="line"></span>
 					</div>
 					<p class="lead">
-						在这里畅谈那些我们去过的和想去的地方，欣赏美丽的海岸，清新的海风……
+						<a href="{{ route('mytravel.create') }}" target="_blank"><i class="fa fa-globe"></i> 选择一个话题</a>，在这里畅谈那些我们去过的和想去的地方，欣赏美丽的海岸，清新的海风……
 					</p>
 				</div>
 				{{-- Section title --}}
@@ -52,13 +52,13 @@
 								<div class="media">
 
 									@if($category->thumbnails)
-									<a class="pull-left rotate" href="{{ route('article.category', $category->id) }}" target="_blank"> <img class="media-object img-circle" src="{{ route('home') }}/uploads/categories_thumbnails/{{ $category->thumbnails }}" alt="{{ $category->name }}" style="width:105px; height:105;"> </a>
+									<a class="pull-left rotate" href="{{ route('travel.category', $category->id) }}" target="_blank"> <img class="media-object img-circle" src="{{ route('home') }}/uploads/travel_categories_thumbnails/{{ $category->thumbnails }}" alt="{{ $category->name }}" style="width:105px; height:105;"> </a>
 									@else
-									<a class="pull-left rotate" href="{{ route('article.category', $category->id) }}" target="_blank"> <i class="hi-icon fa fa-rocket fa-4x media-object img-circle" style="background:#0098f9; margin:0;"></i>
+									<a class="pull-left rotate" href="{{ route('travel.category', $category->id) }}" target="_blank"> <i class="hi-icon fa fa-rocket fa-4x media-object img-circle" style="background:#0098f9; margin:0;"></i>
 										</a>
 									@endif
 									<div class="media-body">
-										<a href="{{ route('article.category', $category->id) }}" target="_blank">
+										<a href="{{ route('travel.category', $category->id) }}" target="_blank">
 											<h3 class="media-heading">{{ $category->name }}</h3>
 										</a>
 										<p>

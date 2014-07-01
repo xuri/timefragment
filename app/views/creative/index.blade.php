@@ -31,7 +31,7 @@
 						<span class="line"></span>
 					</div>
 					<p class="lead">
-						每个人都可以拥有设计，在这里秀出你的创意，创意改变生活，汇聚智慧与灵感
+						<a href="{{ route('mycreative.create') }}" target="_blank"><i class="fa fa-lightbulb-o"></i> 分享创意</a>，在这里秀出你的创意，创意改变生活，汇聚智慧与灵感。
 					</p>
 				</div>
 				{{-- Section Title --}}

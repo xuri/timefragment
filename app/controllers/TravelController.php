@@ -299,7 +299,7 @@ class TravelController extends BaseResource
     public function getIndex()
     {
         $travel     = Travel::orderBy('created_at', 'desc')->paginate(12);
-        $categories = TravelCategories::orderBy('sort_order')->get();
+        $categories = TravelCategories::orderBy('sort_order')->paginate(6);
         return View::make('travel.index')->with(compact('travel', 'categories', 'data'));
     }
 
@@ -307,11 +307,12 @@ class TravelController extends BaseResource
      * 资源列表
      * @return Respanse
      */
-    public function getArticles($category_id)
+    public function category($category_id)
     {
-        $articles   = Travel::where('category_id', $category_id)->orderBy('created_at', 'desc')->paginate(5);
+        $travel   = Travel::where('category_id', $category_id)->orderBy('created_at', 'desc')->paginate(6);
         $categories = TravelCategories::orderBy('sort_order')->get();
-        return View::make('home.category')->with(compact('articles', 'categories', 'category_id'));
+        $current_category = TravelCategories::where('id', $category_id)->first();
+        return View::make('travel.category')->with(compact('travel', 'categories', 'category_id', 'current_category'));
     }
 
     /**
