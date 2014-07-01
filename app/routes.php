@@ -281,6 +281,33 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
         Route::delete(     '{id}', array('as' => $resource.'.destroy'      , 'uses' => $controller.'destroy'     ));
     });
 
+    # 做兼职分类管理
+    Route::group(array('prefix' => 'jobs-categories'), function () {
+        $resource   = 'travel_categories';
+        $controller = 'Admin_JobsCategoriesResource@';
+        Route::get(           '/', array('as' => $resource.'.index'        , 'uses' => $controller.'index'       ));
+        Route::get(      'create', array('as' => $resource.'.create'       , 'uses' => $controller.'create'      ));
+        Route::post(          '/', array('as' => $resource.'.store'        , 'uses' => $controller.'store'       ));
+        Route::get(   '{id}/edit', array('as' => $resource.'.edit'         , 'uses' => $controller.'edit'        ));
+        Route::put(        '{id}', array('as' => $resource.'.update'       , 'uses' => $controller.'update'      ));
+        Route::post(       '{id}', array('as' => $resource.'.postUpload'   , 'uses' => $controller.'postUpload'  ));
+        Route::delete('{id}/edit', array('as' => $resource.'.deleteUpload' , 'uses' => $controller.'deleteUpload'));
+        Route::delete(     '{id}', array('as' => $resource.'.destroy'      , 'uses' => $controller.'destroy'     ));
+    });
+
+    # 做兼职管理
+    Route::group(array('prefix' => 'jobs'), function () {
+        $resource   = 'jobs';
+        $controller = 'Admin_JobsResource@';
+        Route::get(           '/', array('as' => $resource.'.index'        , 'uses' => $controller.'index'       ));
+        Route::get(      'create', array('as' => $resource.'.create'       , 'uses' => $controller.'create'      ));
+        Route::post(          '/', array('as' => $resource.'.store'        , 'uses' => $controller.'store'       ));
+        Route::get(   '{id}/edit', array('as' => $resource.'.edit'         , 'uses' => $controller.'edit'        ));
+        Route::put(        '{id}', array('as' => $resource.'.update'       , 'uses' => $controller.'update'      ));
+        Route::post(       '{id}', array('as' => $resource.'.postUpload'   , 'uses' => $controller.'postUpload'  ));
+        Route::delete('{id}/edit', array('as' => $resource.'.deleteUpload' , 'uses' => $controller.'deleteUpload'));
+        Route::delete(     '{id}', array('as' => $resource.'.destroy'      , 'uses' => $controller.'destroy'     ));
+    });
 });
 
 /*

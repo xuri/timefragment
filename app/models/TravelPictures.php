@@ -23,7 +23,7 @@ class TravelPictures extends BaseModel
      */
     public function travel()
     {
-        return $this->belongsTo('Travel', 'creative_id');
+        return $this->belongsTo('Travel', 'travel_id');
     }
 
     /**

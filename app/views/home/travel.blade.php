@@ -24,6 +24,7 @@
 				<div class="row">
 					@foreach($travel as $travel)
 					{{-- Team item --}}
+					@if($travel->thumbnails)
 					<div class="col-md-3 col-sm-3 col-md-3 col-xs-12">
 						<div class="element-line">
 							<div class="item_top">
@@ -31,10 +32,10 @@
 									<div class="team-inner">
 										<div class="team-detail">
 											<div class="team-content">
-												<h3><strong>{{ $travel->title }}</strong></h3>
-												@if($travel->user->nickname)
+												<a href="{{ route('travel.show', $travel->slug) }}"><h3><strong>{{ $travel->title }}</strong></h3></a>
+
 												<p>
-													{{ $travel->user->nickname }}
+													来自：{{ $travel->user->nickname }}
 												</p>
 												<ul>
 													<li>
@@ -50,23 +51,19 @@
 														<a href="" title="{{ $travel->user->nickname }}的新浪微博" alt="{{ $travel->user->nickname }}的新浪微博"><i class="fa fa-weibo fa-2x"></i></a>
 													</li>
 												</ul>
-												@else
-												<p>
-													时光碎片·去旅行
-												</p>
-												@endif
+
 											</div>
 										</div>
 									</div>
-									@if($travel->thumbnails)
+
 									<img src="uploads/travel_large_thumbnails/{{ $travel->thumbnails }}" alt="{{ $travel->title }}" title="{{ $travel->title }}" class="img-responsive">
-									@else
-									<img src="images/thumbnails/travel_large_thumbnails.jpg" alt="{{ $travel->title }}" title="{{ $travel->title }}" class="img-responsive">
-									@endif
+
 								</div>
 							</div>
 						</div>
 					</div>
+					@else
+					@endif
 					{{-- Team item --}}
 					@endforeach
 				</div>

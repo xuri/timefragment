@@ -1,28 +1,29 @@
 <?php
+
 /**
- * 去旅行的分享评论
+ * Jobs Pictures
  */
-class TravelComment extends BaseModel
+class JobsPictures extends BaseModel
 {
     /**
-     * 数据库表名称（不包含前缀）
+     * Database table name (without prefix)
      * @var string
      */
-    protected $table = 'travel_comments';
+    protected $table = 'jobs_pictures';
 
     /**
-     * 软删除
+     * Soft delete
      * @var boolean
      */
     protected $softDelete = true;
 
     /**
-     * 模型对象关系：归属文章
-     * @return object Article
+     * Object-relational model: Vesting creative
+     * @return object Creative
      */
-    public function travel()
+    public function jobs()
     {
-        return $this->belongsTo('Travel', 'travel_id');
+        return $this->belongsTo('Jobs', 'jobs_id');
     }
 
     /**
@@ -33,6 +34,5 @@ class TravelComment extends BaseModel
     {
         return $this->belongsTo('User', 'user_id');
     }
-
 
 }
