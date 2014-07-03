@@ -61,7 +61,9 @@ class TravelController extends BaseResource
                 break;
         }
         // 构造查询语句
-        $datas = Travel::where('user_id', Auth::user()->id)->paginate(12);
+        $query = $this->model->orderBy($orderColumn, $direction);
+        isset($title) AND $query->where('title', 'like', "%{$title}%");
+        $datas = $query->paginate(15);
         return View::make($this->resourceView.'.index')->with(compact('datas'));
     }
 
@@ -208,7 +210,7 @@ class TravelController extends BaseResource
         {
             $model      = $this->model->find($id);
             $thumbnails = $model->thumbnails;
-            File::delete(public_path('uploads/travel_thumbnails/'.$thumbnails));
+            File::delete(public_path('uploads/travel_large_thumbnails/'.$thumbnails));
             $data->delete();
             return Redirect::back()->with('success', $this->resourceName.'删除成功。');
         }
@@ -293,6 +295,32 @@ class TravelController extends BaseResource
     }
 
     /**
+     * 页面：我的评论
+     * @return Response
+     */
+    public function comments()
+    {
+        $comments = TravelComment::where('user_id', Auth::user()->id)->paginate(15);
+        return View::make($this->resourceView.'.comments')->with(compact('comments'));
+    }
+
+    /**
+     * 动作：删除我的评论
+     * @return Response
+     */
+    public function deleteComment($id)
+    {
+        // 仅允许对自己的评论进行删除操作
+        $comment = TravelComment::where('id', $id)->where('user_id', Auth::user()->id)->first();
+        if (is_null($comment))
+            return Redirect::back()->with('error', '没有找到对应的评论');
+        elseif ($comment->delete())
+            return Redirect::back()->with('success', '评论删除成功。');
+        else
+            return Redirect::back()->with('warning', '评论删除失败。');
+    }
+
+    /**
      * 页面：去旅行
      * @return Respanse
      */
@@ -354,4 +382,5 @@ class TravelController extends BaseResource
             return Redirect::back()->withInput()->with('error', '评论失败。');
         }
     }
+
 }

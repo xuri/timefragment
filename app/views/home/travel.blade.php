@@ -32,7 +32,7 @@
 									<div class="team-inner">
 										<div class="team-detail">
 											<div class="team-content">
-												<a href="{{ route('travel.show', $travel->slug) }}"><h3><strong>{{ $travel->title }}</strong></h3></a>
+												<a href="{{ route('travel.show', $travel->slug) }}"><h3><strong>{{close_tags(Str::limit($travel->title, 14)) }}</strong></h3></a>
 
 												<p>
 													来自：{{ $travel->user->nickname }}

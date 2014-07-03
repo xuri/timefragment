@@ -20,6 +20,7 @@ class CreateJobsTable extends Migration {
 	        $table->text('title', 100);
 	        $table->text('slug', 255);
 	        $table->text('content');
+	        $table->text('location')->nullable();
 	        $table->string('thumbnails')->nullable();
 	        $table->smallInteger('resume_count')->default('0');
 	        $table->text('meta_title', 100);

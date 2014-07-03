@@ -47,6 +47,18 @@
         </li>
         <li>
             <a href="#" class="text-left dropdown-toggle" data-toggle="dropdown">
+                    我的评论
+                    <b class="caret"></b>
+                </a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="{{ route('mycreative.comments') }}">创意汇评论</a>
+                </li>
+                <li><a href="{{ route('mytravel.comments') }}">去旅行评论</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="text-left dropdown-toggle" data-toggle="dropdown">
                     偏好设置
                     <b class="caret"></b>
                 </a>

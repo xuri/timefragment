@@ -20,7 +20,7 @@ class Jobs extends BaseModel
     protected $softDelete = true;
 
     /**
-     * 模型对象关系：去旅行的话题
+     * 模型对象关系：职位分类
      * @return object Category
      */
     public function category()
@@ -29,7 +29,7 @@ class Jobs extends BaseModel
     }
 
     /**
-     * 模型对象关系：去旅行的分享者
+     * 模型对象关系：招聘者
      * @return object User
      */
     public function user()
@@ -38,16 +38,16 @@ class Jobs extends BaseModel
     }
 
     /**
-     * 模型对象关系：去旅行的评论
+     * 模型对象关系：应聘者的简历
      * @return object Illuminate\Database\Eloquent\Collection
      */
-    public function comments()
+    public function resume()
     {
-        return $this->hasMany('JobsComment', 'jobs_id');
+        return $this->hasMany('JobsResume', 'jobs_id');
     }
 
     /**
-     * 模型对象关系：去旅行的图片
+     * 模型对象关系：招聘信息的图片
      * @return object Illuminate\Database\Eloquent\Collection
      */
     public function pictures()
@@ -56,7 +56,7 @@ class Jobs extends BaseModel
     }
 
     /**
-     * 访问器：去旅行内容（原始）
+     * 访问器：内容（原始）
      * @return string
      */
     public function getContentAttribute($value)
@@ -65,7 +65,7 @@ class Jobs extends BaseModel
     }
 
     /**
-     * 访问器：去旅行摘要（原始）
+     * 访问器：摘要（原始）
      * @return string
      */
     public function getExcerptAttribute($value)
@@ -74,7 +74,7 @@ class Jobs extends BaseModel
     }
 
     /**
-     * 访问器：去旅行内容（HTML 格式）
+     * 访问器：内容（HTML 格式）
      * @return string
      */
     public function getContentHtmlAttribute()
@@ -88,7 +88,7 @@ class Jobs extends BaseModel
     }
 
     /**
-     * 访问器：去旅行摘要（HTML 格式）
+     * 访问器：摘要（HTML 格式）
      * @return string
      */
     public function getExcerptHtmlAttribute()
@@ -102,7 +102,7 @@ class Jobs extends BaseModel
     }
 
     /**
-     * 访问器：文章内容（Markdown 格式）
+     * 访问器：内容（Markdown 格式）
      * @return string
      */
     public function getContentMarkdownAttribute()
@@ -116,7 +116,7 @@ class Jobs extends BaseModel
     }
 
     /**
-     * 访问器：文章摘要（Markdown 格式）
+     * 访问器：摘要（Markdown 格式）
      * @return string
      */
     public function getExcerptMarkdownAttribute()

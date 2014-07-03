@@ -34,47 +34,44 @@
                         </div>
 
                         <span class="text-gray-dark text-large align-with-button m-r-30">
-								我的{{ $resourceName }}
-						</span>
+                            我评论过的去旅行
+                        </span>
 
-                    </div>
-
-
-                    <input type="text" class="input-light input-large brad valign-top m-r-10 m-l-10 search-box" placeholder="搜索...">
-
-                    <div class="pull-right m-r-30 mail-nav">
-                        <a href="{{ route($resource.'.create') }}" class="btn btn-bordered text-gray-alt">
-                            分享新{{ $resourceName }}
-                        </a>
                     </div>
 
                     <hr>
+
+                    <div class="p-lr-30 p-tb-10 pm-lr-10">
+                        @include('layout.notification')
+                    </div>
 
                     <div class="table-responsive p-lr-30 p-tb-10 pm-lr-10">
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>标题 {{ order_by('title') }}</th>
-                                    <th>评论数 {{ order_by('comments_count') }}</th>
-                                    <th>创建时间 {{ order_by('created_at', 'desc') }}</th>
-                                    <th style="width:7em;text-align:center;">操作</th>
+                                    <th>标题</th>
+                                    <th>评论内容</th>
+                                    <th style="width:35%;">创建时间</th>
+                                    <th style="width:8%;text-align:center;">操作</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($datas as $data)
+                                @foreach ($comments as $comment)
                                 <tr>
                                     <td>
-                                        <a href="{{ route('creative.show', $data->slug) }}" target="_blank">
+                                        @if($comment->travel)
+                                        <a href="{{ route('travel.show', $comment->travel->slug) }}" target="_blank">
                                             <i class="glyphicon glyphicon-share" style="font-size:0.8em;"></i>
-                                        </a>
-                                        {{ $data->title }}
+                                        </a> {{ $comment->travel->title }}
+                                        @else
+                                        此文章已被删除
+                                        @endif
                                     </td>
-                                    <td>{{ $data->comments_count }}</td>
-                                    <td>{{ $data->created_at }}（{{ $data->friendly_created_at }}）</td>
+                                    <td>{{ $comment->content }}</td>
+                                    <td>{{ $comment->created_at }}（{{ $comment->friendly_created_at }}）</td>
                                     <td>
-                                        <a href="{{ route($resource.'.edit', $data->id) }}" class="btn btn-xs">编辑</a>
-                                        <a href="javascript:void(0)" class="btn btn-xs btn-danger"
-                                             onclick="modal('{{ route($resource.'.destroy', $data->id) }}')">删除</a>
+                                        <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="modal('{{ route('mytravel.deleteComment', $comment->id) }}')">删除评论
+                                         </a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -82,7 +79,7 @@
                         </table>
                     </div>
                     <div class="btn-group m-l-30">
-                        {{ pagination($datas->appends(Input::except('page')), 'layout.paginator') }}
+                        {{ pagination($comments->appends(Input::except('page')), 'layout.paginator') }}
                     </div>
 
                 </div>
@@ -103,8 +100,8 @@
                     </div>
 
                     <span class="text-gray-dark text-large align-with-button">
-							收件箱
-						</span>
+                            收件箱
+                        </span>
 
                     <hr class="m-b-0">
 
@@ -136,9 +133,9 @@
                         <a href="messages.html#" class="p-lr-30 hover-no-underline" data-toggle="dropdown">
                             <img class="img-circle chat-avatar available m-r-10" width="35" src="{{ Auth::user()->portrait_large }}">
                             <span class="hover-no-underline hover-gray-dark text-gray">
-									<span class="text-gray-dark text-large align-with-button">
-										{{ Auth::user()->nickname }}
-									</span>
+                                    <span class="text-gray-dark text-large align-with-button">
+                                        {{ Auth::user()->nickname }}
+                                    </span>
                             <span class="caret"></span>
                             </span>
                         </a>
@@ -203,7 +200,7 @@
     $modalData['modal'] = array(
         'id'      => 'myModal',
         'title'   => '系统提示',
-        'message' => '确认删除此'.$resourceName.'？',
+        'message' => '确认删除此评论？',
         'footer'  =>
             Form::open(array('id' => 'real-delete', 'method' => 'delete')).'
                 <button type="button" class="btn btn-sm btn-default btn-bordered" data-dismiss="modal">取消</button>

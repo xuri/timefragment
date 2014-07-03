@@ -90,6 +90,26 @@ Route::group(array('prefix' => 'travel'), function () {
 
 /*
 |--------------------------------------------------------------------------
+| Jobs Routes
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::group(array('prefix' => 'jobs'), function () {
+    $resource = 'jobs';
+    $controller = 'JobsController@';
+    # 分类列表
+    Route::get(            '/', array('as' => $resource.'.getIndex', 'uses' => $controller.'getIndex'));
+    # 分类列表
+    Route::get('category/{id}', array('as' => $resource.'.category', 'uses' => $controller.'category'));
+    # 展示内容
+    Route::get(       '{slug}', array('as' => $resource.'.show'    , 'uses' => $controller.'show'    ));
+    # 提交简历
+    Route::post(      '{slug}', $controller.'postResume')->before('auth');
+});
+
+/*
+|--------------------------------------------------------------------------
 | Basic Competence (Signin and Signup Routes)
 |--------------------------------------------------------------------------
 |
@@ -137,28 +157,32 @@ Route::group(array('prefix' => 'account', 'before' => 'auth'), function () {
     Route::group(array('prefix' => 'mycreative'), function () {
         $resource   = 'mycreative';
         $controller = 'CreativeController@';
-        Route::get(           '/', array('as' => $resource.'.index'             , 'uses' => $controller.'index'       ));
-        Route::get(      'create', array('as' => $resource.'.create'            , 'uses' => $controller.'create'      ));
-        Route::post(          '/', array('as' => $resource.'.store'             , 'uses' => $controller.'store'       ));
-        Route::get(   '{id}/edit', array('as' => $resource.'.edit'              , 'uses' => $controller.'edit'        ));
-        Route::put(        '{id}', array('as' => $resource.'.update'            , 'uses' => $controller.'update'      ));
-        Route::post(       '{id}', array('as' => $resource.'.postUpload'        , 'uses' => $controller.'postUpload'  ));
-        Route::delete('{id}/edit', array('as' => $resource.'.deleteUpload'      , 'uses' => $controller.'deleteUpload'));
-        Route::delete(     '{id}', array('as' => $resource.'.destroy'           , 'uses' => $controller.'destroy'     ));
+        Route::get(               '/', array('as' => $resource.'.index'             , 'uses' => $controller.'index'           ));
+        Route::get(          'create', array('as' => $resource.'.create'            , 'uses' => $controller.'create'          ));
+        Route::post(              '/', array('as' => $resource.'.store'             , 'uses' => $controller.'store'           ));
+        Route::get(       '{id}/edit', array('as' => $resource.'.edit'              , 'uses' => $controller.'edit'            ));
+        Route::put(            '{id}', array('as' => $resource.'.update'            , 'uses' => $controller.'update'          ));
+        Route::post(           '{id}', array('as' => $resource.'.postUpload'        , 'uses' => $controller.'postUpload'      ));
+        Route::delete(    '{id}/edit', array('as' => $resource.'.deleteUpload'      , 'uses' => $controller.'deleteUpload'    ));
+        Route::delete(         '{id}', array('as' => $resource.'.destroy'           , 'uses' => $controller.'destroy'         ));
+        Route::get(        'comments', array('as' => $resource.'.comments'          , 'uses' => $controller.'comments'        ));
+        Route::delete('comments/{id}', array('as' => $resource.'.deleteComment'     , 'uses' => $controller.'deleteComment'   ));
+
     });
     # 去旅行
     Route::group(array('prefix' => 'mytravel'), function () {
         $resource   = 'mytravel';
         $controller = 'TravelController@';
-        Route::get(           '/', array('as' => $resource.'.index'                , 'uses' => $controller.'index'              ));
-        Route::get(      'create', array('as' => $resource.'.create'               , 'uses' => $controller.'create'             ));
-        Route::post(          '/', array('as' => $resource.'.store'                , 'uses' => $controller.'store'              ));
-        Route::get(   '{id}/edit', array('as' => $resource.'.edit'                 , 'uses' => $controller.'edit'               ));
-        Route::put(        '{id}', array('as' => $resource.'.update'               , 'uses' => $controller.'update'             ));
-        Route::post(       '{id}', array('as' => $resource.'.postSingleUpload'     , 'uses' => $controller.'postSingleUpload'   ));
-        Route::post(       '{id}', array('as' => $resource.'.postUpload'           , 'uses' => $controller.'postUpload'         ));
-        Route::delete('{id}/edit', array('as' => $resource.'.deleteUpload'         , 'uses' => $controller.'deleteUpload'       ));
-        Route::delete(     '{id}', array('as' => $resource.'.destroy'              , 'uses' => $controller.'destroy'            ));
+        Route::get(               '/', array('as' => $resource.'.index'             , 'uses' => $controller.'index'           ));
+        Route::get(          'create', array('as' => $resource.'.create'            , 'uses' => $controller.'create'          ));
+        Route::post(              '/', array('as' => $resource.'.store'             , 'uses' => $controller.'store'           ));
+        Route::get(       '{id}/edit', array('as' => $resource.'.edit'              , 'uses' => $controller.'edit'            ));
+        Route::put(            '{id}', array('as' => $resource.'.update'            , 'uses' => $controller.'update'          ));
+        Route::post(           '{id}', array('as' => $resource.'.postUpload'        , 'uses' => $controller.'postUpload'      ));
+        Route::delete(    '{id}/edit', array('as' => $resource.'.deleteUpload'      , 'uses' => $controller.'deleteUpload'    ));
+        Route::delete(         '{id}', array('as' => $resource.'.destroy'           , 'uses' => $controller.'destroy'         ));
+        Route::get(        'comments', array('as' => $resource.'.comments'          , 'uses' => $controller.'comments'        ));
+        Route::delete('comments/{id}', array('as' => $resource.'.deleteComment'     , 'uses' => $controller.'deleteComment'   ));
     });
     # Album
     Route::get('album'           , array('as' => 'account.album'                   , 'uses' => $Account.'getAlbum'              ));
@@ -283,7 +307,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
 
     # 做兼职分类管理
     Route::group(array('prefix' => 'jobs-categories'), function () {
-        $resource   = 'travel_categories';
+        $resource   = 'jobs_categories';
         $controller = 'Admin_JobsCategoriesResource@';
         Route::get(           '/', array('as' => $resource.'.index'        , 'uses' => $controller.'index'       ));
         Route::get(      'create', array('as' => $resource.'.create'       , 'uses' => $controller.'create'      ));

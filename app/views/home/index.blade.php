@@ -421,7 +421,7 @@
 						<span>经历·分享·积累</span>
 						<span class="line big"></span>
 					</div>
-					<h1 class="item_left">做兼职</h1>
+					<h1 class="item_left">酷工作</h1>
 					<div>
 						<span class="line"></span>
 						<span>全面的职位信息资源平台</span>
@@ -784,7 +784,7 @@
 
 							{{-- Parallax title --}}
 							<h1><i class="fa fa-envelope-o fa-5x"></i></h1>
-							<span class="call-number">xuri.me@gmail.com</span>
+							<span class="call-number" >timefragment.com@gmail.com</span>
 							<p class="lead">
 								发送 E-mail 联系我们 您将在一个工作日内收到回复
 							</p>

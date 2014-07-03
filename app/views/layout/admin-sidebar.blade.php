@@ -31,22 +31,60 @@
                 <a href="{{ route('server.index') }}" class="text-left">网站配置</a>
             </li>
             <li>
-                <a href="{{ route('mycategories.index') }}" class="text-left">分类管理</a>
+                <a href="#" class="text-left dropdown-toggle" data-toggle="dropdown">
+                        内容管理
+                        <b class="caret"></b>
+                    </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="{{ route('mycategories.index') }}" class="text-left">分类管理</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('myarticles.index') }}" class="text-left">文章管理</a>
+                    </li>
+                </ul>
             </li>
             <li>
-                <a href="{{ route('myarticles.index') }}" class="text-left">文章管理</a>
+                <a href="#" class="text-left dropdown-toggle" data-toggle="dropdown">
+                        创意汇
+                        <b class="caret"></b>
+                    </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="{{ route('creative_categories.index') }}" class="text-left">创意汇分类管理</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('creative.index') }}" class="text-left">创意汇管理</a>
+                    </li>
+                </ul>
             </li>
             <li>
-                <a href="{{ route('creative_categories.index') }}" class="text-left">创意汇分类管理</a>
+                <a href="#" class="text-left dropdown-toggle" data-toggle="dropdown">
+                        去旅行
+                        <b class="caret"></b>
+                    </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="{{ route('travel_categories.index') }}" class="text-left">去旅行话题管理</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('travel.index') }}" class="text-left">去旅行管理</a>
+                    </li>
+                </ul>
             </li>
             <li>
-                <a href="{{ route('creative.index') }}" class="text-left">创意汇管理</a>
-            </li>
-            <li>
-                <a href="{{ route('travel_categories.index') }}" class="text-left">去旅行话题管理</a>
-            </li>
-            <li>
-                <a href="{{ route('travel.index') }}" class="text-left">去旅行管理</a>
+                <a href="#" class="text-left dropdown-toggle" data-toggle="dropdown">
+                        酷工作
+                        <b class="caret"></b>
+                    </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="{{ route('jobs_categories.index') }}" class="text-left">酷工作分类管理</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('jobs.index') }}" class="text-left">招聘信息管理</a>
+                    </li>
+                </ul>
             </li>
         </ul>
 

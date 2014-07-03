@@ -1,6 +1,6 @@
 <?php
 /**
- * 兼职应聘者
+ * 应聘者简历
  */
 class JobsResume extends BaseModel
 {
@@ -17,7 +17,7 @@ class JobsResume extends BaseModel
     protected $softDelete = true;
 
     /**
-     * 模型对象关系：归属文章
+     * 模型对象关系：归属招聘
      * @return object Article
      */
     public function jobs()
