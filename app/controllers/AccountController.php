@@ -40,8 +40,8 @@ class AccountController extends BaseController
             'born_year'     => Input::get('born_year'),
             'born_month'    => Input::get('born_month'),
             'born_day'      => Input::get('born_day'),
-            'home_province' => Input::get('home_province'),
-            'home_city'     => Input::get('home_city')
+            'province'      => Input::get('province'),
+            'city'          => Input::get('city')
         );
         // $info = Input::all();
         // 创建验证规则
@@ -67,8 +67,8 @@ class AccountController extends BaseController
             $user->born_year     = Input::get('born_year');
             $user->born_month    = Input::get('born_month');
             $user->born_day      = Input::get('born_day');
-            $user->home_province = Input::get('home_province');
-            $user->home_city     = Input::get('home_city');
+            $user->home_province = Input::get('province');
+            $user->home_city     = Input::get('city');
             if ($user->save()) {
                 // 更新成功
                 return Redirect::back()

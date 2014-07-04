@@ -1,5 +1,5 @@
 function setcity() {
-    switch (document.form.home_province.value) {
+    switch (document.form.province.value) {
         case "安徽" :
             var cityOptions = new Array(
             "合肥(*)", "合肥",
@@ -539,8 +539,8 @@ function setcity() {
     }
 
 
-	document.form.home_city.options.length = 0;
+	document.form.city.options.length = 0;
 	for(var i = 0; i < cityOptions.length/2; i++) {
-	    document.form.home_city.options[i]=new Option(cityOptions[i*2],cityOptions[i*2+1]);
+	    document.form.city.options[i]=new Option(cityOptions[i*2],cityOptions[i*2+1]);
 	}
 }

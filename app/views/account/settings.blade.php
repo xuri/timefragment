@@ -10,7 +10,6 @@
     @include('layout.account-sidebar')
     @yield('content')
 
-
     <div id="container" class="main-content p-30 tp-t-60 tp-lr-10">
 
         <button class="menu-btn btn btn-bordered text-gray-alt text-bold top-left-corner">&#9776; 菜单</button>
@@ -275,7 +274,7 @@
                 <div class="form-group" style="margin: 0 0 20px -15px">
                     <label class="col-sm-2 control-label">所在地</label>
                     <div class="col-sm-10 m-t-10">
-                        <select id="home_province" class="input-light brad" data-live-search="false" name="home_province" onchange="setcity();" rel="{{ Auth::user()->home_province }}">
+                        <select id="province" class="input-light brad" data-live-search="false" name="province" onchange="setcity();" rel="{{ Auth::user()->home_province }}">
                             <option value="">----请选择省份----</option>
                             <option value="安徽">安徽</option>
                             <option value="北京">北京</option>
@@ -315,11 +314,11 @@
                         </select>
                         <div class="i-block">
                             @if(Auth::user()->home_city)
-                            <select name="home_city" id="home_city" class="input-light brad" rel="{{ Auth::user()->home_city }}" style="width: 140px">
+                            <select name="city" id="city" class="input-light brad" rel="{{ Auth::user()->home_city }}" style="width: 140px">
                                 <option value="" id="select_city">----请选择城市----</option>
                             </select>
                             @else
-                            <select name="home_city" id="home_city" class="input-light brad" rel="{{ Auth::user()->home_city }}" style="width: 140px">
+                            <select name="city" id="city" class="input-light brad" rel="{{ Auth::user()->home_city }}" style="width: 140px">
                                 <option value="">----请选择城市----</option>
                             </select>
                             @endif
@@ -340,9 +339,9 @@
         $("#born_year").val($("#born_year").attr("rel"));
         $("#born_month").val($("#born_month").attr("rel"));
         $("#born_day").val($("#born_day").attr("rel"));
-        $("#home_province").val($("#home_province").attr("rel"));
+        $("#province").val($("#province").attr("rel"));
         $('#select_city').each(function(){
-            $(this).replaceWith('<option value="'+$("#home_city").attr("rel")+'">'+$("#home_city").attr("rel")+'</option>');
+            $(this).replaceWith('<option value="'+$("#city").attr("rel")+'">'+$("#city").attr("rel")+'</option>');
         });
     </script>
 </body>

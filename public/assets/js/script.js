@@ -5,8 +5,8 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
 
 //Page Preloader
 $(window).load(function() {
-	$("#intro-loader").delay(3000).fadeOut();
-	$(".mask").delay(3500).fadeOut("slow");
+	$("#intro-loader").delay(500).fadeOut();
+	$(".mask").delay(500).fadeOut("slow");
 
 	//FullScreen Slider
   $(function() {
@@ -28,8 +28,8 @@ $(window).load(function() {
       }
     },
     onFirstImageLoaded : function() {
-      jQuery('#cycle-loader').delay(800).hide();
-      jQuery('#fullscreen-slider').delay(800).fadeIn('slow');
+      jQuery('#cycle-loader').delay(300).hide();
+      jQuery('#fullscreen-slider').delay(300).fadeIn('slow');
       jQuery('.slide-content').fadeIn().animate({
         top : '0'
       });

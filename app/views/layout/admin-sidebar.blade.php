@@ -74,6 +74,20 @@
         </li>
         <li>
             <a href="#" class="text-left dropdown-toggle" data-toggle="dropdown">
+                    乐换购
+                    <b class="caret"></b>
+                </a>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="{{ route('product_categories.index') }}" class="text-left">商品分类管理</a>
+                </li>
+                <li>
+                    <a href="{{ route('product.index') }}" class="text-left">交易信息管理</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="text-left dropdown-toggle" data-toggle="dropdown">
                     酷工作
                     <b class="caret"></b>
                 </a>

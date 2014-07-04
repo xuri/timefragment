@@ -23,13 +23,15 @@ Route::group(array(), function () {
 	$controller = 'HomeController@';
 
     # Homepage
-    Route::get('/'        , array('as' => 'home'     , 'uses' => $controller.'getIndex'    ));
+    Route::get('/'        , array('as' => 'home'     , 'uses' => $controller.'getIndex'     ));
+    # Homepage with Video
+    # Route::get('/'        , array('as' => 'home'     , 'uses' => $controller.'getVideoIndex'));
     # Category
-    Route::get('category' , array('as' => 'category' , 'uses' => $controller.'getCategory' ));
+    Route::get('category' , array('as' => 'category' , 'uses' => $controller.'getCategory'  ));
     # Portfolio
-    Route::get('portfolio', array('as' => 'portfolio', 'uses' => $controller.'getPortfolio'));
+    Route::get('portfolio', array('as' => 'portfolio', 'uses' => $controller.'getPortfolio' ));
     # Timeline
-    Route::get('timeline' , array('as' => 'timeline' , 'uses' => $controller.'getTimeline' ));
+    Route::get('timeline' , array('as' => 'timeline' , 'uses' => $controller.'getTimeline'  ));
 });
 
 /*
@@ -310,6 +312,34 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
     Route::group(array('prefix' => 'travel'), function () {
         $resource   = 'travel';
         $controller = 'Admin_TravelResource@';
+        Route::get(           '/', array('as' => $resource.'.index'        , 'uses' => $controller.'index'       ));
+        Route::get(      'create', array('as' => $resource.'.create'       , 'uses' => $controller.'create'      ));
+        Route::post(          '/', array('as' => $resource.'.store'        , 'uses' => $controller.'store'       ));
+        Route::get(   '{id}/edit', array('as' => $resource.'.edit'         , 'uses' => $controller.'edit'        ));
+        Route::put(        '{id}', array('as' => $resource.'.update'       , 'uses' => $controller.'update'      ));
+        Route::post(       '{id}', array('as' => $resource.'.postUpload'   , 'uses' => $controller.'postUpload'  ));
+        Route::delete('{id}/edit', array('as' => $resource.'.deleteUpload' , 'uses' => $controller.'deleteUpload'));
+        Route::delete(     '{id}', array('as' => $resource.'.destroy'      , 'uses' => $controller.'destroy'     ));
+    });
+
+    # 商品分类管理
+    Route::group(array('prefix' => 'product-categories'), function () {
+        $resource   = 'product_categories';
+        $controller = 'Admin_ProductCategoriesResource@';
+        Route::get(           '/', array('as' => $resource.'.index'        , 'uses' => $controller.'index'       ));
+        Route::get(      'create', array('as' => $resource.'.create'       , 'uses' => $controller.'create'      ));
+        Route::post(          '/', array('as' => $resource.'.store'        , 'uses' => $controller.'store'       ));
+        Route::get(   '{id}/edit', array('as' => $resource.'.edit'         , 'uses' => $controller.'edit'        ));
+        Route::put(        '{id}', array('as' => $resource.'.update'       , 'uses' => $controller.'update'      ));
+        Route::post(       '{id}', array('as' => $resource.'.postUpload'   , 'uses' => $controller.'postUpload'  ));
+        Route::delete('{id}/edit', array('as' => $resource.'.deleteUpload' , 'uses' => $controller.'deleteUpload'));
+        Route::delete(     '{id}', array('as' => $resource.'.destroy'      , 'uses' => $controller.'destroy'     ));
+    });
+
+    # 商品管理
+    Route::group(array('prefix' => 'product'), function () {
+        $resource   = 'product';
+        $controller = 'Admin_ProductResource@';
         Route::get(           '/', array('as' => $resource.'.index'        , 'uses' => $controller.'index'       ));
         Route::get(      'create', array('as' => $resource.'.create'       , 'uses' => $controller.'create'      ));
         Route::post(          '/', array('as' => $resource.'.store'        , 'uses' => $controller.'store'       ));

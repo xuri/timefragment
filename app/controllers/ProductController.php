@@ -1,12 +1,12 @@
 <?php
 
-class Admin_ProductResource extends BaseResource
+class ProductController extends BaseResource
 {
     /**
      * 资源视图目录
      * @var string
      */
-    protected $resourceView = 'admin.product';
+    protected $resourceView = 'account.product';
 
     /**
      * 资源模型名称，初始化后转为模型实例
@@ -18,7 +18,7 @@ class Admin_ProductResource extends BaseResource
      * 资源标识
      * @var string
      */
-    protected $resource = 'product';
+    protected $resource = 'myproduct';
 
     /**
      * 资源数据库表
@@ -30,7 +30,7 @@ class Admin_ProductResource extends BaseResource
      * 资源名称（中文）
      * @var string
      */
-    protected $resourceName = '商品';
+    protected $resourceName = '招聘信息';
 
     /**
      * 自定义验证消息
@@ -298,6 +298,95 @@ class Admin_ProductResource extends BaseResource
 
         else
             return Redirect::back()->with('warning', '图片删除失败。');
+    }
+
+    /**
+     * 页面：我的评论
+     * @return Response
+     */
+    public function comments()
+    {
+        $comments = ProductComment::where('user_id', Auth::user()->id)->paginate(15);
+        return View::make($this->resourceView.'.comments')->with(compact('comments'));
+    }
+
+    /**
+     * 动作：删除我的评论
+     * @return Response
+     */
+    public function deleteComment($id)
+    {
+        // 仅允许对自己的评论进行删除操作
+        $comment = ProductComment::where('id', $id)->where('user_id', Auth::user()->id)->first();
+        if (is_null($comment))
+            return Redirect::back()->with('error', '没有找到对应的评论');
+        elseif ($comment->delete())
+            return Redirect::back()->with('success', '评论删除成功。');
+        else
+            return Redirect::back()->with('warning', '评论删除失败。');
+    }
+
+    /**
+     * 页面：乐换购
+     * @return Respanse
+     */
+    public function getIndex()
+    {
+        $product    = Product::orderBy('created_at', 'desc')->paginate(12);
+        $categories = ProductCategories::orderBy('sort_order')->paginate(6);
+        return View::make('product.index')->with(compact('product', 'categories', 'data'));
+    }
+
+    /**
+     * 资源列表
+     * @return Respanse
+     */
+    public function category($category_id)
+    {
+        $product          = Product::where('category_id', $category_id)->orderBy('created_at', 'desc')->paginate(6);
+        $categories       = ProductCategories::orderBy('sort_order')->get();
+        $current_category = ProductCategories::where('id', $category_id)->first();
+        return View::make('product.category')->with(compact('product', 'categories', 'category_id', 'current_category'));
+    }
+
+    /**
+     * 资源展示页面
+     * @param  string $slug 缩略名
+     * @return response
+     */
+    public function show($slug)
+    {
+        $product    = Product::where('slug', $slug)->first();
+        is_null($product) AND App::abort(404);
+        $categories = ProductCategories::orderBy('sort_order')->get();
+        return View::make('product.show')->with(compact('product', 'categories'));
+    }
+
+    public function postComment($slug)
+    {
+        // 获取评论内容
+        $content = e(Input::get('content'));
+        // 字数检查
+        if (mb_strlen($content)<3)
+            return Redirect::back()->withInput()->withErrors($this->messages->add('content', '评论不得少于3个字符。'));
+        // 查找对应文章
+        $product     = Product::where('slug', $slug)->first();
+        // 创建文章评论
+        $comment = new ProductComment;
+        $comment->content    = $content;
+        $comment->product_id = $product->id;
+        $comment->user_id    = Auth::user()->id;
+        if ($comment->save()) {
+            // 创建成功
+            // 更新评论数
+            $product->comments_count = $product->comments->count();
+            $product->save();
+            // 返回成功信息
+            return Redirect::back()->with('success', '评论成功。');
+        } else {
+            // 创建失败
+            return Redirect::back()->withInput()->with('error', '评论失败。');
+        }
     }
 
 }
