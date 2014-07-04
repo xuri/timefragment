@@ -33,7 +33,9 @@
         </li>
         <li><a href="{{ route('mytravel.index') }}" class="text-left">我的去旅行</a>
         </li>
-        <li><a href="{{ route('myjob.index') }}" class="text-left">发布酷工作</a>
+        <li><a href="{{ route('myproduct.create') }}" class="text-left">我要卖东西</a>
+        </li>
+        <li><a href="{{ route('myjob.create') }}" class="text-left">发布酷工作</a>
         </li>
         <li>
             <a href="#" class="text-left dropdown-toggle" data-toggle="dropdown">
@@ -44,6 +46,8 @@
                 <li><a href="{{ route('mycreative.comments') }}">创意汇评论</a>
                 </li>
                 <li><a href="{{ route('mytravel.comments') }}">去旅行评论</a>
+                </li>
+                <li><a href="{{ route('myproduct.comments') }}">乐换购评论</a>
                 </li>
                 <li><a href="{{ route('myjob.comments') }}">酷工作评论</a>
                 </li>

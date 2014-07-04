@@ -92,6 +92,24 @@ Route::group(array('prefix' => 'travel'), function () {
 
 /*
 |--------------------------------------------------------------------------
+| Product Routes
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::group(array('prefix' => 'product'), function () {
+    $resource = 'product';
+    $controller = 'ProductController@';
+    # 分类创意列表
+    Route::get(      '/', array('as' => $resource.'.getIndex', 'uses' => $controller.'getIndex'));
+    # 展示创意内容
+    Route::get( '{slug}', array('as' => $resource.'.show'    , 'uses' => $controller.'show'    ));
+    # 提交创意评论
+    Route::post('{slug}', $controller.'postComment')->before('auth');
+});
+
+/*
+|--------------------------------------------------------------------------
 | Job Routes
 |--------------------------------------------------------------------------
 |
@@ -175,6 +193,21 @@ Route::group(array('prefix' => 'account', 'before' => 'auth'), function () {
     Route::group(array('prefix' => 'mytravel'), function () {
         $resource   = 'mytravel';
         $controller = 'TravelController@';
+        Route::get(               '/', array('as' => $resource.'.index'             , 'uses' => $controller.'index'           ));
+        Route::get(          'create', array('as' => $resource.'.create'            , 'uses' => $controller.'create'          ));
+        Route::post(              '/', array('as' => $resource.'.store'             , 'uses' => $controller.'store'           ));
+        Route::get(       '{id}/edit', array('as' => $resource.'.edit'              , 'uses' => $controller.'edit'            ));
+        Route::put(            '{id}', array('as' => $resource.'.update'            , 'uses' => $controller.'update'          ));
+        Route::post(           '{id}', array('as' => $resource.'.postUpload'        , 'uses' => $controller.'postUpload'      ));
+        Route::delete(    '{id}/edit', array('as' => $resource.'.deleteUpload'      , 'uses' => $controller.'deleteUpload'    ));
+        Route::delete(         '{id}', array('as' => $resource.'.destroy'           , 'uses' => $controller.'destroy'         ));
+        Route::get(        'comments', array('as' => $resource.'.comments'          , 'uses' => $controller.'comments'        ));
+        Route::delete('comments/{id}', array('as' => $resource.'.deleteComment'     , 'uses' => $controller.'deleteComment'   ));
+    });
+    # 乐换购
+    Route::group(array('prefix' => 'myproduct'), function () {
+        $resource   = 'myproduct';
+        $controller = 'ProductController@';
         Route::get(               '/', array('as' => $resource.'.index'             , 'uses' => $controller.'index'           ));
         Route::get(          'create', array('as' => $resource.'.create'            , 'uses' => $controller.'create'          ));
         Route::post(              '/', array('as' => $resource.'.store'             , 'uses' => $controller.'store'           ));

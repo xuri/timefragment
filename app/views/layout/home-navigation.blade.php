@@ -17,14 +17,7 @@
 				<li><a href="#creative" class="int-collapse-menu">创意汇</a></li>
 				<li><a href="#travle" class="int-collapse-menu">去旅行</a></li>
 				<li><a href="#ichat" class="int-collapse-menu">爱聊吧</a></li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">乐换购 <i class="fa fa-angle-down"></i></a>
-					<ul class="dropdown-menu">
-						<li><a href="#shop-exp">闲置转让</a></li>
-						<li><a href="#shop-exp">二手商品</a></li>
-						<li><a href="#shop-exp">换购体验场</a></li>
-					</ul>
-				</li>
+				<li><a href="#shop-exp" class="int-collapse-menu">乐换购</a></li>
 				<li><a href="#job" class="int-collapse-menu">酷工作</a></li>
 				<li><a href="#timeline" class="int-collapse-menu">时间线</a></li>
 				<li><a href="#contact" class="int-collapse-menu">联系我们</a></li>

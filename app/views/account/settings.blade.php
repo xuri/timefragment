@@ -272,7 +272,7 @@
                 </div>
 
                 <div class="form-group" style="margin: 0 0 20px -15px">
-                    <label class="col-sm-2 control-label">所在地</label>
+                    <label class="col-sm-2 control-label">我在</label>
                     <div class="col-sm-10 m-t-10">
                         <select id="province" class="input-light brad" data-live-search="false" name="province" onchange="setcity();" rel="{{ Auth::user()->home_province }}">
                             <option value="">----请选择省份----</option>

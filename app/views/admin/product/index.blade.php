@@ -83,7 +83,7 @@
                                 @foreach ($datas as $data)
                                 <tr>
                                     <td>
-                                        <a href="{{ route('travel.show', $data->slug) }}" target="_blank">
+                                        <a href="{{ route('product.show', $data->slug) }}" target="_blank">
                                             <i class="glyphicon glyphicon-share" style="font-size:0.8em;"></i>
                                         </a>
                                         {{ $data->title }}

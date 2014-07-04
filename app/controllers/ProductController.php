@@ -30,7 +30,7 @@ class ProductController extends BaseResource
      * 资源名称（中文）
      * @var string
      */
-    protected $resourceName = '招聘信息';
+    protected $resourceName = '商品';
 
     /**
      * 自定义验证消息
@@ -40,8 +40,7 @@ class ProductController extends BaseResource
         'title.required'        => '请填写商品名称。',
         'title.unique'          => '已有同名商品呢。',
         'slug.unique'           => '已有同名 sulg。',
-        'province.required'     => '请选择省份',
-        'city.required'         => '请选择城市',
+        'province.required'     => '请选择省份和城市',
         'content.required'      => '请填写商品呢内容。',
         'category.exists'       => '请填选择正确的商品呢分类。',
     );
@@ -96,7 +95,6 @@ class ProductController extends BaseResource
             'content'      => 'required',
             'category'     => 'exists:product_categories,id',
             'province'     => 'required',
-            'city'         => 'required',
         );
         $slug      = Input::input('title');
         $hashslug  = date('H.i.s').'-'.md5($slug).'.html';
@@ -165,7 +163,6 @@ class ProductController extends BaseResource
             'content'      => 'required',
             'category'     => 'exists:product_categories,id',
             'province'     => 'required',
-            'city'         => 'required',
         );
         $slug = Input::input('title');
         $hashslug = date('H.i.s').'-'.md5($slug).'.html';

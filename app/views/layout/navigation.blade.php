@@ -28,19 +28,8 @@
 					<li>
 						<a href="{{ route('portfolio') }}" class="int-collapse-menu">爱聊吧</a>
 					</li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">乐换购 <i class="fa fa-angle-down"></i></a>
-						<ul class="dropdown-menu">
-							<li>
-								<a href="{{ route('portfolio') }}">闲置转让</a>
-							</li>
-							<li>
-								<a href="{{ route('portfolio') }}">二手商品</a>
-							</li>
-							<li>
-								<a href="{{ route('portfolio') }}">换购体验场</a>
-							</li>
-						</ul>
+					<li>
+						<a href="{{ route('product.getIndex') }}" class="int-collapse-menu">乐换购</a>
 					</li>
 					<li>
 						<a href="{{ route('job.getIndex') }}" class="int-collapse-menu">酷工作</a>
