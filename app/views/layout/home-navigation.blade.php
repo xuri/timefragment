@@ -25,7 +25,7 @@
 						<li><a href="#shop-exp">换购体验场</a></li>
 					</ul>
 				</li>
-				<li><a href="#jobs" class="int-collapse-menu">酷工作</a></li>
+				<li><a href="#job" class="int-collapse-menu">酷工作</a></li>
 				<li><a href="#timeline" class="int-collapse-menu">时间线</a></li>
 				<li><a href="#contact" class="int-collapse-menu">联系我们</a></li>
 				@if(Auth::guest()){{--游客--}}

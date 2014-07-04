@@ -103,7 +103,7 @@
                                                 @if($data->thumbnails)
                                                 <tr>
                                                     <td>
-                                                        <img width="100" height="100" src="{{ route('home') }}/uploads/categories_thumbnails/{{ $data->thumbnails }}">
+                                                        <img width="100" height="100" src="{{ route('home') }}/uploads/category_thumbnails/{{ $data->thumbnails }}">
                                                     </td>
                                                     <td>
                                                         {{ $data->thumbnails }}

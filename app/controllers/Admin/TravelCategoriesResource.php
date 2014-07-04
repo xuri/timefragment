@@ -159,7 +159,7 @@ class Admin_TravelCategoriesResource extends BaseResource
         }
 
         $file              = Input::file('file');
-        $destinationPath   = 'uploads/travel_categories_thumbnails/';
+        $destinationPath   = 'uploads/travel_category_thumbnails/';
         $ext               = $file->guessClientExtension();  // Get real extension according to mime type
         $fullname          = $file->getClientOriginalName(); // Client file name, including the extension of the client
         $hashname          = date('H.i.s').'-'.md5($fullname).'.'.$ext; // Hash processed file name, including the real extension
@@ -172,7 +172,7 @@ class Admin_TravelCategoriesResource extends BaseResource
         $thumbnails        = Image::make($file->getRealPath());
         $upload_success    = $thumbnails->fit(105, 105)->save(public_path($destinationPath.$hashname));
 
-        File::delete(public_path('uploads/travel_categories_thumbnails/'.$oldThumbnails));
+        File::delete(public_path('uploads/travel_category_thumbnails/'.$oldThumbnails));
 
         if( $upload_success ) {
            return Response::json('success', 200);
@@ -194,7 +194,7 @@ class Admin_TravelCategoriesResource extends BaseResource
         if (is_null($thumbnails))
             return Redirect::back()->with('error', '没有找到对应的图片');
         elseif ($thumbnails) {
-        File::delete(public_path('uploads/travel_categories_thumbnails/'.$thumbnails));
+        File::delete(public_path('uploads/travel_category_thumbnails/'.$thumbnails));
         $model->thumbnails = NULL;
         $model->save();
             return Redirect::back()->with('success', '图片删除成功。');

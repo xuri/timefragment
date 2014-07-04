@@ -43,7 +43,7 @@
 						</ul>
 					</li>
 					<li>
-						<a href="{{ route('jobs.getIndex') }}" class="int-collapse-menu">酷工作</a>
+						<a href="{{ route('job.getIndex') }}" class="int-collapse-menu">酷工作</a>
 					</li>
 					<li>
 						<a href="{{ route('timeline') }}" class="int-collapse-menu">时间线</a>

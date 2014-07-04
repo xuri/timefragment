@@ -90,14 +90,14 @@ Route::group(array('prefix' => 'travel'), function () {
 
 /*
 |--------------------------------------------------------------------------
-| Jobs Routes
+| Job Routes
 |--------------------------------------------------------------------------
 |
 */
 
-Route::group(array('prefix' => 'jobs'), function () {
-    $resource = 'jobs';
-    $controller = 'JobsController@';
+Route::group(array('prefix' => 'job'), function () {
+    $resource = 'job';
+    $controller = 'JobController@';
     # 分类列表
     Route::get(            '/', array('as' => $resource.'.getIndex', 'uses' => $controller.'getIndex'));
     # 分类列表
@@ -185,9 +185,9 @@ Route::group(array('prefix' => 'account', 'before' => 'auth'), function () {
         Route::delete('comments/{id}', array('as' => $resource.'.deleteComment'     , 'uses' => $controller.'deleteComment'   ));
     });
     # 酷工作
-    Route::group(array('prefix' => 'myjobs'), function () {
-        $resource   = 'myjobs';
-        $controller = 'JobsController@';
+    Route::group(array('prefix' => 'myjob'), function () {
+        $resource   = 'myjob';
+        $controller = 'JobController@';
         Route::get(               '/', array('as' => $resource.'.index'             , 'uses' => $controller.'index'           ));
         Route::get(          'create', array('as' => $resource.'.create'            , 'uses' => $controller.'create'          ));
         Route::post(              '/', array('as' => $resource.'.store'             , 'uses' => $controller.'store'           ));
@@ -320,10 +320,10 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
         Route::delete(     '{id}', array('as' => $resource.'.destroy'      , 'uses' => $controller.'destroy'     ));
     });
 
-    # 做兼职分类管理
-    Route::group(array('prefix' => 'jobs-categories'), function () {
-        $resource   = 'jobs_categories';
-        $controller = 'Admin_JobsCategoriesResource@';
+    # 酷工作分类管理
+    Route::group(array('prefix' => 'job-categories'), function () {
+        $resource   = 'job_categories';
+        $controller = 'Admin_JobCategoriesResource@';
         Route::get(           '/', array('as' => $resource.'.index'        , 'uses' => $controller.'index'       ));
         Route::get(      'create', array('as' => $resource.'.create'       , 'uses' => $controller.'create'      ));
         Route::post(          '/', array('as' => $resource.'.store'        , 'uses' => $controller.'store'       ));
@@ -334,10 +334,10 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
         Route::delete(     '{id}', array('as' => $resource.'.destroy'      , 'uses' => $controller.'destroy'     ));
     });
 
-    # 做兼职管理
-    Route::group(array('prefix' => 'jobs'), function () {
-        $resource   = 'jobs';
-        $controller = 'Admin_JobsResource@';
+    # 酷工作管理
+    Route::group(array('prefix' => 'job'), function () {
+        $resource   = 'job';
+        $controller = 'Admin_JobResource@';
         Route::get(           '/', array('as' => $resource.'.index'        , 'uses' => $controller.'index'       ));
         Route::get(      'create', array('as' => $resource.'.create'       , 'uses' => $controller.'create'      ));
         Route::post(          '/', array('as' => $resource.'.store'        , 'uses' => $controller.'store'       ));

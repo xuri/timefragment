@@ -409,7 +409,7 @@
 		</section>
 		{{-- Portfolio Section --}}
 
-		@include('home.jobs')
+		@include('home.job')
 		@yield('content')
 
 		{{-- Blog Section --}}

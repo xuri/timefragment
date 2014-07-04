@@ -1,43 +1,43 @@
 <?php
 
-class Admin_CategoryResource extends BaseResource
+class Admin_JobCategoriesResource extends BaseResource
 {
     /**
      * 资源视图目录
      * @var string
      */
-    protected $resourceView = 'admin.category';
+    protected $resourceView = 'admin.job_categories';
 
     /**
      * 资源模型名称，初始化后转为模型实例
      * @var string|Illuminate\Database\Eloquent\Model
      */
-    protected $model = 'Category';
+    protected $model = 'JobCategories';
 
     /**
      * 资源标识
      * @var string
      */
-    protected $resource = 'mycategories';
+    protected $resource = 'job_categories';
 
     /**
      * 资源数据库表
      * @var string
      */
-    protected $resourceTable = 'article_categories';
+    protected $resourceTable = 'job_categories';
 
     /**
      * 资源名称（中文）
      * @var string
      */
-    protected $resourceName = '文章分类';
+    protected $resourceName = '酷工作分类';
 
     /**
      * 自定义验证消息
      * @var array
      */
     protected $validatorMessages = array(
-        'name.required'       => '请填写分类名称。',
+        'name.required'       => '请填写工作分类名称。',
         'name.unique'         => '已有同名分类。',
         'sort_order.required' => '请填写分类排序。',
         'sort_order.integer'  => '请填写一个整数。',
@@ -159,7 +159,7 @@ class Admin_CategoryResource extends BaseResource
         }
 
         $file              = Input::file('file');
-        $destinationPath   = 'uploads/category_thumbnails/';
+        $destinationPath   = 'uploads/job_category_thumbnails/';
         $ext               = $file->guessClientExtension();  // Get real extension according to mime type
         $fullname          = $file->getClientOriginalName(); // Client file name, including the extension of the client
         $hashname          = date('H.i.s').'-'.md5($fullname).'.'.$ext; // Hash processed file name, including the real extension
@@ -172,7 +172,7 @@ class Admin_CategoryResource extends BaseResource
         $thumbnails        = Image::make($file->getRealPath());
         $upload_success    = $thumbnails->fit(105, 105)->save(public_path($destinationPath.$hashname));
 
-        File::delete(public_path('uploads/category_thumbnails/'.$oldThumbnails));
+        File::delete(public_path('uploads/job_category_thumbnails/'.$oldThumbnails));
 
         if( $upload_success ) {
            return Response::json('success', 200);
@@ -194,7 +194,7 @@ class Admin_CategoryResource extends BaseResource
         if (is_null($thumbnails))
             return Redirect::back()->with('error', '没有找到对应的图片');
         elseif ($thumbnails) {
-        File::delete(public_path('uploads/category_thumbnails/'.$thumbnails));
+        File::delete(public_path('uploads/job_category_thumbnails/'.$thumbnails));
         $model->thumbnails = NULL;
         $model->save();
             return Redirect::back()->with('success', '图片删除成功。');

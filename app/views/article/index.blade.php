@@ -52,7 +52,7 @@
 								<div class="media">
 
 									@if($category->thumbnails)
-									<a class="pull-left rotate" href="{{ route('article.category', $category->id) }}" target="_blank"> <img class="media-object img-circle" src="{{ route('home') }}/uploads/categories_thumbnails/{{ $category->thumbnails }}" alt="{{ $category->name }}" style="width:105px; height:105;"> </a>
+									<a class="pull-left rotate" href="{{ route('article.category', $category->id) }}" target="_blank"> <img class="media-object img-circle" src="{{ route('home') }}/uploads/category_thumbnails/{{ $category->thumbnails }}" alt="{{ $category->name }}" style="width:105px; height:105;"> </a>
 									@else
 									<a class="pull-left rotate" href="{{ route('article.category', $category->id) }}" target="_blank"> <i class="hi-icon fa fa-rocket fa-4x media-object img-circle" style="background:#0098f9; margin:0;"></i>
 										</a>

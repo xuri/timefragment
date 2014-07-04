@@ -79,10 +79,10 @@
                 </a>
             <ul class="dropdown-menu" role="menu">
                 <li>
-                    <a href="{{ route('jobs_categories.index') }}" class="text-left">酷工作分类管理</a>
+                    <a href="{{ route('job_categories.index') }}" class="text-left">酷工作分类管理</a>
                 </li>
                 <li>
-                    <a href="{{ route('jobs.index') }}" class="text-left">招聘信息管理</a>
+                    <a href="{{ route('job.index') }}" class="text-left">招聘信息管理</a>
                 </li>
             </ul>
         </li>

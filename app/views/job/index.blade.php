@@ -23,14 +23,14 @@
 						<a href="{{ route('home') }}"><span>时光碎片</span></a>
 						<span class="line big"></span>
 					</div>
-					<h1 class="item_right">去旅行</h1>
+					<h1 class="item_right">酷工作</h1>
 					<div>
 						<span class="line"></span>
-						<span>旅行的意义</span>
+						<span>经历·分享·积累</span>
 						<span class="line"></span>
 					</div>
 					<p class="lead">
-						<a href="{{ route('mytravel.create') }}" target="_blank"><i class="fa fa-globe"></i> 选择一个话题</a>，在这里畅谈那些我们去过的和想去的地方，欣赏美丽的海岸，清新的海风……
+						<a href="{{ route('myjob.create') }}" target="_blank"><i class="fa fa-briefcase"></i> 轻松发布招聘信息</a>，我们致力于构建简单、易用的职位信息资源平台
 					</p>
 				</div>
 				{{-- Section title --}}
@@ -52,13 +52,13 @@
 								<div class="media">
 
 									@if($category->thumbnails)
-									<a class="pull-left rotate" href="{{ route('travel.category', $category->id) }}" target="_blank"> <img class="media-object img-circle" src="{{ route('home') }}/uploads/travel_category_thumbnails/{{ $category->thumbnails }}" alt="{{ $category->name }}" style="width:105px; height:105;"> </a>
+									<a class="pull-left rotate" href="{{ route('job.category', $category->id) }}" target="_blank"> <img class="media-object img-circle" src="{{ route('home') }}/uploads/job_category_thumbnails/{{ $category->thumbnails }}" alt="{{ $category->name }}" style="width:105px; height:105;"> </a>
 									@else
-									<a class="pull-left rotate" href="{{ route('travel.category', $category->id) }}" target="_blank"> <i class="hi-icon fa fa-rocket fa-4x media-object img-circle" style="background:#0098f9; margin:0;"></i>
+									<a class="pull-left rotate" href="{{ route('job.category', $category->id) }}" target="_blank"> <i class="hi-icon fa fa-briefcase fa-4x media-object img-circle" style="background:#0098f9; margin:0;"></i>
 										</a>
 									@endif
 									<div class="media-body">
-										<a href="{{ route('travel.category', $category->id) }}" target="_blank">
+										<a href="{{ route('job.category', $category->id) }}" target="_blank">
 											<h3 class="media-heading">{{ $category->name }}</h3>
 										</a>
 										<p>
