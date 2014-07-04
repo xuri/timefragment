@@ -249,7 +249,7 @@ class JobsController extends BaseResource
         $picture             = Image::make($file->getRealPath());
         // crop the best fitting ratio and resize image
         $picture->fit(1024, 683)->save(public_path($destinationPath.$hashname));
-        $picture->fit(585, 347)->save(public_path('uploads/jobs_thumbnails/'.$hashname));
+        $picture->fit(585, 432)->save(public_path('uploads/jobs_thumbnails/'.$hashname));
 
         $model               = $this->model->find($id);
         $oldThumbnails       = $model->thumbnails;
@@ -299,26 +299,26 @@ class JobsController extends BaseResource
      * 页面：我的评论
      * @return Response
      */
-    public function resume()
+    public function comments()
     {
-        $resume = JobsResume::where('user_id', Auth::user()->id)->paginate(15);
-        return View::make($this->resourceView.'.resume')->with(compact('resume'));
+        $comments = JobsComment::where('user_id', Auth::user()->id)->paginate(15);
+        return View::make($this->resourceView.'.comments')->with(compact('comments'));
     }
 
     /**
      * 动作：删除我的评论
      * @return Response
      */
-    public function deleteResume($id)
+    public function deleteComment($id)
     {
-        // 仅允许对自己的简历进行删除操作
-        $resume = JobsResume::where('id', $id)->where('user_id', Auth::user()->id)->first();
-        if (is_null($resume))
-            return Redirect::back()->with('error', '没有找到对应的简历');
-        elseif ($resume->delete())
-            return Redirect::back()->with('success', '简历删除成功。');
+        // 仅允许对自己的评论进行删除操作
+        $comment = JobsComment::where('id', $id)->where('user_id', Auth::user()->id)->first();
+        if (is_null($comment))
+            return Redirect::back()->with('error', '没有找到对应的评论');
+        elseif ($comment->delete())
+            return Redirect::back()->with('success', '评论删除成功。');
         else
-            return Redirect::back()->with('warning', '简历删除失败。');
+            return Redirect::back()->with('warning', '评论删除失败。');
     }
 
     /**
@@ -357,24 +357,24 @@ class JobsController extends BaseResource
         return View::make('jobs.show')->with(compact('jobs', 'categories'));
     }
 
-    public function postResume($slug)
+    public function postComment($slug)
     {
-        // 获取简历内容
+        // 获取评论内容
         $content = e(Input::get('content'));
         // 字数检查
         if (mb_strlen($content)<3)
             return Redirect::back()->withInput()->withErrors($this->messages->add('content', '评论不得少于3个字符。'));
-        // 查找对应招聘
+        // 查找对应文章
         $jobs = Jobs::where('slug', $slug)->first();
-        // 创建简历
-        $resume = new JobsResume;
-        $resume->content   = $content;
-        $resume->jobs_id = $jobs->id;
-        $resume->user_id   = Auth::user()->id;
-        if ($resume->save()) {
+        // 创建文章评论
+        $comment = new JobsComment;
+        $comment->content   = $content;
+        $comment->jobs_id = $jobs->id;
+        $comment->user_id   = Auth::user()->id;
+        if ($comment->save()) {
             // 创建成功
-            // 更新应聘者数
-            $jobs->resume_count = $jobs->resume->count();
+            // 更新评论数
+            $jobs->comments_count = $jobs->comments->count();
             $jobs->save();
             // 返回成功信息
             return Redirect::back()->with('success', '评论成功。');

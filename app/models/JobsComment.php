@@ -1,14 +1,14 @@
 <?php
 /**
- * 应聘者简历
+ * 应聘职位的评论
  */
-class JobsResume extends BaseModel
+class JobsComment extends BaseModel
 {
     /**
      * 数据库表名称（不包含前缀）
      * @var string
      */
-    protected $table = 'jobs_resume';
+    protected $table = 'jobs_comments';
 
     /**
      * 软删除

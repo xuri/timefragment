@@ -105,7 +105,7 @@ Route::group(array('prefix' => 'jobs'), function () {
     # 展示内容
     Route::get(       '{slug}', array('as' => $resource.'.show'    , 'uses' => $controller.'show'    ));
     # 提交简历
-    Route::post(      '{slug}', $controller.'postResume')->before('auth');
+    Route::post(      '{slug}', $controller.'postComment')->before('auth');
 });
 
 /*
@@ -184,16 +184,31 @@ Route::group(array('prefix' => 'account', 'before' => 'auth'), function () {
         Route::get(        'comments', array('as' => $resource.'.comments'          , 'uses' => $controller.'comments'        ));
         Route::delete('comments/{id}', array('as' => $resource.'.deleteComment'     , 'uses' => $controller.'deleteComment'   ));
     });
+    # 酷工作
+    Route::group(array('prefix' => 'myjobs'), function () {
+        $resource   = 'myjobs';
+        $controller = 'JobsController@';
+        Route::get(               '/', array('as' => $resource.'.index'             , 'uses' => $controller.'index'           ));
+        Route::get(          'create', array('as' => $resource.'.create'            , 'uses' => $controller.'create'          ));
+        Route::post(              '/', array('as' => $resource.'.store'             , 'uses' => $controller.'store'           ));
+        Route::get(       '{id}/edit', array('as' => $resource.'.edit'              , 'uses' => $controller.'edit'            ));
+        Route::put(            '{id}', array('as' => $resource.'.update'            , 'uses' => $controller.'update'          ));
+        Route::post(           '{id}', array('as' => $resource.'.postUpload'        , 'uses' => $controller.'postUpload'      ));
+        Route::delete(    '{id}/edit', array('as' => $resource.'.deleteUpload'      , 'uses' => $controller.'deleteUpload'    ));
+        Route::delete(         '{id}', array('as' => $resource.'.destroy'           , 'uses' => $controller.'destroy'         ));
+        Route::get(        'comments', array('as' => $resource.'.comments'          , 'uses' => $controller.'comments'        ));
+        Route::delete('comments/{id}', array('as' => $resource.'.deleteComment'     , 'uses' => $controller.'deleteComment'   ));
+    });
     # Album
-    Route::get('album'           , array('as' => 'account.album'                   , 'uses' => $Account.'getAlbum'              ));
+    Route::get('album'           , array('as' => 'account.album'           , 'uses' => $Account.'getAlbum'           ));
     # 修改基本信息
-    Route::get('settings'        , array('as' => 'account.settings'                , 'uses' => $Account.'getSettings'           ));
+    Route::get('settings'        , array('as' => 'account.settings'        , 'uses' => $Account.'getSettings'        ));
     Route::put('settings'        , $Account.'putSettings');
     # 修改当前账号密码
-    Route::get('change-password' , array('as' => 'account.changePassword'          , 'uses' => $Account.'getChangePassword'     ));
+    Route::get('change-password' , array('as' => 'account.changePassword'  , 'uses' => $Account.'getChangePassword'  ));
     Route::put('change-password' , $Account.'putChangePassword');
     # 更改头像
-    Route::get('change-portrait' , array('as' => 'account.changePortrait'          , 'uses' => $Account.'getChangePortrait'     ));
+    Route::get('change-portrait' , array('as' => 'account.changePortrait'  , 'uses' => $Account.'getChangePortrait'  ));
     Route::put('change-portrait' , $Account.'putChangePortrait');
 });
 
@@ -340,10 +355,10 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
 |--------------------------------------------------------------------------
 |
 */
-// App::missing(function($exception)
-// {
-//     return Response::view('system.missing', array(), 404);
-// });
+App::missing(function($exception)
+{
+    return Response::view('system.missing', array(), 404);
+});
 
 // App::error(function($exception)
 // {

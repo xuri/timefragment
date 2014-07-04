@@ -17,7 +17,6 @@
 		</div>
 		{{-- Intro loader --}}
 
-
 		{{-- Home Section --}}
 		<section id="home">
 
@@ -410,150 +409,8 @@
 		</section>
 		{{-- Portfolio Section --}}
 
-		{{-- Service Section --}}
-		<section id="jobs" class="section-content">
-			<div class="container">
-
-				{{-- Section title --}}
-				<div class="section-title text-center">
-					<div>
-						<span class="line big"></span>
-						<span>经历·分享·积累</span>
-						<span class="line big"></span>
-					</div>
-					<h1 class="item_left">酷工作</h1>
-					<div>
-						<span class="line"></span>
-						<span>全面的职位信息资源平台</span>
-						<span class="line"></span>
-					</div>
-				</div>
-				{{-- Section title --}}
-
-				<div class="row">
-					<div class="col-md-10 col-md-offset-1">
-						<div class="element-line">
-
-							<div class="flexslider">
-								<ul class="slides">
-
-									{{-- Item Slide --}}
-									<li>
-										<div class="slide-item">
-											<div class="row">
-												<div class="col-md-7">
-													<img class="img-responsive img-center img-rounded" src="images/service1.jpg" alt=""/>
-												</div>
-												<div class="col-md-5">
-													<h2>上海急招2014年应届生应聘iOS开发</h2>
-													<p class="lead">
-														招聘职位: iOS高级开发工程师（兼职，月薪2w起）
-														职责描述: 在家上班（SOHO），参与团队项目开发，负责完成项目需求的开发和维护。
-														职位要求：
-														1. 两年以上工作经验，三年以上iOS开发经验，熟练掌握音视频相关framework
-														2. 积极主动，善于沟通和合作，有强烈的责任心。
-														3. 优先考虑: 有AppStore上线的好评作品（个人或公司作品都可），有大型互联网公司工作经验。
-														注: 非外包项目。
-													</p>
-													<br />
-													<div class="mybutton medium">
-														<a href="http://themeforest.net/item/alpine-responsive-one-page-parallax-template/6480453?ref=creativeispiration"> <span data-hover="See Detail">查看详情</span> </a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</li>
-									{{-- Item Slide --}}
-									{{-- Item Slide --}}
-									<li>
-										<div class="slide-item">
-											<div class="row">
-												<div class="col-md-7">
-													<img class="img-responsive img-center img-rounded" src="images/service2.jpg" alt=""/>
-												</div>
-												<div class="col-md-5">
-													<h2>阿里集团共享业务中间件团队招聘架构师和资深工程师（内推）</h2>
-													<p class="lead">
-														岗位描述
-														共享业务事业部是阿里巴巴集团生态系统的技术基石，为淘宝网、天猫、聚划算、1688、淘宝旅行、淘宝海外、零售O2O等业务群提供可靠、高效、易扩展的平台服务。
-														共享业务事业部包含交易、商品、会员、店铺、推荐系统、营销、中间件、数据等电子商务操作系统核心平台，同时发力零售O2O、天猫国际、淘宝海外、菜鸟技术等面向未来的业务模式。
-													</p>
-													<br />
-													<div class="mybutton medium">
-														<a href="http://themeforest.net/item/alpine-responsive-one-page-parallax-template/6480453?ref=creativeispiration"> <span data-hover="See Detail">查看详情</span> </a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</li>
-									{{-- Item Slide --}}
-
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="service-items">
-					<div class="row text-center">
-
-						{{-- Service item --}}
-						<div class="col-md-3 col-sm-3 col-xs-12">
-							<div class="element-line">
-								<div class="item_left">
-									<a href="#"> <i class="fa fa-smile-o fa-5x"></i> <h3>找兼职</h3> </a>
-									<p>
-										给就就职者全面的兼职信息，愿您在这里找到合适的职位。
-									</p>
-								</div>
-							</div>
-						</div>
-						{{-- Service item --}}
-
-						{{-- Service item --}}
-						<div class="col-md-3 col-sm-3 col-xs-12">
-							<div class="element-line">
-								<div class="item_top">
-									<a href="#"> <i class="fa fa-bullhorn fa-5x"></i> <h3>招聘信息发布</h3> </a>
-									<p>
-										为企业提供人才招聘、人才网、猎头、培训、测评和人事外包在内的全方位的人力资源服务。
-									</p>
-								</div>
-							</div>
-						</div>
-						{{-- Service item --}}
-
-						{{-- Service item --}}
-						<div class="col-md-3 col-sm-3 col-xs-12">
-							<div class="element-line">
-								<div class="item_bottom">
-									<a href="#"> <i class="fa fa-thumbs-o-up fa-5x"></i> <h3>酷工作</h3> </a>
-									<p>
-										为您提供最全最新最准确的企业职位招聘信息。
-									</p>
-								</div>
-							</div>
-						</div>
-						{{-- Service item --}}
-
-						{{-- Service item --}}
-						<div class="col-md-3 col-sm-3 col-xs-12">
-							<div class="element-line">
-								<div class="item_right">
-									<a href="#"> <i class="fa fa-check-circle-o fa-5x"></i> <h3>全面保护</h3> </a>
-									<p>
-										无论是招聘方还是受聘者，无论是出售方还是买家都享有担保，让您更放心。
-									</p>
-								</div>
-							</div>
-						</div>
-						{{-- Service item --}}
-
-					</div>
-				</div>
-			</div>
-		</section>
-		{{-- Service Section --}}
+		@include('home.jobs')
+		@yield('content')
 
 		{{-- Blog Section --}}
 		<section id="timeline" class="section-content timeline-content bgdark">
@@ -775,6 +632,7 @@
 			{{-- Google maps print --}}
 
 			{{-- Contact Selction --}}
+
 		{{-- Parallax Container --}}
 		<div id="seven-parallax" class="parallax" style="background-image: url('images/separator7.jpg');" data-stellar-background-ratio="0.6" data-stellar-vertical-offset="20">
 			<div class="parallax-overlay parallax-background-color">
@@ -795,7 +653,7 @@
 				</div>
 			</div>
 		</div>
-			<br>
+		<br />
 		<br />
 		<br />
 		{{-- Parallax Container --}}

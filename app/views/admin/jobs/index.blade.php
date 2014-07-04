@@ -73,7 +73,7 @@
                             <thead>
                                 <tr>
                                     <th>标题 {{ order_by('title') }}</th>
-                                    <th>应聘数 {{ order_by('resume_count') }}</th>
+                                    <th>评论数 {{ order_by('comments_count') }}</th>
                                     <th>用户 {{ order_by('user_id') }}</th>
                                     <th>创建时间 {{ order_by('created_at', 'desc') }}</th>
                                     <th style="width:7em;text-align:center;">操作</th>
@@ -88,7 +88,7 @@
                                         </a>
                                         {{ $data->title }}
                                     </td>
-                                    <td>{{ $data->resume_count }}</td>
+                                    <td>{{ $data->comments_count }}</td>
                                     <td>
                                         <a href="{{ route('users.edit', $data->user->id) }}" target="_blank">
                                             <i class="glyphicon glyphicon-user" style="font-size:0.8em;"></i>

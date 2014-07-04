@@ -19,16 +19,16 @@
 		<div class="blog-comments clearfix">
 
 			<h3>大家的看法</h3>
-			@foreach($jobs->resume as $resume)
+			@foreach($jobs->comments as $comment)
 			<div class="media comment-item">
-				<a href="#" class="pull-left"> <img src="{{ $resume->user->portrait_large }}" class="thumb img-rounded" alt=""> </a>
+				<a href="#" class="pull-left"> <img src="{{ $comment->user->portrait_large }}" class="thumb img-rounded" alt=""> </a>
 				<div class="media-body">
-					@if($resume->user->nickname)
-					<h4 class="media-heading">{{ $resume->user->nickname }} <small>发表时间： <i class="fa fa-calendar"></i> {{ $resume->friendly_created_at }}</small></h4>
+					@if($comment->user->nickname)
+					<h4 class="media-heading">{{ $comment->user->nickname }} <small>发表时间： <i class="fa fa-calendar"></i> {{ $comment->friendly_created_at }}</small></h4>
 					@else
-					<h4 class="media-heading">{{ $resume->user->email }} <small>发表时间： <i class="fa fa-calendar"></i> {{ $resume->friendly_created_at }}</small></h4>
+					<h4 class="media-heading">{{ $comment->user->email }} <small>发表时间： <i class="fa fa-calendar"></i> {{ $comment->friendly_created_at }}</small></h4>
 					@endif
-					{{ $resume->content }}
+					{{ $comment->content }}
 				</div>
 			</div>
 			@endforeach

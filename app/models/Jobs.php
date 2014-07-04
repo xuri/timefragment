@@ -38,12 +38,12 @@ class Jobs extends BaseModel
     }
 
     /**
-     * 模型对象关系：应聘者的简历
+     * 模型对象关系：招聘信息的简介
      * @return object Illuminate\Database\Eloquent\Collection
      */
-    public function resume()
+    public function comments()
     {
-        return $this->hasMany('JobsResume', 'jobs_id');
+        return $this->hasMany('JobsComment', 'jobs_id');
     }
 
     /**

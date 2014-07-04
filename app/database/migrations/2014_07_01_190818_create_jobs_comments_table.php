@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJobsResumeTable extends Migration {
+class CreateJobsCommentsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateJobsResumeTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('jobs_resume', function(Blueprint $table)
+		Schema::create('jobs_comments', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('user_id')->nullable();

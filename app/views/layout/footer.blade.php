@@ -1,4 +1,4 @@
-{{-- Back to top --}}
+		{{-- Back to top --}}
 		<a href="#" id="back-top"><i class="fa fa-angle-up fa-2x"></i></a>
 
 		<footer class="text-center">

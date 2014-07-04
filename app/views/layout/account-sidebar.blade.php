@@ -33,17 +33,7 @@
         </li>
         <li><a href="{{ route('mytravel.index') }}" class="text-left">我的去旅行</a>
         </li>
-        <li>
-            <a href="#" class="text-left dropdown-toggle" data-toggle="dropdown">
-					兼职与招聘
-					<b class="caret"></b>
-				</a>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="{{ route('account.messages') }}">我的兼职</a>
-                </li>
-                <li><a href="{{ route('account.messages') }}">我的招聘</a>
-                </li>
-            </ul>
+        <li><a href="{{ route('myjobs.index') }}" class="text-left">发布酷工作</a>
         </li>
         <li>
             <a href="#" class="text-left dropdown-toggle" data-toggle="dropdown">
@@ -54,6 +44,8 @@
                 <li><a href="{{ route('mycreative.comments') }}">创意汇评论</a>
                 </li>
                 <li><a href="{{ route('mytravel.comments') }}">去旅行评论</a>
+                </li>
+                <li><a href="{{ route('myjobs.comments') }}">酷工作评论</a>
                 </li>
             </ul>
         </li>

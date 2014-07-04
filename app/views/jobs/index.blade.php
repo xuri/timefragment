@@ -30,7 +30,7 @@
 						<span class="line"></span>
 					</div>
 					<p class="lead">
-						<a href="{{ route('myjobs.create') }}" target="_blank"><i class="fa fa-briefcase"></i> 选择一个话题</a>，全面的职位信息资源平台
+						<a href="{{ route('myjobs.create') }}" target="_blank"><i class="fa fa-briefcase"></i> 轻松发布招聘信息</a>，我们致力于构建简单、易用的职位信息资源平台
 					</p>
 				</div>
 				{{-- Section title --}}
@@ -54,7 +54,7 @@
 									@if($category->thumbnails)
 									<a class="pull-left rotate" href="{{ route('jobs.category', $category->id) }}" target="_blank"> <img class="media-object img-circle" src="{{ route('home') }}/uploads/jobs_categories_thumbnails/{{ $category->thumbnails }}" alt="{{ $category->name }}" style="width:105px; height:105;"> </a>
 									@else
-									<a class="pull-left rotate" href="{{ route('jobs.category', $category->id) }}" target="_blank"> <i class="hi-icon fa fa-rocket fa-4x media-object img-circle" style="background:#0098f9; margin:0;"></i>
+									<a class="pull-left rotate" href="{{ route('jobs.category', $category->id) }}" target="_blank"> <i class="hi-icon fa fa-briefcase fa-4x media-object img-circle" style="background:#0098f9; margin:0;"></i>
 										</a>
 									@endif
 									<div class="media-body">

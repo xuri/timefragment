@@ -50,8 +50,9 @@ class HomeController extends BaseController {
     {
         $articles   = Article::orderBy('created_at', 'desc')->paginate(6);
         $travel     = Travel::orderBy('created_at', 'desc')->paginate(4);
+        $jobs       = Jobs::orderBy('created_at', 'desc')->paginate(4);
         $categories = Category::orderBy('sort_order')->get();
-        return View::make('home.index')->with(compact('articles', 'categories', 'travel'));
+        return View::make('home.index')->with(compact('articles', 'categories', 'travel', 'jobs'));
     }
 
     /**

@@ -14,7 +14,7 @@
 				</form>
 
 			</div>
-			{{--/Search Widget --}}
+			{{-- /Search Widget --}}
 
 			{{-- Categories Widget --}}
 			<div class="widget">
@@ -38,7 +38,7 @@
 				</ul>
 
 			</div>
-			{{--/Categories Widget --}}
+			{{-- /Categories Widget --}}
 
 			{{-- Text Widget --}}
 			<div class="widget">
@@ -55,7 +55,7 @@
 				</p>
 
 			</div>
-			{{--/Text Widget --}}
+			{{-- /Text Widget --}}
 
 			{{-- Recent Posts Widget --}}
 			<div class="widget">
@@ -94,7 +94,7 @@
 				</div>
 
 			</div>
-			{{--/Recent Posts Widget --}}
+			{{-- /Recent Posts Widget --}}
 
 			{{-- Tags Widget --}}
 			<div class="widget">
@@ -142,7 +142,7 @@
 				</ul>
 
 			</div>
-			{{--/Tags Widget --}}
+			{{-- /Tags Widget --}}
 
 		</div>
 	</div>

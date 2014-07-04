@@ -2,13 +2,20 @@
 <html lang="zh-CN">
 
 	<head>
-		<title>时光碎片 | Time Fragment</title>
+		<title>
+            @section('title')
+            @show{{-- 页面标题 --}}
+        </title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta charset="UTF-8" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<meta name="description" content="TimeFragment" />
 		<meta name="author" content="Luxurioust">
+
+		<meta name="description" content="@yield('description')">{{-- 页面描述 --}}
+
+        <meta name="keywords" content="@yield('keywords')" />    {{-- 页面关键词 --}}
 
 		{{-- Favicons --}}
 
@@ -17,6 +24,10 @@
 		<link rel="apple-touch-icon" href="{{ route('home')}}/images/icon/ico-72.png" sizes="72x72">
 		<link rel="apple-touch-icon" href="{{ route('home')}}/images/icon/ico-114.png" sizes="114x114">
 		<link rel="apple-touch-icon" href="{{ route('home')}}/images/icon/ico-144.png" sizes="144x144">
+
+		@section('beforeStyle')
+        @show{{-- 页面内联样式之前 --}}
+
 		{{ HTML::style('assets/css/fonts.googleapis.css') }}
 
 		{{-- Stylesheet --}}
@@ -35,6 +46,9 @@
 
 		{{ HTML::style('assets/css/color/blu.css') }}
 
+		@section('afterStyle')
+        @show{{-- 页面内联样式之后 --}}
+
 		{{-- WARNING: Respond.js doesn't work if you view the page via file:// --}}
 
 	    <!--[if lt IE 9]>
@@ -44,3 +58,7 @@
 
 	    {{-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries --}}
 	</head>
+	@yield('body')
+
+        @section('end')
+        @show{{-- 页面主体之后 --}}

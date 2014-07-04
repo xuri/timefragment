@@ -17,7 +17,7 @@
 					<div class="section-title text-center">
 						<h1>404<i>找不到页面</i></h1>
 						<p class="lead">
-							很遗憾，您要访问的页面不存在了。
+							很遗憾，您要访问的页面不存在了。可能是由于您访问了一个错误的地址，或者这是一个过时的链接。
 						</p>
 					</div>
 					<div class="mybutton ultra">
@@ -29,7 +29,6 @@
 		<br />
 		<br />
 		{{-- Home Section --}}
-
 
 		@include('layout.footer')
 		@yield('content')
