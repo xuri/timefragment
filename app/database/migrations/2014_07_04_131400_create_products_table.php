@@ -19,6 +19,8 @@ class CreateProductsTable extends Migration {
 	        $table->string('user_id');
 	        $table->text('title', 100);
 	        $table->text('slug', 255);
+	        $table->text('province')->nullable();
+	        $table->text('city')->nullable();
 	        $table->text('content');
 	        $table->string('thumbnails')->nullable();
 	        $table->smallInteger('comments_count')->default('0');

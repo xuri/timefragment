@@ -8,7 +8,9 @@
 				<a href="#"> <i class="fa fa-google-plus fa-3x"></i> </a>
 				<a href="http://weibo.com/timebelief" target="_blank" title="关注时光碎片网新浪官方微博" alt="关注时光碎片网新浪官方微博"> <i class="fa fa-weibo fa-3x"></i> </a>
 			</div>
-			Copyright &copy; 2013 - <?php echo date('Y');?> Time Fragment All Rights Reserved. Powered by <a href="{{ route('home') }}"> <strong>timefragment.com</strong> </a>
+			<div class="copyright">
+				Copyright &copy; 2013 - <?php echo date('Y');?> <a href="{{ route('home') }}" target="_blank">TimeFragment.com</a> 版权所有. <a href="{{ route('home') }}" target="_blank">关于我们</a> | <a href="{{ route('home') }}" target="_blank">合作伙伴</a> | <a href="{{ route('home') }}" target="_blank">联系我们</a> | <a href="{{ route('home') }}" target="_blank">网站地图</a> | <a href="{{ route('home') }}" target="_blank">法律声明</a>
+			</div>
 		</footer>
 
 		{{-- Js Library --}}

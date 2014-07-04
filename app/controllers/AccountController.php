@@ -26,8 +26,6 @@ class AccountController extends BaseController
        return View::make('account.settings');
     }
 
-
-
     /**
      * 动作：修改基本信息
      * @return Response

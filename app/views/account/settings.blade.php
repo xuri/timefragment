@@ -275,7 +275,7 @@
                 <div class="form-group" style="margin: 0 0 20px -15px">
                     <label class="col-sm-2 control-label">所在地</label>
                     <div class="col-sm-10 m-t-10">
-                        <select id="home_province" class="selectpicker input-light brad" data-live-search="false" name="home_province" onchange="setcity();" rel="{{ Auth::user()->home_province }}">
+                        <select id="home_province" class="input-light brad" data-live-search="false" name="home_province" onchange="setcity();" rel="{{ Auth::user()->home_province }}">
                             <option value="">----请选择省份----</option>
                             <option value="安徽">安徽</option>
                             <option value="北京">北京</option>
@@ -314,9 +314,15 @@
                             <option value="海外">海外</option>
                         </select>
                         <div class="i-block">
-                            <select name="home_city" id="home_city" class="input-light  brad" rel="{{ Auth::user()->home_city }}" style="width: 140px">
-                                <option id="select_city">----请选择城市----</option>
+                            @if(Auth::user()->home_city)
+                            <select name="home_city" id="home_city" class="input-light brad" rel="{{ Auth::user()->home_city }}" style="width: 140px">
+                                <option value="" id="select_city">----请选择城市----</option>
                             </select>
+                            @else
+                            <select name="home_city" id="home_city" class="input-light brad" rel="{{ Auth::user()->home_city }}" style="width: 140px">
+                                <option value="">----请选择城市----</option>
+                            </select>
+                            @endif
                         </div>
                         @include('layout.notification')
                     </div>

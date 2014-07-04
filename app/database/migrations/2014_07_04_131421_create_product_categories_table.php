@@ -17,6 +17,8 @@ class CreateProductCategoriesTable extends Migration {
 			$table->increments('id');
 			$table->string('name');
 	        $table->string('sort_order');
+	        $table->text('content')->nullable();
+	        $table->string('thumbnails')->nullable();
 	        $table->timestamp('deleted_at')->nullable();
 	        $table->timestamps();
 		});
