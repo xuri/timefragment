@@ -24,7 +24,7 @@
 						<span><a href="{{ route('home') }}">时光碎片</a></span>
 						<span class="line big"></span>
 					</div>
-					<h1>乐换购</h1>
+					<h1>尚品汇</h1>
 					<div>
 						<span class="line"></span>
 						<span>全新的商品交易信息发布平台</span>

@@ -63,12 +63,13 @@ class HomeController extends BaseController {
      */
     public function getVideoIndex()
     {
-        $articles   = Article::orderBy('created_at', 'desc')->paginate(6);
-        $travel     = Travel::orderBy('created_at', 'desc')->paginate(4);
-        $product    = Product::orderBy('created_at', 'desc')->paginate(12);
-        $job        = Job::orderBy('created_at', 'desc')->paginate(4);
-        $categories = Category::orderBy('sort_order')->get();
-        return View::make('home.index')->with(compact('articles', 'categories', 'travel', 'product', 'job'));
+        $articles          = Article::orderBy('created_at', 'desc')->paginate(6);
+        $travel            = Travel::orderBy('created_at', 'desc')->paginate(4);
+        $product           = Product::orderBy('created_at', 'desc')->paginate(12);
+        $productCategories = ProductCategories::orderBy('sort_order')->get();
+        $job               = Job::orderBy('created_at', 'desc')->paginate(4);
+        $categories        = Category::orderBy('sort_order')->get();
+        return View::make('home.videoindex')->with(compact('articles', 'categories', 'travel', 'product', 'productCategories', 'job'));
     }
 
     /**

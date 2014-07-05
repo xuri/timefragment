@@ -80,20 +80,20 @@
 								<div class="section-title text-center">
 									<div>
 										<span class="line big"></span>
-										<span>Welcome to</span>
+										<span>小智慧·大人生</span>
 										<span class="line big"></span>
 									</div>
-									<h1>Time Fragment<i>Time not old, We not leave</i></h1>
+									<h1>时光碎片<i>岁月静好，年华无伤</i></h1>
 					                <div class="hidden-xs">
 					                  <span class="line"></span>
-					                  <span>Efficient use of time about the trivial</span>
+					                  <span>有关琐碎时间的高效利用</span>
 					                  <span class="line"></span>
 					                </div>
 									<p class="lead">
-										Adventure on a novel and creative.
+										时尚生活与创意设计的探索者
 									</p>
 									<div class="mybutton ultra">
-										<a class="start-button" href="#about"> <span data-hover="Discover!">Are you ready?</span> </a>
+										<a class="start-button" href="#about"> <span data-hover="关于我们">从这里开始</span> </a>
 									</div>
 								</div>
 								{{-- Section title --}}

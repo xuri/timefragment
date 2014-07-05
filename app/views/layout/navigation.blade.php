@@ -29,7 +29,7 @@
 						<a href="{{ route('portfolio') }}" class="int-collapse-menu">爱聊吧</a>
 					</li>
 					<li>
-						<a href="{{ route('product.getIndex') }}" class="int-collapse-menu">乐换购</a>
+						<a href="{{ route('product.getIndex') }}" class="int-collapse-menu">尚品汇</a>
 					</li>
 					<li>
 						<a href="{{ route('job.getIndex') }}" class="int-collapse-menu">酷工作</a>

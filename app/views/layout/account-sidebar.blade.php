@@ -47,7 +47,7 @@
                 </li>
                 <li><a href="{{ route('mytravel.comments') }}">去旅行评论</a>
                 </li>
-                <li><a href="{{ route('myproduct.comments') }}">乐换购评论</a>
+                <li><a href="{{ route('myproduct.comments') }}">尚品汇评论</a>
                 </li>
                 <li><a href="{{ route('myjob.comments') }}">酷工作评论</a>
                 </li>

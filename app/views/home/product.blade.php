@@ -9,7 +9,7 @@
 						<span>全新交易信息发布平台</span>
 						<span class="line big"></span>
 					</div>
-					<a href="{{ route('product.getIndex') }}" target="_blank"><h1 class="item_right">乐换购</h1></a>
+					<a href="{{ route('product.getIndex') }}" target="_blank"><h1 class="item_right">尚品汇</h1></a>
 					<div>
 						<span class="line"></span>
 						<span>低碳·环保·健康·绿色</span>
@@ -27,9 +27,9 @@
 			{{-- Portfolio filters --}}
 			<div class="element-line">
 				<div id="filters" class="mybutton small">
-					<a href="#" data-filter="*"><span data-hover="Show all">显示所有</span></a>
+					<a href="#" data-filter="*"><span data-hover="查看">显示所有</span></a>
 					@foreach($productCategories as $category)
-					<a href="#" data-filter=".{{ $category->name }}"><span data-hover="筛选">{{ $category->name }}</span></a>
+					<a href="#" data-filter=".{{ $category->id }}"><span data-hover="筛选">{{ $category->name }}</span></a>
 					@endforeach
 				</div>
 			</div>
@@ -38,7 +38,7 @@
 			<div id="portfolio-wrap">
 				@foreach($product as $product)
 				{{-- portfolio item --}}
-				<div class="portfolio-item photography web">
+				<div class="portfolio-item {{ $product->category_id }}">
 					<div class="portfolio">
 						<a href="{{ route('product.show', $product->slug) }}" target="_blank" class="zoom">
 

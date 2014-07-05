@@ -74,7 +74,7 @@
         </li>
         <li>
             <a href="#" class="text-left dropdown-toggle" data-toggle="dropdown">
-                    乐换购
+                    尚品汇
                     <b class="caret"></b>
                 </a>
             <ul class="dropdown-menu" role="menu">

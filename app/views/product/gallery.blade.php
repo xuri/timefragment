@@ -26,9 +26,9 @@
 					<div class="hover-items">
 						<span>
 							@if($single_product->user->nickname)
-								<i class="fa fa-bars fa-4x"></i> <em class="lead">{{ $single_product->title }}</em> <em>作者：{{ $single_product->user->nickname }}</em>
+								<i class="fa fa-bars fa-4x"></i> <em class="lead">{{ $single_product->title }}</em> <em>卖家：{{ $single_product->user->nickname }}</em>
 							@else
-								<i class="fa fa-bars fa-4x"></i> <em class="lead">{{ $single_product->title }}</em> <em>创意分类：{{ $single_product->category->name }}</em>
+								<i class="fa fa-bars fa-4x"></i> <em class="lead">{{ $single_product->title }}</em> <em>商品分类：{{ $single_product->category->name }}</em>
 							@endif
 						</span>
 					</div>
