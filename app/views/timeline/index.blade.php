@@ -19,13 +19,13 @@
 				<div class="section-title text-center">
 					<div>
 						<span class="line big"></span>
-						<span>Latest from our blog</span>
+						<a href="{{ route('home') }}"><span>时光碎片</span></a>
 						<span class="line big"></span>
 					</div>
 					<h1 class="item_right">时间线</h1>
 					<div>
 						<span class="line"></span>
-						<span>Timeline post news</span>
+						<span>记录生活点滴, 捕捉感动瞬间</span>
 						<span class="line"></span>
 					</div>
 					<p class="lead">
@@ -37,18 +37,26 @@
 				<div class="element-line">
 					<ol id="timeline">
 
+
+						@foreach($timeline as $timeline)
+
+
+
+
 						{{-- Timeline item --}}
 						<li class="timeline-item">
 							<div class="item_left">
 								<div class="well post">
 									<div class="post-info bgdark text-center">
-										<h5 class="info-date">April 9, 2013<small>10:45</small></h5>
-										<a href="#" class="box-inner rotate"> {{ HTML::image('images/user1.jpg', '', array('class' => 'img-circle img-responsive')); }} </a>
-										<h5>Henry Moon</h5>
+										<h5 class="info-date">{{ $event->created_at }}<small>10:45</small></h5>
+										<a href="#" class="box-inner rotate">
+											<img src="{{ $event->user->portrait_large }}" class="img-circle img-responsive" alt="{{ $event->user->nickname }}" title="{{ $event->user->nickname }}">
+										</a>
+										<h5>{{ $event->user->nickname }}</h5>
 									</div>
 									<div class="post-body clearfix">
 										<div class="blog-title">
-											<h1><a href="#">Post with Featured Image</a></h1>
+											<h1><a href="#">{{ $event->title }}</a></h1>
 										</div>
 										<a href="#" class="zoom">
 											{{ HTML::image('images/portfolio4.jpg', '', array('class' => 'img-responsive')); }} </a>
@@ -63,6 +71,9 @@
 							</div>
 						</li>
 						{{-- Timeline item --}}
+
+
+						@endforeach
 
 						{{-- Timeline item --}}
 						<li class="timeline-item">

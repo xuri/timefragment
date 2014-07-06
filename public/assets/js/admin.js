@@ -105,25 +105,28 @@
 		}), $("#social-feed li.livestream-twitter").each(function() {
 			var twitterIcon;
 			return twitterIcon = '<i class="fc-social-twitter"></i>', $(this).prepend(twitterIcon)
-		})), $("#events-calendar").length > 0 && (today = moment().utc().format("YYYY-MM-DD HH:MM:SS"), tomorrow = moment().utc().add("days", 1).format("YYYY-MM-DD HH:MM:SS"), someday = moment().utc().add("days", 3).format("YYYY-MM-DD HH:MM:SS"), events = [{
+		})), $("#events-calendar").length > 0 && (today = moment().utc().format("YYYY-MM-DD HH:MM:SS"), tomorrow = moment().utc().add("days", 1).format("YYYY-MM-DD HH:MM:SS"), someday = moment().utc().add("days", 3).format("YYYY-MM-DD HH:MM:SS"), events = [
+		{
 			date: today,
-			type: "meeting",
-			title: "Mattis Cras",
-			description: "Ipsum Consectetur Etiam Nibh",
-			url: "http://www.event1.com/"
-		}, {
-			date: tomorrow,
-			type: "meeting",
-			title: "Pellentesque Parturient Dolor",
-			description: "Donec ullamcorper nulla non metus auctor fringilla.",
-			url: "http://www.event1.com/"
-		}, {
-			date: someday,
-			type: "meeting",
-			title: "Ligula",
-			description: "Nulla vitae elit libero, a pharetra augue.",
-			url: "http://www.event1.com/"
-		}], $("#events-calendar").eventCalendar({
+			type: "",
+			title: "",
+			description: "",
+			url: ""
+		},
+		// {
+		// 	date: tomorrow,
+		// 	type: "meeting",
+		// 	title: "Pellentesque Parturient Dolor",
+		// 	description: "Donec ullamcorper nulla non metus auctor fringilla.",
+		// 	url: "http://www.event1.com/"
+		// }, {
+		// 	date: someday,
+		// 	type: "meeting",
+		// 	title: "Ligula",
+		// 	description: "Nulla vitae elit libero, a pharetra augue.",
+		// 	url: "http://www.event1.com/"
+		// }
+		], $("#events-calendar").eventCalendar({
 			jsonData: events,
 			jsonDateFormat: "human"
 		})), $('a[data-toggle="tab"][href="#statistics"]').length > 0 && (stats_shown = !1, $('a[data-toggle="tab"][href="#statistics"]').on("shown.bs.tab", function() {

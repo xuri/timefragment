@@ -6,17 +6,17 @@
 				<div class="section-title text-center">
 					<div>
 						<span class="line big"></span>
-						<span>Latest from our blog</span>
+						<span>记录·分享·回忆</span>
 						<span class="line big"></span>
 					</div>
-					<h1 class="item_right">时间线</h1>
+					<a href="{{ route('timeline') }}" target="_blank"><h1 class="item_right">时间线</h1></a>
 					<div>
 						<span class="line"></span>
-						<span>Timeline post news</span>
+						<span>记录生活点滴, 捕捉感动瞬间</span>
 						<span class="line"></span>
 					</div>
 					<p class="lead">
-						We're a close team of creatives, designers &amp; developers who work together to create beautiful, engaging digital experiences. We take pride in delivering only the best.
+						记录生活点滴, 捕捉感动瞬间
 					</p>
 				</div>
 				{{-- Section title --}}

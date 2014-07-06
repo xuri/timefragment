@@ -114,6 +114,14 @@ class CreativeController extends BaseResource
             $model->meta_keywords    = e($data['title']);
 
             if ($model->save()) {
+
+                $timeline              = new Timeline;
+                $timeline->slug        = $hashslug;
+                $timeline->model    = 'Creative';
+                $timeline->user_id     = Auth::user()->id;
+                $timeline->save();
+
+
                 // 添加成功
                 return Redirect::back()
                     ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续添加新'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');

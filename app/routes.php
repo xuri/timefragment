@@ -25,7 +25,7 @@ Route::group(array(), function () {
     # Homepage
     Route::get('/'        , array('as' => 'home'     , 'uses' => $controller.'getIndex'     ));
     # Homepage with Video
-    # Route::get('/'        , array('as' => 'home'     , 'uses' => $controller.'getVideoIndex'));
+    #Route::get('/'        , array('as' => 'home'     , 'uses' => $controller.'getVideoIndex'));
     # Category
     Route::get('category' , array('as' => 'category' , 'uses' => $controller.'getCategory'  ));
     # Portfolio
@@ -42,7 +42,7 @@ Route::group(array(), function () {
 */
 
 Route::group(array('prefix' => 'article'), function () {
-    $resource = 'article';
+    $resource   = 'article';
     $controller = 'ArticleController@';
     # 分类目录
     Route::get(            '/', array('as' => $resource.'.index'   , 'uses' => $controller.'index'   ));
@@ -60,7 +60,7 @@ Route::group(array('prefix' => 'article'), function () {
 */
 
 Route::group(array('prefix' => 'creative'), function () {
-    $resource = 'creative';
+    $resource   = 'creative';
     $controller = 'CreativeController@';
     # 分类创意列表
     Route::get(      '/', array('as' => $resource.'.getIndex', 'uses' => $controller.'getIndex'));
@@ -78,7 +78,7 @@ Route::group(array('prefix' => 'creative'), function () {
 */
 
 Route::group(array('prefix' => 'travel'), function () {
-    $resource = 'travel';
+    $resource   = 'travel';
     $controller = 'TravelController@';
     # 分类创意列表
     Route::get(            '/', array('as' => $resource.'.getIndex', 'uses' => $controller.'getIndex'));
@@ -98,7 +98,7 @@ Route::group(array('prefix' => 'travel'), function () {
 */
 
 Route::group(array('prefix' => 'product'), function () {
-    $resource = 'product';
+    $resource   = 'product';
     $controller = 'ProductController@';
     # 分类创意列表
     Route::get(      '/', array('as' => $resource.'.getIndex', 'uses' => $controller.'getIndex'));
@@ -116,7 +116,7 @@ Route::group(array('prefix' => 'product'), function () {
 */
 
 Route::group(array('prefix' => 'job'), function () {
-    $resource = 'job';
+    $resource   = 'job';
     $controller = 'JobController@';
     # 分类列表
     Route::get(            '/', array('as' => $resource.'.getIndex', 'uses' => $controller.'getIndex'));
@@ -127,6 +127,7 @@ Route::group(array('prefix' => 'job'), function () {
     # 提交简历
     Route::post(      '{slug}', $controller.'postComment')->before('auth');
 });
+
 
 /*
 |--------------------------------------------------------------------------

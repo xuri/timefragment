@@ -9,6 +9,8 @@ CKEDITOR.editorConfig = function( config ) {
 	config.skin = 'bootstrapck';
 	// config.uiColor = '#AADC6E';
 	config.toolbarCanCollapse = true;
+	config.toolbarStartupExpanded = false;
+
 	// Method 2
 	// var csrf = '{{csrf_token()}}' ;
 	// config.filebrowserImageUploadUrl= "{{ route($resource.'.postUploadGallery',$data->id) }}?csrf_token="+csrf;

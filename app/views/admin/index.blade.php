@@ -227,14 +227,14 @@
                                     网站运行状态
                                 </span>
 
-                            <!-- <div class="btn-group pull-right">
+                            <div class="btn-group pull-right">
                                 <div class="btn btn-alt">
                                     <i class="glyphicon glyphicon-plus text-white"></i>
                                 </div>
                                 <div class="btn btn-primary">
                                     Add
                                 </div>
-                            </div> -->
+                            </div>
 
                             <hr>
 

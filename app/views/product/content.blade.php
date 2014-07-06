@@ -5,7 +5,7 @@
 				@foreach ($product->pictures as $picture)
 				<li>
 					<img class="img-responsive img-center img-rounded" src="{{
-				 route('home')}}/uploads/product/{{ $picture->filename }}" alt="{{ $picture->product->title }}" title="{{ $picture->product->title }}" />
+				 route('home')}}/uploads/products/{{ $picture->filename }}" alt="{{ $picture->product->title }}" title="{{ $picture->product->title }}" />
 				</li>
 				@endforeach
 			</ul>

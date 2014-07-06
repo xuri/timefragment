@@ -39,7 +39,16 @@ class HomeController extends BaseController {
 
     public function getTimeline()
     {
-       return View::make('home.timeline');
+       $timeline = Timeline::orderBy('created_at', 'desc')->get();
+       foreach ($timeline as $event)
+       {
+           $user_id = $event->user_id;
+           $slug    = $event->slug;
+           $model= $event->model;
+        $event           = $model::where('slug', $slug)->first();
+
+       }
+       return View::make('timeline.index')->with(compact('timeline','event'));
     }
 
     /**

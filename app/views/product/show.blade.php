@@ -32,7 +32,7 @@
 
 					@if($product->user->nickname)
 					<p class="lead">
-						来自 {{ $product->user->nickname }} 的创意，发布于{{ $product->friendly_created_at }}
+						卖家 {{ $product->user->nickname }} 出售的商品，发布于{{ $product->friendly_created_at }}
 					</p>
 					@else
 					<p class="lead">
