@@ -1653,7 +1653,7 @@ footer .social-icon a:hover {
 /*
  *! @ Custom Style
  */
-.media-heading a, .media-heading a:hover, .pager .puls li > a, .pager .puls li > a:hover, p.lead a, p.lead a:hover, .service-items a, .service-items a:hover, .service-items h3, .service-items h3:hover, footer div.copyright a, footer div.copyright a:hover{
+.media-heading a, .media-heading a:hover, .pager .puls li > a, .pager .puls li > a:hover, p.lead a, p.lead a:hover, .service-items a, .service-items a:hover, .service-items h3, .service-items h3:hover, footer div.copyright a, footer div.copyright a:hover, .blog-title a, .blog-title a:hover, .section-title span a, .section-title span a:hover{
 	-webkit-transition: all 0.2s ease-in-out;
 	-moz-transition: all 0.2s ease-in-out;
 	-o-transition: all 0.2s ease-in-out;
@@ -1680,4 +1680,11 @@ footer div.copyright a {
 }
 footer div.copyright a:hover {
 	color:#333;
+}
+
+.section-title span a{
+	color: #7C7C7C;
+}
+.section-title span a:hover{
+	color: #222;
 }

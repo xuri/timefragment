@@ -20,7 +20,7 @@
 				<div class="section-title text-center">
 					<div>
 						<span class="line big"></span>
-						<a href="{{ route('home') }}"><span>时光碎片</span></a>
+						<span><a href="{{ route('home') }}">时光碎片</a></span>
 						<span class="line big"></span>
 					</div>
 					<h1 class="item_right">去旅行</h1>
