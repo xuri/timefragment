@@ -15,7 +15,7 @@ class CreateTimelineTable extends Migration {
 		Schema::create('timeline', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('user_id')->nullable();
+			$table->string('user_id');
 	        $table->text('model');
 	        $table->text('slug');
 	        $table->timestamp('deleted_at')->nullable();
@@ -30,7 +30,7 @@ class CreateTimelineTable extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('timeline');
 	}
 
 }

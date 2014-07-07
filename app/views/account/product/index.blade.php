@@ -48,7 +48,9 @@
                         </a>
                     </div>
 
-                    <hr>
+                    <div class="p-lr-30 p-tb-10 pm-lr-10">
+                        @include('layout.notification')
+                    </div>
 
                     <div class="table-responsive p-lr-30 p-tb-10 pm-lr-10">
                         <table class="table table-striped table-bordered table-hover">
@@ -67,7 +69,7 @@
                                         <a href="{{ route('product.show', $data->slug) }}" target="_blank">
                                             <i class="glyphicon glyphicon-share" style="font-size:0.8em;"></i>
                                         </a>
-                                        {{ $data->title }}
+                                        [{{ $data->province }} · {{ $data->city }}] {{ $data->title }}
                                     </td>
                                     <td>{{ $data->comments_count }}</td>
                                     <td>{{ $data->created_at }}（{{ $data->friendly_created_at }}）</td>

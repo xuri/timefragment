@@ -20,27 +20,61 @@
 					</p>
 				</div>
 				{{-- Section title --}}
-
+				@if(Auth::user())
 				<div class="element-line">
 					<ol id="timeline">
 
+
+						@foreach($timeline as $event)
+						<?php
+							$user_id = $event->user_id;
+						    $slug    = $event->slug;
+						    $model   = $event->model;
+						    $event   = $model::where('slug', $slug)->first();
+
+						    if($model = "Creative")
+						    {
+						        $show = 'creative.show';
+						        $uploads = 'uploads/creative/';
+						    }
+						    elseif ($model = "Travel")
+						    {
+						        $show = 'travel.show';
+						    }
+						    elseif ($model = "Product")
+						    {
+						        $show = 'product.show';
+						    }
+						    elseif ($model = "Job")
+						    {
+						        $show = 'job.show';
+						    }
+						?>
 						{{-- Timeline item --}}
 						<li class="timeline-item">
-							<div class="item_left">
+							<div>
 								<div class="well post">
 									<div class="post-info bgdark text-center">
-										<h5 class="info-date">April 9, 2013<small>10:45</small></h5>
-										<a href="blog-details.html" class="box-inner rotate"> <img class="img-circle img-responsive" src="images/user1.jpg" alt=""> </a>
-										<h5>Henry Moon</h5>
+										<h5 class="info-date">{{ date("M d, Y",strtotime($event->created_at)) }}<small>{{ date("H:m",strtotime($event->created_at)) }}</small></h5>
+										<a href="#" class="box-inner rotate">
+											<img src="
+											 {{ $event->user->portrait_large }}" class="img-circle img-responsive" alt="{{ $event->user->nickname }}" title="{{ $event->user->nickname }}">
+										</a>
+										<h5>{{ $event->user->nickname }}</h5>
 									</div>
 									<div class="post-body clearfix">
 										<div class="blog-title">
-											<h1><a href="blog-details.html">Post with Featured Image</a></h1>
+											<h1><a href="{{ route($show, $event->slug) }}" target="_blank">{{ $event->title }}</a></h1>
 										</div>
-										<a href="blog-details.html" class="zoom"> <img src="images/portfolio4.jpg" class="img-responsive" alt=""> </a>
-										<div class="post-text">
+										@if($event->thumbnails)
+										<a href="#" class="zoom">
+											{{ HTML::image($uploads.$event->thumbnails, '', array('class' => 'img-responsive')); }}
+										</a>
+										@else
+										@endif
+										<div class="post-text" style="text-align: left;">
 											<p class="lead">
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+												{{ close_tags(Str::limit($event->content, 200)) }}
 											</p>
 										</div>
 									</div>
@@ -49,136 +83,11 @@
 							</div>
 						</li>
 						{{-- Timeline item --}}
-
-						{{-- Timeline item --}}
-						<li class="timeline-item">
-							<div class="item_right">
-								<div class="well post">
-									<div class="post-info bgdark text-center">
-										<h5 class="info-date">April 15, 2013<small>08:30</small></h5>
-										<a href="blog-details.html" class="box-inner rotate"> <img class="img-circle img-responsive" src="images/user2.jpg" alt=""> </a>
-										<h5>Ispiration</h5>
-									</div>
-									<div class="post-body clearfix">
-										<div class="blog-title">
-											<h1><a href="blog-details.html">Post with a Carousel slider image</a></h1>
-										</div>
-										<div class="flexslider">
-											<ul class="slides">
-
-												{{-- Timeline item slide --}}
-												<li>
-													<a href="blog-details.html" class="zoom"> <img class="img-center img-responsive" src="images/blog2.jpg" alt=""/> </a>
-												</li>
-												{{-- Timeline item slide --}}
-
-												{{-- Timeline item slide --}}
-												<li>
-													<a href="blog-details.html" class="zoom"> <img class="img-center img-responsive" src="images/blog3.jpg" alt=""/> </a>
-												</li>
-												{{-- Timeline item slide --}}
-
-												{{-- Timeline item slide --}}
-												<li>
-													<a href="blog-details.html" class="zoom"> <img class="img-center img-responsive" src="images/blog4.jpg" alt=""/> </a>
-												</li>
-												{{-- Timeline item slide --}}
-
-											</ul>
-										</div>
-										<div class="post-text">
-											<p>
-												Ut non velit tortor. Aliquam dictum mattis leo, vel <strong>laoreet</strong> turpis viverra sit amet. Integer fermentum augue at risus pretium id porttitor nisi pulvinar. Aliquam imperdiet quam ligula. Nulla facilisi. Duis eu arcu magna. Etiam neque leo, sodales eget ornare mollis, posuere a felis.
-											</p>
-										</div>
-									</div>
-									<div class="post-arrow"></div>
-								</div>
-							</div>
-						</li>
-						{{-- Timeline item --}}
-
-						{{-- Timeline item --}}
-						<li class="timeline-item">
-							<div class="item_left">
-								<div class="well post">
-									<div class="post-info bgdark text-center">
-										<h5 class="info-date">April 17, 2013<small>22:06</small></h5>
-										<a href="blog-details.html" class="box-inner rotate"> <img class="img-circle img-responsive" src="images/user3.jpg" alt=""> </a>
-										<h5>Squirrels LLC</h5>
-									</div>
-									<div class="post-body clearfix">
-										<div class="blog-title">
-											<h1><a href="blog-details.html">Post blog text only</a></h1>
-										</div>
-										<div class="post-text">
-											<p class="lead">
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-											</p>
-											<p>
-												Ut non velit tortor. Aliquam dictum mattis leo, vel <strong>laoreet</strong> turpis viverra sit amet. Integer fermentum augue at risus pretium id porttitor nisi pulvinar. Aliquam imperdiet quam ligula. Nulla facilisi. Duis eu arcu magna. Etiam neque leo, sodales eget ornare mollis, posuere a felis.
-											</p>
-										</div>
-									</div>
-									<div class="post-arrow"></div>
-								</div>
-							</div>
-						</li>
-						{{-- Timeline item --}}
-
-						{{-- Timeline item --}}
-						<li class="timeline-item">
-							<div class="item_right">
-								<div class="well post">
-									<div class="post-info bgdark text-center">
-										<h5 class="info-date">April 23, 2013<small>00:57</small></h5>
-										<a href="blog-details.html" class="box-inner rotate"> <img class="img-circle img-responsive" src="images/user4.jpg" alt=""> </a>
-										<h5>Juwan Lim</h5>
-									</div>
-									<div class="post-body clearfix">
-										<div class="blog-title">
-											<h1><a href="blog-details.html">Post with Featured Image</a></h1>
-										</div>
-										<a href="blog-details.html" class="zoom"> <img src="images/portfolio11.jpg" class="img-responsive" alt=""> </a>
-										<div class="post-text">
-											<p class="lead">
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-											</p>
-										</div>
-									</div>
-									<div class="post-arrow"></div>
-								</div>
-							</div>
-						</li>
-						{{-- Timeline item --}}
-
-						{{-- Timeline item --}}
-						<li class="timeline-item">
-							<div class="item_left">
-								<div class="well post">
-									<div class="post-info bgdark text-center">
-										<h5 class="info-date">April 27, 2013<small>06:17</small></h5>
-										<a href="blog-details.html" class="box-inner rotate"> <img class="img-circle img-responsive" src="images/user5.jpg" alt=""> </a>
-										<h5>Joonmo Kang</h5>
-									</div>
-									<div class="post-body clearfix">
-										<div class="blog-title">
-											<h1><a href="blog-details.html">Post with Featured Image</a></h1>
-										</div>
-										<a href="blog-details.html" class="zoom"> <img src="images/blog5.jpg" class="img-responsive" alt=""> </a>
-										<div class="post-text">
-											<p class="lead">
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-											</p>
-										</div>
-									</div>
-									<div class="post-arrow"></div>
-								</div>
-							</div>
-						</li>
-						{{-- Timeline item --}}
+						@endforeach
 					</ol>
 				</div>
+				@else
+				@endif
 
 			</div>
 		</section>

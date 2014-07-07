@@ -20,7 +20,7 @@
 				<div class="section-title text-center">
 					<div>
 						<span class="line big"></span>
-						<span><a href="{{ route('product.getIndex') }}">时光碎片·尚品汇</a></span>
+						<span><a href="{{ route('product.getIndex') }}">时光碎片 · 尚品汇</a></span>
 						<span class="line big"></span>
 					</div>
 					<h1>{{ $product->title }}</h1>

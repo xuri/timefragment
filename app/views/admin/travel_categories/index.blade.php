@@ -53,6 +53,10 @@
                         </a>
                     </div>
 
+                    <div class="p-lr-30 p-tb-10 pm-lr-10">
+                        @include('layout.notification')
+                    </div>
+
                     <div class="table-responsive p-lr-30 p-tb-10 pm-lr-10">
                         <table class="table table-striped table-bordered table-hover">
                             <thead>

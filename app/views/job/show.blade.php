@@ -20,7 +20,7 @@
 				<div class="section-title text-center">
 					<div>
 						<span class="line big"></span>
-						<span><a href="{{ route('job.getIndex') }}">时光碎片·酷工作</a></span>
+						<span><a href="{{ route('job.getIndex') }}">时光碎片 · 酷工作</a></span>
 						<span class="line big"></span>
 					</div>
 					<h1>{{ $job->title }}</h1>

@@ -62,7 +62,7 @@
                                         @if($comment->product)
                                         <a href="{{ route('product.show', $comment->product->slug) }}" target="_blank">
                                             <i class="glyphicon glyphicon-share" style="font-size:0.8em;"></i>
-                                        </a> [{{ $comment->product->location }}] {{ $comment->product->title }}
+                                        </a> [{{ $comment->product->province }}·{{ $comment->product->city }}] {{ $comment->product->title }}
                                         @else
                                         此商品已下架
                                         @endif

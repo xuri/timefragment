@@ -35,7 +35,7 @@
 
                     </div>
 
-                     <div class="btn-group m-l-30">
+                    <div class="btn-group m-l-30">
                         {{ pagination($datas->appends(Input::except('page')), 'layout.paginator') }}
                     </div>
 
@@ -43,6 +43,10 @@
                         <a href="{{ route($resource.'.create') }}" class="btn btn-bordered text-gray-alt">
                             分享新文章
                         </a>
+                    </div>
+
+                    <div class="p-lr-30 p-tb-10 pm-lr-10">
+                        @include('layout.notification')
                     </div>
                 </div>
             </div>

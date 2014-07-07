@@ -128,6 +128,19 @@ Route::group(array('prefix' => 'job'), function () {
     Route::post(      '{slug}', $controller.'postComment')->before('auth');
 });
 
+/*
+|--------------------------------------------------------------------------
+| Timeline Routes
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::group(array('prefix' => 'timeline', 'before' => 'auth'), function () {
+    $resource   = 'timeline';
+    $controller = 'TimelineController@';
+    # Timeline Index
+    Route::get('/', array('as' => $resource.'.getIndex', 'uses' => $controller.'getIndex'));
+});
 
 /*
 |--------------------------------------------------------------------------

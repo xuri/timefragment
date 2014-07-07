@@ -53,6 +53,10 @@
                         </a>
                     </div>
 
+                    <div class="p-lr-30 p-tb-10 pm-lr-10">
+                        @include('layout.notification')
+                    </div>
+
                     <div class="m-30 mail-nav">
                         {{ Form::open(array('method' => 'get', 'class' => 'form-horizontal')) }}
                             {{
@@ -86,7 +90,7 @@
                                         <a href="{{ route('product.show', $data->slug) }}" target="_blank">
                                             <i class="glyphicon glyphicon-share" style="font-size:0.8em;"></i>
                                         </a>
-                                        {{ $data->title }}
+                                        [{{ $data->province }} · {{ $data->city }}] {{ $data->title }}
                                     </td>
                                     <td>{{ $data->comments_count }}</td>
                                     <td>

@@ -23,6 +23,10 @@ body {
 	line-height: 1.5em;
 	overflow-x: hidden;
 }
+
+a {
+	font-family: 'Raleway','Microsoft YaHei', '微软雅黑', 'STXihei', '华文细黑', 'WenQuanYi Micro Hei', sans-serif;
+}
 a:focus {
 	outline: none;
 	text-decoration: none;
@@ -43,6 +47,9 @@ a:hover {
 iframe {
 	border: 0;
 }
+p {
+	font-family: 'Raleway','Microsoft YaHei', '微软雅黑', 'STXihei', '华文细黑', 'WenQuanYi Micro Hei', sans-serif;
+}
 p.lead {
 	color: #7c7c7c;
 }
@@ -50,7 +57,7 @@ p.lead {
 
 h1, h2, h3, h4, h5, h6, .section-title, .form-group label {
 	color: #222;
-	font-family: 'Raleway', sans-serif, 'STXihei', "WenQuanYi Micro Hei";
+	font-family: 'Raleway', 'STXihei', '华文细黑', 'WenQuanYi Micro Hei', sans-serif;
 }
 
 blockquote {
@@ -1156,6 +1163,7 @@ div.mc-image {
 }
 .form-group .form-control.input-lg {
 	font-size: 14px;
+	font-family: 'Raleway', 'STXihei', '华文细黑', 'WenQuanYi Micro Hei', sans-serif;
 }
 .form-group .form-control.error, .form-group .form-control.error:focus {
 	border: 1px solid #DEDEDE;

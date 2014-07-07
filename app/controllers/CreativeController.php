@@ -112,15 +112,14 @@ class CreativeController extends BaseResource
             $model->meta_title       = e($data['title']);
             $model->meta_description = e($data['title']);
             $model->meta_keywords    = e($data['title']);
+            $model->save();
 
-            if ($model->save()) {
+            $timeline                = new Timeline;
+            $timeline->slug          = $hashslug;
+            $timeline->model         = 'Creative';
+            $timeline->user_id       = Auth::user()->id;
 
-                $timeline              = new Timeline;
-                $timeline->slug        = $hashslug;
-                $timeline->model    = 'Creative';
-                $timeline->user_id     = Auth::user()->id;
-                $timeline->save();
-
+            if ($timeline->save()) {
 
                 // 添加成功
                 return Redirect::back()
@@ -167,8 +166,7 @@ class CreativeController extends BaseResource
             'content'      => 'required',
             'category'     => 'exists:creative_categories,id',
         );
-        $slug = Input::input('title');
-        $hashslug = date('H.i.s').'-'.md5($slug).'.html';
+
         // 自定义验证消息
         $messages = $this->validatorMessages;
         // 开始验证
@@ -181,11 +179,11 @@ class CreativeController extends BaseResource
             $model->user_id          = Auth::user()->id;
             $model->category_id      = $data['category'];
             $model->title            = e($data['title']);
-            $model->slug             = $hashslug;
             $model->content          = e($data['content']);
             $model->meta_title       = e($data['title']);
             $model->meta_description = e($data['title']);
             $model->meta_keywords    = e($data['title']);
+            $model->save();
 
             if ($model->save()) {
                 // 更新成功
@@ -219,7 +217,12 @@ class CreativeController extends BaseResource
             $model      = $this->model->find($id);
             $thumbnails = $model->thumbnails;
             File::delete(public_path('uploads/creative_thumbnails/'.$thumbnails));
+
+            $timeline = Timeline::where('slug', $model->slug)->where('user_id', Auth::user()->id)->first();
+            $timeline->delete();
+
             $data->delete();
+
             return Redirect::back()->with('success', $this->resourceName.'删除成功。');
         }
         else
