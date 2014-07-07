@@ -161,9 +161,9 @@ class Admin_CreativeResource extends BaseResource
         // 创建验证规则
         $rules  = array(
             'title'        => 'required',
-            'content'      => 'required',
-            'category'     => 'exists:creative_categories,id',
             'slug'         => 'required|'.$this->unique('slug', $id),
+            'category'     => 'exists:creative_categories,id',
+            'content'      => 'required',
         );
 
         $model = $this->model->find($id);

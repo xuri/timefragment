@@ -166,7 +166,6 @@ class CreativeController extends BaseResource
             'content'      => 'required',
             'category'     => 'exists:creative_categories,id',
         );
-
         // 自定义验证消息
         $messages = $this->validatorMessages;
         // 开始验证

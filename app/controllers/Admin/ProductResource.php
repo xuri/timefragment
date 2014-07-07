@@ -116,8 +116,13 @@ class Admin_ProductResource extends BaseResource
             $model->meta_title       = e($data['title']);
             $model->meta_description = e($data['title']);
             $model->meta_keywords    = e($data['title']);
+            $model->save();
 
-            if ($model->save()) {
+            $timeline                = new Timeline;
+            $timeline->slug          = $hashslug;
+            $timeline->model         = 'Product';
+            $timeline->user_id       = Auth::user()->id;
+            if ($timeline->save()) {
                 // 添加成功
                 return Redirect::back()
                     ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续添加新'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
@@ -161,11 +166,12 @@ class Admin_ProductResource extends BaseResource
         $rules  = array(
             'title'        => 'required',
             'content'      => 'required',
+            'slug'         => 'required|'.$this->unique('slug', $id),
             'category'     => 'exists:product_categories,id',
             'province'     => 'required',
         );
-        $slug = Input::input('title');
-        $hashslug = date('H.i.s').'-'.md5($slug).'.html';
+        $model = $this->model->find($id);
+        $oldSlug = $model->slug;
         // 自定义验证消息
         $messages = $this->validatorMessages;
         // 开始验证
@@ -180,13 +186,17 @@ class Admin_ProductResource extends BaseResource
             $model->title            = e($data['title']);
             $model->province         = e($data['province']);
             $model->city             = e($data['city']);
-            $model->slug             = $hashslug;
+            $model->slug             = e($data['slug']);
             $model->content          = e($data['content']);
             $model->meta_title       = e($data['title']);
             $model->meta_description = e($data['title']);
             $model->meta_keywords    = e($data['title']);
+            $model->save();
 
-            if ($model->save()) {
+            $timeline = Timeline::where('slug', $oldSlug)->where('user_id', Auth::user()->id)->first();
+            $timeline->slug = e($data['slug']);
+
+            if ($timeline->save()) {
                 // 更新成功
                 return Redirect::back()
                     ->with('success', '<strong>'.$this->resourceName.'更新成功：</strong>您可以继续编辑'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
@@ -218,6 +228,10 @@ class Admin_ProductResource extends BaseResource
             $model      = $this->model->find($id);
             $thumbnails = $model->thumbnails;
             File::delete(public_path('uploads/product_thumbnails/'.$thumbnails));
+
+            $timeline = Timeline::where('slug', $model->slug)->where('user_id', Auth::user()->id)->first();
+            $timeline->delete();
+
             $data->delete();
             return Redirect::back()->with('success', $this->resourceName.'删除成功。');
         }

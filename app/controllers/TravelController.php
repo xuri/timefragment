@@ -112,8 +112,13 @@ class TravelController extends BaseResource
             $model->meta_title       = e($data['title']);
             $model->meta_description = e($data['title']);
             $model->meta_keywords    = e($data['title']);
+            $model->save();
 
-            if ($model->save()) {
+            $timeline                = new Timeline;
+            $timeline->slug          = $hashslug;
+            $timeline->model         = 'Travel';
+            $timeline->user_id       = Auth::user()->id;
+            if ($timeline->save()) {
                 // 添加成功
                 return Redirect::back()
                     ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续添加新'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
@@ -159,8 +164,6 @@ class TravelController extends BaseResource
             'content'      => 'required',
             'category'     => 'exists:travel_categories,id',
         );
-        $slug = Input::input('title');
-        $hashslug = date('H.i.s').'-'.md5($slug).'.html';
         // 自定义验证消息
         $messages = $this->validatorMessages;
         // 开始验证
@@ -173,7 +176,6 @@ class TravelController extends BaseResource
             $model->user_id          = Auth::user()->id;
             $model->category_id      = $data['category'];
             $model->title            = e($data['title']);
-            $model->slug             = $hashslug;
             $model->content          = e($data['content']);
             $model->meta_title       = e($data['title']);
             $model->meta_description = e($data['title']);
@@ -211,7 +213,12 @@ class TravelController extends BaseResource
             $model      = $this->model->find($id);
             $thumbnails = $model->thumbnails;
             File::delete(public_path('uploads/travel_large_thumbnails/'.$thumbnails));
+
+            $timeline = Timeline::where('slug', $model->slug)->where('user_id', Auth::user()->id)->first();
+            $timeline->delete();
+
             $data->delete();
+
             return Redirect::back()->with('success', $this->resourceName.'删除成功。');
         }
         else
@@ -259,7 +266,7 @@ class TravelController extends BaseResource
 
         $models              = new TravelPictures;
         $models->filename    = $hashname;
-        $models->travel_id = $id;
+        $models->travel_id   = $id;
         $models->user_id     = Auth::user()->id;
         $models->save();
 
