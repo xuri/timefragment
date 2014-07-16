@@ -116,9 +116,13 @@ margin-top: 1.6em;
 }
 
 button.facebookLogin {
-position: relative;
-padding: 0 0 0 2.4em;
-background-color: #3B5998;
+	position: relative;
+	padding: 0 0 0 1.9em;
+	background-color: #d91c00;
+/* Facebook Login
+	padding: 0 0 0 2.4em;
+	background-color: #3B5998;
+*/
 }
 
 #loginForm button.facebookLogin {
@@ -130,7 +134,10 @@ margin-top: 0;
 }
 
 button.facebookLogin:hover {
-background-color: #4668b3;
+	background-color: #ea3200;
+/* Facebook Login
+	background-color: #4668b3;
+*/
 }
 
 button.facebookLogin:focus {

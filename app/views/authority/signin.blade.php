@@ -13,8 +13,8 @@
             <fieldset>
                 <p>
                     <button type="button" id="facebookLoginButton" class="facebookLogin" style="color: #fff;">
-                        <i class="fa fa-facebook fa-2x facebookSignupButton"></i>
-                        使用FaceBook账号登陆
+                        <i class="fa fa-weibo fa-2x facebookSignupButton"></i>
+                        使用新浪微博账号登陆
                     </button>
                 </p>
                 <p class="or">

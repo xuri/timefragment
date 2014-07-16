@@ -13,8 +13,8 @@
                 <p>
 
                     <button type="button" id="facebookSignupButton" class="facebookLogin" style="color: #fff;">
-                        <i class="fa fa-facebook fa-2x facebookSignupButton"></i>
-                       连接 FaceBook
+                        <i class="fa fa-weibo fa-2x facebookSignupButton"></i>
+                       连接新浪微博
                     </button>
                 </p>
                 <p class="or">
