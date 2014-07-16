@@ -31,7 +31,7 @@
 					</div>
 					@if($travel->user->nickname)
 					<p class="lead">
-						来自 {{ $travel->user->nickname }} 的创意，发布于{{ $travel->friendly_created_at }}
+						来自 {{ $travel->user->nickname }} 的分享，发布于{{ $travel->friendly_created_at }}
 					</p>
 					@else
 					<p class="lead">

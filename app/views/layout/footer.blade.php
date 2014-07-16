@@ -3,10 +3,18 @@
 
 		<footer class="text-center">
 			<div class="social-icon">
-				<a href="#"> <i class="fa fa-facebook fa-3x"></i> </a>
-				<a href="#"> <i class="fa fa-twitter fa-3x"></i> </a>
-				<a href="#"> <i class="fa fa-google-plus fa-3x"></i> </a>
-				<a href="http://weibo.com/timebelief" target="_blank" title="关注时光碎片网新浪官方微博" alt="关注时光碎片网新浪官方微博"> <i class="fa fa-weibo fa-3x"></i> </a>
+				<a href="https://www.facebook.com/timebelief" target="_blank" title="关注时光碎片网Facebook专页" alt="关注时光碎片网Facebook专页">
+					<i class="fa fa-facebook fa-3x"></i>
+				</a>
+				<a href="https://twitter.com/timefragment" target="_blank" title="关注时光碎片网的官方Twitter" alt="关注时光碎片网的官方Twitter">
+					<i class="fa fa-twitter fa-3x"></i>
+				</a>
+				<a href="https://plus.google.com/110276394392356638418/" target="_blank" title="关注时光碎片网Google+" alt="关注时光碎片网Google+">
+					<i class="fa fa-google-plus fa-3x"></i>
+				</a>
+				<a href="http://weibo.com/timebelief" target="_blank" title="关注时光碎片网新浪官方微博" alt="关注时光碎片网新浪官方微博">
+					<i class="fa fa-weibo fa-3x"></i>
+				</a>
 			</div>
 			<div class="copyright">
 				Copyright &copy; 2013 - <?php echo date('Y');?> <a href="{{ route('home') }}" target="_blank">TimeFragment.com</a> All rights reserved. <a href="{{ route('home') }}" target="_blank">关于我们</a> | <a href="{{ route('home') }}" target="_blank">合作伙伴</a> | <a href="{{ route('home') }}" target="_blank">联系我们</a> | <a href="{{ route('home') }}" target="_blank">网站地图</a> | <a href="{{ route('home') }}" target="_blank">法律声明</a>

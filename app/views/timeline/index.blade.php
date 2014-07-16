@@ -36,8 +36,6 @@
 
 				<div class="element-line">
 					<ol id="timeline">
-
-
 						@foreach($timeline as $event)
 						<?php
 							$user_id = $event->user_id;
@@ -45,23 +43,28 @@
 						    $model   = $event->model;
 						    $event   = $model::where('slug', $slug)->first();
 
-						    if($model = "Creative")
-						    {
-						        $show = 'creative.show';
-						        $uploads = 'uploads/creative/';
-						    }
-						    elseif ($model = "Travel")
-						    {
-						        $show = 'travel.show';
-						    }
-						    elseif ($model = "Product")
-						    {
-						        $show = 'product.show';
-						    }
-						    elseif ($model = "Job")
-						    {
-						        $show = 'job.show';
-						    }
+							switch ($model)
+							{
+								case "Creative":
+									$show = 'creative.show';
+									$uploads = 'uploads/creative/';
+								break;
+								case "Travel":
+									$show = 'travel.show';
+									$uploads = 'uploads/travel/';
+								break;
+								case "Product":
+									$show = 'product.show';
+							        $uploads = 'uploads/products/';
+								break;
+								case "Job":
+									$show = 'job.show';
+							        $uploads = 'uploads/jobs/';
+								break;
+								default:
+									$show = 'none';
+									$uploads = 'none';
+							}
 						?>
 						{{-- Timeline item --}}
 						<li class="timeline-item">
