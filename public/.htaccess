@@ -2,11 +2,11 @@
 # BEGIN
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteBase /~luxurioust/laravel/public/
+RewriteBase /
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /~luxurioust/laravel/public/index.php [L]
+RewriteRule . /index.php [L]
 </IfModule>
 
 # END
