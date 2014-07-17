@@ -9,7 +9,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<meta name="description" content="TimeFragment" />
 		<meta name="author" content="Luxurioust">
-
+		<html xmlns:wb="http://open.weibo.com/wb">
+		<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1484148882" type="text/javascript" charset="utf-8"></script>
 		{{-- Favicons --}}
 
 		<link rel="shortcut icon" href="{{ route('home')}}/images/icon/ico-16.ico" sizes="16x16">

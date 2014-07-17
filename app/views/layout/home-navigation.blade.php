@@ -21,6 +21,7 @@
 				<li><a href="#job" class="int-collapse-menu">酷工作</a></li>
 				<li><a href="#timeline" class="int-collapse-menu">时间线</a></li>
 				<li><a href="#contact" class="int-collapse-menu">联系我们</a></li>
+				<li><a><wb:login-button type="3,2" onlogin="login" onlogout="logout">登录按钮</wb:login-button></a></li>
 				@if(Auth::guest()){{--游客--}}
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">登陆 / 注册 <i class="fa fa-angle-down"></i></a>
