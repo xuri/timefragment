@@ -219,4 +219,71 @@ class AuthorityController extends BaseController
         }
     }
 
+    /**
+     * Action：Oauth 2.0 API
+     * @return Response
+     */
+    public function getOauthSignup()
+    {
+        header("Content-type:text/html;charset=utf-8");
+        session_start();
+
+        include_once( app_path('api/config.php') );
+        include_once( app_path('api/saetv2.ex.class.php') );
+
+        $o = new SaeTOAuthV2( WB_AKEY , WB_SKEY );
+
+        if (isset($_REQUEST['code'])) {
+            $keys                 = array();
+            $keys['code']         = $_REQUEST['code'];
+            $keys['redirect_uri'] = WB_CALLBACK_URL;
+            try {
+                $token = $o->getAccessToken( 'code', $keys ) ;
+            } catch (OAuthException $e) {
+            }
+        }
+
+        if ($token) {
+            $_SESSION['token'] = $token;
+            setcookie( 'weibojs_'.$o->client_id, http_build_query($token) );
+
+            $c            = new SaeTClientV2( WB_AKEY , WB_SKEY , $_SESSION['token']['access_token'] );
+            $ms           = $c->home_timeline(); // done
+            $uid_get      = $c->get_uid();
+            $uid          = $uid_get['uid'];
+            $user_message = $c->show_user_by_id($uid);//根据ID获取用户等基本信息
+            $nickname     = $user_message['screen_name'];
+            $password     = $_SESSION['token']['access_token'];
+            $credentials  = array('email' => $uid, 'password' => $password);
+
+            if (Auth::attempt($credentials))
+            {
+                // 登录成功，跳回之前被拦截的页面
+                return Redirect::intended();
+            } else {
+                $user           = new User;
+                $user->email    = $uid;
+                $user->password = $_SESSION['token']['access_token'];
+                $user->nickname = $nickname;
+                $user->save();
+                return View::make('authority.oauthSuccess');
+            }
+
+        } else {
+           return View::make('signup')
+            ->withErrors(array('add' => '注册失败。'));;
+        }
+
+    }
+
+    /**
+    * 页面：注册成功，提示激活
+    * @param  string $email 用户注册的邮箱
+    * @return Response
+    */
+    public function getOauthSuccess()
+    {
+        return View::make('authority.oauthSuccess');
+    }
+
 }

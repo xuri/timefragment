@@ -161,6 +161,10 @@ Route::group(array('prefix' => 'auth'), function () {
         # Signup
         Route::get('signup'                   , array('as' => 'signup'        , 'uses' => $Authority.'getSignup'        ));
         Route::post('signup'                  , $Authority.'postSignup');
+        # Oauth Signup
+        Route::get('oauth-signup'             , array('as' => 'oauth-signup'  , 'uses' => $Authority.'getOauthSignup'   ));
+        # ApiSignupSuccess
+        Route::get('oauth-success'            , array('as' => 'oauth-success' , 'uses' => $Authority.'getOauthSuccess'  ));
         # SignupSuccess
         Route::get('success/{email}'          , array('as' => 'signupSuccess' , 'uses' => $Authority.'getSignupSuccess' ));
         # Activation Account

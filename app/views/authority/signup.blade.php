@@ -1,3 +1,13 @@
+<?php
+header("Content-type:text/html;charset=utf-8");
+session_start();
+
+include_once( app_path('api/config.php') );
+include_once( app_path('api/saetv2.ex.class.php') );
+$o = new SaeTOAuthV2( WB_AKEY , WB_SKEY );
+$code_url = $o->getAuthorizeURL( WB_CALLBACK_URL );
+
+?>
 @include('layout.authority-header')
 @yield('content')
     <body class="dark">
@@ -11,11 +21,11 @@
             <fieldset id="message" class="message"></fieldset>
             <fieldset id="intro">
                 <p>
-
-                    <button type="button" id="facebookSignupButton" class="facebookLogin" style="color: #fff;">
-                        <i class="fa fa-weibo fa-2x facebookSignupButton"></i>
-                       连接新浪微博
-                    </button>
+                    <a href="<?php echo $code_url ?>">
+                        <button type="button" id="facebookSignupButton" class="facebookLogin" style="color: #fff;">
+                            <i class="fa fa-weibo fa-2x facebookSignupButton"></i>连接新浪微博
+                        </button>
+                    </a>
                 </p>
                 <p class="or">
                     或者
