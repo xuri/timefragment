@@ -220,7 +220,7 @@ class AuthorityController extends BaseController
     }
 
     /**
-     * Action：Oauth 2.0 API
+     * Action：Oauth 2.0 Signup
      * @return Response
      */
     public function getOauthSignup()
@@ -277,8 +277,8 @@ class AuthorityController extends BaseController
     }
 
     /**
-    * 页面：注册成功，提示激活
-    * @param  string $email 用户注册的邮箱
+    * View: Oauth Success
+    * @param  string
     * @return Response
     */
     public function getOauthSuccess()
