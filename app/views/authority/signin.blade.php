@@ -2,8 +2,8 @@
 header("Content-type:text/html;charset=utf-8");
 session_start();
 
-include_once( app_path('api/config.php') );
-include_once( app_path('api/saetv2.ex.class.php') );
+include_once( app_path('api/weibo/config.php') );
+include_once( app_path('api/weibo/saetv2.ex.class.php') );
 $o = new SaeTOAuthV2( WB_AKEY , WB_SKEY );
 $code_url = $o->getAuthorizeURL( WB_CALLBACK_URL );
 
@@ -23,9 +23,14 @@ $code_url = $o->getAuthorizeURL( WB_CALLBACK_URL );
             <fieldset>
                 <p>
                     <a href="<?php echo $code_url ?>">
-                        <button type="button" id="facebookLoginButton" class="facebookLogin" style="color: #fff;">
+                        <button type="button" id="facebookLoginButton" class="oauthLogin weiboLogin" style="color: #fff;">
                             <i class="fa fa-weibo fa-2x facebookSignupButton"></i>
                             使用新浪微博账号登陆
+                        </button>
+                    </a>
+                    <a href="<?php echo $code_url ?>">
+                        <button type="button" id="facebookSignupButton" class="oauthLogin qqLogin" style="color: #fff;">
+                            <i class="fa fa-qq fa-2x facebookSignupButton"></i>使用腾讯QQ账号登陆
                         </button>
                     </a>
                 </p>

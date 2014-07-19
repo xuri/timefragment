@@ -27,7 +27,7 @@
         {{ HTML::style('assets/css/style-2.css') }}
 
         {{ style('bootstrap-3.0.3') }}
-        {{ style('font-awesome-4.0.3') }}
+        {{ style('font-awesome-4.1.0') }}
         {{ HTML::style('assets/css/fonts.googleapis.css') }}
         {{ HTML::style('assets/css/main.css') }}
         {{ HTML::style('assets/css/style-responsive.css') }}

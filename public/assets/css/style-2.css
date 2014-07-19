@@ -110,41 +110,29 @@ form .or:after {
 content: ' –';
 }
 
-.facebookLogin {
+.oauthLogin {
 margin-top: 1.6em;
 margin-top: 1.6em;
 }
 
-button.facebookLogin {
+button.oauthLogin {
 	position: relative;
 	padding: 0 0 0 1.9em;
-	background-color: #d91c00;
-/* Facebook Login
-	padding: 0 0 0 2.4em;
-	background-color: #3B5998;
-*/
 }
 
-#loginForm button.facebookLogin {
+#loginForm button.oauthLogin {
 width: 15em;
 }
 
-#signupForm button.facebookLogin {
+#signupForm button.oauthLogin {
 margin-top: 0;
 }
 
-button.facebookLogin:hover {
-	background-color: #ea3200;
-/* Facebook Login
-	background-color: #4668b3;
-*/
-}
-
-button.facebookLogin:focus {
+button.oauthLogin:focus {
 background-color: #00c4cc;
 }
 
-button.facebookLogin:before {
+button.oauthLogin:before {
 content: '';
 position: absolute;
 left: 0;
@@ -154,6 +142,21 @@ height: 40px;
 border-right: 1px solid rgba(0,0,0,0.25);
 background-position: 55% 50%;
 box-shadow: 1px 0 0 rgba(255,255,255,0.15);
+}
+
+/* Custom Login Button ========================================= */
+
+button.weiboLogin {
+	background-color: #d91c00;
+}
+button.qqLogin {
+	background-color: #3B5998;
+}
+button.weiboLogin:hover {
+	background-color: #ea3200;
+}
+button.qqLogin:hover {
+	background-color: #4668b3;
 }
 
 i.facebookSignupButton

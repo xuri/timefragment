@@ -228,8 +228,8 @@ class AuthorityController extends BaseController
         header("Content-type:text/html;charset=utf-8");
         session_start();
 
-        include_once( app_path('api/config.php') );
-        include_once( app_path('api/saetv2.ex.class.php') );
+        include_once( app_path('api/weibo/config.php') );
+        include_once( app_path('api/weibo/saetv2.ex.class.php') );
 
         $o = new SaeTOAuthV2( WB_AKEY , WB_SKEY );
 
@@ -270,7 +270,7 @@ class AuthorityController extends BaseController
             }
 
         } else {
-           return View::make('signup')
+           return View::make('authority.signup')
             ->withErrors(array('add' => '注册失败。'));;
         }
 
@@ -285,5 +285,37 @@ class AuthorityController extends BaseController
     {
         return View::make('authority.oauthSuccess');
     }
+
+    /**
+     * Action：Oauth QQ
+     * @return Response
+     */
+    public function getOauthQQ()
+    {
+        include_once( app_path('api/qq/qqConnectAPI.php' ));
+        $qc = new QC();
+
+        $callback     = $qc->qq_callback();
+        $openid       = $qc->get_openid();
+        $access_token =  $qc->get_access_token();
+        $arr          = $qc->get_user_info();
+        $nickname     = $arr["nickname"];
+        $credentials  = array('email' => $openid, 'password' => $access_token);
+
+        if (Auth::attempt($credentials))
+        {
+            // 登录成功，跳回之前被拦截的页面
+            return Redirect::intended();
+        } else {
+            $user           = new User;
+            $user->email    = $openid;
+            $user->password = $access_token;
+            $user->nickname = $nickname;
+            $user->save();
+            return View::make('authority.oauthQQ');
+        }
+
+    }
+
 
 }

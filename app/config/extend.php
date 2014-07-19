@@ -26,7 +26,7 @@ return array(
             'bootstrap-select'               => 'assets/bootstrap-select/css/bootstrap-select.min.css',
             'bootstrap-markdown'             => 'assets/bootstrap-markdown/css/bootstrap-markdown.min.css',
 
-            'font-awesome-4.0.3'             => 'assets/font-awesome-4.0.3/css/font-awesome.min.css',
+            'font-awesome-4.1.0'             => 'assets/font-awesome-4.1.0/css/font-awesome.min.css',
             'flexslider-2.2'                 => 'assets/flexslider-2.2/flexslider.css',
             'normalize-3.0.1'                => 'assets/normalize-3.0.1/normalize-3.0.1.css',
 

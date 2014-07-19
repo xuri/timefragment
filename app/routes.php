@@ -163,8 +163,10 @@ Route::group(array('prefix' => 'auth'), function () {
         Route::post('signup'                  , $Authority.'postSignup');
         # Oauth Signup
         Route::get('oauth-signup'             , array('as' => 'oauth-signup'  , 'uses' => $Authority.'getOauthSignup'   ));
+        # Oauth QQ Signup
+        Route::get('oauth-qq'                 , array('as' => 'oauth-qq'      , 'uses' => $Authority.'getOauthQQ'       ));
         # Oauth Success
-        Route::get('oauth-success'            , array('as' => 'oauth-success' , 'uses' => $Authority.'getOauthSuccess'  ));
+        Route::get('oauth-success'            , array('as' => 'oauth-success' , 'uses' => $Authority.'getOauthSuccess', 'before' => 'auth' ));
         # SignupSuccess
         Route::get('success/{email}'          , array('as' => 'signupSuccess' , 'uses' => $Authority.'getSignupSuccess' ));
         # Activation Account
