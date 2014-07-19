@@ -297,7 +297,7 @@ class AuthorityController extends BaseController
         $callback     = $qc->qq_callback();
         $openid       = $qc->get_openid();
 
-        $qc = new QC();
+        $qc = new QC($callback,$openid);
         $access_token = $qc->get_access_token();
         $arr          = $qc->get_user_info();
         $nickname     = $arr["nickname"];
