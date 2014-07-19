@@ -294,10 +294,11 @@ class AuthorityController extends BaseController
     {
         include_once( app_path('api/qq/qqConnectAPI.php' ));
         $qc = new QC();
-
         $callback     = $qc->qq_callback();
         $openid       = $qc->get_openid();
-        $access_token =  $qc->get_access_token();
+
+        $qc = new QC();
+        $access_token = $qc->get_access_token();
         $arr          = $qc->get_user_info();
         $nickname     = $arr["nickname"];
         $credentials  = array('email' => $openid, 'password' => $access_token);
