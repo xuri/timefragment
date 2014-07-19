@@ -23,6 +23,12 @@
 ```
 git update-index --assume-unchanged app/config/mail.php
 git update-index --no-assume-unchanged app/config/mail.php
+
+git update-index --assume-unchanged app/api/qq/comm/inc.php
+git update-index --no-assume-unchanged app/api/qq/comm/inc.php
+
+git update-index --assume-unchanged app/api/weibo/config.php
+git update-index --no-assume-unchanged app/api/weibo/config.php
 ```
 
 ###Preview
