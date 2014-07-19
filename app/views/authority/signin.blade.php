@@ -28,7 +28,7 @@ $code_url = $o->getAuthorizeURL( WB_CALLBACK_URL );
                             使用新浪微博账号登陆
                         </button>
                     </a>
-                    <a href="<?php echo $code_url ?>">
+                    <a href="{{ route('home') }}/oauth-qq.php">
                         <button type="button" id="facebookSignupButton" class="oauthLogin qqLogin" style="color: #fff;">
                             <i class="fa fa-qq fa-2x facebookSignupButton"></i>使用腾讯QQ账号登陆
                         </button>
