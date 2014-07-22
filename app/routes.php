@@ -164,7 +164,7 @@ Route::group(array('prefix' => 'auth'), function () {
         # Oauth Signup
         Route::get('oauth-signup'             , array('as' => 'oauth-signup'  , 'uses' => $Authority.'getOauthSignup'   ));
         # Oauth QQ Signup
-        Route::get('oauth-qq'                 , array('as' => 'oauth-qq'      , 'uses' => $Authority.'getOauthQQ',      'before' => 'auth' ));
+        Route::get('oauth-qq'                 , array('as' => 'oauth-qq'      , 'uses' => $Authority.'getOauthQQ'       ));
         # Oauth Success
         Route::get('oauth-success'            , array('as' => 'oauth-success' , 'uses' => $Authority.'getOauthSuccess', 'before' => 'auth' ));
         # SignupSuccess
