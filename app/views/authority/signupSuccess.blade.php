@@ -15,9 +15,6 @@
                 <p>&ldquo;时光不老，我们不散&rdquo;
                     <cite>&ndash; 时光碎片</cite>
                 </p>
-                <p>&ldquo;编织梦想，程就未来&rdquo;
-                    <cite>&ndash; luxurioust</cite>
-                </p>
             </fieldset>
         </form>
 

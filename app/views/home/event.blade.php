@@ -16,7 +16,7 @@
 						<span class="line"></span>
 					</div>
 					<p class="lead">
-						记录生活点滴, 捕捉感动瞬间
+						时光不老，我们不散
 					</p>
 				</div>
 				{{-- Section title --}}

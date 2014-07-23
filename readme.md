@@ -32,6 +32,6 @@ git update-index --no-assume-unchanged app/api/weibo/config.php
 ```
 
 ###Preview
-![TimeFragment](/readme/preview-1024x576.jpg "TimeFragment")
+![TimeFragment](/public/readme/preview-1024x576.jpg "TimeFragment")
 
 [More Info](http://xuri.me/2014/03/08/timefragment.html)

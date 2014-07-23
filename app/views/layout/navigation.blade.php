@@ -25,9 +25,11 @@
 					<li>
 						<a href="{{ route('travel.getIndex') }}" class="int-collapse-menu">去旅行</a>
 					</li>
+					{{--
 					<li>
 						<a href="{{ route('portfolio') }}" class="int-collapse-menu">爱聊吧</a>
 					</li>
+					--}}
 					<li>
 						<a href="{{ route('product.getIndex') }}" class="int-collapse-menu">尚品汇</a>
 					</li>

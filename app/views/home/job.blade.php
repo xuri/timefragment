@@ -64,9 +64,9 @@
 						<div class="col-md-3 col-sm-3 col-xs-12">
 							<div class="element-line">
 								<div class="item_top">
-									<a href="#"> <i class="fa fa-smile-o fa-5x"></i> <h3>找兼职</h3> </a>
+									<a href="#"> <i class="fa fa-thumbs-o-up fa-5x"></i> <h3>全职招聘信息</h3> </a>
 									<p>
-										给就就职者全面的兼职信息，愿您在这里找到合适的职位。
+										这里有海量的全职招聘信息，是专门为求职者服务的平台，总有一个职位属于你。
 									</p>
 								</div>
 							</div>
@@ -77,9 +77,9 @@
 						<div class="col-md-3 col-sm-3 col-xs-12">
 							<div class="element-line">
 								<div class="item_top">
-									<a href="#"> <i class="fa fa-bullhorn fa-5x"></i> <h3>招聘信息发布</h3> </a>
+									<a href="#"> <i class="fa fa-puzzle-piece fa-5x"></i> <h3>兼职招聘信息</h3> </a>
 									<p>
-										为企业提供人才招聘、人才网、猎头、培训、测评和人事外包在内的全方位的人力资源服务。
+										每天更新大量最新兼职招聘信息，为企业及个人免费提供兼职招聘信息搜索服务。
 									</p>
 								</div>
 							</div>
@@ -90,9 +90,9 @@
 						<div class="col-md-3 col-sm-3 col-xs-12">
 							<div class="element-line">
 								<div class="item_bottom">
-									<a href="#"> <i class="fa fa-thumbs-o-up fa-5x"></i> <h3>酷工作</h3> </a>
+									<a href="#"> <i class="fa fa-smile-o fa-5x"></i> <h3>实习工作机会</h3> </a>
 									<p>
-										为您提供最全最新最准确的企业职位招聘信息。
+										为正在寻找实习机会的在校学生提供方便、实用、高效的实习机会查询平台。
 									</p>
 								</div>
 							</div>
@@ -103,9 +103,9 @@
 						<div class="col-md-3 col-sm-3 col-xs-12">
 							<div class="element-line">
 								<div class="item_right">
-									<a href="#"> <i class="fa fa-check-circle-o fa-5x"></i> <h3>全面保护</h3> </a>
+									<a href="#"> <i class="fa fa-bullhorn fa-5x"></i> <h3>发布职位信息</h3> </a>
 									<p>
-										无论是招聘方还是受聘者，无论是出售方还是买家都享有担保，让您更放心。
+										为您提供人才招聘、猎头、培训、测评和人事外包在内的全方位的人力资源服务。
 									</p>
 								</div>
 							</div>
