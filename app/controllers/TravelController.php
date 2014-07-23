@@ -61,9 +61,9 @@ class TravelController extends BaseResource
                 break;
         }
         // 构造查询语句
-        $query = $this->model->orderBy($orderColumn, $direction);
+        $query = $this->model->orderBy($orderColumn, $direction)->where('user_id', Auth::user()->id)->paginate(15);
         isset($title) AND $query->where('title', 'like', "%{$title}%");
-        $datas = $query->paginate(15);
+        $datas = $query;
         return View::make($this->resourceView.'.index')->with(compact('datas'));
     }
 
