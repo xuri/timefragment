@@ -1,4 +1,4 @@
-/bootstrap/compiled.php
+bootstrap/compiled.php
 /vendor
 composer.phar
 composer.lock
@@ -8,3 +8,9 @@ composer.lock
 Thumbs.db
 public/portrait/*
 public/uploads/*
+# Config
+app/config/database.php
+app/config/email.php
+# OAuth API
+app/api/qq/comm/inc.php
+app/api/weibo/config.php
