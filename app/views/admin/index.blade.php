@@ -25,185 +25,50 @@
                         <p class="m-b-30 p-b-30 text-gray-alt text-uppercase text-center col-lg-8 col-lg-offset-2">这里是网站系统的管理员控制面板，负责整个系统的资源管理。</p>
                     </div>
 
-                    <div class="row">
+                    <div class="col-sm-7">
 
-                        <div class="col-sm-6 m-b-30">
-
-                            <div class="pos-rel">
-                                <div class="iconmelon m-r-10">
-                                    <svg viewBox="0 0 32 32">
-                                        <g filter="">
-                                            <use xlink:href="#receipt-shopping"></use>
-                                        </g>
-                                    </svg>
-                                </div>
-
-                                <span class="text-gray-dark text-large align-with-button pos-abs hidden-xs">
-                                        新增注册用户
-                                    </span>
-                                <span class="hidden-sm hidden-md hidden-lg text-gray-dark text-large align-with-button pos-abs ">
-                                        新增注册用户
-                                    </span>
-
-
-                                <div class="btn-group pull-right">
-                                    <button class="btn btn-primary">
-                                        <i class="glyphicon glyphicon-list text-white"></i>
-                                    </button>
+                        <div class="col-sm-6">
+                            <div class="pricing-table">
+                                <div class="bg-gray-dark table-top-wrapper"></div>
+                                <div class="bg-white p-30">
+                                    <div class="text-large text-center">创意汇</div>
+                                    <hr class="m-t-0 m-b-10">
+                                    <a href="{{ route('mycreative.create') }}" class="btn btn-primary btn-block btn-lg">分享新创意</a>
                                 </div>
                             </div>
-
-                            <hr class="m-b-0">
-
-
-                            <div id="tasks-list" class="tasks-wrapper">
-                                <ul class="unstyled messages">
-
-                                    <li>
-                                        <a href="index.html#" class="p-tb-10 pm-lr-10 p-l-10">
-                                            <span class="avatar">
-                                                {{ HTML::image('images/avatars/8.jpg', '', array('class' => 'img-circle retina')); }}
-                                            </span>
-                                            <span class="author hidden-xs">Victor Benson</span>
-                                            <span class="subject">
-                                                <i class="glyphicon glyphicon-star m-r-10 text-gray-light"></i>
-                                                And I was getting a tattoo during the death from above.
-                                            </span>
-                                            <span class="date"><span class="text-gray-dark">2</span> days ago</span>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="index.html#" class="p-tb-10 pm-lr-10 p-l-10">
-                                            <span class="avatar">
-                                                {{ HTML::image('images/avatars/8.jpg', '', array('class' => 'img-circle retina')); }}
-                                            </span>
-                                            <span class="author hidden-xs">Victor Benson</span>
-                                            <span class="subject">
-                                                <i class="glyphicon glyphicon-star m-r-10 text-gray-light"></i>
-                                                And I was getting a tattoo during the death from above.
-                                            </span>
-                                            <span class="date"><span class="text-gray-dark">2</span> days ago</span>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="index.html#" class="p-tb-10 pm-lr-10 p-l-10">
-                                            <span class="avatar">
-                                                {{ HTML::image('images/avatars/8.jpg', '', array('class' => 'img-circle retina')); }}
-                                            </span>
-                                            <span class="author hidden-xs">Victor Benson</span>
-                                            <span class="subject">
-                                                <i class="glyphicon glyphicon-star m-r-10 text-gray-light"></i>
-                                                And I was getting a tattoo during the death from above.
-                                            </span>
-                                            <span class="date"><span class="text-gray-dark">2</span> days ago</span>
-                                        </a>
-                                    </li>
-
-
-                                    <li>
-                                        <a href="index.html#" class="p-tb-10 pm-lr-10 p-l-10">
-                                            <span class="avatar">
-                                                {{ HTML::image('images/avatars/8.jpg', '', array('class' => 'img-circle retina')); }}
-                                            </span>
-                                            <span class="author hidden-xs">Victor Benson</span>
-                                            <span class="subject">
-                                                <i class="glyphicon glyphicon-star m-r-10 text-gray-light"></i>
-                                                And I was getting a tattoo during the death from above.
-                                            </span>
-                                            <span class="date"><span class="text-gray-dark">2</span> days ago</span>
-                                        </a>
-                                    </li>
-                                </ul>
-
-                            </div>
-
                         </div>
 
                         <div class="col-sm-6">
-                            {{-- Social Stream --}}
-                            <div class="iconmelon m-r-10">
-                                <svg viewBox="0 0 32 32">
-                                    <g filter="">
-                                        <use xlink:href="#bubble-love-talk"></use>
-                                    </g>
-                                </svg>
+                            <div class="pricing-table">
+                                <div class="bg-gray-dark table-top-wrapper"></div>
+                                <div class="bg-white p-30">
+                                    <div class="text-large text-center">去旅行</div>
+                                    <hr class="m-t-0 m-b-10">
+                                    <a href="{{ route('mytravel.create') }}" class="btn btn-primary btn-block btn-lg">撰写新文章</a>
+                                </div>
                             </div>
+                        </div>
 
-                            <span class="text-gray-dark text-large align-with-button pos-abs hidden-xs">
-                                    待处理信息
-                                </span>
-                            <span class="hidden-sm hidden-md hidden-lg text-gray-dark text-large align-with-button ">
-                                    待处理信息
-                                </span>
-
-                            <div class="btn-group pull-right">
-                                <button class="btn btn-primary">
-                                    <i class="glyphicon glyphicon-list text-white"></i>
-                                </button>
+                        <div class="col-sm-6">
+                            <div class="pricing-table">
+                                <div class="bg-gray-dark table-top-wrapper"></div>
+                                <div class="bg-white p-30">
+                                    <div class="text-large text-center">尚品汇</div>
+                                    <hr class="m-t-0 m-b-10">
+                                    <a href="{{ route('myproduct.create') }}" class="btn btn-primary btn-block btn-lg">发布商品信息</a>
+                                </div>
                             </div>
+                        </div>
 
-                            <hr class="m-b-0">
-
-                            <ul class="unstyled messages">
-                                <li>
-                                    <a href="message-single.html" class="p-tb-10 p-l-10 pm-lr-10">
-                                        <span class="avatar">
-                                                {{ HTML::image('images/avatars/4.jpg', '', array('class' => 'img-circle retina')); }}
-                                            </span>
-                                        <span class="author hidden-xs m-r-1">Eddie Mcgee</span>
-                                        <span class="subject">
-                                                <i class="glyphicon glyphicon-star m-r-10 text-orange"></i>
-                                                This product is meant for educational purposes only. Any resemblance to real persons, living or dead is purely coincidental.
-                                            </span>
-                                        <span class="date"><span class="text-gray-dark">23</span> minutes ago</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index.html#" class="p-tb-10 pm-lr-10 p-l-10">
-                                        <span class="avatar">
-                                                {{ HTML::image('images/avatars/6.jpg', '', array('class' => 'img-circle retina')); }}
-                                            </span>
-                                        <span class="author hidden-xs">Timmy Osborne</span>
-                                        <span class="subject">
-                                                <i class="glyphicon glyphicon-star m-r-10 text-gray-light"></i>
-                                                Own yo' eget tortizzle. Sizzle erizzle.
-                                            </span>
-                                        <span class="date">Today <span class="text-gray-dark">1:05pm</span></span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="index.html#" class="p-tb-10 pm-lr-10 p-l-10">
-                                        <span class="avatar">
-                                                {{ HTML::image('images/avatars/7.jpg', '', array('class' => 'img-circle retina')); }}
-                                            </span>
-                                        <span class="author hidden-xs">Doug Ross</span>
-                                        <span class="subject">
-                                                <i class="glyphicon glyphicon-star m-r-10 text-gray-light"></i>
-                                                Children of the sun, see your time has just begun, searching for your ways, through adventures every day.
-                                            </span>
-                                        <span class="date">Yesterday <span class="text-gray-dark">2:23pm</span></span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="index.html#" class="p-tb-10 pm-lr-10 p-l-10">
-                                        <span class="avatar">
-                                                {{ HTML::image('images/avatars/8.jpg', '', array('width' => '25', 'class' => 'img-circle retina')); }}
-                                            </span>
-                                        <span class="author hidden-xs">Victor Benson</span>
-                                        <span class="subject">
-                                                <i class="glyphicon glyphicon-star m-r-10 text-gray-light"></i>
-                                                And I was getting a tattoo during the death from above.
-                                            </span>
-                                        <span class="date"><span class="text-gray-dark">2</span> days ago</span>
-                                    </a>
-                                </li>
-
-                            </ul>
-
+                        <div class="col-sm-6">
+                            <div class="pricing-table">
+                                <div class="bg-gray-dark table-top-wrapper"></div>
+                                <div class="bg-white p-30">
+                                    <div class="text-large text-center">酷工作</div>
+                                    <hr class="m-t-0 m-b-10">
+                                    <a href="{{ route('myjob.create') }}" class="btn btn-primary btn-block btn-lg">发布招聘信息</a>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -221,27 +86,15 @@
                             </div>
 
                             <span class="text-gray-dark text-large align-with-button hidden-xs">
-                                    网站运行状态
+                                    日历
                                 </span>
                             <span class="hidden-lg hidden-md hidden-sm text-gray-dark text-large align-with-button">
-                                    网站运行状态
+                                    日历
                                 </span>
-
-                            <div class="btn-group pull-right">
-                                <div class="btn btn-alt">
-                                    <i class="glyphicon glyphicon-plus text-white"></i>
-                                </div>
-                                <div class="btn btn-primary">
-                                    Add
-                                </div>
-                            </div>
-
                             <hr>
 
-                            <!-- <div class="cal1" id="events-calendar"></div> -->
+                            <div class="cal1" id="events-calendar"></div>
                         </div>
-
-
 
                     </div>
                 </div>

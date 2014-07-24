@@ -1,4 +1,4 @@
-<div class="col-md-3 .col-md-push-9">
+<!-- <div class="col-md-3 .col-md-push-9">
 	<div class="element-line">
 		<div id="sidebar">
 
@@ -146,4 +146,4 @@
 
 		</div>
 	</div>
-</div>
+</div> -->

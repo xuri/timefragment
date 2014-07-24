@@ -16,16 +16,19 @@
 			return 13 === e.keyCode ? (addMessage($(this).val(), !0), $(this).val("")) : void 0
 		}), $("#chat-toggle").on("click", function() {
 			return $(".messenger-body").toggleClass("open"), $("#chat-toggle .glyphicon").toggleClass("glyphicon-chevron-down glyphicon-chevron-up")
-		})), $("#inbox-page").length > 0 && $.notify("You've got 4 new messages", "success", {
-			autoHide: !0,
-			autoHideDelay: 5e3,
-			arrowShow: !1
-		}),
-		$("#dashboard-page").length > 0 && $.notify('欢迎回来 ' + $(".text-gray-light").html(), "info", {
-			autoHide: !0,
-			autoHideDelay: 5e3,
-			arrowShow: !1
-		}),
+		})),
+		// Messages Notification
+		// $("#inbox-page").length > 0 && $.notify("You've got 4 new messages", "success", {
+		// 	autoHide: !0,
+		// 	autoHideDelay: 5e3,
+		// 	arrowShow: !1
+		// }),
+		// Welcome Notification
+		// $("#dashboard-page").length > 0 && $.notify('欢迎回来 ' + $(".text-gray-light").html(), "info", {
+		// 	autoHide: !0,
+		// 	autoHideDelay: 5e3,
+		// 	arrowShow: !1
+		// }),
 		$(".mosaicflow__item").each(function() {
 			var path, pathConfig, s;
 			return s = Snap(this.querySelector("svg")), path = s.select("path"), pathConfig = {

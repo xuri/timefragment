@@ -29,13 +29,13 @@
             </ul>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li>
+            <!-- <li>
                 <a href="messages.html">
                     <span class="glyphicon glyphicon-envelope"></span>
                     <span class="text-white circle-12px bg-orange text-small text-center icon-counter">4</span>
                     <span class="hidden-sm hidden-xs">系统通知</span>
                 </a>
-            </li>
+            </li> -->
             <li class="dropdown">
                 <ul class="dropdown-menu">
                     <li><a href="{{ route('account') }}">仪表盘</a>

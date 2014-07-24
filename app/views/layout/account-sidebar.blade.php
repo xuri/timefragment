@@ -23,12 +23,12 @@
     <ul class="unstyled nav">
         <li><a href="{{ route('account') }}" class="text-left">仪表盘</a>
         </li>
-        <li>
+        <!-- <li>
             <a href="{{ route('account.messages') }}" class="text-left">
 				信息中心
 				<span class="badge bg-blue-light pull-right text-gray-dark brad-small">4</span>
 			</a>
-        </li>
+        </li> -->
         <li><a href="{{ route('mycreative.index') }}" class="text-left">我的创意汇</a>
         </li>
         <li><a href="{{ route('mytravel.index') }}" class="text-left">我的去旅行</a>
@@ -66,9 +66,9 @@
         </li>
     </ul>
 
-    <div class="bg-gray-dark-shade text-left search">
+    <!-- <div class="bg-gray-dark-shade text-left search">
         <i class="glyphicon glyphicon-search text-gray-alt"></i>
         <input type="text" placeholder="站内搜索" class="input-invisible">
-    </div>
+    </div> -->
 
 </div>

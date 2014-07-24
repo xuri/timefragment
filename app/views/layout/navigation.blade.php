@@ -40,7 +40,7 @@
 						<a href="{{ route('timeline') }}" class="int-collapse-menu">时间线</a>
 					</li>
 					<li>
-						<a href="{{ route('category') }}" class="int-collapse-menu">联系我们</a>
+						<a href="{{ route('home') }}#contact" class="int-collapse-menu">联系我们</a>
 					</li>
 					@if(Auth::guest()){{--游客--}}
 					<li class="dropdown">
