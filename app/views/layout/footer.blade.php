@@ -17,7 +17,7 @@
 				</a>
 			</div>
 			<div class="copyright">
-				Copyright &copy; 2013 - <?php echo date('Y');?> <a href="{{ route('home') }}" target="_blank">TimeFragment.com</a> All rights reserved. <a href="{{ route('home') }}" target="_blank">关于我们</a> | <a href="{{ route('home') }}" target="_blank">合作伙伴</a> | <a href="{{ route('home') }}" target="_blank">联系我们</a> | <a href="{{ route('home') }}" target="_blank">网站地图</a> | <a href="{{ route('home') }}" target="_blank">服务条款</a>
+				Copyright &copy; 2013 - <?php echo date('Y');?> <a href="{{ route('home') }}" target="_blank">TimeFragment.com</a> All rights reserved. <a href="{{ route('home') }}" target="_blank">关于我们</a> | <a href="{{ route('home') }}" target="_blank">合作伙伴</a> | <a href="{{ route('home') }}" target="_blank">联系我们</a> | <a href="{{ route('home') }}/article/users-terms.html" target="_blank">服务条款</a> | <a href="{{ route('home') }}/article/users-privacy.html" target="_blank">隐私权政策</a>
 			</div>
 		</footer>
 
