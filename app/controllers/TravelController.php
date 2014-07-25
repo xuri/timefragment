@@ -3,37 +3,37 @@
 class TravelController extends BaseResource
 {
     /**
-     * 资源视图目录
+     * Resource view directory
      * @var string
      */
     protected $resourceView = 'account.travel';
 
     /**
-     * 资源模型名称，初始化后转为模型实例
+     * Model name of the resource, after initialization to a model instance
      * @var string|Illuminate\Database\Eloquent\Model
      */
     protected $model = 'Travel';
 
     /**
-     * 资源标识
+     * Resource identification
      * @var string
      */
     protected $resource = 'mytravel';
 
     /**
-     * 资源数据库表
+     * Resource database tables
      * @var string
      */
     protected $resourceTable = 'travel';
 
     /**
-     * 资源名称（中文）
+     * Resource name (Chinese)
      * @var string
      */
     protected $resourceName = '去旅行';
 
     /**
-     * 自定义验证消息
+     * Custom validation message
      * @var array
      */
     protected $validatorMessages = array(
@@ -45,22 +45,22 @@ class TravelController extends BaseResource
     );
 
     /**
-     * 资源列表页面
+     * Resource list view
      * GET         /resource
      * @return Response
      */
     public function index()
     {
-        // 获取排序条件
+        // Get sort conditions
         $orderColumn = Input::get('sort_up', Input::get('sort_down', 'created_at'));
         $direction   = Input::get('sort_up') ? 'asc' : 'desc' ;
-        // 获取搜索条件
+        // Get search conditions
         switch (Input::get('target')) {
             case 'title':
                 $title = Input::get('like');
                 break;
         }
-        // 构造查询语句
+        // Construct query statement
         $query = $this->model->orderBy($orderColumn, $direction)->where('user_id', Auth::user()->id)->paginate(15);
         isset($title) AND $query->where('title', 'like', "%{$title}%");
         $datas = $query;
@@ -68,7 +68,7 @@ class TravelController extends BaseResource
     }
 
     /**
-     * 资源创建页面
+     * Resource create view
      * GET         /resource/create
      * @return Response
      */
@@ -79,15 +79,15 @@ class TravelController extends BaseResource
     }
 
     /**
-     * 资源创建动作
+     * Resource create action
      * POST        /resource
      * @return Response
      */
     public function store()
     {
-        // 获取所有表单数据.
+        // Get all form data.
         $data   = Input::all();
-        // 创建验证规则
+        // Create validation rules
         $unique = $this->unique();
         $rules  = array(
             'title'        => 'required|'.$unique,
@@ -96,13 +96,13 @@ class TravelController extends BaseResource
         );
         $slug      = Input::input('title');
         $hashslug  = date('H.i.s').'-'.md5($slug).'.html';
-        // 自定义验证消息
+        // Custom validation message
         $messages  = $this->validatorMessages;
-        // 开始验证
+        // Begin verification
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->passes()) {
-            // 验证成功
-            // 添加资源
+            // Verification success
+            // Add resource
             $model                   = $this->model;
             $model->user_id          = Auth::user()->id;
             $model->category_id      = $data['category'];
@@ -119,23 +119,23 @@ class TravelController extends BaseResource
             $timeline->model         = 'Travel';
             $timeline->user_id       = Auth::user()->id;
             if ($timeline->save()) {
-                // 添加成功
+                // Add success
                 return Redirect::back()
                     ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续添加新'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
             } else {
-                // 添加失败
+                // Add fail
                 return Redirect::back()
                     ->withInput()
                     ->with('error', '<strong>'.$this->resourceName.'添加失败。</strong>');
             }
         } else {
-            // 验证失败
+            // Verification fail
             return Redirect::back()->withInput()->withErrors($validator);
         }
     }
 
     /**
-     * 资源编辑页面
+     * Resource edit view
      * GET         /resource/{id}/edit
      * @param  int  $id
      * @return Response
@@ -149,29 +149,29 @@ class TravelController extends BaseResource
     }
 
     /**
-     * 资源编辑动作
+     * Resource edit action
      * PUT/PATCH   /resource/{id}
      * @param  int  $id
      * @return Response
      */
     public function update($id)
     {
-        // 获取所有表单数据.
+        // Get all form data.
         $data = Input::all();
-        // 创建验证规则
+        // Create validation rules
         $rules  = array(
             'title'        => 'required',
             'content'      => 'required',
             'category'     => 'exists:travel_categories,id',
         );
-        // 自定义验证消息
+        // Custom validation message
         $messages = $this->validatorMessages;
-        // 开始验证
+        // Begin verification
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->passes()) {
 
-            // 验证成功
-            // 更新资源
+            // Verification success
+            // Update resource
             $model = $this->model->find($id);
             $model->user_id          = Auth::user()->id;
             $model->category_id      = $data['category'];
@@ -182,23 +182,23 @@ class TravelController extends BaseResource
             $model->meta_keywords    = e($data['title']);
 
             if ($model->save()) {
-                // 更新成功
+                // Update success
                 return Redirect::back()
-                    ->with('success', '<strong>'.$this->resourceName.'更新成功：</strong>您可以继续编辑'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
+                    ->with('success', '<strong>'.$this->resourceName.'Update success：</strong>您可以继续编辑'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
             } else {
-                // 更新失败
+                // Update fail
                 return Redirect::back()
                     ->withInput()
-                    ->with('error', '<strong>'.$this->resourceName.'更新失败。</strong>');
+                    ->with('error', '<strong>'.$this->resourceName.'Update fail。</strong>');
             }
         } else {
-            // 验证失败
+            // Verification fail
             return Redirect::back()->withInput()->withErrors($validator);
         }
     }
 
     /**
-     * 资源删除动作
+     * Resource destory action
      * DELETE      /resource/{id}
      * @param  int  $id
      * @return Response
@@ -226,7 +226,7 @@ class TravelController extends BaseResource
     }
 
     /**
-     * 动作：添加资源图片
+     * Action: Add resource images
      * @return Response
      */
     public function postUpload($id)
@@ -249,7 +249,7 @@ class TravelController extends BaseResource
         $fullname            = $file->getClientOriginalName(); // Client file name, including the extension of the client
         $hashname            = date('H.i.s').'-'.md5($fullname).'.'.$ext; // Hash processed file name, including the real extension
         $picture             = Image::make($file->getRealPath());
-        // crop the best fitting ratio and resize image
+        // Crop the best fitting ratio and resize image
         $picture->fit(1024, 683)->save(public_path($destinationPath.$hashname));
         $picture->fit(430, 645)->save(public_path('uploads/travel_small_thumbnails/'.$hashname));
         $picture->fit(585, 1086)->save(public_path('uploads/travel_large_thumbnails/'.$hashname));
@@ -278,12 +278,12 @@ class TravelController extends BaseResource
     }
 
     /**
-     * 动作：删除资源图片
+     * Action: Delete resource images
      * @return Response
      */
     public function deleteUpload($id)
     {
-        // 仅允许对当前资源分享的封面图片进行删除操作
+        // Only allows you to share pictures on the cover of the current resource being deleted
         $filename = TravelPictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
         $oldImage = $filename->filename;
 
@@ -302,7 +302,7 @@ class TravelController extends BaseResource
     }
 
     /**
-     * 页面：我的评论
+     * View: My comments
      * @return Response
      */
     public function comments()
@@ -312,12 +312,12 @@ class TravelController extends BaseResource
     }
 
     /**
-     * 动作：删除我的评论
+     * Action: Delete my comments
      * @return Response
      */
     public function deleteComment($id)
     {
-        // 仅允许对自己的评论进行删除操作
+        // Delete operations only allow comments to yourself
         $comment = TravelComment::where('id', $id)->where('user_id', Auth::user()->id)->first();
         if (is_null($comment))
             return Redirect::back()->with('error', '没有找到对应的评论');
@@ -328,7 +328,7 @@ class TravelController extends BaseResource
     }
 
     /**
-     * 页面：去旅行
+     * View: Travel
      * @return Respanse
      */
     public function getIndex()
@@ -339,7 +339,7 @@ class TravelController extends BaseResource
     }
 
     /**
-     * 资源列表
+     * Resource list
      * @return Respanse
      */
     public function category($category_id)
@@ -351,8 +351,8 @@ class TravelController extends BaseResource
     }
 
     /**
-     * 资源展示页面
-     * @param  string $slug 创意缩略名
+     * Resource show view
+     * @param  string $slug Creative slug
      * @return response
      */
     public function show($slug)
@@ -365,27 +365,27 @@ class TravelController extends BaseResource
 
     public function postComment($slug)
     {
-        // 获取评论内容
+        // Get comment
         $content = e(Input::get('content'));
-        // 字数检查
+        // Check word
         if (mb_strlen($content)<3)
             return Redirect::back()->withInput()->withErrors($this->messages->add('content', '评论不得少于3个字符。'));
-        // 查找对应文章
+        // Find article
         $travel = Travel::where('slug', $slug)->first();
-        // 创建文章评论
+        // Create comment
         $comment = new TravelComment;
         $comment->content   = $content;
         $comment->travel_id = $travel->id;
         $comment->user_id   = Auth::user()->id;
         if ($comment->save()) {
-            // 创建成功
-            // 更新评论数
+            // Creative success
+            // Updated comments
             $travel->comments_count = $travel->comments->count();
             $travel->save();
-            // 返回成功信息
+            // Return success
             return Redirect::back()->with('success', '评论成功。');
         } else {
-            // 创建失败
+            // Create fail
             return Redirect::back()->withInput()->with('error', '评论失败。');
         }
     }

@@ -3,31 +3,31 @@
 class Admin_ServerResource extends BaseResource
 {
     /**
-     * 资源视图目录
+     * Resource view directory
      * @var string
      */
     protected $resourceView = 'admin.server';
 
     /**
-     * 资源模型名称，初始化后转为模型实例
+     * Model name of the resource, after initialization to a model instance
      * @var string|Illuminate\Database\Eloquent\Model
      */
     protected $model = 'User';
 
     /**
-     * 资源标识
+     * Resource identification
      * @var string
      */
     protected $resource = 'server';
 
     /**
-     * 资源名称（中文）
+     * Resource name (Chinese)
      * @var string
      */
     protected $resourceName = '服务器';
 
     /**
-     * 资源列表页面
+     * Resource list view
      * GET         /resource
      * @return Response
      */

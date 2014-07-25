@@ -3,37 +3,37 @@
 class Admin_UserResource extends BaseResource
 {
     /**
-     * 资源视图目录
+     * Resource view directory
      * @var string
      */
     protected $resourceView = 'admin.users';
 
     /**
-     * 资源模型名称，初始化后转为模型实例
+     * Model name of the resource, after initialization to a model instance
      * @var string|Illuminate\Database\Eloquent\Model
      */
     protected $model = 'User';
 
     /**
-     * 资源标识
+     * Resource identification
      * @var string
      */
     protected $resource = 'users';
 
     /**
-     * 资源数据库表
+     * Resource database tables
      * @var string
      */
     protected $resourceTable = 'users';
 
     /**
-     * 资源名称（中文）
+     * Resource name (Chinese)
      * @var string
      */
     protected $resourceName = '用户';
 
     /**
-     * 自定义验证消息
+     * Custom validation message
      * @var array
      */
     protected $validatorMessages = array(
@@ -48,16 +48,16 @@ class Admin_UserResource extends BaseResource
     );
 
     /**
-     * 资源列表页面
+     * Resource list view
      * GET         /resource
      * @return Response
      */
     public function index()
     {
-        // 获取排序条件
+        // Get sort conditions
         $orderColumn = Input::get('sort_up', Input::get('sort_down', 'created_at'));
         $direction   = Input::get('sort_up') ? 'asc' : 'desc' ;
-        // 获取搜索条件
+        // Get search conditions
         switch (Input::get('status')) {
             case '0':
                 $is_admin = 0;
@@ -71,7 +71,7 @@ class Admin_UserResource extends BaseResource
                 $email = Input::get('like');
                 break;
         }
-        // 构造查询语句
+        // Construct query statement
         $query = $this->model->orderBy($orderColumn, $direction);
         isset($is_admin) AND $query->where('is_admin', $is_admin);
         isset($email)    AND $query->where('email', 'like', "%{$email}%");
@@ -80,88 +80,88 @@ class Admin_UserResource extends BaseResource
     }
 
     /**
-     * 资源创建动作
+     * Resource create action
      * POST        /resource
      * @return Response
      */
     public function store()
     {
-        // 获取所有表单数据.
+        // Get all form data.
         $data   = Input::all();
-        // 创建验证规则
+        // Create validation rules
         $unique = $this->unique();
         $rules  = array(
             'email'    => 'required|email|'.$unique,
             'password' => 'required|alpha_dash|between:6,16|confirmed',
             'is_admin' => 'in:1',
         );
-        // 自定义验证消息
+        // Custom validation message
         $messages  = $this->validatorMessages;
-        // 开始验证
+        // Begin verification
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->passes()) {
-            // 验证成功
-            // 添加资源
+            // Verification success
+            // Add resource
             $model = $this->model;
             $model->email        = Input::get('email');
             $model->password     = Input::get('password');
             $model->is_admin     = (int)Input::get('is_admin', 0);
             $model->activated_at = new Carbon;
             if ($model->save()) {
-                // 添加成功
+                // Add success
                 return Redirect::back()
                     ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续添加新'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
             } else {
-                // 添加失败
+                // Add fail
                 return Redirect::back()
                     ->withInput()
                     ->with('error', '<strong>'.$this->resourceName.'添加失败。</strong>');
             }
         } else {
-            // 验证失败
+            // Verification fail
             return Redirect::back()->withInput()->withErrors($validator);
         }
     }
 
     /**
-     * 资源编辑动作
+     * Resource edit action
      * PUT/PATCH   /resource/{id}
      * @param  int  $id
      * @return Response
      */
     public function update($id)
     {
-        // 获取所有表单数据.
+        // Get all form data.
         $data = Input::all();
-        // 创建验证规则
+        // Create validation rules
         $rules = array(
             'email'    => 'required|email|'.$this->unique('email', $id),
             'password' => 'alpha_dash|between:6,16|confirmed',
             'is_admin' => 'in:1',
         );
-        // 自定义验证消息
+        // Custom validation message
         $messages  = $this->validatorMessages;
-        // 开始验证
+        // Begin verification
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->passes()) {
-            // 验证成功
-            // 更新资源
+            // Verification success
+            // Update resource
             $model = $this->model->find($id);
             $model->password = Input::get('password');
             $model->email    = Input::get('email');
             $model->is_admin = (int)Input::get('is_admin', 0);
             if ($model->save()) {
-                // 更新成功
+                // Update success
                 return Redirect::back()
-                    ->with('success', '<strong>'.$this->resourceName.'更新成功：</strong>您可以继续编辑'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
+                    ->with('success', '<strong>'.$this->resourceName.'Update success：</strong>您可以继续编辑'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
             } else {
-                // 更新失败
+                // Update fail
                 return Redirect::back()
                     ->withInput()
-                    ->with('error', '<strong>'.$this->resourceName.'更新失败。</strong>');
+                    ->with('error', '<strong>'.$this->resourceName.'Update fail。</strong>');
             }
         } else {
-            // 验证失败
+            // Verification fail
             return Redirect::back()->withInput()->withErrors($validator);
         }
     }

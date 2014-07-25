@@ -98,7 +98,6 @@
 		</section>
 		{{-- Home Section --}}
 
-
 		@include('layout.home-navigation')
 		@yield('content')
 

@@ -3,7 +3,7 @@
 class AdminController extends BaseController
 {
     /**
-     * 后台首页
+     * Admin index
      * @return Response
      */
     public function getIndex()

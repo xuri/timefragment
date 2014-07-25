@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| 拓展配置文件
+| Extend Configuration
 |--------------------------------------------------------------------------
 |
 */
@@ -10,11 +10,11 @@
 return array(
 
     /**
-     * 网站静态资源文件别名配置
+     * Website static aliases asset
      */
     'webAssets' => array(
 
-        'cssAliases' => array(  //  样式文件别名配置
+        'cssAliases' => array(  //  Stylesheet aliases asset
 
             'bootstrap-2.3.2'                => 'assets/bootstrap-2.3.2/css/bootstrap.min.css',
             'bootstrap-2.3.2-responsive'     => 'assets/bootstrap-2.3.2/css/bootstrap-responsive.min.css',
@@ -37,7 +37,7 @@ return array(
 
         ),
 
-        'jsAliases'  => array(  //  脚本文件别名配置
+        'jsAliases'  => array(  //  Script aliases asset
 
             // jQuery Lib
 

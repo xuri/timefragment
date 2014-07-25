@@ -3,7 +3,7 @@
 class ArticleController extends BaseController
 {
     /**
-     * 首页
+     * Index
      * @return Respanse
      */
     public function index()
@@ -14,7 +14,7 @@ class ArticleController extends BaseController
     }
 
     /**
-     * 分类文章列表
+     * Category list
      * @return Respanse
      */
     public function category($category_id)
@@ -26,8 +26,8 @@ class ArticleController extends BaseController
     }
 
     /**
-     * 文章展示页面
-     * @param  string $slug 文章缩略名
+     * Show article
+     * @param  string $slug Article abbreviated name
      * @return response
      */
     public function show($slug)

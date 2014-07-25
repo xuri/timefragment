@@ -10,31 +10,31 @@ class TimelineController extends BaseController {
     */
 
     /**
-     * 资源视图目录
+     * Resource view directory
      * @var string
      */
     protected $resourceView = 'timeline';
 
     /**
-     * 资源模型名称，初始化后转为模型实例
+     * Model name of the resource, after initialization to a model instance
      * @var string|Illuminate\Database\Eloquent\Model
      */
     protected $model = 'Timeline';
 
     /**
-     * 资源标识
+     * Resource identification
      * @var string
      */
     protected $resource = 'timeline';
 
     /**
-     * 资源名称（中文）
+     * Resource name (Chinese)
      * @var string
      */
     protected $resourceName = '时间线';
 
     /**
-     * 页面：时间线
+     * View: Timeline
      * @return Respanse
      */
     public function getIndex()

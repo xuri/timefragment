@@ -4,27 +4,27 @@ class BaseController extends Controller
 {
 
 	/**
-	 * 消息对象
+	 * Message objects
 	 * @var Illuminate\Support\MessageBag
 	 */
 	protected $messages = null;
 
 	/**
-	 * 初始化
+	 * Initialize
 	 * @return void
 	 */
 	public function __construct()
 	{
-		// CSRF 保护
+		// CSRF protection
 		$this->beforeFilter('csrf', array('on' => 'post|put|delete'));
-		// 实例化 消息对象
+		// Instantiate a messaging object
 		$this->messages = new Illuminate\Support\MessageBag;
 	}
 
 	/**
-	 * 当负责响应的方法没有返回值，或返回值为 null 时，
-	 * 系统将判断 layout 属性是否为空，
-	 * 若不为空，则根据 layout 属性，返回一个视图响应。
+	 * When is responsible for the response of the method does not return a value, or when the return value is null,
+	 * System will determine whether the layout attribute is empty,
+	 * If it is not null, then according to the layout property, returns a view responses.
 	 * @return void
 	 */
 	protected function setupLayout()

@@ -38,7 +38,7 @@ class HomeController extends BaseController {
     }
 
     /**
-     * 首页
+     * View: Index
      * @return Respanse
      */
     public function getIndex()
@@ -61,7 +61,7 @@ class HomeController extends BaseController {
     }
 
     /**
-     * 视频首页
+     * View: Video index
      * @return Respanse
      */
     public function getVideoIndex()
@@ -76,7 +76,7 @@ class HomeController extends BaseController {
     }
 
     /**
-     * 分类文章列表
+     * View: Article category
      * @return Respanse
      */
     public function getCategoryArticles($category_id)
@@ -87,8 +87,8 @@ class HomeController extends BaseController {
     }
 
     /**
-     * 文章展示页面
-     * @param  string $slug 文章缩略名
+     * View: Article show
+     * @param  string $slug Article slug
      * @return response
      */
     public function getBlogShow($slug)
@@ -100,33 +100,33 @@ class HomeController extends BaseController {
     }
 
     /**
-     * 提交评论
-     * @param  string $slug 文章缩略名
+     * Action: Post comments
+     * @param  string $slug Article slug
      * @return response
      */
     public function postBlogComment($slug)
     {
-        // 获取评论内容
+        // Get comment
         $content = e(Input::get('content'));
-        // 字数检查
+        // Check word
         if (mb_strlen($content)<3)
             return Redirect::back()->withInput()->withErrors($this->messages->add('content', '评论不得少于3个字符。'));
-        // 查找对应文章
+        // Find article
         $article = Article::where('slug', $slug)->first();
-        // 创建文章评论
+        // Create comment
         $comment = new Comment;
         $comment->content    = $content;
         $comment->article_id = $article->id;
         $comment->user_id    = Auth::user()->id;
         if ($comment->save()) {
-            // 创建成功
-            // 更新评论数
+            // Create success
+            // Updated comments
             $article->comments_count = $article->comments->count();
             $article->save();
-            // 返回成功信息
+            // Return success
             return Redirect::back()->with('success', '评论成功。');
         } else {
-            // 创建失败
+            // Create fail
             return Redirect::back()->withInput()->with('error', '评论失败。');
         }
     }

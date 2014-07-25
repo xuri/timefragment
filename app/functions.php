@@ -167,35 +167,35 @@ function strip($string)
 
 /*
 |--------------------------------------------------------------------------
-| 公共函数库
+| Public Function Library
 |--------------------------------------------------------------------------
 |
 */
 
 /**
- * 闭合 HTML 标签 （此函数仍存在缺陷，无法处理不完整的标签，暂无更优方案，慎用）
- * @param  string $html HTML 字符串
+ * Closing HTML tag (this function is still flawed, unable to process incomplete labels, there is no better plan, caution)
+ * @param  string $html HTML String
  * @return string
  */
 function close_tags($html)
 {
-    // 不需要补全的标签
+    // Labels needn't to complete
     $arr_single_tags = array('meta', 'img', 'br', 'link', 'area');
-    // 匹配开始标签
+    // Match the start tag
     preg_match_all('#<([a-z1-6]+)(?: .*)?(?<![/|/ ])>#iU', $html, $result);
     $openedtags = $result[1];
-    // 匹配关闭标签
+    // Match the close tag
     preg_match_all('#</([a-z]+)>#iU', $html, $result);
     $closedtags = $result[1];
-    // 计算关闭开启标签数量，如果相同就返回html数据
+    // Close opened tab quantity is calculated, and if the same return HTML data
     if (count($closedtags) === count($openedtags)) return $html;
-    // 反向排序数组，将最后一个开启的标签放在最前面
+    // Reverse sort the array, the last open tab at the top
     $openedtags = array_reverse($openedtags);
-    // 遍历开启标签数组
+    // Traversing the open tags array
     foreach ($openedtags as $key => $value) {
-        // 跳过无需闭合的标签
+        // Skip without closing tags
         if (in_array($value, $arr_single_tags)) continue;
-        // 开始补全
+        // Started complete
         if (in_array($value, $closedtags)) {
             unset($closedtags[array_search($value, $closedtags)]);
         } else {
@@ -206,10 +206,10 @@ function close_tags($html)
 }
 
 /**
- * 用于资源列表的排序标签
- * @param  string $columnName 列名
- * @param  string $default    是否默认排序列，up 默认升序 down 默认降序
- * @return string             a 标签排序图标
+ * Resources list sort
+ * @param  string $columnName Column name
+ * @param  string $default    If the default sort column，up Default Ascending, down Default descending
+ * @return string             a Tag sort icon
  */
 function order_by($columnName = '', $default = null)
 {

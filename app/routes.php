@@ -209,7 +209,7 @@ Route::group(array('prefix' => 'account', 'before' => 'auth'), function () {
         Route::delete('comments/{id}', array('as' => $resource.'.deleteComment'     , 'uses' => $controller.'deleteComment'   ));
 
     });
-    # 去旅行
+    # Travel
     Route::group(array('prefix' => 'mytravel'), function () {
         $resource   = 'mytravel';
         $controller = 'TravelController@';
@@ -224,7 +224,7 @@ Route::group(array('prefix' => 'account', 'before' => 'auth'), function () {
         Route::get(        'comments', array('as' => $resource.'.comments'          , 'uses' => $controller.'comments'        ));
         Route::delete('comments/{id}', array('as' => $resource.'.deleteComment'     , 'uses' => $controller.'deleteComment'   ));
     });
-    # 乐换购
+    # Product
     Route::group(array('prefix' => 'myproduct'), function () {
         $resource   = 'myproduct';
         $controller = 'ProductController@';
@@ -239,7 +239,7 @@ Route::group(array('prefix' => 'account', 'before' => 'auth'), function () {
         Route::get(        'comments', array('as' => $resource.'.comments'          , 'uses' => $controller.'comments'        ));
         Route::delete('comments/{id}', array('as' => $resource.'.deleteComment'     , 'uses' => $controller.'deleteComment'   ));
     });
-    # 酷工作
+    # Job
     Route::group(array('prefix' => 'myjob'), function () {
         $resource   = 'myjob';
         $controller = 'JobController@';
@@ -256,13 +256,13 @@ Route::group(array('prefix' => 'account', 'before' => 'auth'), function () {
     });
     # Album
     Route::get('album'           , array('as' => 'account.album'           , 'uses' => $Account.'getAlbum'           ));
-    # 修改基本信息
+    # Update basic information
     Route::get('settings'        , array('as' => 'account.settings'        , 'uses' => $Account.'getSettings'        ));
     Route::put('settings'        , $Account.'putSettings');
-    # 修改当前账号密码
+    # Update user password
     Route::get('change-password' , array('as' => 'account.changePassword'  , 'uses' => $Account.'getChangePassword'  ));
     Route::put('change-password' , $Account.'putChangePassword');
-    # 更改头像
+    # Update avatar
     Route::get('change-portrait' , array('as' => 'account.changePortrait'  , 'uses' => $Account.'getChangePortrait'  ));
     Route::put('change-portrait' , $Account.'putChangePortrait');
 });
@@ -275,9 +275,9 @@ Route::group(array('prefix' => 'account', 'before' => 'auth'), function () {
 
 Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
     $Admin = 'AdminController@';
-    # 后台首页
+    # Admin index
     Route::get('/', array('as' => 'admin', 'uses' => $Admin.'getIndex'));
-    # 用户管理
+    # User management
     Route::group(array('prefix' => 'users'), function () {
         $resource   = 'users';
         $controller = 'Admin_UserResource@';
@@ -288,13 +288,13 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
         Route::put(     '{id}', array('as' => $resource.'.update' , 'uses' => $controller.'update' ))->before('not.self');
         Route::delete(  '{id}', array('as' => $resource.'.destroy', 'uses' => $controller.'destroy'))->before('not.self');
     });
-    # 服务器运行状态
+    # Server status
     Route::group(array('prefix' => 'server'), function () {
         $resource   = 'server';
         $controller = 'Admin_ServerResource@';
         Route::get(        '/', array('as' => $resource.'.index'  , 'uses' => $controller.'index'  ));
     });
-    # 文章分类管理
+    # Category management
     Route::group(array('prefix' => 'mycategories'), function () {
         $resource   = 'mycategories';
         $controller = 'Admin_CategoryResource@';
@@ -307,7 +307,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
         Route::delete('{id}/edit', array('as' => $resource.'.deleteUpload' , 'uses' => $controller.'deleteUpload'));
         Route::delete(     '{id}', array('as' => $resource.'.destroy'      , 'uses' => $controller.'destroy'     ));
     });
-    # 文章管理
+    # Article management
     Route::group(array('prefix' => 'myarticles'), function () {
         $resource   = 'myarticles';
         $controller = 'Admin_ArticleResource@';
@@ -321,7 +321,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
         Route::delete(     '{id}', array('as' => $resource.'.destroy'     , 'uses' => $controller.'destroy'     ));
     });
 
-    # 创意汇分类管理
+    # Creative category mangement
     Route::group(array('prefix' => 'creative-categories'), function () {
         $resource   = 'creative_categories';
         $controller = 'Admin_CreativeCategoriesResource@';
@@ -333,7 +333,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
         Route::delete(  '{id}', array('as'    => $resource.'.destroy', 'uses' => $controller.'destroy'));
     });
 
-    # 创意汇管理
+    # Creative management
     Route::group(array('prefix' => 'creative'), function () {
         $resource   = 'creative';
         $controller = 'Admin_CreativeResource@';
@@ -347,7 +347,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
         Route::delete(     '{id}', array('as' => $resource.'.destroy'      , 'uses' => $controller.'destroy'     ));
     });
 
-    # 去旅行话题管理
+    # Travel category management
     Route::group(array('prefix' => 'travel-categories'), function () {
         $resource   = 'travel_categories';
         $controller = 'Admin_TravelCategoriesResource@';
@@ -361,7 +361,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
         Route::delete(     '{id}', array('as' => $resource.'.destroy'      , 'uses' => $controller.'destroy'     ));
     });
 
-    # 去旅行管理
+    # Travel management
     Route::group(array('prefix' => 'travel'), function () {
         $resource   = 'travel';
         $controller = 'Admin_TravelResource@';
@@ -375,7 +375,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
         Route::delete(     '{id}', array('as' => $resource.'.destroy'      , 'uses' => $controller.'destroy'     ));
     });
 
-    # 商品分类管理
+    # Product category management
     Route::group(array('prefix' => 'product-categories'), function () {
         $resource   = 'product_categories';
         $controller = 'Admin_ProductCategoriesResource@';
@@ -389,7 +389,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
         Route::delete(     '{id}', array('as' => $resource.'.destroy'      , 'uses' => $controller.'destroy'     ));
     });
 
-    # 商品管理
+    # Product management
     Route::group(array('prefix' => 'product'), function () {
         $resource   = 'product';
         $controller = 'Admin_ProductResource@';
@@ -403,7 +403,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
         Route::delete(     '{id}', array('as' => $resource.'.destroy'      , 'uses' => $controller.'destroy'     ));
     });
 
-    # 酷工作分类管理
+    # Jobs category management
     Route::group(array('prefix' => 'job-categories'), function () {
         $resource   = 'job_categories';
         $controller = 'Admin_JobCategoriesResource@';
@@ -417,7 +417,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
         Route::delete(     '{id}', array('as' => $resource.'.destroy'      , 'uses' => $controller.'destroy'     ));
     });
 
-    # 酷工作管理
+    # Job management
     Route::group(array('prefix' => 'job'), function () {
         $resource   = 'job';
         $controller = 'Admin_JobResource@';
@@ -438,6 +438,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
 |--------------------------------------------------------------------------
 |
 */
+
 App::missing(function($exception)
 {
     return Response::view('system.missing', array(), 404);

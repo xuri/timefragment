@@ -3,7 +3,7 @@
 class AuthorityController extends BaseController
 {
     /**
-     * 页面：登录
+     * View: Signin
      * @return Response
      */
     public function getSignin()
@@ -12,21 +12,21 @@ class AuthorityController extends BaseController
     }
 
     /**
-     * 动作：登录
+     * Action: Signin
      * @return Response
      */
     public function postSignin()
     {
-        // 凭证
+        // Credentials
         $credentials = array('email' => Input::get('email'), 'password' => Input::get('password'));
-        // 是否记住登录状态
+        // Remember login status
         // $remember    = Input::get('remember-me', 1);
-        // 验证登录
+        // Verify signin
         if (Auth::attempt($credentials)) {
-            // 登录成功，跳回之前被拦截的页面
+            // Signin success, redirect to the previous page that was blocked
             return Redirect::intended();
         } else {
-            // 登录失败，跳回
+            // Signin fail, redirect back
             return Redirect::back()
                 ->withInput()
                 ->withErrors(array('attempt' => 'E-mail 或 用户名错误, 请重新登录'));
@@ -34,7 +34,7 @@ class AuthorityController extends BaseController
     }
 
     /**
-     * 动作：退出
+     * Action: Signout
      * @return Response
      */
     public function getSignout()
@@ -44,7 +44,7 @@ class AuthorityController extends BaseController
     }
 
     /**
-     * 页面：注册
+     * View: Signup
      * @return Response
      */
     public function getSignup()
@@ -53,19 +53,19 @@ class AuthorityController extends BaseController
     }
 
     /**
-     * 动作：注册
+     * Action: Signup
      * @return Response
      */
     public function postSignup()
     {
-        // 获取所有表单数据.
+        // Get all form data.
         $data = Input::all();
-        // 创建验证规则
+        // Create validation rules
         $rules = array(
             'email'    => 'required|email|unique:users',
             'password' => 'required|alpha_dash|between:6,16|confirmed',
         );
-        // 自定义验证消息
+        // Custom validation message
         $messages = array(
             'email.required'      => '请输入邮箱地址。',
             'email.email'         => '请输入正确的邮箱地址。',
@@ -75,37 +75,37 @@ class AuthorityController extends BaseController
             'password.between'    => '密码长度请保持在:min到:max位之间。',
             'password.confirmed'  => '两次输入的密码不一致。',
         );
-        // 开始验证
+        // Begin verification
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->passes()) {
-            // 验证成功，添加用户
+            // Verification success，add user
             $user = new User;
             $user->email    = Input::get('email');
             $user->password = Input::get('password');
             if ($user->save()) {
-                // 添加成功
-                // 生成激活码
+                // Add user success
+                // Generate activation code
                 $activation = new Activation;
                 $activation->email = $user->email;
                 $activation->token = str_random(40);
                 $activation->save();
-                // 发送激活邮件
+                // Send activation mail
                 $with = array('activationCode' => $activation->token);
                 Mail::send('authority.email.activation', $with, function ($message) use ($user) {
                     $message
                         ->to($user->email)
                         ->subject('时光碎片 账号激活邮件'); // 标题
                 });
-                // 跳转到注册成功页面，提示用户激活
+                // Redirect to a registration page, prompts user to activate
                 return Redirect::route('signupSuccess', $user->email);
             } else {
-                // 添加失败
+                // Add user fail
                 return Redirect::back()
                     ->withInput()
                     ->withErrors(array('add' => '注册失败。'));
             }
         } else {
-            // 验证失败，跳回
+            // Verification fail, redirect back
             return Redirect::back()
                 ->withInput()
                 ->withErrors($validator);
@@ -113,44 +113,44 @@ class AuthorityController extends BaseController
     }
 
     /**
-     * 页面：注册成功，提示激活
-     * @param  string $email 用户注册的邮箱
+     * View: Signuo success, prompts user to activate
+     * @param  string $email user E-mail
      * @return Response
      */
     public function getSignupSuccess($email)
     {
-        // 确认是否存在此未激活邮箱
+        // Confirmed the existence of this inactive mailboxes
         $activation = Activation::whereRaw("email = '{$email}'")->first();
-        // 数据库中无邮箱，抛出404
+        // No mailboxes in the database, throw 404
         is_null($activation) AND App::abort(404);
-        // 提示激活
+        // Prompts user to activate
         return View::make('authority.signupSuccess')->with('email', $email);
     }
 
     /**
-     * 动作：激活账号
-     * @param  string $activationCode 激活令牌
+     * Action: Activate account
+     * @param  string $activationCode Activation tokens
      * @return Response
      */
     public function getActivate($activationCode)
     {
-        // 数据库验证令牌
+        // Database authentication tokens
         $activation = Activation::where('token', $activationCode)->first();
-        // 数据库中无令牌，抛出404
+        // No tokens in the database, throw 404
         is_null($activation) AND App::abort(404);
-        // 数据库中有令牌
-        // 激活对应用户
+        // Database tokens
+        // Activate the corresponding user
         $user = User::where('email', $activation->email)->first();
         $user->activated_at = new Carbon;
         $user->save();
-        // 删除令牌
+        // Delete tokens
         $activation->delete();
-        // 激活成功提示
+        // Activation success
         return View::make('authority.activationSuccess');
     }
 
     /**
-     * 页面：忘记密码，发送密码重置邮件
+     * Page: Forgot password, send a password reset mail
      * @return Response
      */
     public function getForgotPassword()
@@ -159,16 +159,16 @@ class AuthorityController extends BaseController
     }
 
     /**
-     * 动作：忘记密码，发送密码重置邮件
+     * Action: Forgot password, send a password reset mail
      * @return Response
      */
     public function postForgotPassword()
     {
-        // 调用系统提供的类
+        // Calling the system-provided class
         $response = Password::remind(Input::only('email'), function ($m, $user, $token) {
-            $m->subject('时光碎片 密码重置邮件'); // 标题
+            $m->subject('时光碎片 密码重置邮件'); // Title
         });
-        // 检测邮箱并发送密码重置邮件
+        // Detect mail and send a password reset message
         switch ($response) {
             case Password::INVALID_USER:
                 return Redirect::back()->with('error', Lang::get($response));
@@ -178,32 +178,32 @@ class AuthorityController extends BaseController
     }
 
     /**
-     * 页面：进行密码重置
+     * View: Reset password
      * @return Response
      */
     public function getReset($token)
     {
-        // 数据库中无令牌，抛出404
+        // No tokens in the database, throw 404
         is_null(PassowrdReminder::where('token', $token)->first()) AND App::abort(404);
         return View::make('authority.password.reset')->with('token', $token);
     }
 
     /**
-     * 动作：进行密码重置
+     * Action: Reset password
      * @return Response
      */
     public function postReset()
     {
-        // 调用系统自带密码重置流程
+        // Invoke system comes with the password reset process
         $credentials = Input::only(
             'email', 'password', 'password_confirmation', 'token'
         );
 
         $response = Password::reset($credentials, function ($user, $password) {
-            // 保存新密码
+            // Save new password
             $user->password = $password;
             $user->save();
-            // 登录用户
+            // User signin
             Auth::login($user);
         });
 
@@ -220,7 +220,7 @@ class AuthorityController extends BaseController
     }
 
     /**
-     * Action：Oauth 2.0 Signup
+     * Action：OAuth 2.0 Signup
      * @return Response
      */
     public function getOauthSignup()
@@ -251,14 +251,14 @@ class AuthorityController extends BaseController
             $ms           = $c->home_timeline(); // Done
             $uid_get      = $c->get_uid();
             $uid          = $uid_get['uid'];
-            $user_message = $c->show_user_by_id($uid);// 根据ID获取用户等基本信息
+            $user_message = $c->show_user_by_id($uid);// Get sinformation according user ID
             $nickname     = $user_message['screen_name'];
             $password     = $_SESSION['token']['access_token'];
             $credentials  = array('email' => $uid, 'password' => $password);
 
             if (Auth::attempt($credentials))
             {
-                // 登录成功，跳回之前被拦截的页面
+                // Signin success, redirect to the previous page that was blocked
                 return Redirect::intended();
             } else {
                 $user           = new User;
@@ -277,7 +277,7 @@ class AuthorityController extends BaseController
     }
 
     /**
-    * View: Oauth Success
+    * View: OAuth 2.0 Success
     * @param  string
     * @return Response
     */
@@ -287,7 +287,7 @@ class AuthorityController extends BaseController
     }
 
     /**
-     * Action：Oauth QQ
+     * Action：OAuth 2.0 QQ
      * @return Response
      */
     public function getOauthQQ()
@@ -305,7 +305,7 @@ class AuthorityController extends BaseController
 
         if (Auth::attempt($credentials))
         {
-            // 登录成功，跳回之前被拦截的页面
+            // Signin success, redirect to the previous page that was blocked
             return Redirect::intended();
         } else {
             $user           = new User;

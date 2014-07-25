@@ -3,7 +3,7 @@
 class AccountController extends BaseController
 {
     /**
-     * 页面：用户中心首页
+     * View: Account center index
      * @return Response
      */
     public function getIndex()
@@ -27,12 +27,12 @@ class AccountController extends BaseController
     }
 
     /**
-     * 动作：修改基本信息
+     * Action: Update basic information
      * @return Response
      */
     public function putSettings()
     {
-        // 获取所有表单数据
+        // Get all form data
         $info = array(
             'nickname'      => Input::get('nickname'),
             'bio'           => Input::get('bio'),
@@ -44,22 +44,22 @@ class AccountController extends BaseController
             'city'          => Input::get('city')
         );
         // $info = Input::all();
-        // 创建验证规则
+        // Create validation rules
         $rules = array(
             'nickname' => 'required|between:1,30',
             'bio'      => 'between:1,60',
         );
-        // 自定义验证消息
+        // Custom validation message
         $messages = array(
             'nickname.required' => '请输入昵称。',
             'nickname.between'  => '昵称长度请保持在:min到:max字之间。',
             'bio.between'       => '个人简介长度请保持在:min到:max字之间。',
         );
-        // 开始验证
+        // Begin verification
         $validator = Validator::make($info, $rules, $messages);
         if ($validator->passes()) {
-            // 验证成功
-            // 更新用户
+            // Verification success
+            // Update account
             $user = Auth::user();
             $user->nickname      = Input::get('nickname');
             $user->bio           = Input::get('bio');
@@ -70,23 +70,23 @@ class AccountController extends BaseController
             $user->home_province = Input::get('province');
             $user->home_city     = Input::get('city');
             if ($user->save()) {
-                // 更新成功
+                // Update success
                 return Redirect::back()
-                    ->with('success', '<strong>基本资料更新成功。</strong>');
+                    ->with('success', '<strong>基本资料Update success。</strong>');
             } else {
-                // 更新失败
+                // Update fail
                 return Redirect::back()
                     ->withInput()
-                    ->with('error', '<strong>基本资料更新失败。</strong>');
+                    ->with('error', '<strong>基本资料Update fail。</strong>');
             }
         } else {
-            // 验证失败，跳回
+            // Verification fail, redirect back
             return Redirect::back()->withInput()->withErrors($validator);
         }
     }
 
     /**
-     * 页面：修改当前账号密码
+     * View: Update user password
      * @return Response
      */
     public function getChangePassword()
@@ -95,57 +95,57 @@ class AccountController extends BaseController
     }
 
     /**
-     * 动作：修改当前账号密码
+     * Action: Update user password
      * @return Response
      */
     public function putChangePassword()
     {
-        // 获取所有表单数据
+        // Get all form data
         $data = array(
             'password_old'          => Input::get('password_old'),
             'password'              => Input::get('password'),
             'password_confirmation' => Input::get('password_confirmation')
         );
         // $data = Input::all();
-        // 验证旧密码
+        // Verify old password
         if (! Hash::check($data['password_old'], Auth::user()->password) )
             return Redirect::back()->withErrors($this->messages->add('password_old', '原始密码错误'));
-        // 创建验证规则
+        // Create validation rules
         $rules = array(
             'password' => 'required|alpha_dash|between:6,16|confirmed',
         );
-        // 自定义验证消息
+        // Custom validation message
         $messages = array(
             'password.alpha_dash' => '密码格式不正确。',
             'password.between'    => '密码长度请保持在:min到:max位之间。',
             'password.required'   => '请输入密码。',
             'password.confirmed'  => '两次输入的密码不一致。',
         );
-        // 开始验证
+        // Begin verification
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->passes()) {
-            // 验证成功
-            // 更新用户
+            // Verification success
+            // Update account
             $user = Auth::user();
             $user->password = Input::get('password');
             if ($user->save()) {
-                // 更新成功
+                // Update success
                 return Redirect::back()
                     ->with('success', '<strong>密码修改成功。</strong>');
             } else {
-                // 更新失败
+                // Update fail
                 return Redirect::back()
                     ->withInput()
                     ->with('error', '<strong>密码修改失败。</strong>');
             }
         } else {
-            // 验证失败，跳回
+            // Verification fail, redirect back
             return Redirect::back()->withInput()->withErrors($validator);
         }
     }
 
     /**
-     * 页面：更改头像
+     * View: Update avatar
      * @return Response
      */
     public function getChangePortrait()
@@ -154,58 +154,58 @@ class AccountController extends BaseController
     }
 
     /**
-     * 动作：更改头像
+     * Action: Update avatar
      * @return Response
      */
     public function putChangePortrait()
     {
-        // 获取所有表单数据
+        // Get all form data
         $data  = Input::all();
-        // 创建验证规则
+        // Create validation rules
         $rules = array(
             'portrait' => 'required|mimes:jpg,jpeg,gif,png|max:1024',
         );
-        // 自定义验证消息
+        // Custom validation message
         $messages = array(
             'portrait.required' => '请选择需要上传的图片。',
             'portrait.mimes'    => '请上传 :values 格式的图片。',
             'portrait.max'      => '图片的大小请控制在 1M 以内。',
         );
-        // 开始验证
+        // Begin verification
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->passes()) {
-            // 验证成功
+            // Verification success
             $image    = Input::file('portrait');
             $ext      = $image->guessClientExtension();  // 根据 mime 类型取得真实拓展名
             $fullname = $image->getClientOriginalName(); // 客户端文件名，包括客户端拓展名
             $hashname = date('H.i.s').'-'.md5($fullname).'.'.$ext; // 哈希处理过的文件名，包括真实拓展名
-            // 图片信息入库
+            // Picture information storage
             $user           = Auth::user();
             $oldImage       = $user->portrait;
             $user->portrait = $hashname;
             $user->save();
-            // 存储不同尺寸的图片
+            // Storing images of different sizes
             $portrait = Image::make($image->getRealPath());
             // crop the best fitting 1:1 ratio and resize to custom pixel
             $portrait->fit(220)->save(public_path('portrait/large/'.$hashname));
             $portrait->fit(128)->save(public_path('portrait/medium/'.$hashname));
             $portrait->fit(64)->save(public_path('portrait/small/'.$hashname));
-            // 删除旧头像
+            // Delete old avatar
             File::delete(
                 public_path('portrait/large/'.$oldImage),
                 public_path('portrait/medium/'.$oldImage),
                 public_path('portrait/small/'.$oldImage)
             );
-            // 返回成功信息
+            // Return success
             return Redirect::back()->with('success', '操作成功。');
         } else {
-            // 验证失败
+            // Verification fail, redirect back
             return Redirect::back()->with('error', $validator->messages()->first());
         }
     }
 
     /**
-     * 页面：我的评论
+     * View: My comments
      * @return Response
      */
     public function getMyComments()
@@ -215,12 +215,12 @@ class AccountController extends BaseController
     }
 
     /**
-     * 动作：删除我的评论
+     * Action: Delete my comments
      * @return Response
      */
     public function deleteMyComment($id)
     {
-        // 仅允许对自己的评论进行删除操作
+        // Delete operations only allow comments to yourself
         $comment = Comment::where('id', $id)->where('user_id', Auth::user()->id)->first();
         if (is_null($comment))
             return Redirect::back()->with('error', '没有找到对应的评论');
