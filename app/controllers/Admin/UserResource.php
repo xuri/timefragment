@@ -153,12 +153,12 @@ class Admin_UserResource extends BaseResource
             if ($model->save()) {
                 // Update success
                 return Redirect::back()
-                    ->with('success', '<strong>'.$this->resourceName.'Update success：</strong>您可以继续编辑'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
+                    ->with('success', '<strong>'.$this->resourceName.'更新成功：</strong>您可以继续编辑'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
             } else {
                 // Update fail
                 return Redirect::back()
                     ->withInput()
-                    ->with('error', '<strong>'.$this->resourceName.'Update fail。</strong>');
+                    ->with('error', '<strong>'.$this->resourceName.'更新失败。</strong>');
             }
         } else {
             // Verification fail
