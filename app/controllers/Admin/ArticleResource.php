@@ -66,7 +66,7 @@ class Admin_ArticleResource extends BaseResource
         // Construct query statement
         $query = $this->model->orderBy($orderColumn, $direction);
         isset($title) AND $query->where('title', 'like', "%{$title}%");
-        $datas = $query->paginate(1);
+        $datas = $query->paginate(15);
         return View::make($this->resourceView.'.index')->with(compact('datas'));
     }
 
