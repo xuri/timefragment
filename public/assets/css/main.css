@@ -1731,3 +1731,8 @@ footer div.copyright a:hover {
 .post-body .post-text{
 	text-align: left;
 }
+
+/* Hide Analitycs Code */
+span#cnzz_stat_icon_1252933521 {
+	display: none;
+}
