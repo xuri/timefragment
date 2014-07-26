@@ -66,9 +66,9 @@ $code_url = $o->getAuthorizeURL( WB_CALLBACK_URL );
                 </label>
                 <input type="submit" value="注册">
             </fieldset>
-            <fieldset id="quotes">
-                <p>&ldquo;时光不老，我们不散&rdquo;
-                    <cite>&ndash; 时光碎片</cite>
+            <fieldset id="quotes" style="font-family: '楷体';">
+                <p>时光不老，我们不散
+                    <cite>&ndash; TimeFragment</cite>
                 </p>
             </fieldset>
         {{ Form::close() }}

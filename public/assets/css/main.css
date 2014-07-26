@@ -1,12 +1,18 @@
 /*
- Theme Name: TimeFragment
- Description: Responsive HTML5/CSS3
- Version: 1.0
- Author: luxurioust
- Author URI: http://xuri.me/
+ Title			: TimeFragment
+ Site			: http://www.timefragment.com/
+ Description	: Main Style Sheet
+ Version		: 1.0
+ Author			: Ri Xu
+ Author URI		: http://xuri.me/
  */
 
-/* ##### GENERAL CLASS ##### */
+/*
+|--------------------------------------------------------------------------
+| General Class
+|--------------------------------------------------------------------------
+|
+*/
 *, *:after, *::before {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -20,12 +26,11 @@ html, body {
 
 body {
 	color: #898989;
-	line-height: 1.5em;
 	overflow-x: hidden;
 }
 
 a {
-	font-family: 'Raleway','Microsoft YaHei', '微软雅黑', 'STXihei', '华文细黑', 'WenQuanYi Micro Hei', sans-serif;
+	font-family: 'Raleway', 'STXihei', '华文细黑', 'WenQuanYi Micro Hei', '黑体', 'Microsoft YaHei', '微软雅黑';
 }
 a:focus {
 	outline: none;
@@ -48,7 +53,7 @@ iframe {
 	border: 0;
 }
 p {
-	font-family: 'Raleway','Microsoft YaHei', '微软雅黑', 'STXihei', '华文细黑', 'WenQuanYi Micro Hei', sans-serif;
+	font-family: 'Raleway', 'STXihei', '华文细黑', 'WenQuanYi Micro Hei', 'Microsoft YaHei', '微软雅黑', sans-serif;
 }
 p.lead {
 	color: #7c7c7c;
@@ -57,7 +62,7 @@ p.lead {
 
 h1, h2, h3, h4, h5, h6, .section-title, .form-group label {
 	color: #222;
-	font-family: 'Raleway', 'STXihei', '华文细黑', 'WenQuanYi Micro Hei', sans-serif;
+	font-family: 'Raleway', 'STXihei', '华文细黑', 'WenQuanYi Micro Hei', '黑体';
 }
 
 blockquote {
@@ -103,7 +108,7 @@ blockquote {
 .section-title h1, .section-title h2, .section-title h3 {
 	text-transform: uppercase;
 	color: #000;
-	font-weight: 600;
+	font-weight: 300;
 	display: inline-block;
 }
 
@@ -267,6 +272,9 @@ blockquote {
 	box-shadow: 0 !important;
 	transition: all 0.3s ease-out 0s;
 	z-index: 10;
+}
+.navbar-inner a {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .navbar-collapse {
 	min-height: 60px !important;
@@ -1246,7 +1254,7 @@ footer .social-icon a:hover {
 }
 .blog-text {
 	margin: 50px 0 40px 0;
-	text-align: justify;
+	text-align: left;
 }
 .blog-comments {
 	text-align: left;

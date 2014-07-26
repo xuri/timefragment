@@ -1,118 +1,138 @@
+/*
+ Title			: TimeFragment
+ Site			: http://www.timefragment.com/
+ Description	: Style Sheet 2
+ Version		: 1.0
+ Author			: Ri Xu
+ Author URI		: http://xuri.me/
+ */
 
-/* GENERAL ========================================= */
+/*
+|--------------------------------------------------------------------------
+| General
+|--------------------------------------------------------------------------
+|
+*/
 
 html {
-height: 100%;
+	height: 100%;
 }
 
 body {
-min-height: 100%;
--webkit-perspective: 400px;
--moz-perspective: 400px;
--ms-perspective: 400px;
-perspective: 400px;
+	min-height: 100%;
+	-webkit-perspective: 400px;
+	-moz-perspective: 400px;
+	-ms-perspective: 400px;
+	perspective: 400px;
 }
 
 body.dark {
-background-image: url(../img/bg_travel.jpg);
+	background-image: url(../img/bg_travel.jpg);
 }
 
 input[type=text],
 input[type=password] {
-width: 100%;
-margin-top: 0.8em;
+	width: 100%;
+	margin-top: 0.8em;
 }
 
 input[type=submit] {
-min-width: 8em;
-margin-top: 0.8em;
+	min-width: 8em;
+	margin-top: 0.8em;
 }
 
-/* HEADER ========================================= */
+/*
+|--------------------------------------------------------------------------
+| Header
+|--------------------------------------------------------------------------
+|
+*/
 
 header {
-background-color: rgba(0,0,0,0.08);
-background-image: none;
+	background-color: rgba(0,0,0,0.08);
+	background-image: none;
 }
 
 header > .inner > menu {
-float: right;
-margin-right: 40px;
-font-size: 100%;
+	float: right;
+	margin-right: 40px;
+	font-size: 100%;
 }
 
 header > .inner > menu a {
-font-weight: bold;
+	font-weight: bold;
 }
 
-
-
-
-/* CONTENT ========================================= */
+/*
+|--------------------------------------------------------------------------
+| Content
+|--------------------------------------------------------------------------
+|
+*/
 
 form {
-position: absolute;
-left: 50%;
-top: 35%;
-z-index: 10;
-width: 24em;
-margin: 0 0 0 -12em;
-border-radius: 8px;
-padding: 2.5em;
-/* IE8 doesn't like rgba notation. Specify a fallback when possible */
-background-color: #fff;
-background-color: rgba(255,255,255,1);
-text-align: center;
-box-shadow: 0 0 24px rgba(0,0,0,0.333);
--webkit-transition: opacity 0.8s ease-in-out, -webkit-transform 0.8s ease-in-out;
--moz-transition: opacity 0.8s ease-in-out, -moz-transform 0.8s ease-in-out;
--ms-transition: opacity 0.8s ease-in-out, -ms-transform 0.8s ease-in-out;
-transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+	position: absolute;
+	left: 50%;
+	top: 35%;
+	z-index: 10;
+	width: 24em;
+	margin: 0 0 0 -12em;
+	border-radius: 8px;
+	padding: 2.5em;
+	/* IE8 doesn't like rgba notation. Specify a fallback when possible */
+	background-color: #fff;
+	background-color: rgba(255,255,255,1);
+	text-align: center;
+	box-shadow: 0 0 24px rgba(0,0,0,0.333);
+	-webkit-transition: opacity 0.8s ease-in-out, -webkit-transform 0.8s ease-in-out;
+	-moz-transition: opacity 0.8s ease-in-out, -moz-transform 0.8s ease-in-out;
+	-ms-transition: opacity 0.8s ease-in-out, -ms-transform 0.8s ease-in-out;
+	transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
 }
 
 form h1 {
-margin: -0.4em 0 0.4em 0;
-font-size: 200%;
-font-weight: 300;
+	margin: -0.4em 0 0.4em 0;
+	font-size: 200%;
+	font-weight: 300;
 }
 
 .error {
-margin-bottom: 1em;
-color: #cc0000;
-font-weight: bold;
+	margin-bottom: 1em;
+	color: #cc0000;
+	font-weight: bold;
 }
 
 .message {
-margin-bottom: 1em;
-color: #3F4652;
-font-weight: bold;
+	margin-bottom: 1em;
+	color: #3F4652;
+	font-weight: bold;
 }
 
 form p {
-margin-top: 1em;
+	margin-top: 1em;
 }
 
 form .or {
-position: relative;
-margin: 0.8em 0 0 0;
-font-size: 120%;
-font-family: Georgia, serif;
-font-style: italic;
-text-align: center;
-opacity: 0.5;
+	position: relative;
+	margin: 0.8em 0 0 0;
+	font-size: 120%;
+	font-family: Georgia, serif;
+	font-style: italic;
+	text-align: center;
+	opacity: 0.5;
 }
 
 form .or:before {
-content: '– ';
+	content: '– ';
 }
 
 form .or:after {
-content: ' –';
+	content: ' –';
 }
 
 .oauthLogin {
-margin-top: 1.6em;
-margin-top: 1.6em;
+	margin-top: 1.6em;
+	margin-top: 1.6em;
 }
 
 button.oauthLogin {
@@ -121,30 +141,35 @@ button.oauthLogin {
 }
 
 #loginForm button.oauthLogin {
-width: 15em;
+	width: 15em;
 }
 
 #signupForm button.oauthLogin {
-margin-top: 0;
+	margin-top: 0;
 }
 
 button.oauthLogin:focus {
-background-color: #00c4cc;
+	background-color: #00c4cc;
 }
 
 button.oauthLogin:before {
-content: '';
-position: absolute;
-left: 0;
-top: 0;
-width: 40px;
-height: 40px;
-border-right: 1px solid rgba(0,0,0,0.25);
-background-position: 55% 50%;
-box-shadow: 1px 0 0 rgba(255,255,255,0.15);
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 40px;
+	height: 40px;
+	border-right: 1px solid rgba(0,0,0,0.25);
+	background-position: 55% 50%;
+	box-shadow: 1px 0 0 rgba(255,255,255,0.15);
 }
 
-/* Custom Login Button ========================================= */
+/*
+|--------------------------------------------------------------------------
+| Custom Login Button
+|--------------------------------------------------------------------------
+|
+*/
 
 button.weiboLogin {
 	background-color: #d91c00;
@@ -169,351 +194,359 @@ i.facebookSignupButton
 }
 
 fieldset.submit a {
-display: block;
-position: relative;
-margin-top: 2em;
-color: rgba(63,70,82, 0.5);
-font-size: 90%;
-text-decoration: none;
-text-align: center;
--webkit-transition: all 0.6s ease-out;
--moz-transition: all 0.6s ease-out;
-transition: all 0.6s ease-out;
+	display: block;
+	position: relative;
+	margin-top: 2em;
+	color: rgba(63,70,82, 0.5);
+	font-size: 90%;
+	text-decoration: none;
+	text-align: center;
+	-webkit-transition: all 0.6s ease-out;
+	-moz-transition: all 0.6s ease-out;
+	transition: all 0.6s ease-out;
 }
 
 fieldset.submit a:hover {
-color: #00c4cc;
+	color: #00c4cc;
 }
 
 .forgotLink {
-margin-top: 2em;
+	margin-top: 2em;
 }
 
 .forgotLink a {
-color: #7f7f7f;
-text-decoration: none;
+	color: #7f7f7f;
+	text-decoration: none;
 }
 
 .forgotLink a:hover {
-text-decoration: underline;
+	text-decoration: underline;
 }
 
 .forgotLink a.button {
-color: #ffffff;
+	color: #ffffff;
 }
 
 .forgotLink a.button:hover {
-text-decoration: none;
+	text-decoration: none;
 }
 
 canvas {
-position: absolute;
-left: 0;
-top: 0;
-z-index: -1;
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: -1;
 }
 
 #trying {
-top: 50%;
-display: block;
-margin: 0 0 20px 0;
-font-family: Georgia, serif;
-font-style: italic;
-font-size: 150%;
-text-align: center;
-opacity: 0.5;
-position: relative;
+	top: 50%;
+	display: block;
+	margin: 0 0 20px 0;
+	font-family: Georgia, serif;
+	font-style: italic;
+	font-size: 150%;
+	text-align: center;
+	opacity: 0.5;
+	position: relative;
 }
 
-
-
-
-/* LOGIN FORM ========================================= */
+/*
+|--------------------------------------------------------------------------
+| Signin Form
+|--------------------------------------------------------------------------
+|
+*/
 
 #loginForm.fade {
-opacity: 0;
--webkit-transform: translate3d(-60%,0,0) rotateY(-45deg) translate3d(-60%,0,0);
--moz-transform: translate3d(-60%,0,0) rotateY(-45deg) translate3d(-60%,0,0);
--ms-transform: translate3d(-60%,0,0) rotateY(-45deg) translate3d(-60%,0,0);
-transform: translate3d(-60%,0,0) rotateY(-45deg) translate3d(-60%,0,0);
+	opacity: 0;
+	-webkit-transform: translate3d(-60%,0,0) rotateY(-45deg) translate3d(-60%,0,0);
+	-moz-transform: translate3d(-60%,0,0) rotateY(-45deg) translate3d(-60%,0,0);
+	-ms-transform: translate3d(-60%,0,0) rotateY(-45deg) translate3d(-60%,0,0);
+	transform: translate3d(-60%,0,0) rotateY(-45deg) translate3d(-60%,0,0);
 }
 
 #loginForm.off {
-display: none;
+	display: none;
 }
 
 #forgotForm.fade {
--webkit-transform: translate3d(60%,0,0) rotateY(45deg) translate3d(60%,0,0);
--moz-transform: translate3d(60%,0,0) rotateY(45deg) translate3d(60%,0,0);
--ms-transform: translate3d(60%,0,0) rotateY(45deg) translate3d(60%,0,0);
-transform: translate3d(60%,0,0) rotateY(45deg) translate3d(60%,0,0);
-opacity: 0;
+	-webkit-transform: translate3d(60%,0,0) rotateY(45deg) translate3d(60%,0,0);
+	-moz-transform: translate3d(60%,0,0) rotateY(45deg) translate3d(60%,0,0);
+	-ms-transform: translate3d(60%,0,0) rotateY(45deg) translate3d(60%,0,0);
+	transform: translate3d(60%,0,0) rotateY(45deg) translate3d(60%,0,0);
+	opacity: 0;
 }
 
 #forgotForm.off {
-display: none;
+	display: none;
 }
 
-
-
-
-/* SIGN UP FORM ========================================= */
+/*
+|--------------------------------------------------------------------------
+| Signup Form
+|--------------------------------------------------------------------------
+|
+*/
 
 #signupForm {
-top: -webkit-calc(50% - 10.75em);
-top: calc(50% - 10.75em);
-margin-left: -21em;
+	top: -webkit-calc(50% - 10.75em);
+	top: calc(50% - 10.75em);
+	margin-left: -21em;
 }
 
 @media screen and (max-width: 600px) {
-#signupForm {
-margin-left: -12em;
+	#signupForm {
+	margin-left: -12em;
 }
 }
 
 #signupForm.hideForm {
-margin-left: -12em;
+	margin-left: -12em;
 }
 
 #signupForm #intro {
-position: relative;
-padding-top: 1px;
+	position: relative;
+	padding-top: 1px;
 }
 
 
 #signupForm.hideForm #intro {
-display: none;
+	display: none;
 }
 
 #signupForm #intro p:first-child {
-margin-top: 0;
+	margin-top: 0;
 }
 
 #signupForm #emailSignup {
-display: block;
-padding-top: 1px;
+	display: block;
+	padding-top: 1px;
 }
 
 #signupForm.hideForm #emailSignup {
-display: none !important;
+	display: none !important;
 }
 
 #signupForm button {
-width: 15.5em;
+	width: 15.5em;
 }
 
 #signupForm label {
-display: block;
-margin-top: 0.8em;
-font-size: 100%;
-font-weight: normal;
+	display: block;
+	margin-top: 0.8em;
+	font-size: 100%;
+	font-weight: normal;
 }
 
 #signupForm label[for=username] {
-margin-right: 0;
+	margin-right: 0;
 }
 
 #signupForm label .text {
-position: absolute;
-margin: 0 0 0 0 ;
-padding: 0 0 0 1em;
-text-align: left;
-line-height: 43px;
-font-weight: bold;
+	position: absolute;
+	margin: 0 0 0 0 ;
+	padding: 0 0 0 1em;
+	text-align: left;
+	line-height: 43px;
+	font-weight: bold;
 }
 
 #signupForm input[type=text],
 #signupForm input[type=password] {
-margin-top: 0;
-padding-left: 6.7em;
+	margin-top: 0;
+	padding-left: 6.7em;
+	font-family: 'Raleway','Microsoft YaHei', '微软雅黑', 'STXihei', '华文细黑', 'WenQuanYi Micro Hei', '黑体';
 }
 
 #signupForm input[type=text]:focus,
 #signupForm input[type=password]:focus {
-padding-left: -webkit-calc(6.7em - 2px);
-padding-left: calc(6.7em - 2px);
+	padding-left: -webkit-calc(6.7em - 2px);
+	padding-left: calc(6.7em - 2px);
 }
 
 #signupForm input[disabled=disabled] {
-opacity: 0.5;
-box-shadow: none;
+	opacity: 0.5;
+	box-shadow: none;
 }
 
 #quotes {
-position: absolute;
-left: 100%;
-top: 0;
-width: 18em;
--moz-box-sizing: border-box;
-box-sizing: border-box;
-padding-left: 3em;
-color: #ffffff;
-text-align: left;
+	position: absolute;
+	left: 100%;
+	top: 0;
+	width: 18em;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding-left: 3em;
+	color: #ffffff;
+	text-align: left;
 }
 
 #signupForm.hideForm #quotes {
-display: none;
+	display: none;
 }
 
 @media screen and (max-width: 600px) {
-#quotes {
-left: 0;
-top: 100%;
-width: 100%;
-padding: 0 0 3em 0;
-text-align: center;
-}
+	#quotes {
+		left: 0;
+		top: 100%;
+		width: 100%;
+		padding: 0 0 3em 0;
+		text-align: center;
+	}
 }
 
 #quotes p {
-margin-top: 1.25em;
-font-size: 160%;
-font-family: Georgia, serif;
-font-style: italic;
+	margin-top: 1.25em;
+	font-size: 160%;
+	font-family: KaiTi, '楷体';
+	font-style: normal;
 }
 
 #quotes p + p {
-margin-top: 2em;
-font-size: 160%;
-font-family: Georgia, serif;
-font-style: italic;
+	margin-top: 2em;
+	font-size: 160%;
+	font-family: Georgia, serif;
+	font-style: normal;
 }
 
 #quotes cite {
-display: block;
-margin-top: 0.4em;
-font-size: 80%;
-font-family: 'Open Sans', sans-serif;
-font-style: normal;
-font-weight: 300;
+	display: block;
+	margin-top: 0.4em;
+	font-size: 60%;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 300;
 }
 
-
-
-
-/* RESERVE PAGE ========================================= */
+/*
+|--------------------------------------------------------------------------
+| Reserve Page
+|--------------------------------------------------------------------------
+|
+*/
 
 #usernameForm #username {
-width: 13em;
-padding-right: 2.5em;
+	width: 13em;
+	padding-right: 2.5em;
 }
 
 #usernameForm #username.ok {
-background-image: url(../img/tick_green.png);
-background-repeat: no-repeat;
-background-position: 95% 50%;
+	background-image: url(../img/tick_green.png);
+	background-repeat: no-repeat;
+	background-position: 95% 50%;
 }
 
 label[for=username]{
-margin-right: 5px;
-font-size: 120%;
-font-weight: bold;
+	margin-right: 5px;
+	font-size: 120%;
+	font-weight: bold;
 }
 
 #usernameForm #email{
-width: 20.5em;
+	width: 20.5em;
 }
 
 #usernameForm {
-width: 22em;
-margin-left: -13.5em;
+	width: 22em;
+	margin-left: -13.5em;
 }
 
 #sesquipedalian {
-font-size: 85%;
-opacity: 0.333;
+	font-size: 85%;
+	opacity: 0.333;
 }
 
 #successSocial {
-margin-top: 2em;
+	margin-top: 2em;
 }
 
 #successSocial li {
-display: inline;
+	display: inline;
 }
 
 #successSocial a {
-display: inline-block;
-width: 48px;
-height: 48px;
-margin: 0 10px;
-background-position: 50% 50%;
-background-repeat: no-repeat;
-text-indent: -9999px;
-opacity: 0.5;
--webkit-transition: all 0.3s ease-out;
--moz-transition: all 0.3s ease-out;
--ms-transition: all 0.3s ease-out;
-transition: all 0.3s ease-out;
+	display: inline-block;
+	width: 48px;
+	height: 48px;
+	margin: 0 10px;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	text-indent: -9999px;
+	opacity: 0.5;
+	-webkit-transition: all 0.3s ease-out;
+	-moz-transition: all 0.3s ease-out;
+	-ms-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
 }
 
 #successSocial a:hover {
-opacity: 1;
--webkit-transform: translate3d(0,-5px,0);
--moz-transform: translate3d(0,-5px,0);
--ms-transform: translate3d(0,-5px,0);
-transform: translate3d(0,-5px,0);
+	opacity: 1;
+	-webkit-transform: translate3d(0,-5px,0);
+	-moz-transform: translate3d(0,-5px,0);
+	-ms-transform: translate3d(0,-5px,0);
+	transform: translate3d(0,-5px,0);
 }
 
 #successSocialTwitter a {
-width: 54px;
-background-image: url(../img/icon_twitter_big.png);
+	width: 54px;
+	background-image: url(../img/icon_twitter_big.png);
 }
 
 #successSocialFacebook a {
-width: 43px;
-background-image: url(../img/icon_facebook_big.png);
+	width: 43px;
+	background-image: url(../img/icon_facebook_big.png);
 }
 
 #successSocialPinterest a {
-width: 49px;
-background-image: url(../img/icon_pinterest_big.png);
+	width: 49px;
+	background-image: url(../img/icon_pinterest_big.png);
 }
 
 #successSocialYoutube a {
-width: 38px;
-background-image: url(../img/icon_youtube_big.png);
+	width: 38px;
+	background-image: url(../img/icon_youtube_big.png);
 }
 
-
-
-
-/* MOBILE/TABLET OPTIMISATIONS ========================================= */
+/*
+|--------------------------------------------------------------------------
+| Mobile / Tablet Optimisations
+|--------------------------------------------------------------------------
+|
+*/
 
 @media screen and (max-width: 960px)
 {
-html {
--webkit-text-size-adjust: none;
-}
+	html {
+		-webkit-text-size-adjust: none;
+	}
 
-header > .inner {
-min-width: 100%;
-}
+	header > .inner {
+		min-width: 100%;
+	}
 
-#logo {
-top: 0px;
-margin-left: 4%;
--webkit-transform-origin: 0 0;
--moz-transform-origin: 0 0;
--ms-transform-origin: 0 0;
-transform-origin: 0 0;
--webkit-transform: scale(0.8,0.8);
--moz-transform: scale(0.8,0.8);
--ms-transform: scale(0.8,0.8);
-transform: scale(0.8,0.8);
-}
+	#logo {
+		top: 0px;
+		margin-left: 4%;
+		-webkit-transform-origin: 0 0;
+		-moz-transform-origin: 0 0;
+		-ms-transform-origin: 0 0;
+		transform-origin: 0 0;
+		-webkit-transform: scale(0.8,0.8);
+		-moz-transform: scale(0.8,0.8);
+		-ms-transform: scale(0.8,0.8);
+		transform: scale(0.8,0.8);
+	}
 
-header > .inner > menu {
-position: absolute;
-right: 4%;
-margin-right: 0;
-}
+	header > .inner > menu {
+		position: absolute;
+		right: 4%;
+		margin-right: 0;
+	}
 
-header > .inner > menu > li {
-margin-left: 8px;
-}
+	header > .inner > menu > li {
+		margin-left: 8px;
+	}
 
-header > .inner > menu > li > a {
-margin-left: 1em;
-}
+	header > .inner > menu > li > a {
+		margin-left: 1em;
+	}
 }

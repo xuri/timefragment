@@ -20,8 +20,8 @@
                     </a>
                 </p>
             <fieldset id="quotes">
-                <p>&ldquo;时光不老，我们不散&rdquo;
-                    <cite>&ndash; 时光碎片</cite>
+                <p>时光不老，我们不散
+                    <cite>&ndash; TimeFragment</cite>
                 </p>
             </fieldset>
         </form>

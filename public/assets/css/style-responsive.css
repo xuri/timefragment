@@ -1,11 +1,11 @@
 /*
- Theme Name: TimeFragment
- Description: Responsive HTML5/CSS3
- Version: 1.0
- Author: luxurioust
- Author URI: http://www.mrxuri.com/
+ Title			: TimeFragment
+ Site			: http://www.timefragment.com/
+ Description	: Responsive HTML5/CSS3
+ Version		: 1.0
+ Author			: Ri Xu
+ Author URI		: http://xuri.me/
  */
-
 
 /* ExtraSmall devices (tablets, 767px and down) */
 @media (max-width: 767px) {
@@ -247,7 +247,7 @@
 		font-size: 110px;
 		line-height: 100px;
 		letter-spacing:-3px;
-		font-weight: 400;
+		font-weight: 300;
 	}
 
 	.project-description{ text-align:inherit;}

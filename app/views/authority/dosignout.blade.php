@@ -12,11 +12,8 @@
             <fieldset id="message" class="message">
                 <p class="center">欢迎来到时光碎片</p></fieldset>
             <fieldset id="quotes">
-                <p>&ldquo;时光不老，我们不散&rdquo;
-                    <cite>&ndash; 时光碎片</cite>
-                </p>
-                <p>&ldquo;编织梦想，程就未来&rdquo;
-                    <cite>&ndash; luxurioust</cite>
+                <p>时光不老，我们不散
+                    <cite>&ndash; TimeFragment</cite>
                 </p>
             </fieldset>
         </form>
