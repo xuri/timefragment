@@ -72,7 +72,15 @@ class HomeController extends BaseController {
         $productCategories = ProductCategories::orderBy('sort_order')->get();
         $job               = Job::orderBy('created_at', 'desc')->paginate(4);
         $categories        = Category::orderBy('sort_order')->get();
-        return View::make('home.videoindex')->with(compact('articles', 'categories', 'travel', 'product', 'productCategories', 'job'));
+        if(Auth::check())
+        {
+            $timeline      = Timeline::orderBy('created_at', 'desc')->where('user_id', Auth::user()->id)->get();
+        }
+        else
+        {
+            $timeline      = Timeline::orderBy('created_at', 'desc')->get();
+        }
+        return View::make('home.videoindex')->with(compact('articles', 'categories', 'travel', 'product', 'productCategories', 'job', 'timeline'));
     }
 
     /**
