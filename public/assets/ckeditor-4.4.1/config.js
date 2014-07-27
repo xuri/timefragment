@@ -24,6 +24,18 @@ CKEDITOR.editorConfig = function( config ) {
 	//         filebrowserUploadUrl: '{{URL::action("AdminArticlesController@postUploadToArt",$article->id)}}?csrf_token='+csrf
 
 	//     });
-
+	config.toolbar =
+	[
+	['Styles','Format','Font','FontSize'],
+	['TextColor','BGColor'],
+	['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
+	['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+	'/',
+	['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+	['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+	['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+	['Link','Unlink','Anchor'],
+	['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
+	];
 };
 

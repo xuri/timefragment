@@ -52,6 +52,8 @@
                         @include('layout.notification')
                     </div>
 
+                    @if($datas->first())
+
                     <div class="table-responsive p-lr-30 p-tb-10 pm-lr-10">
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
@@ -87,6 +89,11 @@
                         {{ pagination($datas->appends(Input::except('page')), 'layout.paginator') }}
                     </div>
 
+                    @else
+                    <center class="p-30">
+                        还没有创意，快去分享一新的创意吧。
+                    </center>
+                    @endif
                 </div>
             </div>
             {{-- /.col-lg-9 --}}

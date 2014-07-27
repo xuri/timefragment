@@ -55,13 +55,10 @@
             <div class="dz-default dz-message"><span>拖动文件到此处上传</span>
             </div>
         </form> -->
-
-        <div class="bg-white p-30 m-t-30">
-
+        <div class="bg-white p-30">
+            @if($datas->first())
             <div class="clearfix mosaicflow">
-
                 @foreach ($datas as $data)
-
                 <div class="mosaicflow__item m-r-10 m-b-10" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z" style="cursor:pointer">
                     @if($data->thumbnails)
                     <img src="{{ route('home') }}/uploads/travel_small_thumbnails/{{ $data->thumbnails }}" alt="{{ $data->title }}" title="{{ $data->title }}">
@@ -83,13 +80,14 @@
                         </button>
                     </div>
                 </div>
-
                 @endforeach
-
             </div>
-
+            @else
+            <center class="p-b-30">
+                还没有文章，快去分享一段关于旅行的故事吧。
+            </center>
+            @endif
         </div>
-
     </div>
     {{-- /main content --}}
     <?php

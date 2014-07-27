@@ -29,7 +29,7 @@
 						<span class="line"></span>
 					</div>
 					<p class="lead">
-						We're a close team of creatives, designers &amp; developers who work together to create beautiful, engaging digital experiences. We take pride in delivering only the best.
+
 					</p>
 				</div>
 				{{-- Section title --}}

@@ -85,7 +85,8 @@
                             <thead>
                                 <tr>
                                     <th>身份 {{ order_by('is_admin') }}</th>
-                                    <th>邮箱 {{ order_by('email') }}</th>
+                                    <th>邮箱 / ID {{ order_by('email') }}</th>
+                                    <th>昵称 {{ order_by('nickname') }}</th>
                                     <th>注册时间 {{ order_by('created_at', 'desc') }}</th>
                                     <th>最后登录时间 {{ order_by('signin_at') }}</th>
                                     <th style="width:7em;text-align:center;">操作</th>
@@ -101,6 +102,7 @@
                                             <i class="glyphicon glyphicon-envelope" style="font-size:0.8em;"></i>
                                         </a>
                                         {{ $data->email }}</td>
+                                    <td>{{ $data->nickname }}</td>
                                     <td>{{ $data->created_at }}（{{ $data->friendly_created_at }}）</td>
                                     <td>{{ $data->signin_at }}（{{ $data->friendly_signin_at }}）</td>
                                     <td>
