@@ -1736,3 +1736,18 @@ footer div.copyright a:hover {
 span#cnzz_stat_icon_1252933521 {
 	display: none;
 }
+
+#share-button img {
+	width:47px!important;
+	padding:6px;
+	border:0;
+	box-shadow:none!important;
+	display:inline;
+	vertical-align:middle;
+}
+#share-button, #share-button a{
+	background:none;
+	font-size:24px;
+	color: #222;
+	font-family: 'Raleway', 'STXihei', '华文细黑', 'WenQuanYi Micro Hei', '黑体';
+}

@@ -35,6 +35,10 @@
 		</div>
 
 		<div class="comment-formular">
+
+			@include('layout.share-button')
+           	@yield('content')
+
 			<h3>评论</h3>
 			{{-- form contact --}}
 			@include('layout.notification')

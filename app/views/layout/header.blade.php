@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-
+<html xmlns:wb="http://open.weibo.com/wb" lang="zh-CN">
 	<head>
 		<title>时光碎片 | Time Fragment</title>
 		<meta property="qc:admins" content="174222754064155621755646375" />

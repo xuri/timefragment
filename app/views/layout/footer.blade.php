@@ -22,6 +22,7 @@
 		</footer>
 
 		{{-- Js Library --}}
+		<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 
 		{{ script('jquery-2.1.1') }}
 
