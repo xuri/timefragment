@@ -9,7 +9,7 @@
 						<span>记录·分享·回忆</span>
 						<span class="line big"></span>
 					</div>
-					<a href="{{ route('timeline') }}" target="_blank"><h1 class="item_right">时间线</h1></a>
+					<a href="{{ route('timeline') }}"><h1 class="item_right">时间线</h1></a>
 					<div>
 						<span class="line"></span>
 						<span>记录生活点滴, 捕捉感动瞬间</span>

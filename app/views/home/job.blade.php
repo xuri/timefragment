@@ -9,7 +9,7 @@
 						<span>经历·分享·积累</span>
 						<span class="line big"></span>
 					</div>
-					<a href="{{ route('job.getIndex') }}" target="_blank"><h1 class="item_left">酷工作</h1></a>
+					<a href="{{ route('job.getIndex') }}"><h1 class="item_left">酷工作</h1></a>
 					<div>
 						<span class="line"></span>
 						<span>全面的职位信息资源平台</span>

@@ -31,7 +31,7 @@
 						<span class="line"></span>
 					</div>
 					<p class="lead">
-						<a href="{{ route('myproduct.create') }}" target="_blank"><i class="fa fa-shopping-cart"></i> 发布商品</a>，这里是进行发布商品交易信息的全新平台！
+						<a href="{{ route('myproduct.create') }}"><i class="fa fa-shopping-cart"></i> 发布商品</a>，这里是进行发布商品交易信息的全新平台！
 					</p>
 				</div>
 				{{-- Section Title --}}

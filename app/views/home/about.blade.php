@@ -9,7 +9,7 @@
 					<span>我和世界爱着你</span>
 					<span class="line big"></span>
 				</div>
-				<a href="{{ route('article.index') }}" target="_blank"><h1 class="item_right">关于我们</h1></a>
+				<a href="{{ route('article.index') }}"><h1 class="item_right">关于我们</h1></a>
 				<div>
 					<span class="line"></span>
 					<span>我们是时尚生活与创意设计的探索者</span>

@@ -9,7 +9,7 @@
 						<span>全新交易信息发布平台</span>
 						<span class="line big"></span>
 					</div>
-					<a href="{{ route('product.getIndex') }}" target="_blank"><h1 class="item_right">尚品汇</h1></a>
+					<a href="{{ route('product.getIndex') }}"><h1 class="item_right">尚品汇</h1></a>
 					<div>
 						<span class="line"></span>
 						<span>低碳·环保·健康·绿色</span>

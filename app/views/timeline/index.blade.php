@@ -80,7 +80,7 @@
 									</div>
 									<div class="post-body clearfix">
 										<div class="blog-title">
-											<h1><a href="{{ route($show, $event->slug) }}" target="_blank">{{ close_tags(Str::limit($event->title, 40)) }}</a></h1>
+											<h1><a href="{{ route($show, $event->slug) }}">{{ close_tags(Str::limit($event->title, 40)) }}</a></h1>
 										</div>
 										@if($event->thumbnails)
 										<a href="#" class="zoom">

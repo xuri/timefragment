@@ -17,7 +17,7 @@
 		{{-- portfolio item --}}
 		<div class="portfolio-item {{ $single_product->category->name }} web">
 			<div class="portfolio">
-				<a href="{{ route('product.show', $single_product->slug) }}" target="_blank" class="zoom">
+				<a href="{{ route('product.show', $single_product->slug) }}" class="zoom">
 					@if($single_product->thumbnails)
 					<img src="{{ route('home') }}/uploads/product_thumbnails/{{ $single_product->thumbnails }}" alt="{{ $single_product->title }}" title="{{ $single_product->title }}">
 					@else

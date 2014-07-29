@@ -9,7 +9,7 @@
 					<span>读万卷书·行万里路</span>
 					<span class="line big"></span>
 				</div>
-				<a href="{{ route('travel.getIndex') }}" target="_blank"><h1 class="item_left">去旅行</h1></a>
+				<a href="{{ route('travel.getIndex') }}"><h1 class="item_left">去旅行</h1></a>
 				<div>
 					<span class="line"></span>
 					<span>旅行的意义</span>

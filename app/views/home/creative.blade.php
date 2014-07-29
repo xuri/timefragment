@@ -7,7 +7,7 @@
 
 					{{-- Parallax title --}}
 					<div>
-						<a href="{{ route('creative.getIndex') }}" target="_blank"><h1>创意汇</h1></a>
+						<a href="{{ route('creative.getIndex') }}"><h1>创意汇</h1></a>
 						<p class="lead no-margin">
 							这里 汇聚你我创意 创新不会停止 灵感永不枯竭
 						</p>
