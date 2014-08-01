@@ -67,8 +67,8 @@
                             </li>
                             <li>
                                 <a href="#tab-info" data-toggle="tab">
-                                    <div class="text-small">Article Information</div>
-                                    <span class="text-uppercase">文章信息</span>
+                                    <div class="text-small">Goods Information</div>
+                                    <span class="text-uppercase">商品信息</span>
                                 </a>
                             </li>
                         </ul>

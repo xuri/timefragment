@@ -128,4 +128,9 @@ class User extends BaseModel implements UserInterface, RemindableInterface
         $this->attributes['password'] = Hash::needsRehash($value) ? Hash::make($value) : $value;
     }
 
+    public function orders()
+    {
+        return $this->hasMany("Order");
+    }
+
 }

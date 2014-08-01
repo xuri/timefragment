@@ -91,7 +91,7 @@
 
                     @else
                     <center class="p-30">
-                        还没有创意，快去分享一新的创意吧。
+                        还没有创意，快去分享你的新创意吧。
                     </center>
                     @endif
                 </div>

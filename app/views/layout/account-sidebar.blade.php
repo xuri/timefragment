@@ -29,27 +29,77 @@
 				<span class="badge bg-blue-light pull-right text-gray-dark brad-small">4</span>
 			</a>
         </li> -->
-        <li><a href="{{ route('mycreative.index') }}" class="text-left">我的创意汇</a>
-        </li>
-        <li><a href="{{ route('mytravel.index') }}" class="text-left">我的去旅行</a>
-        </li>
-        <li><a href="{{ route('myproduct.create') }}" class="text-left">我要卖东西</a>
-        </li>
-        <li><a href="{{ route('myjob.create') }}" class="text-left">发布酷工作</a>
+        <li>
+            <a href="#" class="text-left dropdown-toggle" data-toggle="dropdown">
+                我的创意汇
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="{{ route('mycreative.create') }}">分享新创意</a>
+                </li>
+                <li>
+                    <a href="{{ route('mycreative.index') }}">我的创意</a>
+                </li>
+                <li>
+                    <a href="{{ route('mycreative.comments') }}">创意汇评论</a>
+                </li>
+            </ul>
         </li>
         <li>
             <a href="#" class="text-left dropdown-toggle" data-toggle="dropdown">
-                    我的评论
-                    <b class="caret"></b>
-                </a>
+                我的去旅行
+                <b class="caret"></b>
+            </a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="{{ route('mycreative.comments') }}">创意汇评论</a>
+                <li>
+                    <a href="{{ route('mytravel.create') }}">撰写新文章</a>
                 </li>
-                <li><a href="{{ route('mytravel.comments') }}">去旅行评论</a>
+                <li>
+                    <a href="{{ route('mytravel.index') }}">我的旅行记录</a>
                 </li>
-                <li><a href="{{ route('myproduct.comments') }}">尚品汇评论</a>
+                <li>
+                    <a href="{{ route('mytravel.comments') }}">去旅行评论</a>
                 </li>
-                <li><a href="{{ route('myjob.comments') }}">酷工作评论</a>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="text-left dropdown-toggle" data-toggle="dropdown">
+                我的尚品汇
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="{{ route('myproduct.create') }}">发布新商品</a>
+                </li>
+                <li>
+                    <a href="{{ route('myproduct.index') }}">出售的商品</a>
+                </li>
+                <li>
+                    <a href="{{ route('myproduct.index') }}">我的购物车</a>
+                </li>
+                <li>
+                    <a href="{{ route('myproduct.index') }}">已购买商品</a>
+                </li>
+                <li>
+                    <a href="{{ route('myproduct.comments') }}">尚品汇评论</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="text-left dropdown-toggle" data-toggle="dropdown">
+                招聘信息管理
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="{{ route('myjob.create') }}">发布酷工作</a>
+                </li>
+                <li>
+                    <a href="{{ route('myjob.index') }}">我的招聘</a>
+                </li>
+                <li>
+                    <a href="{{ route('myjob.comments') }}">酷工作评论</a>
                 </li>
             </ul>
         </li>

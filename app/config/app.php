@@ -109,6 +109,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         'Intervention\Image\ImageServiceProvider',
         'Wehnhew\Payments\PaymentServiceProvider',
+        'Gloudemans\Shoppingcart\ShoppingcartServiceProvider',
 	),
 
 	/*
@@ -143,6 +144,7 @@ return array(
 		'Blade'           => 'Illuminate\Support\Facades\Blade',
 		'Cache'           => 'Illuminate\Support\Facades\Cache',
 		'Carbon'    	  => 'Carbon\Carbon',
+		'Cart'            => 'Gloudemans\Shoppingcart\Facades\Cart',
 		'ClassLoader'     => 'Illuminate\Support\ClassLoader',
 		'Config'          => 'Illuminate\Support\Facades\Config',
 		'Controller'      => 'Illuminate\Routing\Controller',

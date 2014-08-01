@@ -42,7 +42,7 @@ $code_url = $o->getAuthorizeURL( WB_CALLBACK_URL );
                 <input type="submit" value="登陆"/>
             </fieldset>
             <fieldset class="forgotLink">
-                <a id="<!-- forgot -->" href="{{ route('forgotPassword') }}">
+                <a id="{{-- forgot --}}" href="{{ route('forgotPassword') }}">
                     帮助我, 我忘记了密码 &rarr;
                 </a>
             </fieldset>
