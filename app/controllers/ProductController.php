@@ -37,12 +37,14 @@ class ProductController extends BaseResource
      * @var array
      */
     protected $validatorMessages = array(
-        'title.required'        => '请填写商品名称。',
-        'title.unique'          => '已有同名商品呢。',
-        'slug.unique'           => '已有同名 sulg。',
+        'title.required'        => '请填写商品名称',
+        'price.required'        => '请填写商品单价',
+        'price.numeric'         => '商品单价只能是数字',
+        'quantity.required'     => '请填写商品剩余数量',
+        'quantity.integer'      => '商品剩余数量必须是整数',
         'province.required'     => '请选择省份和城市',
-        'content.required'      => '请填写商品呢内容。',
-        'category.exists'       => '请填选择正确的商品呢分类。',
+        'content.required'      => '请填写商品内容',
+        'category.exists'       => '请填选择正确的商品分类',
     );
 
     /**
@@ -87,11 +89,13 @@ class ProductController extends BaseResource
     public function store()
     {
         // Get all form data.
-        $data   = Input::all();
+        $data    = Input::all();
         // Create validation rules
-        $unique = $this->unique();
-        $rules  = array(
+        $unique  = $this->unique();
+        $rules   = array(
             'title'        => 'required|'.$unique,
+            'price'        => 'required|numeric',
+            'quantity'     => 'required|integer',
             'content'      => 'required',
             'category'     => 'exists:product_categories,id',
             'province'     => 'required',
@@ -111,6 +115,8 @@ class ProductController extends BaseResource
             $model->title            = e($data['title']);
             $model->province         = e($data['province']);
             $model->city             = e($data['city']);
+            $model->price            = e($data['price']);
+            $model->quantity         = e($data['quantity']);
             $model->slug             = $hashslug;
             $model->content          = e($data['content']);
             $model->meta_title       = e($data['title']);
@@ -166,6 +172,8 @@ class ProductController extends BaseResource
         $rules  = array(
             'title'        => 'required',
             'content'      => 'required',
+            'price'        => 'required|numeric',
+            'quantity'     => 'required|integer',
             'category'     => 'exists:product_categories,id',
             'province'     => 'required',
         );
@@ -183,6 +191,8 @@ class ProductController extends BaseResource
             $model->title            = e($data['title']);
             $model->province         = e($data['province']);
             $model->city             = e($data['city']);
+            $model->price            = e($data['price']);
+            $model->quantity         = e($data['quantity']);
             $model->content          = e($data['content']);
             $model->meta_title       = e($data['title']);
             $model->meta_description = e($data['title']);

@@ -23,9 +23,9 @@ Route::group(array(), function () {
 	$controller = 'HomeController@';
 
     # Homepage
-    #Route::get('/'        , array('as' => 'home'     , 'uses' => $controller.'getIndex'     ));
+    Route::get('/'        , array('as' => 'home'     , 'uses' => $controller.'getIndex'     ));
     # Homepage with Video
-    Route::get('/'        , array('as' => 'home'     , 'uses' => $controller.'getVideoIndex'));
+    #Route::get('/'        , array('as' => 'home'     , 'uses' => $controller.'getVideoIndex'));
     # Category
     Route::get('category' , array('as' => 'category' , 'uses' => $controller.'getCategory'  ));
     # Portfolio
@@ -439,17 +439,17 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
 |
 */
 
-Route::get('browser_not_support', array('as' => 'browser_not_support', function()
-{
-    return View::make('system.browserUpdate');
-}));
+// Route::get('browser_not_support', array('as' => 'browser_not_support', function()
+// {
+//     return View::make('system.browserUpdate');
+// }));
 
-App::missing(function($exception)
-{
-    return Response::view('system.missing', array(), 404);
-});
+// App::missing(function($exception)
+// {
+//     return Response::view('system.missing', array(), 404);
+// });
 
-App::error(function($exception)
-{
-    return Response::view('system.error', array(), 500);
-});
+// App::error(function($exception)
+// {
+//     return Response::view('system.error', array(), 500);
+// });

@@ -12,7 +12,9 @@
 		"five-say/vendor-cleaner": "dev-master",
 		"blueimp/jquery-file-upload": "dev-master",
 		"symfony/validator": "2.6.*@dev",
-		"symfony/expression-language": "2.6.*@dev"
+		"symfony/expression-language": "2.6.*@dev",
+		"wehnhew/payments": "dev-master",
+		"gloudemans/shoppingcart": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

@@ -45,7 +45,7 @@
 				<div class="row">
 					@include('product.content')
 					@yield('content')
-					@include('layout.sidebar')
+					@include('product.sidebar')
 					@yield('content')
 				</div>
 

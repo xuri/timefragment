@@ -18,6 +18,8 @@ class CreateProductsTable extends Migration {
 			$table->string('category_id');
 	        $table->string('user_id');
 	        $table->text('title', 100);
+	        $table->string('price',100);
+	        $table->string('quantity',100)->nullable();
 	        $table->text('slug', 255);
 	        $table->text('province')->nullable();
 	        $table->text('city')->nullable();

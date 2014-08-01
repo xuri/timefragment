@@ -108,6 +108,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         'Intervention\Image\ImageServiceProvider',
+        'Wehnhew\Payments\PaymentServiceProvider',
 	),
 
 	/*
@@ -141,6 +142,7 @@ return array(
 		'Auth'            => 'Illuminate\Support\Facades\Auth',
 		'Blade'           => 'Illuminate\Support\Facades\Blade',
 		'Cache'           => 'Illuminate\Support\Facades\Cache',
+		'Carbon'    	  => 'Carbon\Carbon',
 		'ClassLoader'     => 'Illuminate\Support\ClassLoader',
 		'Config'          => 'Illuminate\Support\Facades\Config',
 		'Controller'      => 'Illuminate\Routing\Controller',
@@ -153,12 +155,15 @@ return array(
 		'Form'            => 'Illuminate\Support\Facades\Form',
 		'Hash'            => 'Illuminate\Support\Facades\Hash',
 		'HTML'            => 'Illuminate\Support\Facades\HTML',
+		'Image'     	  => 'Intervention\Image\Facades\Image',
+		'Identicon' 	  => 'Identicon\Identicon',
 		'Input'           => 'Illuminate\Support\Facades\Input',
 		'Lang'            => 'Illuminate\Support\Facades\Lang',
 		'Log'             => 'Illuminate\Support\Facades\Log',
 		'Mail'            => 'Illuminate\Support\Facades\Mail',
 		'Paginator'       => 'Illuminate\Support\Facades\Paginator',
 		'Password'        => 'Illuminate\Support\Facades\Password',
+		'Payment'		  => 'Wehnhew\Payments\Facades\Payment',
 		'Queue'           => 'Illuminate\Support\Facades\Queue',
 		'Redirect'        => 'Illuminate\Support\Facades\Redirect',
 		'Redis'           => 'Illuminate\Support\Facades\Redis',
@@ -173,9 +178,6 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-		'Carbon'    	  => 'Carbon\Carbon',
-		'Image'     	  => 'Intervention\Image\Facades\Image',
-		'Identicon' 	  => 'Identicon\Identicon',
 	),
 
 );

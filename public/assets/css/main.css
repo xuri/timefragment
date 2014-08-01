@@ -776,7 +776,7 @@ div.mc-image {
 	width: 20%;
 }
 .pricing-box {
-	float: left;
+	/*float: left;*/
 	text-align: center;
 	margin: 0;
 	padding: 0;

@@ -14,10 +14,10 @@
 	<a href="http://www.linkedin.com/shareArticle?mini=true&url={{ URL::current() }}" target="_blank">
 		<img title="分享到 LinkedIn" src="{{ route('home') }}/images/share/Linkedin-icon.png" alt="LinkedIn"/>
 	</a>
-	<a href="http://widget.weibo.com/dialog/PublishWeb.php?default_text=%E5%88%86%E4%BA%AB%E5%86%85%E5%AE%B9%EF%BC%9Ahttp%3A%2F%2Fwww.timefragment.com%2Ftravel%2F17.10.44-db06c78d1e24cf708a14ce81c9b617ec.html%20%EF%BC%88%E6%9D%A5%E8%87%AA%20%40%E6%97%B6%E5%85%89%E7%A2%8E%E7%89%87%E7%BD%91%EF%BC%89&refer=y&language=zh_cn&app_src=2ohpjs&button=pubilish" target="_blank">
+	<a href="http://widget.weibo.com/dialog/PublishWeb.php?default_text=分享内容：{{ URL::current() }}（来自 @时光碎片网）&refer=y&language=zh_cn&app_src=2ohpjs&button=pubilish" target="_blank">
 		<img title="分享到 新浪微博" src="{{ route('home') }}/images/share/Weibo-icon.png" alt="新浪微博"/>
 	</a>
-	<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={{ URL::current() }}&showcount=0&desc=&summary=%E6%9D%A5%E8%87%AA%E6%97%B6%E5%85%89%E7%A2%8E%E7%89%87%E7%BD%91&title=%E5%88%86%E4%BA%AB%E5%86%85%E5%AE%B9%EF%BC%9A&site=%E6%97%B6%E5%85%89%E7%A2%8E%E7%89%87&pics=&style=203&width=98&height=22&otype=share" target="_blank">
+	<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={{ URL::current() }}&showcount=0&desc=&summary=来自时光碎片网&title=分享内容&site=%E6%97%B6%E5%85%89%E7%A2%8E%E7%89%87&pics=&style=203&width=98&height=22&otype=share" target="_blank">
 		<img title="分享到 QQ空间" src="{{ route('home') }}/images/share/Qzone-icon.png" alt="QQ空间"/>
 	</a>
 	<a href="javascript:void(0)" onclick="modal()">

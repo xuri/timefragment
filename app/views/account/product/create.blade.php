@@ -65,71 +65,92 @@
                                 <div class="tab-pane active" id="tab-general" style="margin:0 1em;">
 
                                     <div class="form-group">
-                                        <label for="category">{{ $resourceName }}分类</label>
-                                        {{ $errors->first('category', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
-                                        {{ Form::select('category', $categoryLists, 1, array('class' => 'form-control input-sm selectpicker input-light brad')) }}
+                                        <div class="col-sm-12">
+                                            <label for="category">{{ $resourceName }}分类</label>
+                                            {{ $errors->first('category', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
+                                            {{ Form::select('category', $categoryLists, 1, array('class' => 'form-control input-sm selectpicker input-light brad')) }}
+                                        </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="location">所在地</label>
-                                        {{ $errors->first('province', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
-                                        <div>
-                                            <select id="province" class="input-light brad" data-live-search="false" name="province" onchange="setcity();" rel="">
-                                                <option value="">----请选择省份----</option>
-                                                <option value="安徽">安徽</option>
-                                                <option value="北京">北京</option>
-                                                <option value="重庆">重庆</option>
-                                                <option value="福建">福建</option>
-                                                <option value="甘肃">甘肃</option>
-                                                <option value="广东">广东</option>
-                                                <option value="广西">广西</option>
-                                                <option value="贵州">贵州</option>
-                                                <option value="海南">海南</option>
-                                                <option value="河北">河北</option>
-                                                <option value="黑龙江">黑龙江</option>
-                                                <option value="河南">河南</option>
-                                                <option value="香港">香港</option>
-                                                <option value="湖北">湖北</option>
-                                                <option value="湖南">湖南</option>
-                                                <option value="江苏">江苏</option>
-                                                <option value="江西">江西</option>
-                                                <option value="吉林">吉林</option>
-                                                <option value="辽宁">辽宁</option>
-                                                <option value="澳门">澳门</option>
-                                                <option value="内蒙古">内蒙古</option>
-                                                <option value="宁夏">宁夏</option>
-                                                <option value="青海">青海</option>
-                                                <option value="山东">山东</option>
-                                                <option value="上海">上海</option>
-                                                <option value="山西">山西</option>
-                                                <option value="陕西">陕西</option>
-                                                <option value="四川">四川</option>
-                                                <option value="台湾">台湾</option>
-                                                <option value="天津">天津</option>
-                                                <option value="新疆">新疆</option>
-                                                <option value="西藏">西藏</option>
-                                                <option value="云南">云南</option>
-                                                <option value="浙江">浙江</option>
-                                                <option value="海外">海外</option>
-                                            </select>
-                                            <div class="i-block">
-                                                <select name="city" id="city" class="input-light brad" rel="" style="width: 140px">
-                                                    <option value="">----请选择城市----</option>
+                                        <div class="col-sm-12">
+                                            <label for="location">所在地</label>
+                                            {{ $errors->first('province', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
+                                            <div>
+                                                <select id="province" class="input-light brad" data-live-search="false" name="province" onchange="setcity();" rel="">
+                                                    <option value="">----请选择省份----</option>
+                                                    <option value="安徽">安徽</option>
+                                                    <option value="北京">北京</option>
+                                                    <option value="重庆">重庆</option>
+                                                    <option value="福建">福建</option>
+                                                    <option value="甘肃">甘肃</option>
+                                                    <option value="广东">广东</option>
+                                                    <option value="广西">广西</option>
+                                                    <option value="贵州">贵州</option>
+                                                    <option value="海南">海南</option>
+                                                    <option value="河北">河北</option>
+                                                    <option value="黑龙江">黑龙江</option>
+                                                    <option value="河南">河南</option>
+                                                    <option value="香港">香港</option>
+                                                    <option value="湖北">湖北</option>
+                                                    <option value="湖南">湖南</option>
+                                                    <option value="江苏">江苏</option>
+                                                    <option value="江西">江西</option>
+                                                    <option value="吉林">吉林</option>
+                                                    <option value="辽宁">辽宁</option>
+                                                    <option value="澳门">澳门</option>
+                                                    <option value="内蒙古">内蒙古</option>
+                                                    <option value="宁夏">宁夏</option>
+                                                    <option value="青海">青海</option>
+                                                    <option value="山东">山东</option>
+                                                    <option value="上海">上海</option>
+                                                    <option value="山西">山西</option>
+                                                    <option value="陕西">陕西</option>
+                                                    <option value="四川">四川</option>
+                                                    <option value="台湾">台湾</option>
+                                                    <option value="天津">天津</option>
+                                                    <option value="新疆">新疆</option>
+                                                    <option value="西藏">西藏</option>
+                                                    <option value="云南">云南</option>
+                                                    <option value="浙江">浙江</option>
+                                                    <option value="海外">海外</option>
                                                 </select>
+                                                <div class="i-block">
+                                                    <select name="city" id="city" class="input-light brad" rel="" style="width: 140px">
+                                                        <option value="">----请选择城市----</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="title">{{ $resourceName }}标题</label>
-                                        {{ $errors->first('title', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
-                                        <input class="form-control" type="text" name="title" id="title" value="{{ Input::old('title') }}" />
+                                        <div class="col-sm-12">
+                                            <label for="title">{{ $resourceName }}名称</label>
+                                            {{ $errors->first('title', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
+                                            <input class="form-control" type="text" name="title" id="title" value="{{ Input::old('title') }}" />
+                                        </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="content">内容</label>
-                                        {{ $errors->first('content', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
-                                        <textarea rows="10" id="content" class="ckeditor form-control" name="content" rows="10">{{ Input::old('content') }}</textarea>
+                                        <div class="col-sm-6">
+                                            <label for="price">{{ $resourceName }}单价（单位：元）</label>
+                                            {{ $errors->first('price', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
+                                            <input class="form-control" type="text" name="price" id="price" value="{{ Input::old('price') }}" />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="quantity">{{ $resourceName }}剩余数量</label>
+                                            {{ $errors->first('quantity', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
+                                            <input class="form-control" type="text" name="quantity" id="quantity" value="1" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label for="content">内容</label>
+                                            {{ $errors->first('content', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
+                                            <textarea rows="10" id="content" class="ckeditor form-control" name="content" rows="10">{{ Input::old('content') }}</textarea>
+                                        </div>
                                     </div>
 
                                 </div>
