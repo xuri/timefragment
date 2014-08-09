@@ -14,7 +14,7 @@
 
         <button class="menu-btn btn btn-bordered text-gray-alt text-bold top-left-corner">&#9776; 菜单</button>
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-m-12">
                 <div class="bg-white p-tb-30">
 
                     <div class="btn-group">
@@ -123,9 +123,12 @@
 
                                     <div class="form-group">
                                         <div class="col-sm-6">
-                                            <label for="price">{{ $resourceName }}单价（单位：元）</label>
+                                            <label for="price">{{ $resourceName }}单价</label>
                                             {{ $errors->first('price', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
-                                            <input class="form-control" type="text" name="price" id="price" value="{{ Input::old('price') }}" />
+                                            <div class="input-group">
+                                              <span class="input-group-addon">单位：元</span>
+                                              <input type="text" class="form-control" placeholder="" name="price" id="price" value="{{ Input::old('price') }}">
+                                            </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <label for="quantity">{{ $resourceName }}剩余数量</label>

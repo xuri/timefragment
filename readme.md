@@ -29,6 +29,9 @@ git update-index --no-assume-unchanged app/api/qq/comm/inc.php
 
 git update-index --assume-unchanged app/api/weibo/config.php
 git update-index --no-assume-unchanged app/api/weibo/config.php
+
+git update-index --assume-unchanged app/api/alipay/alipay.config.php
+git update-index --no-assume-unchanged app/api/alipay/alipay.config.php
 ```
 
 ###Preview

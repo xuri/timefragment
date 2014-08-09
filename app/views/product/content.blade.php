@@ -42,11 +42,11 @@
 
 			<h3>评论</h3>
 			{{-- form contact --}}
-			@include('layout.notification')
            	@if(Auth::check())
 			<form class="blog-comments" method="post" autocomplete="off" id="comment" class="validate" role="form">
                 {{-- CSRF Token --}}
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                <input type="hidden" name="postComment" value="postComment" />
 				<div class="row">
 					<div class="col-md-12">
 						{{-- Form group --}}

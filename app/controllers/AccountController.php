@@ -34,26 +34,33 @@ class AccountController extends BaseController
     {
         // Get all form data
         $info = array(
+            'username'      => Input::get('username'),
             'nickname'      => Input::get('nickname'),
+            'alipay'        => Input::get('alipay'),
             'bio'           => Input::get('bio'),
             'sex'           => Input::get('sex'),
             'born_year'     => Input::get('born_year'),
             'born_month'    => Input::get('born_month'),
             'born_day'      => Input::get('born_day'),
             'province'      => Input::get('province'),
-            'city'          => Input::get('city')
+            'city'          => Input::get('city'),
+            'address'       => Input::get('address')
         );
         // $info = Input::all();
         // Create validation rules
         $rules = array(
             'nickname' => 'required|between:1,30',
             'bio'      => 'between:1,60',
+            'address'  => 'between:1,80',
         );
         // Custom validation message
         $messages = array(
-            'nickname.required' => '请输入昵称。',
-            'nickname.between'  => '昵称长度请保持在:min到:max字之间。',
-            'bio.between'       => '个人简介长度请保持在:min到:max字之间。',
+            'username.between'  => '长度请保持在:min到:max字之间',
+            'username.required' => '请填写您的姓名',
+            'nickname.required' => '请输入昵称',
+            'nickname.between'  => '昵称长度请保持在:min到:max字之间',
+            'bio.between'       => '个人简介长度请保持在:min到:max字之间',
+            'address.between'   => '长度请保持在:min到:max字之间',
         );
         // Begin verification
         $validator = Validator::make($info, $rules, $messages);
@@ -61,7 +68,9 @@ class AccountController extends BaseController
             // Verification success
             // Update account
             $user = Auth::user();
+            $user->username      = Input::get('username');
             $user->nickname      = Input::get('nickname');
+            $user->alipay        = Input::get('alipay');
             $user->bio           = Input::get('bio');
             $user->sex           = Input::get('sex');
             $user->born_year     = Input::get('born_year');
@@ -69,15 +78,16 @@ class AccountController extends BaseController
             $user->born_day      = Input::get('born_day');
             $user->home_province = Input::get('province');
             $user->home_city     = Input::get('city');
+            $user->home_address  = Input::get('address');
             if ($user->save()) {
                 // Update success
                 return Redirect::back()
-                    ->with('success', '<strong>基本资料Update success。</strong>');
+                    ->with('success', '<strong>基本资料更新成功。</strong>');
             } else {
                 // Update fail
                 return Redirect::back()
                     ->withInput()
-                    ->with('error', '<strong>基本资料Update fail。</strong>');
+                    ->with('error', '<strong>基本资料更新失败。</strong>');
             }
         } else {
             // Verification fail, redirect back

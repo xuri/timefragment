@@ -69,17 +69,18 @@
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu" role="menu">
+
                 <li>
-                    <a href="{{ route('myproduct.create') }}">发布新商品</a>
+                    <a href="{{ route('myproduct.cart') }}">我的购物车</a>
+                </li>
+                <li>
+                    <a href="{{ route('order.index') }}">尚品汇购物</a>
                 </li>
                 <li>
                     <a href="{{ route('myproduct.index') }}">出售的商品</a>
                 </li>
                 <li>
-                    <a href="{{ route('myproduct.index') }}">我的购物车</a>
-                </li>
-                <li>
-                    <a href="{{ route('myproduct.index') }}">已购买商品</a>
+                    <a href="{{ route('order.seller') }}">商家订单库</a>
                 </li>
                 <li>
                     <a href="{{ route('myproduct.comments') }}">尚品汇评论</a>

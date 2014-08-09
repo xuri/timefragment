@@ -45,7 +45,7 @@ class HomeController extends BaseController {
     {
         $articles          = Article::orderBy('created_at', 'desc')->paginate(6);
         $travel            = Travel::orderBy('created_at', 'desc')->paginate(4);
-        $product           = Product::orderBy('created_at', 'desc')->paginate(12);
+        $product           = Product::orderBy('created_at', 'desc')->where('quantity', '>', '0')->paginate(12);
         $productCategories = ProductCategories::orderBy('sort_order')->get();
         $job               = Job::orderBy('created_at', 'desc')->paginate(4);
         $categories        = Category::orderBy('sort_order')->get();

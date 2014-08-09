@@ -100,12 +100,12 @@ Route::group(array('prefix' => 'travel'), function () {
 Route::group(array('prefix' => 'product'), function () {
     $resource   = 'product';
     $controller = 'ProductController@';
-    # 分类创意列表
+    # 分类列表
     Route::get(      '/', array('as' => $resource.'.getIndex', 'uses' => $controller.'getIndex'));
-    # 展示创意内容
+    # 展示内容
     Route::get( '{slug}', array('as' => $resource.'.show'    , 'uses' => $controller.'show'    ));
-    # 提交创意评论
-    Route::post('{slug}', $controller.'postComment')->before('auth');
+    # 提交评论
+    Route::post('{slug}', $controller.'postAction')->before('auth');
 });
 
 /*
@@ -124,7 +124,7 @@ Route::group(array('prefix' => 'job'), function () {
     Route::get('category/{id}', array('as' => $resource.'.category', 'uses' => $controller.'category'));
     # 展示内容
     Route::get(       '{slug}', array('as' => $resource.'.show'    , 'uses' => $controller.'show'    ));
-    # 提交简历
+    # 提交评论
     Route::post(      '{slug}', $controller.'postComment')->before('auth');
 });
 
@@ -193,7 +193,7 @@ Route::group(array('prefix' => 'account', 'before' => 'auth'), function () {
     Route::get('/'               , array('as' => 'account'         , 'uses' => $Account.'getIndex'));
     # Messages
     Route::get('messages'        , array('as' => 'account.messages', 'uses' => $Account.'getMessages'));
-    # 创意汇
+    # Creative
     Route::group(array('prefix' => 'mycreative'), function () {
         $resource   = 'mycreative';
         $controller = 'CreativeController@';
@@ -236,8 +236,27 @@ Route::group(array('prefix' => 'account', 'before' => 'auth'), function () {
         Route::post(           '{id}', array('as' => $resource.'.postUpload'        , 'uses' => $controller.'postUpload'      ));
         Route::delete(    '{id}/edit', array('as' => $resource.'.deleteUpload'      , 'uses' => $controller.'deleteUpload'    ));
         Route::delete(         '{id}', array('as' => $resource.'.destroy'           , 'uses' => $controller.'destroy'         ));
+        Route::get(            'cart', array('as' => $resource.'.cart'              , 'uses' => $controller.'cart'            ));
+        Route::delete(         '{id}', array('as' => $resource.'.destroyGoods'      , 'uses' => $controller.'destroyGoods'    ));
         Route::get(        'comments', array('as' => $resource.'.comments'          , 'uses' => $controller.'comments'        ));
         Route::delete('comments/{id}', array('as' => $resource.'.deleteComment'     , 'uses' => $controller.'deleteComment'   ));
+    });
+    # Order
+    Route::group(array('prefix' => 'order'), function () {
+        $resource   = 'order';
+        $controller = 'ProductOrderController@';
+        Route::get(                        '/', array('as' => $resource.'.index'                , 'uses' => $controller.'index'                ));
+        Route::get(               '{id}/order', array('as' => $resource.'.order'                , 'uses' => $controller.'order'                ));
+        Route::get('{id}/customerOrderDetails', array('as' => $resource.'.customerOrderDetails' , 'uses' => $controller.'customerOrderDetails' ));
+        Route::get(  '{id}/sellerOrderDetails', array('as' => $resource.'.sellerOrderDetails'   , 'uses' => $controller.'sellerOrderDetails'   ));
+        Route::delete(                  '{id}', array('as' => $resource.'.destroyOrder'         , 'uses' => $controller.'destroyOrder'         ));
+        Route::post(                 'payment', array('as' => $resource.'.payment'              , 'uses' => $controller.'payment'              ));
+        Route::post(               'rePayment', array('as' => $resource.'.rePayment'            , 'uses' => $controller.'rePayment'            ));
+        Route::post(            'trade-notify', array('as' => $resource.'.tradeNotify'          , 'uses' => $controller.'tradeNotify'          ));
+        Route::get(             'trade-return', array('as' => $resource.'.tradeReturn'          , 'uses' => $controller.'tradeReturn'          ));
+        Route::get(                   'seller', array('as' => $resource.'.seller'               , 'uses' => $controller.'seller'               ));
+        Route::post(              'send-goods', array('as' => $resource.'.sendGoods'            , 'uses' => $controller.'sendGoods'            ));
+        Route::post(                'checkout', array('as' => $resource.'.checkout'             , 'uses' => $controller.'checkout'             ));
     });
     # Job
     Route::group(array('prefix' => 'myjob'), function () {

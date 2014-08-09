@@ -40,7 +40,7 @@
 				{{-- portfolio item --}}
 				<div class="portfolio-item {{ $product->category_id }}">
 					<div class="portfolio">
-						<a href="{{ route('product.show', $product->slug) }}" target="_blank" class="zoom">
+						<a href="{{ route('product.show', $product->slug) }}" class="zoom">
 
 							@if($product->thumbnails)
 							<img src="{{ route('home') }}/uploads/product_thumbnails/{{ $product->thumbnails }}" alt="{{ $product->title }}" title="{{ $product->title }}">

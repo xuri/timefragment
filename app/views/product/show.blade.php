@@ -42,6 +42,10 @@
 				</div>
 				{{-- Section title --}}
 
+				<div class="p-lr-30 p-tb-10 pm-lr-10">
+                    @include('layout.notification')
+                </div>
+
 				<div class="row">
 					@include('product.content')
 					@yield('content')

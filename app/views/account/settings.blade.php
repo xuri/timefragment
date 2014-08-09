@@ -68,29 +68,46 @@
         <div class="bg-white p-30 m-t-10 brad b-bot-2px-gray-light b-right-1px-gray-light">
 
             <h2 class="text-center p-b-30 m-t-0 page-header">基本资料</h2>
+            <div class="col-12">
+                <div class="col-m-12 m-30">
+                    @include('layout.notification')
+                </div>
+            </div>
             {{ Form::open(array('class' => 'form-horizontal', 'name' => 'form')) }}
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">账户信息</label>
-                    {{-- CSRF Token --}}
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                    <input type="hidden" name="_method" value="PUT" />
-                    <div class="col-sm-10 m-t-10">
-                        <div class="m-b-10">
-                            <div>昵称</div>
-                            <input type="text" name="nickname" value="{{ Auth::user()->nickname }}" class="input-large input-light brad">
-                        </div>
-                        {{ $errors->first('nickname', '<strong class="error" style="color: #cc0000">:message</strong>') }}
-                        <div class="m-b-10">
-                            <div>签名</div>
-                            <input type="text" name="bio" value="{{ Auth::user()->bio }}" class="input-large input-light brad">
-                        </div>
-                        {{ $errors->first('bio', '<strong class="error" style="color: #cc0000">:message</strong>') }}
+
+                {{-- CSRF Token --}}
+                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                <input type="hidden" name="_method" value="PUT" />
+                <div class="col-sm-6">
+                    <label class="col-sm-12 m-t-10">昵称 {{ $errors->first('nickname', '<strong class="error" style="color: #cc0000">:message</strong>') }}</label>
+                    <div class="col-sm-12">
+                        <input type="text" name="nickname" value="{{ Auth::user()->nickname }}" class="input-large input-light brad col-sm-12">
+                    </div>
+
+                    <label class="col-sm-12 m-t-10">姓名 {{ $errors->first('username', '<strong class="error" style="color: #cc0000">:message</strong>') }}</label>
+                    <div class="col-sm-12">
+                        <input type="text" name="username" value="{{ Auth::user()->username }}" class="input-large input-light brad col-sm-12">
+                    </div>
+
+                    <label class="col-sm-12 m-t-10">签名 {{ $errors->first('bio', '<strong class="error" style="color: #cc0000">:message</strong>') }}</label>
+                    <div class="col-sm-12">
+                        <input type="text" name="bio" value="{{ Auth::user()->bio }}" class="input-large input-light brad col-sm-12">
+                    </div>
+
+                    <label class="col-sm-12 m-t-10">支付宝账户</label>
+                    <div class="col-sm-12">
+                        <input type="text" name="alipay" value="{{ Auth::user()->alipay }}" class="input-large input-light brad col-sm-12">
+                    </div>
+
+                    <label class="col-sm-12 m-t-10">手机号码</label>
+                    <div class="col-sm-12">
+                        <input type="text" name="phone" value="{{ Auth::user()->phone }}" class="input-large input-light brad col-sm-12">
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">性别</label>
-                    <div class="col-sm-10 m-t-10">
+                <div class="col-sm-6">
+                    <label class="col-sm-12 m-t-10">性别</label>
+                    <div class="col-sm-12 m-t-10 m-b-10">
                         <div class="i-block">
                             <select name="sex" id="sex" class="selectpicker input-light brad" data-width="100" data-live-search="true" rel="{{ Auth::user()->sex }}">
                                 <option value="">请选择</option>
@@ -100,8 +117,9 @@
                             </select>
                         </div>
                     </div>
-                    <label class="col-sm-2 control-label">生日</label>
-                    <div class="col-sm-10 m-t-10">
+
+                    <label class="col-sm-12 m-t-10">生日</label>
+                    <div class="col-sm-12 m-b-10">
                         <select id="born_year" name="born_year" class="selectpicker input-light brad" data-live-search="true" data-width="100" rel="{{ Auth::user()->born_year }}">
                             <option value="">请选择</option>
                             <option value="2014">2014</option>
@@ -269,11 +287,9 @@
                             </select> 日
                         </div>
                     </div>
-                </div>
 
-                <div class="form-group" style="margin: 0 0 20px -15px">
-                    <label class="col-sm-2 control-label">我在</label>
-                    <div class="col-sm-10 m-t-10">
+                    <label class="col-sm-12 m-t-10">我在</label>
+                    <div class="col-sm-12 m-t-10 m-b-10">
                         <select id="province" class="input-light brad" data-live-search="false" name="province" onchange="setcity();" rel="{{ Auth::user()->home_province }}">
                             <option value="">----请选择省份----</option>
                             <option value="安徽">安徽</option>
@@ -323,11 +339,16 @@
                             </select>
                             @endif
                         </div>
-                        @include('layout.notification')
+                    </div>
+
+                    <label class="col-sm-12 m-t-10">详细地址</label>
+                    <div class="col-sm-12 m-b-10">
+                        <input type="text" name="address" value="{{ Auth::user()->home_address }}" class="input-large input-light brad col-sm-12">
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-sm-10 col-sm-offset-2">
+
+                <div class="row">
+                    <div class="col-sm-12 m-l-30 m-t-10">
                         <button class="btn btn-lg btn-primary">保存更改</button>
                     </div>
                 </div>

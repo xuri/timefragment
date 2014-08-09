@@ -1,6 +1,7 @@
 <?php
 
-class TimelineController extends BaseController {
+class TimelineController extends BaseController
+{
 
     /*
     |--------------------------------------------------------------------------

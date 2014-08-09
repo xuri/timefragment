@@ -41,7 +41,7 @@ class ProductController extends BaseResource
         'price.required'        => '请填写商品单价',
         'price.numeric'         => '商品单价只能是数字',
         'quantity.required'     => '请填写商品剩余数量',
-        'quantity.integer'      => '商品剩余数量必须是整数',
+        'quantity.integer'      => '商品数量必须是整数',
         'province.required'     => '请选择省份和城市',
         'content.required'      => '请填写商品内容',
         'category.exists'       => '请填选择正确的商品分类',
@@ -77,8 +77,13 @@ class ProductController extends BaseResource
      */
     public function create()
     {
-        $categoryLists = ProductCategories::lists('name', 'id');
-        return View::make($this->resourceView.'.create')->with(compact('categoryLists'));
+        if( Auth::user()->alipay == NULL ){
+            return Redirect::route('account.settings')
+                    ->with('info', '提示：您需要设定支付宝收款账户才可以发布商品出售信息');
+        } else {
+            $categoryLists = ProductCategories::lists('name', 'id');
+            return View::make($this->resourceView.'.create')->with(compact('categoryLists'));
+        }
     }
 
     /**
@@ -346,7 +351,7 @@ class ProductController extends BaseResource
      */
     public function getIndex()
     {
-        $product    = Product::orderBy('created_at', 'desc')->paginate(12);
+        $product    = Product::orderBy('created_at', 'desc')->where('quantity', '>', '0')->paginate(12);
         $categories = ProductCategories::orderBy('sort_order')->paginate(6);
         return View::make('product.index')->with(compact('product', 'categories', 'data'));
     }
@@ -373,34 +378,147 @@ class ProductController extends BaseResource
         $product    = Product::where('slug', $slug)->first();
         is_null($product) AND App::abort(404);
         $categories = ProductCategories::orderBy('sort_order')->get();
-        return View::make('product.show')->with(compact('product', 'categories'));
+        if (Auth::check())
+        {
+            $inCart = ShoppingCart::where('buyer_id', Auth::user()->id)->where('product_id', $product->id)->first();
+        } else {
+            $inCart = false;
+        }
+        return View::make('product.show')->with(compact('product', 'categories', 'inCart'));
+
     }
 
-    public function postComment($slug)
+    /**
+     * View: Customer shopping cart
+     * @return Response
+     */
+    public function cart()
     {
-        // Get comment
-        $content = e(Input::get('content'));
-        // Check word
-        if (mb_strlen($content)<3)
-            return Redirect::back()->withInput()->withErrors($this->messages->add('content', '评论不得少于3个字符。'));
-        // Find article
-        $product     = Product::where('slug', $slug)->first();
-        // Create comment
-        $comment = new ProductComment;
-        $comment->content    = $content;
-        $comment->product_id = $product->id;
-        $comment->user_id    = Auth::user()->id;
-        if ($comment->save()) {
-            // Create success
-            // Updated comments
-            $product->comments_count = $product->comments->count();
-            $product->save();
-            // Return success
-            return Redirect::back()->with('success', '评论成功。');
-        } else {
-            // Create fail
-            return Redirect::back()->withInput()->with('error', '评论失败。');
+        // Get sort conditions
+        $orderColumn = Input::get('sort_up', Input::get('sort_down', 'created_at'));
+        $direction   = Input::get('sort_up') ? 'asc' : 'desc' ;
+        // Get search conditions
+        switch (Input::get('target')) {
+            case 'title':
+                $title = Input::get('like');
+                break;
         }
+        // Construct query statement
+        $query = ShoppingCart::orderBy($orderColumn, $direction)->where('buyer_id', Auth::user()->id)->paginate(15);
+        isset($title) AND $query->where('title', 'like', "%{$title}%");
+        $datas = $query;
+        $payment = ShoppingCart::where('buyer_id', Auth::user()->id)->sum('payment');
+
+        $resource = 'myproduct';
+        $resourceName = '购物车';
+        return View::make($this->resourceView.'.cart')->with(compact('datas', 'resource', 'resourceName', 'payment'));
+    }
+
+    /**
+     * Action: Delete goods in customer shopping cart
+     * @return Response
+     */
+    public function destroyGoods($id)
+    {
+        $data = ShoppingCart::find($id);
+        if (is_null($data))
+            return Redirect::back()->with('error', '没有找到对应的'.$this->resourceName.'。');
+        elseif ($data)
+        {
+            $data->delete();
+
+            return Redirect::back()->with('success', $this->resourceName.'删除成功。');
+        }
+        else
+            return Redirect::back()->with('warning', $this->resourceName.'删除失败。');
+    }
+
+    /**
+     * Action: Show page post action
+     * @return Response
+     */
+    public function postAction($slug)
+    {
+        $postComment = e(Input::get('postComment'));
+        if($postComment)
+        {
+            // Get comment
+            $content = e(Input::get('content'));
+            // Check word
+            if (mb_strlen($content)<3)
+                return Redirect::back()->withInput()->withErrors($this->messages->add('content', '评论不得少于3个字符。'));
+            // Find article
+            $product     = Product::where('slug', $slug)->first();
+            // Create comment
+            $comment = new ProductComment;
+            $comment->content    = $content;
+            $comment->product_id = $product->id;
+            $comment->user_id    = Auth::user()->id;
+            if ($comment->save()) {
+                // Create success
+                // Updated comments
+                $product->comments_count = $product->comments->count();
+                $product->save();
+                // Return success
+                return Redirect::back()->with('success', '评论成功。');
+            } else {
+                // Create fail
+                return Redirect::back()->withInput()->with('error', '评论失败。');
+            }
+        } else {
+
+            $data  = Input::all();
+            $rules = array(
+                'quantity'     => 'required|integer',
+                'product_id'   => 'required',
+                'price'        => 'required',
+                'seller_id'    => 'required',
+                'inventory'    => 'required',
+            );
+
+            if (e($data['inventory'])<e($data['quantity'])) {
+                return Redirect::back()
+                ->with('error', '<strong>请输入正确的'.$this->resourceName.'购买数量</strong>');
+            } elseif (Auth::user()->id==e($data['seller_id'])) {
+                return Redirect::back()
+                ->with('error', '<strong>您不能购买自己出售的商品</strong>');
+            } else {
+
+                // Custom validation message
+                $messages  = $this->validatorMessages;
+                // Begin verification
+                $validator = Validator::make($data, $rules, $messages);
+
+                if ($validator->passes()) {
+                // Verification success
+                // Add recource
+                $model                   = new ShoppingCart;
+                $model->buyer_id         = Auth::user()->id;
+
+                $model->quantity         = e($data['quantity']);
+                $model->product_id       = e($data['product_id']);
+                $model->price            = e($data['price']);
+                $model->payment          = e($data['quantity']) * e($data['price']);
+                $model->seller_id        = e($data['seller_id']);
+                $model->save();
+
+                if ($model->save()) {
+                    // Add success
+                    return Redirect::back()
+                        ->with('success', '<strong>'.$this->resourceName.'已添加到购物车：</strong>您可以继续选购'.$this->resourceName.'，或立即结算。');
+                    } else {
+                        // Add fail
+                        return Redirect::back()
+                            ->withInput()
+                            ->with('error', '<strong>'.$this->resourceName.'添加到购物车失败。</strong>');
+                    }
+                } else {
+                    // Verification fail
+                    return Redirect::back()->withInput()->withErrors($validator);
+                }
+            }
+        }
+
     }
 
 }

@@ -22,7 +22,6 @@
 		</footer>
 
 		{{-- Js Library --}}
-		<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 
 		{{ script('jquery-2.1.1') }}
 
@@ -48,6 +47,8 @@
 		{{ HTML::script('assets/js/portfolio_custom.js') }}
 		{{ HTML::script('assets/js/script.js') }}
 		{{ HTML::script('assets/js/retina-1.3.0.min.js') }}
+
+		<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 
 		{{-- Js Library --}}
 

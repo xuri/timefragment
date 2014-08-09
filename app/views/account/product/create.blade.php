@@ -39,13 +39,10 @@
 
                     </div>
 
-
                     <div class="pull-right m-r-30 mail-nav">
-
                         <a href="{{ route($resource.'.index') }}" class="btn btn-bordered text-gray-alt">
                             返回{{ $resourceName }}列表
                         </a>
-
                     </div>
 
                     <div class="p-lr-30 p-tb-10 pm-lr-10">
@@ -134,9 +131,12 @@
 
                                     <div class="form-group">
                                         <div class="col-sm-6">
-                                            <label for="price">{{ $resourceName }}单价（单位：元）</label>
+                                            <label for="price">{{ $resourceName }}单价</label>
                                             {{ $errors->first('price', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
-                                            <input class="form-control" type="text" name="price" id="price" value="{{ Input::old('price') }}" />
+                                            <div class="input-group">
+                                              <span class="input-group-addon">单位：元</span>
+                                              <input type="text" class="form-control" placeholder="" name="price" id="price" value="{{ Input::old('price') }}">
+                                            </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <label for="quantity">{{ $resourceName }}剩余数量</label>

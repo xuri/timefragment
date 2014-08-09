@@ -37,12 +37,14 @@ class Admin_ProductResource extends BaseResource
      * @var array
      */
     protected $validatorMessages = array(
-        'title.required'        => '请填写商品名称。',
-        'title.unique'          => '已有同名商品呢。',
-        'slug.unique'           => '已有同名 sulg。',
+        'title.required'        => '请填写商品名称',
+        'price.required'        => '请填写商品单价',
+        'price.numeric'         => '商品单价只能是数字',
+        'quantity.required'     => '请填写商品剩余数量',
+        'quantity.integer'      => '商品数量必须是整数',
         'province.required'     => '请选择省份和城市',
-        'content.required'      => '请填写商品呢内容。',
-        'category.exists'       => '请填选择正确的商品呢分类。',
+        'content.required'      => '请填写商品内容',
+        'category.exists'       => '请填选择正确的商品分类',
     );
 
     /**
@@ -75,8 +77,13 @@ class Admin_ProductResource extends BaseResource
      */
     public function create()
     {
-        $categoryLists = ProductCategories::lists('name', 'id');
-        return View::make($this->resourceView.'.create')->with(compact('categoryLists'));
+        if(Auth::user()->alipay==NULL){
+            return Redirect::route('account.settings')
+                    ->with('info', '提示：您需要设定支付宝收款账户才可以发布商品出售信息');
+        } else {
+            $categoryLists = ProductCategories::lists('name', 'id');
+            return View::make($this->resourceView.'.create')->with(compact('categoryLists'));
+        }
     }
 
     /**
@@ -92,6 +99,8 @@ class Admin_ProductResource extends BaseResource
         $unique = $this->unique();
         $rules  = array(
             'title'        => 'required|'.$unique,
+            'price'        => 'required|numeric',
+            'quantity'     => 'required|integer',
             'content'      => 'required',
             'category'     => 'exists:product_categories,id',
             'province'     => 'required',
@@ -104,13 +113,15 @@ class Admin_ProductResource extends BaseResource
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->passes()) {
             // Verification success
-            // Add resource
+            // Add recource
             $model                   = $this->model;
             $model->user_id          = Auth::user()->id;
             $model->category_id      = $data['category'];
             $model->title            = e($data['title']);
             $model->province         = e($data['province']);
             $model->city             = e($data['city']);
+            $model->price            = e($data['price']);
+            $model->quantity         = e($data['quantity']);
             $model->slug             = $hashslug;
             $model->content          = e($data['content']);
             $model->meta_title       = e($data['title']);
