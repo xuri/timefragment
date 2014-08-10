@@ -118,13 +118,13 @@ Route::group(array('prefix' => 'product'), function () {
 Route::group(array('prefix' => 'job'), function () {
     $resource   = 'job';
     $controller = 'JobController@';
-    # 分类列表
+    # List
     Route::get(            '/', array('as' => $resource.'.getIndex', 'uses' => $controller.'getIndex'));
-    # 分类列表
+    # List
     Route::get('category/{id}', array('as' => $resource.'.category', 'uses' => $controller.'category'));
-    # 展示内容
+    # Show
     Route::get(       '{slug}', array('as' => $resource.'.show'    , 'uses' => $controller.'show'    ));
-    # 提交评论
+    # Post comments
     Route::post(      '{slug}', $controller.'postComment')->before('auth');
 });
 

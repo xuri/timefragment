@@ -28,5 +28,4 @@ class ProductOrder extends BaseModel
         return $this->belongsTo('User', 'user_id');
     }
 
-
 }

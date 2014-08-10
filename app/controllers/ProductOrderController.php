@@ -140,87 +140,94 @@ class ProductOrderController extends BaseController
             $user->phone      = Input::get('customer_phone');
             $user->save();
         };
-        // Vrification Success
-		if ($validator->passes()) {
-			$product_id                      = Input::input('product_id');
-			$product                         = Product::where('id', $product_id)->first();
-			$data                            = ShoppingCart::where('buyer_id', Auth::user()->id)->where('product_id', $product_id)->first();
-			$order_id                        = md5(date('his')).$product_id.Auth::user()->id;
-			$seller_id                       = $data->seller_id;
-			$seller_alipay                   = User::where('id', $seller_id)->first()->alipay;
-			$order_name                      = '时光碎片网购物-'.$product->title;
-			$payment                         = $data->payment;
-			$goods_show                      = 'http://www.timefragment.com/product/'.$product->slug;
-			$customer_name                   = Input::input('customer_name');
-			$customer_address                = Input::input('customer_address');
-			$customer_phone                  = Input::input('customer_phone');
-			// Create product order
-			$product_order                   = new ProductOrder;
-			$product_order->order_id         = $order_id;
-			$product_order->seller_id        = $seller_id;
-			$product_order->product_id       = $product_id;
-			$product_order->customer_id      = Auth::user()->id;
-			$product_order->customer_address = $customer_address;
-			$product_order->quantity         = $data->quantity;
-			$product_order->price            = $data->price;
-			$product_order->payment          = $payment;
-			$product_order->save();
-			// Destroy goods in shopping cart
-			$data->delete();
-			// Alipay API
-			require_once( app_path('api/alipay/alipay.config.php' ));
-			require_once( app_path('api/alipay/lib/alipay_submit.class.php' ));
-			// Request parameters
-			$payment_type      = "1"; 					//支付类型 //必填，不能修改
-			$notify_url        = route('order.tradeNotify'); //服务器异步通知页面路径 //需http://格式的完整路径，不能加?id=123这类自定义参数
-			$return_url        = route('order.tradeReturn'); //页面跳转同步通知页面路径 //需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
-			$seller_email      = $seller_alipay; 		//卖家支付宝帐户 //必填
-			$out_trade_no      = $order_id; 			//商户订单号 //商户网站订单系统中唯一订单号，必填
-			$subject           = $order_name; 			//订单名称 //必填
-			$price             = $payment; 				//付款金额 //必填
-			$quantity          = "1"; 					//商品数量 //必填，建议默认为1，不改变值，把一次交易看成是一次下订单而非购买一件商品
-			$logistics_fee     = "0.00"; 				//物流费用 //必填，即运费
-			$logistics_type    = "EXPRESS"; 			//物流类型 //必填，三个值可选：EXPRESS（快递）、POST（平邮）、EMS（EMS）
-			$logistics_payment = "SELLER_PAY"; 			//物流支付方式 //必填，两个值可选：SELLER_PAY（卖家承担运费）、BUYER_PAY（买家承担运费）
-			$body              = $goods_show; 			//订单描述
-			$show_url          = $goods_show; 			//商品展示地址 //需以http://开头的完整路径，如：http://www.xxx.com/myorder.html
-			$receive_name      = $customer_name; 		//收货人姓名 //如：张三
-			$receive_address   = $customer_address; 	//收货人地址 //如：XX省XXX市XXX区XXX路XXX小区XXX栋XXX单元XXX号
-			$receive_zip       = NULL; 					//收货人邮编 //如：123456
-			$receive_phone     = NULL; 					//收货人电话号码 //如：0571-88158090
-			$receive_mobile    = $customer_phone; 		//收货人手机号码 //如：13312341234
-			//构造要请求的参数数组，无需改动
-			$parameter = array(
-				"service"           => "trade_create_by_buyer",
-				"partner"           => trim($alipay_config['partner']),
-				"payment_type"      => $payment_type,
-				"notify_url"        => $notify_url,
-				"return_url"        => $return_url,
-				"seller_email"      => $seller_email,
-				"out_trade_no"      => $out_trade_no,
-				"subject"           => $subject,
-				"price"             => $price,
-				"quantity"          => $quantity,
-				"logistics_fee"     => $logistics_fee,
-				"logistics_type"    => $logistics_type,
-				"logistics_payment" => $logistics_payment,
-				"body"              => $body,
-				"show_url"          => $show_url,
-				"receive_name"      => $receive_name,
-				"receive_address"   => $receive_address,
-				"receive_zip"       => $receive_zip,
-				"receive_phone"     => $receive_phone,
-				"receive_mobile"    => $receive_mobile,
-				"_input_charset"    => trim(strtolower($alipay_config['input_charset']))
-			);
-			//建立请求
-			$alipaySubmit = new AlipaySubmit($alipay_config);
-			$html_text    = $alipaySubmit->buildRequestForm($parameter,"get", "确认付款");
-			echo $html_text;
-        }
-        else{
-        	return Redirect::back()->withInput()->withErrors($validator);
-        }
+
+        $product_id = Input::input('product_id');
+		$product    = Product::where('id', $product_id)->first();
+		$data       = ShoppingCart::where('buyer_id', Auth::user()->id)->where('product_id', $product_id)->first();
+
+        if ($product->quantity < $data->quantity) {
+            return Redirect::back()
+            ->with('error', '商品剩余数量不足');
+        } else {
+	        // Vrification Success
+			if ($validator->passes()) {
+				$order_id                        = md5(date('his')).$product_id.Auth::user()->id;
+				$seller_id                       = $data->seller_id;
+				$seller_alipay                   = User::where('id', $seller_id)->first()->alipay;
+				$order_name                      = '时光碎片网购物-'.$product->title;
+				$payment                         = $data->payment;
+				$goods_show                      = 'http://www.timefragment.com/product/'.$product->slug;
+				$customer_name                   = Input::input('customer_name');
+				$customer_address                = Input::input('customer_address');
+				$customer_phone                  = Input::input('customer_phone');
+				// Create product order
+				$product_order                   = new ProductOrder;
+				$product_order->order_id         = $order_id;
+				$product_order->seller_id        = $seller_id;
+				$product_order->product_id       = $product_id;
+				$product_order->customer_id      = Auth::user()->id;
+				$product_order->customer_address = $customer_address;
+				$product_order->quantity         = $data->quantity;
+				$product_order->price            = $data->price;
+				$product_order->payment          = $payment;
+				$product_order->save();
+				// Destroy goods in shopping cart
+				$data->delete();
+				// Alipay API
+				require_once( app_path('api/alipay/alipay.config.php' ));
+				require_once( app_path('api/alipay/lib/alipay_submit.class.php' ));
+				// Request parameters
+				$payment_type      = "1"; 					//支付类型 //必填，不能修改
+				$notify_url        = route('order.tradeNotify'); //服务器异步通知页面路径 //需http://格式的完整路径，不能加?id=123这类自定义参数
+				$return_url        = route('order.tradeReturn'); //页面跳转同步通知页面路径 //需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
+				$seller_email      = $seller_alipay; 		//卖家支付宝帐户 //必填
+				$out_trade_no      = $order_id; 			//商户订单号 //商户网站订单系统中唯一订单号，必填
+				$subject           = $order_name; 			//订单名称 //必填
+				$price             = $payment; 				//付款金额 //必填
+				$quantity          = "1"; 					//商品数量 //必填，建议默认为1，不改变值，把一次交易看成是一次下订单而非购买一件商品
+				$logistics_fee     = "0.00"; 				//物流费用 //必填，即运费
+				$logistics_type    = "EXPRESS"; 			//物流类型 //必填，三个值可选：EXPRESS（快递）、POST（平邮）、EMS（EMS）
+				$logistics_payment = "SELLER_PAY"; 			//物流支付方式 //必填，两个值可选：SELLER_PAY（卖家承担运费）、BUYER_PAY（买家承担运费）
+				$body              = $goods_show; 			//订单描述
+				$show_url          = $goods_show; 			//商品展示地址 //需以http://开头的完整路径，如：http://www.xxx.com/myorder.html
+				$receive_name      = $customer_name; 		//收货人姓名 //如：张三
+				$receive_address   = $customer_address; 	//收货人地址 //如：XX省XXX市XXX区XXX路XXX小区XXX栋XXX单元XXX号
+				$receive_zip       = NULL; 					//收货人邮编 //如：123456
+				$receive_phone     = NULL; 					//收货人电话号码 //如：0571-88158090
+				$receive_mobile    = $customer_phone; 		//收货人手机号码 //如：13312341234
+				//构造要请求的参数数组，无需改动
+				$parameter = array(
+					"service"           => "trade_create_by_buyer",
+					"partner"           => trim($alipay_config['partner']),
+					"payment_type"      => $payment_type,
+					"notify_url"        => $notify_url,
+					"return_url"        => $return_url,
+					"seller_email"      => $seller_email,
+					"out_trade_no"      => $out_trade_no,
+					"subject"           => $subject,
+					"price"             => $price,
+					"quantity"          => $quantity,
+					"logistics_fee"     => $logistics_fee,
+					"logistics_type"    => $logistics_type,
+					"logistics_payment" => $logistics_payment,
+					"body"              => $body,
+					"show_url"          => $show_url,
+					"receive_name"      => $receive_name,
+					"receive_address"   => $receive_address,
+					"receive_zip"       => $receive_zip,
+					"receive_phone"     => $receive_phone,
+					"receive_mobile"    => $receive_mobile,
+					"_input_charset"    => trim(strtolower($alipay_config['input_charset']))
+				);
+				//建立请求
+				$alipaySubmit = new AlipaySubmit($alipay_config);
+				$html_text    = $alipaySubmit->buildRequestForm($parameter,"get", "确认付款");
+				echo $html_text;
+	        }
+	        else{
+	        	return Redirect::back()->withInput()->withErrors($validator);
+	        }
+	    }
 	}
 
 	/**
@@ -229,79 +236,84 @@ class ProductOrderController extends BaseController
      */
 	public function rePayment()
     {
-    	$resourceName = '订单';
+		$resourceName = '订单';
 		$resource     = 'order';
-    	// Get all form data.
-        $data   = ProductOrder::where('id', Input::get('order_id'))->first();
+		// Get all form data.
+		$data         = ProductOrder::where('id', Input::get('order_id'))->first();
+		$product_id   = $data->product_id;
+		$product      = Product::where('id', $product_id)->first();
 
-		if ($data) {
-			$product_id                      = $data->product_id;
-			$product                         = Product::where('id', $product_id)->first();
-			$order_id                        = $data->order_id;
-			$seller_id                       = $data->seller_id;
-			$seller_alipay                   = User::where('id', $seller_id)->first()->alipay;
-			$order_name                      = '时光碎片网购物支付：'.$product->title;
-			$payment                         = $data->payment;
-			$goods_show                      = 'http://www.timefragment.com/product/'.$product->slug;
-			$customer_name                   = Auth::user()->username;
-			$customer_address                = $data->customer_address;
-			$customer_phone                  = Auth::user()->phone;
+        if ($product->quantity < $data->quantity) {
+            return Redirect::back()
+            ->with('error', '商品剩余数量不足');
+        } else {
+			if ($data) {
 
-			// Alipay API
-			require_once( app_path('api/alipay/alipay.config.php' ));
-			require_once( app_path('api/alipay/lib/alipay_submit.class.php' ));
-			// Request parameters
-			$payment_type      = "1"; 							//支付类型 //必填，不能修改
-			$notify_url        = route('order.tradeNotify'); 	//服务器异步通知页面路径 //需http://格式的完整路径，不能加?id=123这类自定义参数
-			$return_url        = route('order.tradeReturn'); 	//页面跳转同步通知页面路径 //需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
-			$seller_email      = $seller_alipay; 				//卖家支付宝帐户 //必填
-			$out_trade_no      = $order_id; 					//商户订单号 //商户网站订单系统中唯一订单号，必填
-			$subject           = $order_name; 					//订单名称 //必填
-			$price             = $payment; 						//付款金额 //必填
-			$quantity          = "1"; 							//商品数量 //必填，建议默认为1，不改变值，把一次交易看成是一次下订单而非购买一件商品
-			$logistics_fee     = "0.00"; 						//物流费用 //必填，即运费
-			$logistics_type    = "EXPRESS"; 					//物流类型 //必填，三个值可选：EXPRESS（快递）、POST（平邮）、EMS（EMS）
-			$logistics_payment = "SELLER_PAY"; 					//物流支付方式 //必填，两个值可选：SELLER_PAY（卖家承担运费）、BUYER_PAY（买家承担运费）
-			$body              = $goods_show; 					//订单描述
-			$show_url          = $goods_show; 					//商品展示地址 //需以http://开头的完整路径，如：http://www.xxx.com/myorder.html
-			$receive_name      = $customer_name; 				//收货人姓名 //如：张三
-			$receive_address   = $customer_address; 			//收货人地址 //如：XX省XXX市XXX区XXX路XXX小区XXX栋XXX单元XXX号
-			$receive_zip       = NULL; 							//收货人邮编 //如：123456
-			$receive_phone     = NULL; 							//收货人电话号码 //如：0571-88158090
-			$receive_mobile    = $customer_phone; 				//收货人手机号码 //如：13312341234
-			//构造要请求的参数数组，无需改动
-			$parameter = array(
-				"service"           => "trade_create_by_buyer",
-				"partner"           => trim($alipay_config['partner']),
-				"payment_type"      => $payment_type,
-				"notify_url"        => $notify_url,
-				"return_url"        => $return_url,
-				"seller_email"      => $seller_email,
-				"out_trade_no"      => $out_trade_no,
-				"subject"           => $subject,
-				"price"             => $price,
-				"quantity"          => $quantity,
-				"logistics_fee"     => $logistics_fee,
-				"logistics_type"    => $logistics_type,
-				"logistics_payment" => $logistics_payment,
-				"body"              => $body,
-				"show_url"          => $show_url,
-				"receive_name"      => $receive_name,
-				"receive_address"   => $receive_address,
-				"receive_zip"       => $receive_zip,
-				"receive_phone"     => $receive_phone,
-				"receive_mobile"    => $receive_mobile,
-				"_input_charset"    => trim(strtolower($alipay_config['input_charset']))
-			);
-			//建立请求
-			$alipaySubmit = new AlipaySubmit($alipay_config);
-			$html_text    = $alipaySubmit->buildRequestForm($parameter,"get", "确认付款");
-			echo $html_text;
-        }
-        else{
-        	return Redirect::back()->with('error', '没有找到对应的'.$this->resourceName.'。');
-        }
+				$order_id                        = $data->order_id;
+				$seller_id                       = $data->seller_id;
+				$seller_alipay                   = User::where('id', $seller_id)->first()->alipay;
+				$order_name                      = '时光碎片网购物支付：'.$product->title;
+				$payment                         = $data->payment;
+				$goods_show                      = 'http://www.timefragment.com/product/'.$product->slug;
+				$customer_name                   = Auth::user()->username;
+				$customer_address                = $data->customer_address;
+				$customer_phone                  = Auth::user()->phone;
 
+				// Alipay API
+				require_once( app_path('api/alipay/alipay.config.php' ));
+				require_once( app_path('api/alipay/lib/alipay_submit.class.php' ));
+				// Request parameters
+				$payment_type      = "1"; 							//支付类型 //必填，不能修改
+				$notify_url        = route('order.tradeNotify'); 	//服务器异步通知页面路径 //需http://格式的完整路径，不能加?id=123这类自定义参数
+				$return_url        = route('order.tradeReturn'); 	//页面跳转同步通知页面路径 //需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
+				$seller_email      = $seller_alipay; 				//卖家支付宝帐户 //必填
+				$out_trade_no      = $order_id; 					//商户订单号 //商户网站订单系统中唯一订单号，必填
+				$subject           = $order_name; 					//订单名称 //必填
+				$price             = $payment; 						//付款金额 //必填
+				$quantity          = "1"; 							//商品数量 //必填，建议默认为1，不改变值，把一次交易看成是一次下订单而非购买一件商品
+				$logistics_fee     = "0.00"; 						//物流费用 //必填，即运费
+				$logistics_type    = "EXPRESS"; 					//物流类型 //必填，三个值可选：EXPRESS（快递）、POST（平邮）、EMS（EMS）
+				$logistics_payment = "SELLER_PAY"; 					//物流支付方式 //必填，两个值可选：SELLER_PAY（卖家承担运费）、BUYER_PAY（买家承担运费）
+				$body              = $goods_show; 					//订单描述
+				$show_url          = $goods_show; 					//商品展示地址 //需以http://开头的完整路径，如：http://www.xxx.com/myorder.html
+				$receive_name      = $customer_name; 				//收货人姓名 //如：张三
+				$receive_address   = $customer_address; 			//收货人地址 //如：XX省XXX市XXX区XXX路XXX小区XXX栋XXX单元XXX号
+				$receive_zip       = NULL; 							//收货人邮编 //如：123456
+				$receive_phone     = NULL; 							//收货人电话号码 //如：0571-88158090
+				$receive_mobile    = $customer_phone; 				//收货人手机号码 //如：13312341234
+				//构造要请求的参数数组，无需改动
+				$parameter = array(
+					"service"           => "trade_create_by_buyer",
+					"partner"           => trim($alipay_config['partner']),
+					"payment_type"      => $payment_type,
+					"notify_url"        => $notify_url,
+					"return_url"        => $return_url,
+					"seller_email"      => $seller_email,
+					"out_trade_no"      => $out_trade_no,
+					"subject"           => $subject,
+					"price"             => $price,
+					"quantity"          => $quantity,
+					"logistics_fee"     => $logistics_fee,
+					"logistics_type"    => $logistics_type,
+					"logistics_payment" => $logistics_payment,
+					"body"              => $body,
+					"show_url"          => $show_url,
+					"receive_name"      => $receive_name,
+					"receive_address"   => $receive_address,
+					"receive_zip"       => $receive_zip,
+					"receive_phone"     => $receive_phone,
+					"receive_mobile"    => $receive_mobile,
+					"_input_charset"    => trim(strtolower($alipay_config['input_charset']))
+				);
+				//建立请求
+				$alipaySubmit = new AlipaySubmit($alipay_config);
+				$html_text    = $alipaySubmit->buildRequestForm($parameter,"get", "确认付款");
+				echo $html_text;
+	        }
+	        else{
+	        	return Redirect::back()->with('error', '没有找到对应的'.$this->resourceName.'。');
+	        }
+	    }
 	}
 
 	/**
@@ -483,7 +495,7 @@ class ProductOrderController extends BaseController
 			$product_order->save();
 			return Redirect::back()->with('success', '确认收货成功！欢迎再次使用时光碎片尚品汇购物。');
 		} else {
-        	return Redirect::back()->with('error', '收获失败，请重新尝试。');
+        	return Redirect::back()->with('error', '确认收货失败，请重新尝试。');
         }
 
     }
