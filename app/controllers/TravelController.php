@@ -378,7 +378,7 @@ class TravelController extends BaseResource
         $comment->travel_id = $travel->id;
         $comment->user_id   = Auth::user()->id;
         if ($comment->save()) {
-            // Creative success
+            // Create success
             // Updated comments
             $travel->comments_count = $travel->comments->count();
             $travel->save();
@@ -390,4 +390,23 @@ class TravelController extends BaseResource
         }
     }
 
+    /**
+     * Show search result
+     * @return response
+     */
+    public function search()
+    {
+        $query             = Travel::orderBy('created_at', 'desc');
+        $categories        = TravelCategories::orderBy('sort_order')->get();
+        // Get search conditions
+        switch (Input::get('target')) {
+            case 'title':
+                $title = Input::get('like');
+                break;
+        }
+        // Construct query statement
+        isset($title) AND $query->where('title', 'like', "%{$title}%")->orWhere('content', 'like', "%{$title}%");
+        $datas = $query->paginate(6);
+        return View::make('travel.search')->with(compact('datas', 'categories'));
+    }
 }

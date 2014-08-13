@@ -44,11 +44,13 @@ Route::group(array(), function () {
 Route::group(array('prefix' => 'article'), function () {
     $resource   = 'article';
     $controller = 'ArticleController@';
-    # 分类目录
+    # Get index
     Route::get(            '/', array('as' => $resource.'.index'   , 'uses' => $controller.'index'   ));
-    # 分类列表
+    # Category index
     Route::get('category/{id}', array('as' => $resource.'.category', 'uses' => $controller.'category'));
-    # 展示文章内容
+    # Search result
+    Route::post(      'search', array('as' => $resource.'.search'  , 'uses' => $controller.'search'  ));
+    # Show content
     Route::get(       '{slug}', array('as' => $resource.'.show'    , 'uses' => $controller.'show'    ));
 });
 
@@ -62,12 +64,16 @@ Route::group(array('prefix' => 'article'), function () {
 Route::group(array('prefix' => 'creative'), function () {
     $resource   = 'creative';
     $controller = 'CreativeController@';
-    # 分类创意列表
-    Route::get(      '/', array('as' => $resource.'.getIndex', 'uses' => $controller.'getIndex'));
-    # 展示创意内容
-    Route::get( '{slug}', array('as' => $resource.'.show'    , 'uses' => $controller.'show'    ));
-    # 提交创意评论
-    Route::post('{slug}', $controller.'postComment')->before('auth');
+    # Get index
+    Route::get(            '/', array('as' => $resource.'.getIndex', 'uses' => $controller.'getIndex'));
+    # Category index
+    Route::get('category/{id}', array('as' => $resource.'.category', 'uses' => $controller.'category'));
+    # Show contents
+    Route::get(       '{slug}', array('as' => $resource.'.show'    , 'uses' => $controller.'show'    ));
+    # Search result
+    Route::post(      'search', array('as' => $resource.'.search'  , 'uses' => $controller.'search'  ));
+    # Post comments
+    Route::post(      '{slug}', $controller.'postComment')->before('auth');
 });
 
 /*
@@ -80,13 +86,15 @@ Route::group(array('prefix' => 'creative'), function () {
 Route::group(array('prefix' => 'travel'), function () {
     $resource   = 'travel';
     $controller = 'TravelController@';
-    # 分类创意列表
+    # Get index
     Route::get(            '/', array('as' => $resource.'.getIndex', 'uses' => $controller.'getIndex'));
-    # 分类列表
+    # Category index
     Route::get('category/{id}', array('as' => $resource.'.category', 'uses' => $controller.'category'));
-    # 展示创意内容
+    # Search result
+    Route::post(      'search', array('as' => $resource.'.search'  , 'uses' => $controller.'search'  ));
+    # Show contents
     Route::get(       '{slug}', array('as' => $resource.'.show'    , 'uses' => $controller.'show'    ));
-    # 提交创意评论
+    # Post comments
     Route::post(      '{slug}', $controller.'postComment')->before('auth');
 });
 
@@ -100,11 +108,11 @@ Route::group(array('prefix' => 'travel'), function () {
 Route::group(array('prefix' => 'product'), function () {
     $resource   = 'product';
     $controller = 'ProductController@';
-    # 分类列表
+    # Get index
     Route::get(      '/', array('as' => $resource.'.getIndex', 'uses' => $controller.'getIndex'));
-    # 展示内容
+    # Show contents
     Route::get( '{slug}', array('as' => $resource.'.show'    , 'uses' => $controller.'show'    ));
-    # 提交评论
+    # Post comments
     Route::post('{slug}', $controller.'postAction')->before('auth');
 });
 
@@ -122,6 +130,8 @@ Route::group(array('prefix' => 'job'), function () {
     Route::get(            '/', array('as' => $resource.'.getIndex', 'uses' => $controller.'getIndex'));
     # List
     Route::get('category/{id}', array('as' => $resource.'.category', 'uses' => $controller.'category'));
+    # Search result
+    Route::post(      'search', array('as' => $resource.'.search'  , 'uses' => $controller.'search'  ));
     # Show
     Route::get(       '{slug}', array('as' => $resource.'.show'    , 'uses' => $controller.'show'    ));
     # Post comments
@@ -167,14 +177,14 @@ Route::group(array('prefix' => 'auth'), function () {
         Route::get('oauth-qq'                 , array('as' => 'oauth-qq'      , 'uses' => $Authority.'getOauthQQ'       ));
         # Oauth Success
         Route::get('oauth-success'            , array('as' => 'oauth-success' , 'uses' => $Authority.'getOauthSuccess', 'before' => 'auth' ));
-        # SignupSuccess
+        # Signup Success
         Route::get('success/{email}'          , array('as' => 'signupSuccess' , 'uses' => $Authority.'getSignupSuccess' ));
         # Activation Account
         Route::get('activate/{activationCode}', array('as' => 'activate'      , 'uses' => $Authority.'getActivate'      ));
-        # 忘记密码
+        # Forgot password
         Route::get('forgot-password'          , array('as' => 'forgotPassword', 'uses' => $Authority.'getForgotPassword'));
         Route::post('forgot-password'         , $Authority.'postForgotPassword');
-        # 密码重置
+        # Reset password
         Route::get('forgot-password/{token}'  , array('as' => 'reset'         , 'uses' => $Authority.'getReset'         ));
         Route::post('forgot-password/{token}' , $Authority.'postReset');
     });

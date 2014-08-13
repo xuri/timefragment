@@ -44,7 +44,7 @@
 				<div class="row">
 					@include('job.content')
 					@yield('content')
-					@include('layout.sidebar')
+					@include('job.sidebar')
 					@yield('content')
 				</div>
 

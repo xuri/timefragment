@@ -30,7 +30,7 @@
                 <div class="row">
                     @include('article.list')
                     @yield('content')
-                    @include('layout.sidebar')
+                    @include('article.sidebar')
                     @yield('content')
                 </div>
 

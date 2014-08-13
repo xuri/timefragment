@@ -30,7 +30,7 @@
                 <div class="row">
                     @include('travel.list')
                     @yield('content')
-                    @include('layout.sidebar')
+                    @include('travel.sidebar')
                     @yield('content')
                 </div>
 

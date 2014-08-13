@@ -392,4 +392,23 @@ class JobController extends BaseResource
         }
     }
 
+    /**
+     * Show search result
+     * @return response
+     */
+    public function search()
+    {
+        $query             = Job::orderBy('created_at', 'desc');
+        $categories        = JobCategories::orderBy('sort_order')->get();
+        // Get search conditions
+        switch (Input::get('target')) {
+            case 'title':
+                $title = Input::get('like');
+                break;
+        }
+        // Construct query statement
+        isset($title) AND $query->where('title', 'like', "%{$title}%")->orWhere('content', 'like', "%{$title}%");
+        $datas = $query->paginate(6);
+        return View::make('job.search')->with(compact('datas', 'categories'));
+    }
 }

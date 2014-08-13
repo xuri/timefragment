@@ -333,8 +333,19 @@ class CreativeController extends BaseResource
     public function getIndex()
     {
         $creative   = Creative::orderBy('created_at', 'desc')->paginate(12);
-        $categories = CreativeCategories::orderBy('sort_order')->get();
-        return View::make('creative.index')->with(compact('creative', 'categories', 'data'));
+        return View::make('creative.index')->with(compact('creative'));
+    }
+
+    /**
+     * Category list
+     * @return Respanse
+     */
+    public function category($category_id)
+    {
+        $creative          = Creative::where('category_id', $category_id)->orderBy('created_at', 'desc')->paginate(12);
+        $categories        = CreativeCategories::orderBy('sort_order')->get();
+        $current_category  = CreativeCategories::where('id', $category_id)->first();
+        return View::make('creative.category')->with(compact('creative', 'categories', 'category_id', 'current_category'));
     }
 
     /**
@@ -386,5 +397,25 @@ class CreativeController extends BaseResource
             // Create fail
             return Redirect::back()->withInput()->with('error', '评论失败。');
         }
+    }
+
+    /**
+     * Show search result
+     * @return response
+     */
+    public function search()
+    {
+        $query             = Creative::orderBy('created_at', 'desc');
+        $categories        = CreativeCategories::orderBy('sort_order')->get();
+        // Get search conditions
+        switch (Input::get('target')) {
+            case 'title':
+                $title = Input::get('like');
+                break;
+        }
+        // Construct query statement
+        isset($title) AND $query->where('title', 'like', "%{$title}%")->orWhere('content', 'like', "%{$title}%");
+        $datas = $query->paginate(6);
+        return View::make('creative.search')->with(compact('datas', 'categories'));
     }
 }

@@ -3,8 +3,8 @@
 	<div class="element-line">
 		<div id="filters" class="mybutton small">
 			<a href="#" data-filter="*"><span data-hover="全部分类">显示所有</span></a>
-			@foreach($categories as $category)
-			<a href="#" data-filter=".{{ $category->name }}"><span data-hover="筛选">{{ $category->name }}</span></a>
+			@foreach($creative as $single_creative)
+			<a href="#" data-filter=".{{ $single_creative->category->name }}"><span data-hover="筛选">{{ $single_creative->category->name }}</span></a>
 			@endforeach
 		</div>
 	</div>

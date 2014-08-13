@@ -45,7 +45,7 @@
 				<div class="row">
 					@include('creative.content')
 					@yield('content')
-					@include('layout.sidebar')
+					@include('creative.sidebar')
 					@yield('content')
 				</div>
 

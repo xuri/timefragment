@@ -62,6 +62,12 @@ Route::filter('auth.basic', function () {
     return Auth::basic();
 });
 
+# Must activated
+Route::filter('auth.activated', function () {
+    if ( Auth::user()->activated_at == NULL )
+        return View::make('authority.signupSuccess')->with('email', Auth::user()->email);
+});
+
 # Must be a visitor (less)
 Route::filter('guest', function () {
     // Block logged in users
@@ -74,8 +80,6 @@ Route::filter('not.self', function ($route) {
     if (Auth::user()->id == $route->parameter('id'))
         return Redirect::back();
 });
-
-
 
 /*
 |--------------------------------------------------------------------------
