@@ -75,6 +75,45 @@
 				@endif
 			</div>
 			{{-- /Text Widget --}}
+
+			{{-- Recent Posts Widget --}}
+			<div class="widget">
+
+				<div class="widget-title">
+					<h4>热门分享</h4>
+				</div>
+				<?php
+				$posts = Creative::orderBy('comments_count', 'desc')->paginate(4);
+		        ?>
+		        @foreach($posts as $post)
+				<div class="post-box">
+					<a href="#"> <img class="img-rounded" src="{{ $post->user->portrait_large }}" width="50" height="50" alt=""> </a>
+					<div>
+						<h5><a href="{{ route('creative.show', $post->slug) }}">{{ $post->title }}</a></h5>
+						<small>{{ date("M d, Y",strtotime($post->created_at)) }}</small>
+					</div>
+				</div>
+				@endforeach
+			</div>
+			{{-- /Recent Posts Widget --}}
+
+			{{-- Tags Widget --}}
+			<div class="widget">
+				<div class="widget-title">
+					<h4>热议主题</h4>
+				</div>
+				<ul class="widget-tag">
+					<?php
+					$categories = CreativeCategories::orderBy('sort_order')->get();
+					?>
+					@foreach($categories as $category)
+					<li>
+						<a href="{{ route('creative.category', $category->id) }}" class="tag-link">{{ $category->name }}</a>
+					</li>
+					@endforeach
+				</ul>
+			</div>
+			{{-- /Tags Widget --}}
 		</div>
 	</div>
 </div>

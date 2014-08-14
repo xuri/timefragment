@@ -335,7 +335,7 @@ class TravelController extends BaseResource
     {
         $travel     = Travel::orderBy('created_at', 'desc')->paginate(12);
         $categories = TravelCategories::orderBy('sort_order')->paginate(6);
-        return View::make('travel.index')->with(compact('travel', 'categories', 'data'));
+        return View::make('travel.index')->with(compact('travel', 'categories'));
     }
 
     /**
