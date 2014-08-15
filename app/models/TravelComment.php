@@ -1,23 +1,29 @@
 <?php
+
 /**
- * 去旅行的分享评论
+ * Travel comments
  */
+
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class TravelComment extends BaseModel
 {
     /**
-     * 数据库表名称（不包含前缀）
+     * Database table (without prefix)
      * @var string
      */
     protected $table = 'travel_comments';
 
     /**
-     * 软删除
+     * Soft delete
      * @var boolean
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
+
+    protected $softDelete = ['deleted_at'];
 
     /**
-     * 模型对象关系：归属文章
+     * ORM (Object-relational model): Travel
      * @return object Article
      */
     public function travel()
@@ -26,7 +32,7 @@ class TravelComment extends BaseModel
     }
 
     /**
-     * 模型对象关系：评论的作者
+     * ORM (Object-relational model): Comment author
      * @return object User
      */
     public function user()

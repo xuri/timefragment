@@ -3,6 +3,9 @@
 /**
  * Travel Pictures
  */
+
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class TravelPictures extends BaseModel
 {
     /**
@@ -15,10 +18,12 @@ class TravelPictures extends BaseModel
      * Soft delete
      * @var boolean
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
+
+    protected $softDelete = ['deleted_at'];
 
     /**
-     * Object-relational model: Vesting creative
+     * ORM (Object-relational model): Travel
      * @return object Creative
      */
     public function travel()
@@ -27,12 +32,13 @@ class TravelPictures extends BaseModel
     }
 
     /**
-     * 模型对象关系：评论的作者
+     * ORM (Object-relational model): Travel author
      * @return object User
      */
     public function user()
     {
         return $this->belongsTo('User', 'user_id');
     }
+
 
 }

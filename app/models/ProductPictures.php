@@ -3,6 +3,9 @@
 /**
  * Product Pictures
  */
+
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class ProductPictures extends BaseModel
 {
     /**
@@ -15,10 +18,12 @@ class ProductPictures extends BaseModel
      * Soft delete
      * @var boolean
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
+
+    protected $softDelete = ['deleted_at'];
 
     /**
-     * Object-relational model: Vesting product
+     * ORM (Object-relational model): Product
      * @return object Product
      */
     public function product()
@@ -27,12 +32,13 @@ class ProductPictures extends BaseModel
     }
 
     /**
-     * 模型对象关系：评论的作者
+     * ORM (Object-relational model): Saller
      * @return object User
      */
     public function user()
     {
         return $this->belongsTo('User', 'user_id');
     }
+
 
 }

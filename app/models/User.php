@@ -1,7 +1,12 @@
 <?php
 
+/**
+ * User
+ */
+
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class User extends BaseModel implements UserInterface, RemindableInterface
 {
@@ -21,16 +26,18 @@ class User extends BaseModel implements UserInterface, RemindableInterface
     }
 
     /**
-     * 数据库表名称（不包含前缀）
+     * Database table (without prefix)
      * @var string
      */
     protected $table = 'users';
 
     /**
-     * 软删除
+     * Soft delete
      * @var boolean
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
+
+    protected $softDelete = ['deleted_at'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -70,7 +77,7 @@ class User extends BaseModel implements UserInterface, RemindableInterface
     }
 
     /**
-     * 访问器：友好的最后登录时间
+     * Access control: Friendly signin_at
      * @return string
      */
     public function getFriendlySigninAtAttribute()
@@ -82,8 +89,8 @@ class User extends BaseModel implements UserInterface, RemindableInterface
     }
 
     /**
-     * 访问器：用户头像（大）
-     * @return string 用户头像的 URI
+     * Access control: Portrait Large
+     * @return string Portrait URI
      */
     public function getPortraitLargeAttribute()
     {
@@ -94,8 +101,8 @@ class User extends BaseModel implements UserInterface, RemindableInterface
     }
 
     /**
-     * 访问器：用户头像（中）
-     * @return string 用户头像的 URI
+     * Access control: Portrait Medium
+     * @return string Portrait URI
      */
     public function getPortraitMediumAttribute()
     {
@@ -106,8 +113,8 @@ class User extends BaseModel implements UserInterface, RemindableInterface
     }
 
     /**
-     * 访问器：用户头像（小）
-     * @return string 用户头像的 URI
+     * Access control: Portrait Small
+     * @return string Portrait URI
      */
     public function getPortraitSmallAttribute()
     {
@@ -118,13 +125,13 @@ class User extends BaseModel implements UserInterface, RemindableInterface
     }
 
     /**
-     * 调整器：密码
-     * @param  string $value 未处理的密码字符串
+     * Adjuster: Password
+     * @param  string $value Untreated password string
      * @return void
      */
     public function setPasswordAttribute($value)
     {
-        // 若传入的字符串已经进行了 Hash 加密，则不重复处理
+        // If the incoming string has been encrypted Hash, the iterative process is not
         $this->attributes['password'] = Hash::needsRehash($value) ? Hash::make($value) : $value;
     }
 

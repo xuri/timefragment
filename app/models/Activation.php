@@ -1,11 +1,13 @@
 <?php
+
 /**
- * 账号激活码
+ * Account activation
  */
+
 class Activation extends BaseModel
 {
     /**
-     * 数据库表名称（不包含前缀）
+     * Database table (without prefix)
      * @var string
      */
     protected $table = 'activations';

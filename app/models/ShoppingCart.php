@@ -1,26 +1,30 @@
 <?php
 
-use \Michelf\MarkdownExtra;
-
 /**
- * Product
+ * Shopping Cart
  */
+
+use \Michelf\MarkdownExtra;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class ShoppingCart extends BaseModel
 {
     /**
-     * 数据库表名称（不包含前缀）
+     * Database table (without prefix)
      * @var string
      */
     protected $table = 'product_cart';
 
     /**
-     * 软删除
+     * Soft delete
      * @var boolean
      */
-    protected $softDelete = false;
+    use SoftDeletingTrait;
+
+    protected $softDelete = ['deleted_at'];
 
     /**
-     * 模型对象关系：商品的出售者
+     * ORM (Object-relational model): Saller
      * @return object User
      */
     public function seller()

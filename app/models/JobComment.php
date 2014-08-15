@@ -1,23 +1,29 @@
 <?php
+
 /**
- * 应聘职位的评论
+ * Job comments
  */
+
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class JobComment extends BaseModel
 {
     /**
-     * 数据库表名称（不包含前缀）
+     * Database table (without prefix)
      * @var string
      */
     protected $table = 'job_comments';
 
     /**
-     * 软删除
+     * Soft delete
      * @var boolean
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
+
+    protected $softDelete = ['deleted_at'];
 
     /**
-     * 模型对象关系：归属招聘
+     * ORM (Object-relational model): Job
      * @return object Article
      */
     public function job()
@@ -26,7 +32,7 @@ class JobComment extends BaseModel
     }
 
     /**
-     * 模型对象关系：应聘者
+     * ORM (Object-relational model): User
      * @return object User
      */
     public function user()

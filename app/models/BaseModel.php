@@ -3,13 +3,7 @@
 class BaseModel extends Eloquent
 {
     /**
-     * 软删除
-     * @var boolean
-     */
-    protected $softDelete = false;
-
-    /**
-     * 访问器：友好的创建时间
+     * Access control: Friendly created_at
      * @return string
      */
     public function getFriendlyCreatedAtAttribute()
@@ -18,7 +12,7 @@ class BaseModel extends Eloquent
     }
 
     /**
-     * 访问器：友好的更新时间
+     * Access control: Friendly updated_at
      * @return string
      */
     public function getFriendlyUpdatedAtAttribute()
@@ -27,7 +21,7 @@ class BaseModel extends Eloquent
     }
 
     /**
-     * 访问器：友好的删除时间
+     * Access control: Friendly deleted_at
      * @return string
      */
     public function getFriendlyDeletedAtAttribute()

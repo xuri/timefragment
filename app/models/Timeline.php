@@ -1,27 +1,31 @@
 <?php
 
-use \Michelf\MarkdownExtra;
-
 /**
  * Timeline
  */
+
+use \Michelf\MarkdownExtra;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class Timeline extends BaseModel
 {
     /**
-     * 数据库表名称（不包含前缀）
+     * Database table (without prefix)
      * @var string
      */
     protected $table = 'timeline';
 
     /**
-     * 软删除
+     * Soft delete
      * @var boolean
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
+
+    protected $softDelete = ['deleted_at'];
 
 
     /**
-     * 模型对象关系：招聘者
+     * ORM (Object-relational model): User
      * @return object User
      */
     public function timeline()

@@ -1,28 +1,35 @@
 <?php
+
 /**
- * 去旅行分类
+ * Travel Category
  */
+
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class TravelCategories extends BaseModel
 {
     /**
-     * 数据库表名称（不包含前缀）
+     * Database table (without prefix)
      * @var string
      */
     protected $table = 'travel_categories';
 
     /**
-     * 软删除
+     * Soft delete
      * @var boolean
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
+
+    protected $softDelete = ['deleted_at'];
 
     /**
-     * 模型对象关系：去旅行分类下的文章
+     * ORM (Object-relational model): Travel
      * @return object Illuminate\Database\Eloquent\Collection
      */
     public function travel()
     {
         return $this->hasMany('Travel', 'category_id');
     }
+
 
 }

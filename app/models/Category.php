@@ -1,28 +1,35 @@
 <?php
+
 /**
- * 文章分类
+ * Article categories
  */
+
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class Category extends BaseModel
 {
     /**
-     * 数据库表名称（不包含前缀）
+     * Database table (without prefix)
      * @var string
      */
     protected $table = 'article_categories';
 
     /**
-     * 软删除
+     * Soft delete
      * @var boolean
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
+
+    protected $softDelete = ['deleted_at'];
 
     /**
-     * 模型对象关系：分类下的文章
+     * ORM (Object-relational model): Article in category
      * @return object Illuminate\Database\Eloquent\Collection
      */
     public function articles()
     {
         return $this->hasMany('Article', 'category_id');
     }
+
 
 }

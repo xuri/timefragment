@@ -50,8 +50,11 @@
                     </div>
 
                     <div class="p-lr-30 p-tb-10 pm-lr-10">
-
+                        @if($data->is_checkout == true)
+                        <div class="panel panel-success">
+                        @else
                         <div class="panel panel-info">
+                        @endif
                             <div class="panel-heading">
                                 <h3 class="panel-title">{{ $resourceName }}详情</h3>
                             </div>

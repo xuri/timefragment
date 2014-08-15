@@ -1,23 +1,29 @@
 <?php
+
 /**
- * 文章评论
+ * Comments
  */
+
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class Comment extends BaseModel
 {
     /**
-     * 数据库表名称（不包含前缀）
+     * Database table (without prefix)
      * @var string
      */
     protected $table = 'article_comments';
 
     /**
-     * 软删除
+     * Soft delete
      * @var boolean
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
+
+    protected $softDelete = ['deleted_at'];
 
     /**
-     * 模型对象关系：归属文章
+     * ORM (Object-relational model): Article comments
      * @return object Article
      */
     public function article()
@@ -26,7 +32,7 @@ class Comment extends BaseModel
     }
 
     /**
-     * 模型对象关系：评论的作者
+     * ORM (Object-relational model): Comment author
      * @return object User
      */
     public function user()

@@ -3,6 +3,9 @@
 /**
  * Job Pictures
  */
+
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class JobPictures extends BaseModel
 {
     /**
@@ -15,10 +18,12 @@ class JobPictures extends BaseModel
      * Soft delete
      * @var boolean
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
+
+    protected $softDelete = ['deleted_at'];
 
     /**
-     * Object-relational model: Vesting creative
+     * ORM (Object-relational model): Job
      * @return object Creative
      */
     public function job()
@@ -27,12 +32,13 @@ class JobPictures extends BaseModel
     }
 
     /**
-     * 模型对象关系：评论的作者
+     * ORM (Object-relational model): Comment author
      * @return object User
      */
     public function user()
     {
         return $this->belongsTo('User', 'user_id');
     }
+
 
 }

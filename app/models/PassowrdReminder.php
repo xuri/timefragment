@@ -1,11 +1,13 @@
 <?php
+
 /**
- * 账号激活码
+ * Account Activation
  */
+
 class PassowrdReminder extends BaseModel
 {
     /**
-     * 数据库表名称（不包含前缀）
+     * Database table (without prefix)
      * @var string
      */
     protected $table = 'password_reminders';

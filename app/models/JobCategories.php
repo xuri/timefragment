@@ -1,28 +1,35 @@
 <?php
+
 /**
- * 兼职分类
+ * Job Category
  */
+
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class JobCategories extends BaseModel
 {
     /**
-     * 数据库表名称（不包含前缀）
+     * Database table (without prefix)
      * @var string
      */
     protected $table = 'job_categories';
 
     /**
-     * 软删除
+     * Soft delete
      * @var boolean
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
+
+    protected $softDelete = ['deleted_at'];
 
     /**
-     * 模型对象关系：兼职分类下的文章
+     * ORM (Object-relational model): Jobs
      * @return object Illuminate\Database\Eloquent\Collection
      */
     public function job()
     {
         return $this->hasMany('Job', 'category_id');
     }
+
 
 }

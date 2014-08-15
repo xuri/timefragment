@@ -3,6 +3,9 @@
 /**
  * Creative Pictures
  */
+
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class CreativePictures extends BaseModel
 {
     /**
@@ -15,10 +18,12 @@ class CreativePictures extends BaseModel
      * Soft delete
      * @var boolean
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
+
+    protected $softDelete = ['deleted_at'];
 
     /**
-     * Object-relational model: Vesting creative
+     * Object-relational model: Creative
      * @return object Creative
      */
     public function creative()
@@ -27,12 +32,13 @@ class CreativePictures extends BaseModel
     }
 
     /**
-     * 模型对象关系：评论的作者
+     * Object-relational model: Creative author
      * @return object User
      */
     public function user()
     {
         return $this->belongsTo('User', 'user_id');
     }
+
 
 }

@@ -108,8 +108,6 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         'Intervention\Image\ImageServiceProvider',
-        'Wehnhew\Payments\PaymentServiceProvider',
-        'Gloudemans\Shoppingcart\ShoppingcartServiceProvider',
 	),
 
 	/*
@@ -144,7 +142,6 @@ return array(
 		'Blade'           => 'Illuminate\Support\Facades\Blade',
 		'Cache'           => 'Illuminate\Support\Facades\Cache',
 		'Carbon'    	  => 'Carbon\Carbon',
-		'Cart'            => 'Gloudemans\Shoppingcart\Facades\Cart',
 		'ClassLoader'     => 'Illuminate\Support\ClassLoader',
 		'Config'          => 'Illuminate\Support\Facades\Config',
 		'Controller'      => 'Illuminate\Routing\Controller',
@@ -165,7 +162,6 @@ return array(
 		'Mail'            => 'Illuminate\Support\Facades\Mail',
 		'Paginator'       => 'Illuminate\Support\Facades\Paginator',
 		'Password'        => 'Illuminate\Support\Facades\Password',
-		'Payment'		  => 'Wehnhew\Payments\Facades\Payment',
 		'Queue'           => 'Illuminate\Support\Facades\Queue',
 		'Redirect'        => 'Illuminate\Support\Facades\Redirect',
 		'Redis'           => 'Illuminate\Support\Facades\Redis',
@@ -181,5 +177,19 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 	),
+
+	/*
+	|--------------------------------------------------------------------------
+	| Encryption Defaults
+	|--------------------------------------------------------------------------
+	|
+	| In Laravel 4.2, the default cipher is MCRYPT_RIJNDAEL_128 (AES), which
+	| is considered to be the most secure cipher. Changing the cipher back to
+	| MCRYPT_RIJNDAEL_256 is required to decrypt cookies/values that were
+	| encrypted in Laravel <= 4.1
+	|
+	*/
+
+	'cipher' => MCRYPT_RIJNDAEL_256,
 
 );

@@ -53,7 +53,7 @@
 
                     <div class="p-lr-30 p-tb-10 pm-lr-10">
                         <ul class="nav nav-tabs">
-                            <li>
+                            <li class="active">
                                 <a href="#tab-trading-order" data-toggle="tab">
                                     <div class="text-small">Trading Order</div>
                                     <span class="text-uppercase">交易中订单</span>
@@ -135,7 +135,7 @@
                                                 <th>数量 {{ order_by('quantity') }}</th>
                                                 <th>费用（单位：元）{{ order_by('payment') }}</th>
                                                 <th>生成时间 {{ order_by('created_at', 'desc') }}</th>
-                                                <th>订单详情</th>
+                                                <th style="text-align:center;">订单详情</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -152,7 +152,7 @@
                                                 <td>￥{{ $checkout->payment }}</td>
                                                 <td>{{ $checkout->created_at }}（{{ $checkout->friendly_created_at }}）</td>
                                                 <td style="text-align:center;">
-                                                    <a href="{{ route($resource.'.sellerOrderDetails', $checkout->id) }}" class="btn btn-xs btn-info">查看详情</a>
+                                                    <a href="{{ route($resource.'.sellerOrderDetails', $checkout->id) }}" class="btn btn-xs btn-success">查看详情</a>
                                                 </td>
                                             </tr>
                                             @endforeach

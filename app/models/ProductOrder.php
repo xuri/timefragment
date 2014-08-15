@@ -1,31 +1,36 @@
 <?php
 
-use \Michelf\MarkdownExtra;
-
 /**
- * ProductOrder
+ * Product Order
  */
+
+use \Michelf\MarkdownExtra;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class ProductOrder extends BaseModel
 {
     /**
-     * 数据库表名称（不包含前缀）
+     * Database table (without prefix)
      * @var string
      */
     protected $table = 'product_orders';
 
     /**
-     * 软删除
+     * Soft delete
      * @var boolean
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
+
+    protected $softDelete = ['deleted_at'];
 
     /**
-     * 模型对象关系：订单
+     * ORM (Object-relational model): Order
      * @return object User
      */
     public function order()
     {
         return $this->belongsTo('User', 'user_id');
     }
+
 
 }

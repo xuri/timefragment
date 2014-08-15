@@ -1,12 +1,15 @@
 <?php
 
 /**
- * About Article Pictures
+ * Article Pictures
  */
+
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class Picture extends BaseModel
 {
     /**
-     * Database table name (without prefix)
+     * Database table (without prefix)
      * @var string
      */
     protected $table = 'article_pictures';
@@ -15,10 +18,12 @@ class Picture extends BaseModel
      * Soft delete
      * @var boolean
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
+
+    protected $softDelete = ['deleted_at'];
 
     /**
-     * Object-relational model: Vesting article
+     * ORM (Object-relational model): Article
      * @return object Article
      */
     public function article()
@@ -27,12 +32,13 @@ class Picture extends BaseModel
     }
 
     /**
-     * 模型对象关系：评论的作者
+     * ORM (Object-relational model): Comment author
      * @return object User
      */
     public function user()
     {
         return $this->belongsTo('User', 'user_id');
     }
+
 
 }

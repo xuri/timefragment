@@ -4,17 +4,13 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.1.*",
+		"laravel/framework": "4.2.*",
 		"yzalis/identicon": "1.0.*@dev",
 		"intervention/image": "dev-master",
 		"michelf/php-markdown": "1.4.*@dev",
 		"nickcernis/html-to-markdown": "dev-master",
-		"five-say/vendor-cleaner": "dev-master",
-		"blueimp/jquery-file-upload": "dev-master",
 		"symfony/validator": "2.6.*@dev",
-		"symfony/expression-language": "2.6.*@dev",
-		"wehnhew/payments": "dev-master",
-		"gloudemans/shoppingcart": "dev-master"
+		"symfony/expression-language": "2.6.*@dev"
 	},
 	"autoload": {
 		"classmap": [

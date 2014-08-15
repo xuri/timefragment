@@ -1,23 +1,29 @@
 <?php
+
 /**
- * 创意分享评论
+ * Creative comments
  */
+
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class CreativeComment extends BaseModel
 {
     /**
-     * 数据库表名称（不包含前缀）
+     * Database table (without prefix)
      * @var string
      */
     protected $table = 'creative_comments';
 
     /**
-     * 软删除
+     * Soft delete
      * @var boolean
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
+
+    protected $softDelete = ['deleted_at'];
 
     /**
-     * 模型对象关系：归属创意
+     * ORM (Object-relational model): Creative
      * @return object Article
      */
     public function creative()
@@ -26,7 +32,7 @@ class CreativeComment extends BaseModel
     }
 
     /**
-     * 模型对象关系：评论的作者
+     * ORM (Object-relational model): Comment author
      * @return object User
      */
     public function user()

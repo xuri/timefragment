@@ -77,7 +77,7 @@ class Admin_ProductResource extends BaseResource
      */
     public function create()
     {
-        if(Auth::user()->alipay==NULL){
+        if( Auth::user()->alipay == null ){
             return Redirect::route('account.settings')
                     ->with('info', '提示：您需要设定支付宝收款账户才可以发布商品出售信息');
         } else {

@@ -1,28 +1,35 @@
 <?php
+
 /**
- * 创意汇分类
+ * Creative category
  */
+
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class CreativeCategories extends BaseModel
 {
     /**
-     * 数据库表名称（不包含前缀）
+     * Database table (without prefix)
      * @var string
      */
     protected $table = 'creative_categories';
 
     /**
-     * 软删除
+     * Soft delete
      * @var boolean
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
+
+    protected $softDelete = ['deleted_at'];
 
     /**
-     * 模型对象关系：创意汇分类下的文章
+     * ORM (Object-relational model): Creative article
      * @return object Illuminate\Database\Eloquent\Collection
      */
     public function creative()
     {
         return $this->hasMany('Creative', 'category_id');
     }
+
 
 }

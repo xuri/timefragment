@@ -150,7 +150,7 @@ function friendly_date($theDate)
 function pagination(Illuminate\Pagination\Paginator $paginator, $viewName = null)
 {
     $viewName = $viewName ?: Config::get('view.pagination');
-    $paginator->getEnvironment()->setViewName($viewName);
+    $paginator->getFactory()->setViewName($viewName);
     return $paginator->links();
 }
 

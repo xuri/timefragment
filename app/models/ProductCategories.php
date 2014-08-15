@@ -1,28 +1,35 @@
 <?php
+
 /**
- * 商品分类
+ * Categories
  */
+
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class ProductCategories extends BaseModel
 {
     /**
-     * 数据库表名称（不包含前缀）
+     * Database table (without prefix)
      * @var string
      */
     protected $table = 'product_categories';
 
     /**
-     * 软删除
+     * Soft delete
      * @var boolean
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
+
+    protected $softDelete = ['deleted_at'];
 
     /**
-     * 模型对象关系：商品分类下的商品
+     * ORM (Object-relational model): Goods in Category
      * @return object Illuminate\Database\Eloquent\Collection
      */
     public function product()
     {
         return $this->hasMany('Product', 'category_id');
     }
+
 
 }

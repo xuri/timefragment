@@ -1,26 +1,30 @@
 <?php
 
-use \Michelf\MarkdownExtra;
-
 /**
  * Job
  */
+
+use \Michelf\MarkdownExtra;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class Job extends BaseModel
 {
     /**
-     * 数据库表名称（不包含前缀）
+     * Database table (without prefix)
      * @var string
      */
     protected $table = 'jobs';
 
     /**
-     * 软删除
+     * Soft delete
      * @var boolean
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
+
+    protected $softDelete = ['deleted_at'];
 
     /**
-     * 模型对象关系：职位分类
+     * ORM (Object-relational model): Job category
      * @return object Category
      */
     public function category()
@@ -29,7 +33,7 @@ class Job extends BaseModel
     }
 
     /**
-     * 模型对象关系：招聘者
+     * ORM (Object-relational model): User
      * @return object User
      */
     public function user()
@@ -38,7 +42,7 @@ class Job extends BaseModel
     }
 
     /**
-     * 模型对象关系：招聘信息的简介
+     * ORM (Object-relational model): Job comments
      * @return object Illuminate\Database\Eloquent\Collection
      */
     public function comments()
@@ -47,7 +51,7 @@ class Job extends BaseModel
     }
 
     /**
-     * 模型对象关系：招聘信息的图片
+     * ORM (Object-relational model): Job pictures
      * @return object Illuminate\Database\Eloquent\Collection
      */
     public function pictures()
@@ -56,7 +60,7 @@ class Job extends BaseModel
     }
 
     /**
-     * 访问器：内容（原始）
+     * Access control: Content (original)
      * @return string
      */
     public function getContentAttribute($value)
@@ -65,7 +69,7 @@ class Job extends BaseModel
     }
 
     /**
-     * 访问器：摘要（原始）
+     * Access control: Abstract (original)
      * @return string
      */
     public function getExcerptAttribute($value)
@@ -74,7 +78,7 @@ class Job extends BaseModel
     }
 
     /**
-     * 访问器：内容（HTML 格式）
+     * Access control: Content (HTML format)
      * @return string
      */
     public function getContentHtmlAttribute()
@@ -88,7 +92,7 @@ class Job extends BaseModel
     }
 
     /**
-     * 访问器：摘要（HTML 格式）
+     * Access control: Abstract (HTML format)
      * @return string
      */
     public function getExcerptHtmlAttribute()
@@ -102,7 +106,7 @@ class Job extends BaseModel
     }
 
     /**
-     * 访问器：内容（Markdown 格式）
+     * Access control: Content (Mardown format)
      * @return string
      */
     public function getContentMarkdownAttribute()
@@ -116,7 +120,7 @@ class Job extends BaseModel
     }
 
     /**
-     * 访问器：摘要（Markdown 格式）
+     * Access control: Abstract (Markdown format)
      * @return string
      */
     public function getExcerptMarkdownAttribute()

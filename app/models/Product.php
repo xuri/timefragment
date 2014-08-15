@@ -1,26 +1,30 @@
 <?php
 
-use \Michelf\MarkdownExtra;
-
 /**
  * Product
  */
+
+use \Michelf\MarkdownExtra;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class Product extends BaseModel
 {
     /**
-     * 数据库表名称（不包含前缀）
+     * Database table (without prefix)
      * @var string
      */
     protected $table = 'products';
 
     /**
-     * 软删除
+     * Soft delete
      * @var boolean
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
+
+    protected $softDelete = ['deleted_at'];
 
     /**
-     * 模型对象关系：商品的分类
+     * ORM (Object-relational model): Product category
      * @return object Category
      */
     public function category()
@@ -29,7 +33,7 @@ class Product extends BaseModel
     }
 
     /**
-     * 模型对象关系：商品的出售者
+     * ORM (Object-relational model): Goods saller
      * @return object User
      */
     public function user()
@@ -38,7 +42,7 @@ class Product extends BaseModel
     }
 
     /**
-     * 模型对象关系：商品的评论
+     * ORM (Object-relational model): Goods comments
      * @return object Illuminate\Database\Eloquent\Collection
      */
     public function comments()
@@ -47,7 +51,7 @@ class Product extends BaseModel
     }
 
     /**
-     * 模型对象关系：商品的图片
+     * ORM (Object-relational model): Goods pictures
      * @return object Illuminate\Database\Eloquent\Collection
      */
     public function pictures()
@@ -56,7 +60,7 @@ class Product extends BaseModel
     }
 
     /**
-     * 访问器：商品内容（原始）
+     * Access control: Content (original)
      * @return string
      */
     public function getContentAttribute($value)
@@ -65,12 +69,13 @@ class Product extends BaseModel
     }
 
     /**
-     * 访问器：商品摘要（原始）
+     * Access control: Abstract (original)
      * @return string
      */
     public function getExcerptAttribute($value)
     {
         return strip($value);
     }
+
 
 }
