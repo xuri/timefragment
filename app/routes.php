@@ -473,10 +473,10 @@ Route::get('browser_not_support', array('as' => 'browser_not_support', function(
     return View::make('system.browserUpdate');
 }));
 
-// App::missing(function($exception)
-// {
-//     return Response::view('system.missing', array(), 404);
-// });
+App::missing(function($exception)
+{
+    return Response::view('system.missing', array(), 404);
+});
 
 // App::error(function($exception)
 // {
