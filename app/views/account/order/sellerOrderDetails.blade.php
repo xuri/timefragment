@@ -88,7 +88,7 @@
                             </div>
                         </div>
                         @if($data->is_express == false)
-                        <form class="form-horizontal" action="{{ route('order.sendGoods') }}" method="post" autocomplete="off">
+                        <form class="form-horizontal" action="{{ route('order.sendGoods') }}" method="post" target="_blank">
                             {{-- CSRF Token --}}
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                             <input type="hidden" name="id" value="{{ $data->id }}" />

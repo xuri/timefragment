@@ -431,7 +431,7 @@ class ProductOrderController extends BaseController
 		// Get all form data.
 		$data   = Input::all();
         $rules  = array(
-			'id'     => 'required|',
+			'id'           => 'required',
 			'express_name' => 'required',
 			'invoice_no'   => 'required',
         );
