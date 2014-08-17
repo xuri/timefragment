@@ -55,4 +55,10 @@
 	    <![endif]-->
 
 	    {{-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries --}}
+
+	    {{-- Js Library --}}
+
+	    {{ script('jquery-2.1.1') }}
+
+	    {{-- Js Library --}}
 	</head>

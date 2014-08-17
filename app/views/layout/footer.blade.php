@@ -23,8 +23,6 @@
 
 		{{-- Js Library --}}
 
-		{{ script('jquery-2.1.1') }}
-
 		{{ HTML::script('assets/js/jquery/jquery.sticky.js') }}
 		{{ HTML::script('assets/js/jquery/jquery.fitvids.js') }}
 		{{ HTML::script('assets/js/jquery/jquery.easing-1.3.pack.js') }}

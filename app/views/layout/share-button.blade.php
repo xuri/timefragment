@@ -26,10 +26,13 @@
 
 </div>
 
+{{ HTML::script('assets/jquery-qrcode/jquery.qrcode.js') }}
+{{ HTML::script('assets/jquery-qrcode/qrcode.js') }}
+
 <?php
 $modalData['modal'] = array(
     'id'      => 'myModal',
-    'title'   => '<script>document.write("<center><img src=\"http://qr.liantu.com/api.php?text="+encodeURI(window.location.href)+"\" /></img></center>");</script>',
+    'title'   => '<center><div id="qrcodeCanvas"></div></center><script>jQuery(\'#qrcodeCanvas\').qrcode({text:encodeURI(window.location.href)});</script>',
     'message' => '<center>打开微信，点击底部的“发现”，使用“扫一扫”即可将网页分享至朋友圈。</center>',
     'footer'  => ''
 );
