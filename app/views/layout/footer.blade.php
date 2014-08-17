@@ -41,14 +41,15 @@
 		{{ script('flexslider-2.2') }}
 		{{ script('bootstrap-3.0.3') }}
 
+		{{-- HTML::script('assets/js/eldarion-ajax.min.js') --}}
+
 		{{ HTML::script('assets/js/bootstrap-modal.js') }}
 		{{ script('modernizr-2.8.1') }}
 		{{ HTML::script('assets/js/skrollr.js') }}
 		{{ HTML::script('assets/js/portfolio_custom.js') }}
 		{{ HTML::script('assets/js/script.js') }}
 		{{ HTML::script('assets/js/retina-1.3.0.min.js') }}
-
-		<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+		{{ HTML::script('assets/js/wb.js') }}
 
 		{{-- Js Library --}}
 

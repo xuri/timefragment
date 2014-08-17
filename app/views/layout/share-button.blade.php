@@ -9,7 +9,7 @@
 		<img title="分享到 Google+" src="{{ route('home') }}/images/share/Google-plus-icon.png" alt="Google+"/>
 	</a>
 	<a href="http://reddit.com/submit?url={{ URL::current() }}" target="_blank">
-		<img title="分享到 Reddit" src="http://xuri.me/wp-content/uploads/2014/01/Reddit-icon.png" alt="Reddit"/>
+		<img title="分享到 Reddit" src="{{ route('home') }}/images/share/Reddit-icon.png" alt="Reddit"/>
 	</a>
 	<a href="http://www.linkedin.com/shareArticle?mini=true&url={{ URL::current() }}" target="_blank">
 		<img title="分享到 LinkedIn" src="{{ route('home') }}/images/share/Linkedin-icon.png" alt="LinkedIn"/>

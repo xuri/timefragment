@@ -156,7 +156,7 @@ class ProductOrderController extends BaseController
 				$seller_alipay                   = User::where('id', $seller_id)->first()->alipay;
 				$order_name                      = '时光碎片网购物-'.$product->title;
 				$payment                         = $data->payment;
-				$goods_show                      = 'http://www.timefragment.com/product/'.$product->slug;
+				$goods_show                      = 'https://www.timefragment.com/product/'.$product->slug;
 				$customer_name                   = Input::input('customer_name');
 				$customer_address                = Input::input('customer_address');
 				$customer_phone                  = Input::input('customer_phone');
@@ -254,7 +254,7 @@ class ProductOrderController extends BaseController
 				$seller_alipay                   = User::where('id', $seller_id)->first()->alipay;
 				$order_name                      = '时光碎片网购物支付：'.$product->title;
 				$payment                         = $data->payment;
-				$goods_show                      = 'http://www.timefragment.com/product/'.$product->slug;
+				$goods_show                      = 'https://www.timefragment.com/product/'.$product->slug;
 				$customer_name                   = Auth::user()->username;
 				$customer_address                = $data->customer_address;
 				$customer_phone                  = Auth::user()->phone;
