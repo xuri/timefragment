@@ -471,8 +471,10 @@ class ProductOrderController extends BaseController
 
 			//建立请求
 			$alipaySubmit = new AlipaySubmit($alipay_config);
-			$html_text = $alipaySubmit->buildRequestHttp($parameter,"get", "确认发货");
-			echo $html_text;
+			$html_text = $alipaySubmit->buildRequestHttp($parameter);
+
+			$doc = new DOMDocument();
+			$doc->loadHTML($html_text);
 			$product_order->save();
 			return Redirect::back()->with('success', '<strong>发货成功！等待对方确认收货。</strong>');
 		} else {
