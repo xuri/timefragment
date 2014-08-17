@@ -448,7 +448,6 @@ class ProductOrderController extends BaseController
 			$product_order->is_express   = true;
 			$product_order->express_name = Input::get('express_name');
 			$product_order->invoice_no   = Input::get('invoice_no');
-			$product_order->save();
 
 	    	// Alipay Dualfun API
 	    	require_once( app_path('api/alipay/alipay.config.php' ));
@@ -474,9 +473,9 @@ class ProductOrderController extends BaseController
 			$alipaySubmit = new AlipaySubmit($alipay_config);
 			$html_text = $alipaySubmit->buildRequestHttp($parameter);
 
-			$doc = new DOMDocument();
+			$doc = new \DOMDocument();
 			$doc->loadXML($html_text);
-
+			$product_order->save();
 			return Redirect::back()->with('success', '<strong>发货成功！等待对方确认收货。</strong>');
 		} else {
         	return Redirect::back()->withInput()->withErrors($validator);
