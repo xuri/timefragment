@@ -47,7 +47,6 @@
 		{{ HTML::script('assets/js/portfolio_custom.js') }}
 		{{ HTML::script('assets/js/script.js') }}
 		{{ HTML::script('assets/js/retina-1.3.0.min.js') }}
-		{{ HTML::script('assets/js/wb.js') }}
 
 		{{-- Js Library --}}
 
