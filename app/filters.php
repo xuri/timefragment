@@ -37,7 +37,6 @@
 |
 */
 
-
 # CSRF protection filters to prevent cross-site request forgery
 Route::filter('csrf', function()
 {

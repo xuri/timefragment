@@ -21,10 +21,10 @@ function createLinkstring($para) {
 	}
 	//去掉最后一个&字符
 	$arg = substr($arg,0,count($arg)-2);
-	
+
 	//如果存在转义字符，那么去掉转义
 	if(get_magic_quotes_gpc()){$arg = stripslashes($arg);}
-	
+
 	return $arg;
 }
 /**
@@ -39,10 +39,10 @@ function createLinkstringUrlencode($para) {
 	}
 	//去掉最后一个&字符
 	$arg = substr($arg,0,count($arg)-2);
-	
+
 	//如果存在转义字符，那么去掉转义
 	if(get_magic_quotes_gpc()){$arg = stripslashes($arg);}
-	
+
 	return $arg;
 }
 /**
@@ -108,7 +108,7 @@ function getHttpResponsePOST($url, $cacert_url, $para, $input_charset = '') {
 	$responseText = curl_exec($curl);
 	//var_dump( curl_error($curl) );//如果执行curl过程中出现异常，可打开此开关，以便查看异常内容
 	curl_close($curl);
-	
+
 	return $responseText;
 }
 
@@ -131,7 +131,7 @@ function getHttpResponseGET($url,$cacert_url) {
 	$responseText = curl_exec($curl);
 	//var_dump( curl_error($curl) );//如果执行curl过程中出现异常，可打开此开关，以便查看异常内容
 	curl_close($curl);
-	
+
 	return $responseText;
 }
 

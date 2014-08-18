@@ -475,7 +475,7 @@ class ProductOrderController extends BaseController
 
 			$doc = new DOMDocument();
 			$doc->loadXML($html_text);
-			$product_order->save();
+			//$product_order->save();
 			return Redirect::back()->with('success', '<strong>发货成功！等待对方确认收货。</strong>');
 		} else {
         	return Redirect::back()->withInput()->withErrors($validator);
@@ -490,7 +490,7 @@ class ProductOrderController extends BaseController
     {
     	if (Input::get('id')) {
 			$product_order               = ProductOrder::find(Input::get('id'));
-			$product_order->is_checkout  = true;;
+			$product_order->is_checkout  = true;
 			$product_order->save();
 			return Redirect::back()->with('success', '确认收货成功！欢迎再次使用时光碎片尚品汇购物。');
 		} else {
