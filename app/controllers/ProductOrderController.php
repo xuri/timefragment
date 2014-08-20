@@ -156,7 +156,7 @@ class ProductOrderController extends BaseController
 				$seller_alipay                   = User::where('id', $seller_id)->first()->alipay;
 				$order_name                      = '时光碎片网购物-'.$product->title;
 				$payment                         = $data->payment;
-				$goods_show                      = 'https://www.timefragment.com/product/'.$product->slug;
+				$goods_show                      = 'http://www.timefragment.com/product/'.$product->slug;
 				$customer_name                   = Input::input('customer_name');
 				$customer_address                = Input::input('customer_address');
 				$customer_phone                  = Input::input('customer_phone');
@@ -177,25 +177,25 @@ class ProductOrderController extends BaseController
 				require_once( app_path('api/alipay/alipay.config.php' ));
 				require_once( app_path('api/alipay/lib/alipay_submit.class.php' ));
 				// Request parameters
-				$payment_type      = "1"; 					//支付类型 //必填，不能修改
-				$notify_url        = route('order.tradeNotify'); //服务器异步通知页面路径 //需http://格式的完整路径，不能加?id=123这类自定义参数
-				$return_url        = route('order.tradeReturn'); //页面跳转同步通知页面路径 //需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
-				$seller_email      = $seller_alipay; 		//卖家支付宝帐户 //必填
-				$out_trade_no      = $order_id; 			//商户订单号 //商户网站订单系统中唯一订单号，必填
-				$subject           = $order_name; 			//订单名称 //必填
-				$price             = $payment; 				//付款金额 //必填
-				$quantity          = "1"; 					//商品数量 //必填，建议默认为1，不改变值，把一次交易看成是一次下订单而非购买一件商品
-				$logistics_fee     = "0.00"; 				//物流费用 //必填，即运费
-				$logistics_type    = "EXPRESS"; 			//物流类型 //必填，三个值可选：EXPRESS（快递）、POST（平邮）、EMS（EMS）
-				$logistics_payment = "SELLER_PAY"; 			//物流支付方式 //必填，两个值可选：SELLER_PAY（卖家承担运费）、BUYER_PAY（买家承担运费）
-				$body              = $goods_show; 			//订单描述
-				$show_url          = $goods_show; 			//商品展示地址 //需以http://开头的完整路径，如：http://www.xxx.com/myorder.html
-				$receive_name      = $customer_name; 		//收货人姓名 //如：张三
-				$receive_address   = $customer_address; 	//收货人地址 //如：XX省XXX市XXX区XXX路XXX小区XXX栋XXX单元XXX号
-				$receive_zip       = NULL; 					//收货人邮编 //如：123456
-				$receive_phone     = NULL; 					//收货人电话号码 //如：0571-88158090
-				$receive_mobile    = $customer_phone; 		//收货人手机号码 //如：13312341234
-				//构造要请求的参数数组，无需改动
+				$payment_type      = "1";                           // Payment type (required, don't modify)
+	            $notify_url        = route('order.tradeNotify');    // Server asynchronous notification page URL (start with http://, don't use http://localhost/ or add ?id=123)
+	            $return_url        = route('order.tradeReturn');    // Synchronization notification page URL (start with http://, don't use http://localhost/ or add ?id=123)
+	            $seller_email      = $seller_alipay;                // Saller Alipay ID (required)
+	            $out_trade_no      = $order_id;                     // Order ID (required)
+	            $subject           = $order_name;                   // Order name (required)
+	            $price             = $payment;                      // Order payment (required)
+	            $quantity          = "1";                           // Goods quantity (default is 1)
+	            $logistics_fee     = "0.00";                        // Express payment (required)
+	            $logistics_type    = "EXPRESS";                     // Express type: EXPRESS, POST or EMS
+	            $logistics_payment = "SELLER_PAY";                  // Express payment type (require:SELLER_PAY customer pay or BUYER_PAY saller pay)
+	            $body              = $goods_show;                   // Order describe
+	            $show_url          = $goods_show;                   // Goods show page (URL start with http://)
+	            $receive_name      = $customer_name;                // Customer name
+	            $receive_address   = $customer_address;             // Customer address
+	            $receive_zip       = NULL;                          // Customer zip (code such as:123456)
+	            $receive_phone     = NULL;                          // Custome telephone number (such as:0571-88158090)
+	            $receive_mobile    = $customer_phone;               // Customer mobile phone numer (such as:13312341234)
+	            // Constructs an array of arguments to request, no need to change
 				$parameter = array(
 					"service"           => "trade_create_by_buyer",
 					"partner"           => trim($alipay_config['partner']),
@@ -254,7 +254,7 @@ class ProductOrderController extends BaseController
 				$seller_alipay                   = User::where('id', $seller_id)->first()->alipay;
 				$order_name                      = '时光碎片网购物支付：'.$product->title;
 				$payment                         = $data->payment;
-				$goods_show                      = 'https://www.timefragment.com/product/'.$product->slug;
+				$goods_show                      = 'http://www.timefragment.com/product/'.$product->slug;
 				$customer_name                   = Auth::user()->username;
 				$customer_address                = $data->customer_address;
 				$customer_phone                  = Auth::user()->phone;
@@ -263,25 +263,25 @@ class ProductOrderController extends BaseController
 				require_once( app_path('api/alipay/alipay.config.php' ));
 				require_once( app_path('api/alipay/lib/alipay_submit.class.php' ));
 				// Request parameters
-				$payment_type      = "1"; 							//支付类型 //必填，不能修改
-				$notify_url        = route('order.tradeNotify'); 	//服务器异步通知页面路径 //需http://格式的完整路径，不能加?id=123这类自定义参数
-				$return_url        = route('order.tradeReturn'); 	//页面跳转同步通知页面路径 //需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
-				$seller_email      = $seller_alipay; 				//卖家支付宝帐户 //必填
-				$out_trade_no      = $order_id; 					//商户订单号 //商户网站订单系统中唯一订单号，必填
-				$subject           = $order_name; 					//订单名称 //必填
-				$price             = $payment; 						//付款金额 //必填
-				$quantity          = "1"; 							//商品数量 //必填，建议默认为1，不改变值，把一次交易看成是一次下订单而非购买一件商品
-				$logistics_fee     = "0.00"; 						//物流费用 //必填，即运费
-				$logistics_type    = "EXPRESS"; 					//物流类型 //必填，三个值可选：EXPRESS（快递）、POST（平邮）、EMS（EMS）
-				$logistics_payment = "SELLER_PAY"; 					//物流支付方式 //必填，两个值可选：SELLER_PAY（卖家承担运费）、BUYER_PAY（买家承担运费）
-				$body              = $goods_show; 					//订单描述
-				$show_url          = $goods_show; 					//商品展示地址 //需以http://开头的完整路径，如：http://www.xxx.com/myorder.html
-				$receive_name      = $customer_name; 				//收货人姓名 //如：张三
-				$receive_address   = $customer_address; 			//收货人地址 //如：XX省XXX市XXX区XXX路XXX小区XXX栋XXX单元XXX号
-				$receive_zip       = NULL; 							//收货人邮编 //如：123456
-				$receive_phone     = NULL; 							//收货人电话号码 //如：0571-88158090
-				$receive_mobile    = $customer_phone; 				//收货人手机号码 //如：13312341234
-				//构造要请求的参数数组，无需改动
+				$payment_type      = "1";                           // Payment type (required, don't modify)
+	            $notify_url        = route('order.tradeNotify');    // Server asynchronous notification page URL (start with http://, don't use http://localhost/ or add ?id=123)
+	            $return_url        = route('order.tradeReturn');    // Synchronization notification page URL (start with http://, don't use http://localhost/ or add ?id=123)
+	            $seller_email      = $seller_alipay;                // Saller Alipay ID (required)
+	            $out_trade_no      = $order_id;                     // Order ID (required)
+	            $subject           = $order_name;                   // Order name (required)
+	            $price             = $payment;                      // Order payment (required)
+	            $quantity          = "1";                           // Goods quantity (default is 1)
+	            $logistics_fee     = "0.00";                        // Express payment (required)
+	            $logistics_type    = "EXPRESS";                     // Express type: EXPRESS, POST or EMS
+	            $logistics_payment = "SELLER_PAY";                  // Express payment type (require:SELLER_PAY customer pay or BUYER_PAY saller pay)
+	            $body              = $goods_show;                   // Order describe
+	            $show_url          = $goods_show;                   // Goods show page (URL start with http://)
+	            $receive_name      = $customer_name;                // Customer name
+	            $receive_address   = $customer_address;             // Customer address
+	            $receive_zip       = NULL;                          // Customer zip (code such as:123456)
+	            $receive_phone     = NULL;                          // Custome telephone number (such as:0571-88158090)
+	            $receive_mobile    = $customer_phone;               // Customer mobile phone numer (such as:13312341234)
+	            // Constructs an array of arguments to request, no need to change
 				$parameter = array(
 					"service"           => "trade_create_by_buyer",
 					"partner"           => trim($alipay_config['partner']),
@@ -349,9 +349,9 @@ class ProductOrderController extends BaseController
 		$verify_result = $alipayNotify->verifyReturn();
 		if($verify_result) {
 
-			$out_trade_no = $_GET['out_trade_no'];  //商户订单号
-			$trade_no     = $_GET['trade_no']; 		//支付宝交易号
-			$trade_status = $_GET['trade_status'];  //交易状态
+			$out_trade_no = $_GET['out_trade_no'];  // Order ID
+            $trade_no     = $_GET['trade_no'];      // Alipay order ID
+            $trade_status = $_GET['trade_status'];  // Alipay trade status
 
 			$product_order               = ProductOrder::where('order_id', $out_trade_no)->first();
 			$product_order->is_payment   = true;
@@ -375,14 +375,14 @@ class ProductOrderController extends BaseController
     	require_once( app_path('api/alipay/alipay.config.php' ));
 		require_once( app_path('api/alipay/lib/alipay_notify.class.php' ));
 
-		//计算得出通知验证结果
+		// Get verification result
 		$alipayNotify = new AlipayNotify($alipay_config);
 		$verify_result = $alipayNotify->verifyNotify();
 
 		if($verify_result) {
-			$out_trade_no = $_GET['out_trade_no'];  //商户订单号
-			$trade_no     = $_GET['trade_no']; 		//支付宝交易号
-			$trade_status = $_GET['trade_status'];  //交易状态
+			$out_trade_no = $_GET['out_trade_no'];  // Order ID
+            $trade_no     = $_GET['trade_no'];      // Alipay order ID
+            $trade_status = $_GET['trade_status'];  // Alipay trade status
 
 			$product_order               = ProductOrder::where('order_id', $out_trade_no)->first();
 			$product_order->is_payment   = true;
@@ -453,12 +453,12 @@ class ProductOrderController extends BaseController
 	    	require_once( app_path('api/alipay/alipay.config.php' ));
 			require_once( app_path('api/alipay/lib/alipay_submit.class.php' ));
 
-			$trade_no       = ProductOrder::where('id', Input::get('id'))->first()->alipay_trade; //支付宝交易号 //必填
-			$logistics_name = Input::get('express_name'); //物流公司名称 //必填
-			$invoice_no     = Input::get('invoice_no'); //物流发货单号
-			$transport_type = "EXPRESS"; //物流运输类型 //三个值可选：POST（平邮）、EXPRESS（快递）、EMS（EMS）
+			$trade_no       = ProductOrder::where('id', Input::get('id'))->first()->alipay_trade; 	// Alipay trade number (required)
+            $logistics_name = Input::get('express_name');   										// Express company name (required)
+            $invoice_no     = Input::get('invoice_no');     										// Express billing number
+            $transport_type = "EXPRESS";                    										// Express type: POST, EXPRESS or EMS
 
-			//构造要请求的参数数组，无需改动
+            // Constructs an array of arguments to request, no need to change
 			$parameter = array(
 				"service"        => "send_goods_confirm_by_platform",
 				"partner"        => trim($alipay_config['partner']),
@@ -475,7 +475,7 @@ class ProductOrderController extends BaseController
 
 			$doc = new DOMDocument();
 			$doc->loadXML($html_text);
-			//$product_order->save();
+			$product_order->save();
 			return Redirect::back()->with('success', '<strong>发货成功！等待对方确认收货。</strong>');
 		} else {
         	return Redirect::back()->withInput()->withErrors($validator);
