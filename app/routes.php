@@ -20,7 +20,7 @@
 */
 
 Route::group(array(), function () {
-	$controller = 'HomeController@';
+    $controller = 'HomeController@';
 
     # Homepage
     Route::get('/'        , array('as' => 'home'     , 'uses' => $controller.'getIndex'     ));
@@ -160,7 +160,7 @@ Route::group(array('prefix' => 'timeline', 'before' => 'auth'), function () {
 */
 
 Route::group(array('prefix' => 'auth'), function () {
-	$Authority = 'AuthorityController@';
+    $Authority = 'AuthorityController@';
     # Signout
     Route::get('signout', array('as' => 'signout', 'uses' => $Authority.'getSignout'));
     # Route Group

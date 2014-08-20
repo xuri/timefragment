@@ -129,7 +129,7 @@ function getHttpResponseGET($url,$cacert_url) {
 	curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);//严格认证
 	curl_setopt($curl, CURLOPT_CAINFO,$cacert_url);//证书地址
 	$responseText = curl_exec($curl);
-	//var_dump( curl_error($curl) );//如果执行curl过程中出现异常，可打开此开关，以便查看异常内容
+	var_dump( curl_error($curl) );//如果执行curl过程中出现异常，可打开此开关，以便查看异常内容
 	curl_close($curl);
 
 	return $responseText;
