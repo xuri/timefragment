@@ -78,12 +78,12 @@
                                     <table class="table table-striped table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th>商品 {{ order_by('id') }}</th>
-                                                <th>单价（单位：元） {{ order_by('price') }}</th>
-                                                <th>数量 {{ order_by('quantity') }}</th>
-                                                <th>已付（单位：元）{{ order_by('payment') }}</th>
-                                                <th>成交时间 {{ order_by('created_at', 'desc') }}</th>
-                                                <th>操作 {{ order_by('is_express', 'desc') }}</th>
+                                                <th style="width: 28%;">商品 {{ order_by('id') }}</th>
+                                                <th style="width: 12%;">单价 {{ order_by('price') }}</th>
+                                                <th style="width: 12%;">数量 {{ order_by('quantity') }}</th>
+                                                <th style="width: 12%;">已付 {{ order_by('payment') }}</th>
+                                                <th style="width: 20%;">成交时间 {{ order_by('created_at', 'desc') }}</th>
+                                                <th style="width: 14%; text-align:center;">操作</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -130,12 +130,12 @@
                                     <table class="table table-striped table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th>商品 {{ order_by('id') }}</th>
-                                                <th>单价（单位：元） {{ order_by('price') }}</th>
-                                                <th>数量 {{ order_by('quantity') }}</th>
-                                                <th>费用（单位：元）{{ order_by('payment') }}</th>
-                                                <th>生成时间 {{ order_by('created_at', 'desc') }}</th>
-                                                <th style="text-align:center;">订单详情</th>
+                                                <th style="width: 28%;">商品 {{ order_by('id') }}</th>
+                                                <th style="width: 12%;">单价 {{ order_by('price') }}</th>
+                                                <th style="width: 12%;">数量 {{ order_by('quantity') }}</th>
+                                                <th style="width: 12%;">费用 {{ order_by('payment') }}</th>
+                                                <th style="width: 20%;">生成时间 {{ order_by('created_at', 'desc') }}</th>
+                                                <th style="width: 14%; text-align:center;">订单详情</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -150,7 +150,7 @@
                                                 <td>￥{{ Product::where('id', $checkout->product_id)->first()->price }}</td>
                                                 <td>{{ $checkout->quantity }}</td>
                                                 <td>￥{{ $checkout->payment }}</td>
-                                                <td>{{ $checkout->created_at }}（{{ $checkout->friendly_created_at }}）</td>
+                                                <td>{{ $checkout->created_at }}</td>
                                                 <td style="text-align:center;">
                                                     <a href="{{ route($resource.'.sellerOrderDetails', $checkout->id) }}" class="btn btn-xs btn-success">查看详情</a>
                                                 </td>
