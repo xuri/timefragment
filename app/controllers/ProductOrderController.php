@@ -149,7 +149,7 @@ class ProductOrderController extends BaseController
             return Redirect::back()
             ->with('error', '商品剩余数量不足');
         } else {
-	        // Vrification Success
+	        // Verification Success
 			if ($validator->passes()) {
 				$order_id                        = md5(date('his')).$product_id.Auth::user()->id;
 				$seller_id                       = $data->seller_id;
@@ -305,7 +305,7 @@ class ProductOrderController extends BaseController
 					"receive_mobile"    => $receive_mobile,
 					"_input_charset"    => trim(strtolower($alipay_config['input_charset']))
 				);
-				//建立请求
+				// Establishment request
 				$alipaySubmit = new AlipaySubmit($alipay_config);
 				$html_text    = $alipaySubmit->buildRequestForm($parameter,"get", "确认付款");
 				echo $html_text;
@@ -380,9 +380,9 @@ class ProductOrderController extends BaseController
 		$verify_result = $alipayNotify->verifyNotify();
 
 		if($verify_result) {
-			$out_trade_no = $_GET['out_trade_no'];  // Order ID
-            $trade_no     = $_GET['trade_no'];      // Alipay order ID
-            $trade_status = $_GET['trade_status'];  // Alipay trade status
+			$out_trade_no = $_POST['out_trade_no'];	// Order ID
+			$trade_no     = $_POST['trade_no']; 	// Alipay order ID
+			$trade_status = $_POST['trade_status']; // Alipay trade status
 
 			$product_order               = ProductOrder::where('order_id', $out_trade_no)->first();
 			$product_order->is_payment   = true;
@@ -392,7 +392,7 @@ class ProductOrderController extends BaseController
 			$product->quantity           = $product->quantity - $product_order->quantity;
 			$product->save();
 		} else {
-		    //验证失败
+		    // Verification fail
 		    return Redirect::route('order.index')->with('error', '此订单付款失败，请尝试重新支付。');
 		}
     }
