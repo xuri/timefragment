@@ -469,7 +469,7 @@ class ProductOrderController extends BaseController
 				"_input_charset" => trim(strtolower($alipay_config['input_charset']))
 			);
 
-			//建立请求
+			// Establishment request
 			$alipaySubmit = new AlipaySubmit($alipay_config);
 			$html_text    = $alipaySubmit->buildRequestHttp($parameter);
 

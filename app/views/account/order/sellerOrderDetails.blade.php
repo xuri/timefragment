@@ -92,6 +92,7 @@
                             {{-- CSRF Token --}}
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                             <input type="hidden" name="id" value="{{ $data->id }}" />
+                            <input type="hidden" name="trade_no" value="{{ $data->alipay_trade }}" />
                             {{-- Tabs Content --}}
                             <div class="tab-content">
                                 {{-- General tab --}}
