@@ -63,12 +63,12 @@
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>商品 {{ order_by('id') }}</th>
-                                    <th>单价（单位：元） {{ order_by('price') }}</th>
-                                    <th>数量 {{ order_by('quantity') }}</th>
-                                    <th>费用（单位：元）{{ order_by('payment') }}</th>
-                                    <th>添加时间 {{ order_by('created_at', 'desc') }}</th>
-                                    <th style="width:7em;text-align:center;">操作</th>
+                                    <th style="width: 28%;">商品 {{ order_by('id') }}</th>
+                                    <th style="width: 12%;">单价 {{ order_by('price') }}</th>
+                                    <th style="width: 12%;">数量 {{ order_by('quantity') }}</th>
+                                    <th style="width: 12%;">费用 {{ order_by('payment') }}</th>
+                                    <th style="width: 20%;">添加时间 {{ order_by('created_at', 'desc') }}</th>
+                                    <th style="width: 14%; text-align:center;">操作</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -83,8 +83,8 @@
                                     <td>￥{{ Product::where('id', $data->product_id)->first()->price }}</td>
                                     <td>{{ $data->quantity }}</td>
                                     <td>￥{{ $data->payment }}</td>
-                                    <td>{{ $data->created_at }}（{{ $data->friendly_created_at }}）</td>
-                                    <td>
+                                    <td>{{ $data->created_at }}</td>
+                                    <td style="width: 14%; text-align:center;">
                                         <form action="{{ route('order.order') }}" method="post" autocomplete="off" >
                                             {{-- CSRF Token --}}
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
