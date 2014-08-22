@@ -262,7 +262,7 @@ Route::group(array('prefix' => 'account', 'before' => 'auth'), function () {
         Route::delete(                  '{id}', array('as' => $resource.'.destroyOrder'         , 'uses' => $controller.'destroyOrder'         ));
         Route::post(                 'payment', array('as' => $resource.'.payment'              , 'uses' => $controller.'payment'              ));
         Route::post(               'rePayment', array('as' => $resource.'.rePayment'            , 'uses' => $controller.'rePayment'            ));
-        Route::post(            'trade-notify', array('as' => $resource.'.tradeNotify'          , 'uses' => $controller.'tradeNotify'          ));
+        Route::get(             'trade-notify', array('as' => $resource.'.tradeNotify'          , 'uses' => $controller.'tradeNotify'          ));
         Route::get(             'trade-return', array('as' => $resource.'.tradeReturn'          , 'uses' => $controller.'tradeReturn'          ));
         Route::get(                   'seller', array('as' => $resource.'.seller'               , 'uses' => $controller.'seller'               ));
         Route::post(              'send-goods', array('as' => $resource.'.sendGoods'            , 'uses' => $controller.'sendGoods'            ));
