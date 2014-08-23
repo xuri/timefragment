@@ -367,37 +367,6 @@ class ProductOrderController extends BaseController
     }
 
     /**
-     * Action: Aplipay trade notify
-     * @return Response
-     */
-    public function tradeNotify()
-    {
-    	require_once( app_path('api/alipay/alipay.config.php' ));
-		require_once( app_path('api/alipay/lib/alipay_notify.class.php' ));
-
-		// Get verification result
-		$alipayNotify  = new AlipayNotify($alipay_config);
-		$verify_result = $alipayNotify->verifyNotify();
-
-		if($verify_result) {
-			$out_trade_no = $_POST['out_trade_no'];	// Order ID
-			$trade_no     = $_POST['trade_no']; 	// Alipay order ID
-			$trade_status = $_POST['trade_status']; // Alipay trade status
-
-			$product_order               = ProductOrder::where('order_id', $out_trade_no)->first();
-			$product_order->is_payment   = true;
-			$product_order->alipay_trade = $trade_no;
-			$product_order->save();
-			$product                     = Product::where('id', $product_order->product_id)->first();
-			$product->quantity           = $product->quantity - $product_order->quantity;
-			$product->save();
-		} else {
-		    // Verification fail
-		    return Redirect::route('order.index')->with('error', '此订单付款失败，请尝试重新支付。');
-		}
-    }
-
-    /**
      * View: Seller order list
      * @return Response
      */

@@ -21,17 +21,17 @@
 
 Route::group(array(), function () {
     $controller = 'HomeController@';
-
     # Homepage
-    Route::get('/'        , array('as' => 'home'     , 'uses' => $controller.'getIndex'     ));
+    Route::get(            '/', array('as' => 'home'             , 'uses' => $controller.'getIndex'     ));
     # Homepage with Video
-    #Route::get('/'        , array('as' => 'home'     , 'uses' => $controller.'getVideoIndex'));
+    # Route::get(          '/', array('as' => 'home'             , 'uses' => $controller.'getVideoIndex'));
     # Category
-    Route::get('category' , array('as' => 'category' , 'uses' => $controller.'getCategory'  ));
+    Route::get(     'category', array('as' => 'category'         , 'uses' => $controller.'getCategory'  ));
     # Portfolio
-    Route::get('portfolio', array('as' => 'portfolio', 'uses' => $controller.'getPortfolio' ));
+    Route::get(    'portfolio', array('as' => 'portfolio'        , 'uses' => $controller.'getPortfolio' ));
     # Timeline
-    Route::get('timeline' , array('as' => 'timeline' , 'uses' => $controller.'getTimeline'  ));
+    Route::get(     'timeline', array('as' => 'timeline'         , 'uses' => $controller.'getTimeline'  ));
+    Route::post('trade-notify', array('as' => 'order.tradeNotify', 'uses' => $controller.'tradeNotify'  ));
 });
 
 /*
@@ -262,7 +262,6 @@ Route::group(array('prefix' => 'account', 'before' => 'auth'), function () {
         Route::delete(                  '{id}', array('as' => $resource.'.destroyOrder'         , 'uses' => $controller.'destroyOrder'         ));
         Route::post(                 'payment', array('as' => $resource.'.payment'              , 'uses' => $controller.'payment'              ));
         Route::post(               'rePayment', array('as' => $resource.'.rePayment'            , 'uses' => $controller.'rePayment'            ));
-        Route::post(            'trade-notify', array('as' => $resource.'.tradeNotify'          , 'uses' => $controller.'tradeNotify'          ));
         Route::get(             'trade-return', array('as' => $resource.'.tradeReturn'          , 'uses' => $controller.'tradeReturn'          ));
         Route::get(                   'seller', array('as' => $resource.'.seller'               , 'uses' => $controller.'seller'               ));
         Route::post(              'send-goods', array('as' => $resource.'.sendGoods'            , 'uses' => $controller.'sendGoods'            ));
