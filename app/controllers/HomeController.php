@@ -164,10 +164,26 @@ class HomeController extends BaseController {
             $product                     = Product::where('id', $product_order->product_id)->first();
             $product->quantity           = $product->quantity - $product_order->quantity;
             $product->save();
-            return Redirect::route('order.customerOrderDetails', $product_order->id)->with('success', '付款成功！等待卖家发货，祝您购物愉快。以下是订单详情。');
+
+            if($_POST['trade_status'] == 'WAIT_BUYER_PAY') {
+                echo "success";
+            }
+            else if($_POST['trade_status'] == 'WAIT_SELLER_SEND_GOODS') {
+                echo "success";
+            }
+            else if($_POST['trade_status'] == 'WAIT_BUYER_CONFIRM_GOODS') {
+                echo "success";
+            }
+            else if($_POST['trade_status'] == 'TRADE_FINISHED') {
+                echo "success";
+            }
+            else {
+                echo "success";
+            }
+
         } else {
             // Verification fail
-            return Redirect::route('order.index')->with('error', '此订单付款失败，请尝试重新支付。');
+            return Redirect::route('home');
         }
     }
 
