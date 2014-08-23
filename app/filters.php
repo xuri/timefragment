@@ -37,6 +37,14 @@
 |
 */
 
+App::before(function($request)
+{
+    if( ! Request::secure())
+    {
+        return Redirect::secure(Request::path());
+    }
+});
+
 # CSRF protection filters to prevent cross-site request forgery
 Route::filter('csrf', function()
 {
