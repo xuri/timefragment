@@ -345,7 +345,7 @@ class ProductOrderController extends BaseController
      	require_once( app_path('api/alipay/alipay.config.php' ));
 		require_once( app_path('api/alipay/lib/alipay_notify.class.php' ));
 
-		$alipayNotify = new AlipayNotify($alipay_config);
+		$alipayNotify  = new AlipayNotify($alipay_config);
 		$verify_result = $alipayNotify->verifyReturn();
 		if($verify_result) {
 
@@ -376,13 +376,13 @@ class ProductOrderController extends BaseController
 		require_once( app_path('api/alipay/lib/alipay_notify.class.php' ));
 
 		// Get verification result
-		$alipayNotify = new AlipayNotify($alipay_config);
+		$alipayNotify  = new AlipayNotify($alipay_config);
 		$verify_result = $alipayNotify->verifyNotify();
 
 		if($verify_result) {
-			$out_trade_no = $_GET['out_trade_no'];  // Order ID
-            $trade_no     = $_GET['trade_no'];      // Alipay order ID
-            $trade_status = $_GET['trade_status'];  // Alipay trade status
+			$out_trade_no = $_POST['out_trade_no'];	// Order ID
+			$trade_no     = $_POST['trade_no']; 	// Alipay order ID
+			$trade_status = $_POST['trade_status']; // Alipay trade status
 
 			$product_order               = ProductOrder::where('order_id', $out_trade_no)->first();
 			$product_order->is_payment   = true;
@@ -413,11 +413,11 @@ class ProductOrderController extends BaseController
                 break;
         }
 		// Construct query statement
-		$trading_order = ProductOrder::orderBy($orderColumn, $direction)->where('seller_id', Auth::user()->id)->where('is_payment', 1)->where('is_checkout', 0)->paginate(15);
-		$checkout_order  = ProductOrder::orderBy($orderColumn, $direction)->where('seller_id', Auth::user()->id)->where('is_checkout', 1)->paginate(15);
+		$trading_order  = ProductOrder::orderBy($orderColumn, $direction)->where('seller_id', Auth::user()->id)->where('is_payment', 1)->where('is_checkout', 0)->paginate(15);
+		$checkout_order = ProductOrder::orderBy($orderColumn, $direction)->where('seller_id', Auth::user()->id)->where('is_checkout', 1)->paginate(15);
 		isset($title) AND $query->where('title', 'like', "%{$title}%");
-		$resourceName    = '订单';
-		$resource        = 'order';
+		$resourceName   = '订单';
+		$resource       = 'order';
         return View::make($this->resourceView.'.seller')->with(compact('trading_order', 'checkout_order', 'resourceName', 'resource'));
     }
 
