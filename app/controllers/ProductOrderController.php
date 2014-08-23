@@ -380,9 +380,9 @@ class ProductOrderController extends BaseController
 		$verify_result = $alipayNotify->verifyNotify();
 
 		if($verify_result) {
-			$out_trade_no = $_POST['out_trade_no'];	// Order ID
-			$trade_no     = $_POST['trade_no']; 	// Alipay order ID
-			$trade_status = $_POST['trade_status']; // Alipay trade status
+			$out_trade_no = $_GET['out_trade_no'];  // Order ID
+            $trade_no     = $_GET['trade_no'];      // Alipay order ID
+            $trade_status = $_GET['trade_status'];  // Alipay trade status
 
 			$product_order               = ProductOrder::where('order_id', $out_trade_no)->first();
 			$product_order->is_payment   = true;
