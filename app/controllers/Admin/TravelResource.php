@@ -63,8 +63,34 @@ class Admin_TravelResource extends BaseResource
         // Construct query statement
         $query = $this->model->orderBy($orderColumn, $direction);
         isset($title) AND $query->where('title', 'like', "%{$title}%");
-        $datas = $query->paginate(15);
+        $datas = $query->where('post_status', 'open')->paginate(15);
         return View::make($this->resourceView.'.index')->with(compact('datas'));
+    }
+
+    /**
+     * Resource create
+     * Redirect         {id}/new-post
+     * @return Response
+     */
+    public function create()
+    {
+        $exist = $this->model->where('user_id', Auth::user()->id)->where('post_status', 'close')->first();
+        if($exist)
+        {
+            return Redirect::route($this->resource.'.newPost', $exist->id);
+        } else {
+            $model                   = $this->model;
+            $model->user_id          = Auth::user()->id;
+            $model->category_id      = '';
+            $model->title            = '';
+            $model->slug             = '';
+            $model->content          = '';
+            $model->meta_title       = '';
+            $model->meta_description = '';
+            $model->meta_keywords    = '';
+            $model->save();
+            return Redirect::route($this->resource.'.newPost', $model->id);
+        }
     }
 
     /**
@@ -72,10 +98,12 @@ class Admin_TravelResource extends BaseResource
      * GET         /resource/create
      * @return Response
      */
-    public function create()
+    public function newPost($id)
     {
+        $data          = $this->model->find($id);
         $categoryLists = TravelCategories::lists('name', 'id');
-        return View::make($this->resourceView.'.create')->with(compact('categoryLists'));
+        $travel        = $this->model->where('id', $id)->first();
+        return View::make($this->resourceView.'.create')->with(compact('data', 'categoryLists', 'travel'));
     }
 
     /**
@@ -83,7 +111,7 @@ class Admin_TravelResource extends BaseResource
      * POST        /resource
      * @return Response
      */
-    public function store()
+    public function store($id)
     {
         // Get all form data.
         $data   = Input::all();
@@ -103,8 +131,7 @@ class Admin_TravelResource extends BaseResource
         if ($validator->passes()) {
             // Verification success
             // Add resource
-            $model                   = $this->model;
-            $model->user_id          = Auth::user()->id;
+            $model                   = $this->model->find($id);
             $model->category_id      = $data['category'];
             $model->title            = e($data['title']);
             $model->slug             = $hashslug;
@@ -112,16 +139,16 @@ class Admin_TravelResource extends BaseResource
             $model->meta_title       = e($data['title']);
             $model->meta_description = e($data['title']);
             $model->meta_keywords    = e($data['title']);
-            $model->save();
+            $model->post_status      = 'open';
 
             $timeline                = new Timeline;
             $timeline->slug          = $hashslug;
             $timeline->model         = 'Travel';
             $timeline->user_id       = Auth::user()->id;
-            if ($timeline->save()) {
+            if ($model->save() && $timeline->save()) {
                 // Add success
-                return Redirect::back()
-                    ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续添加新'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
+                return Redirect::route($this->resource.'.edit', $model->id)
+                    ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续编辑'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
             } else {
                 // Add fail
                 return Redirect::back()
@@ -144,7 +171,7 @@ class Admin_TravelResource extends BaseResource
     {
         $data          = $this->model->find($id);
         $categoryLists = TravelCategories::lists('name', 'id');
-        $travel        = Travel::where('slug', $data->slug)->first();
+        $travel        = $this->model->where('slug', $data->slug)->first();
         return View::make($this->resourceView.'.edit')->with(compact('data', 'categoryLists', 'travel'));
     }
 
@@ -165,17 +192,17 @@ class Admin_TravelResource extends BaseResource
             'category'     => 'exists:travel_categories,id',
             'content'      => 'required',
         );
-        $model = $this->model->find($id);
-        $oldSlug = $model->slug;
+        $model     = $this->model->find($id);
+        $oldSlug   = $model->slug;
         // Custom validation message
-        $messages = $this->validatorMessages;
+        $messages  = $this->validatorMessages;
         // Begin verification
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->passes()) {
 
             // Verification success
             // Update resource
-            $model = $this->model->find($id);
+            $model                   = $this->model->find($id);
             $model->user_id          = Auth::user()->id;
             $model->category_id      = $data['category'];
             $model->title            = e($data['title']);
@@ -184,12 +211,11 @@ class Admin_TravelResource extends BaseResource
             $model->meta_title       = e($data['title']);
             $model->meta_description = e($data['title']);
             $model->meta_keywords    = e($data['title']);
-            $model->save();
 
-            $timeline = Timeline::where('slug', $oldSlug)->where('user_id', Auth::user()->id)->first();
-            $timeline->slug = e($data['slug']);
+            $timeline                = Timeline::where('slug', $oldSlug)->where('user_id', Auth::user()->id)->first();
+            $timeline->slug          = e($data['slug']);
 
-            if ($timeline->save()) {
+            if ($model->save() && $timeline->save()) {
                 // Update success
                 return Redirect::back()
                     ->with('success', '<strong>'.$this->resourceName.'更新成功：</strong>您可以继续编辑'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
@@ -264,20 +290,18 @@ class Admin_TravelResource extends BaseResource
         $model               = $this->model->find($id);
         $oldThumbnails       = $model->thumbnails;
         $model->thumbnails   = $hashname;
-        $model->save();
 
         File::delete(
             public_path('uploads/travel_small_thumbnails/'.$oldThumbnails),
             public_path('uploads/travel_large_thumbnails/'.$oldThumbnails)
         );
 
-        $models              = new TravelPictures;
-        $models->filename    = $hashname;
+        $models            = new TravelPictures;
+        $models->filename  = $hashname;
         $models->travel_id = $id;
-        $models->user_id     = Auth::user()->id;
-        $models->save();
+        $models->user_id   = Auth::user()->id;
 
-        if( $models->save() ) {
+        if($model->save() && $models->save()) {
            return Response::json('success', 200);
         } else {
            return Response::json('error', 400);
@@ -294,18 +318,17 @@ class Admin_TravelResource extends BaseResource
         $filename = TravelPictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
         $oldImage = $filename->filename;
 
-        if (is_null($filename))
+        if (is_null($filename)) {
             return Redirect::back()->with('error', '没有找到对应的图片');
-        elseif ($filename->delete()) {
-
-        File::delete(
-            public_path('uploads/travel/'.$oldImage)
-        );
+        } elseif ($filename->delete()) {
+            File::delete(
+                public_path('uploads/travel/'.$oldImage)
+            );
             return Redirect::back()->with('success', '图片删除成功。');
-        }
-
-        else
+        } else {
             return Redirect::back()->with('warning', '图片删除失败。');
+        }
     }
+
 
 }

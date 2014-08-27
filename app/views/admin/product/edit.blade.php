@@ -42,11 +42,17 @@
                     </div>
 
                     <div class="p-lr-30 p-tb-10 pm-lr-10">
-                         <ul class="nav nav-tabs">
+                        <ul class="nav nav-tabs">
                             <li class="active">
                                 <a href="#tab-general" data-toggle="tab">
                                     <div class="text-small">Main Content</div>
                                     <span class="text-uppercase">主要内容</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#tab-meta-data" data-toggle="tab">
+                                    <div class="text-small">SEO</div>
+                                    <span class="text-uppercase">搜索引擎优化</span>
                                 </a>
                             </li>
                             <li>
@@ -264,7 +270,7 @@
                             </div>
 
                             {{-- Form actions --}}
-                            <div class="control-group p-l-30 p-b-30">
+                            <div class="control-group p-lr-30 p-b-30">
                                 <div class="controls">
                                     <a class="btn btn-bordered text-gray-alt" href="{{ route($resource.'.edit', $data->id) }}">重 置</a>
                                     <button type="submit" class="btn btn-success">更 新</button>

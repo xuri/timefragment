@@ -66,8 +66,36 @@ class Admin_ArticleResource extends BaseResource
         // Construct query statement
         $query = $this->model->orderBy($orderColumn, $direction);
         isset($title) AND $query->where('title', 'like', "%{$title}%");
-        $datas = $query->paginate(15);
+        $datas = $query->where('post_status', 'open')->paginate(15);
         return View::make($this->resourceView.'.index')->with(compact('datas'));
+    }
+
+    /**
+     * Resource create
+     * Redirect         {id}/new-post
+     * @return Response
+     */
+    public function create()
+    {
+        $exist = $this->model->where('user_id', Auth::user()->id)->where('post_status', 'close')->first();
+        if($exist)
+        {
+            return Redirect::route($this->resource.'.newPost', $exist->id);
+        } else {
+            $model                   = $this->model;
+            $model->user_id          = Auth::user()->id;
+            $model->category_id      = '';
+            $model->title            = '';
+            $model->slug             = '';
+            $model->article_icon     = '';
+            $model->content          = '';
+            $model->excerpt          = '';
+            $model->meta_title       = '';
+            $model->meta_description = '';
+            $model->meta_keywords    = '';
+            $model->save();
+            return Redirect::route($this->resource.'.newPost', $model->id);
+        }
     }
 
     /**
@@ -75,10 +103,12 @@ class Admin_ArticleResource extends BaseResource
      * GET         /resource/create
      * @return Response
      */
-    public function create()
+    public function newPost($id)
     {
+        $data          = $this->model->find($id);
         $categoryLists = Category::lists('name', 'id');
-        return View::make($this->resourceView.'.create')->with(compact('categoryLists'));
+        $article       = $this->model->where('id', $id)->first();
+        return View::make($this->resourceView.'.create')->with(compact('data', 'categoryLists', 'article'));
     }
 
     /**
@@ -86,7 +116,7 @@ class Admin_ArticleResource extends BaseResource
      * POST        /resource
      * @return Response
      */
-    public function store()
+    public function store($id)
     {
         // Get all form data.
         $data   = Input::all();
@@ -100,14 +130,13 @@ class Admin_ArticleResource extends BaseResource
             'category'     => 'exists:article_categories,id',
         );
         // Custom validation message
-        $messages = $this->validatorMessages;
+        $messages  = $this->validatorMessages;
         // Begin verification
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->passes()) {
             // Verification success
             // Add resource
-            $model                   = $this->model;
-            $model->user_id          = Auth::user()->id;
+            $model                   = $this->model->find($id);
             $model->category_id      = $data['category'];
             $model->title            = e($data['title']);
             $model->slug             = e($data['slug']);
@@ -117,10 +146,11 @@ class Admin_ArticleResource extends BaseResource
             $model->meta_title       = e($data['meta_title']);
             $model->meta_description = e($data['meta_description']);
             $model->meta_keywords    = e($data['meta_keywords']);
+            $model->post_status      = 'open';
             if ($model->save()) {
                 // Add success
-                return Redirect::back()
-                    ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续添加新'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
+                return Redirect::route($this->resource.'.edit', $model->id)
+                    ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续编辑'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
             } else {
                 // Add fail
                 return Redirect::back()
@@ -173,7 +203,7 @@ class Admin_ArticleResource extends BaseResource
 
             // Verification success
             // Update source
-            $model = $this->model->find($id);
+            $model                   = $this->model->find($id);
             $model->category_id      = $data['category'];
             $model->title            = e($data['title']);
             $model->slug             = e($data['slug']);
@@ -226,7 +256,6 @@ class Admin_ArticleResource extends BaseResource
         $models->filename   = $hashname;
         $models->article_id = $id;
         $models->user_id    = Auth::user()->id;
-        $models->save();
 
         if($models->save()) {
            return Response::json('success', 200);

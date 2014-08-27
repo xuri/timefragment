@@ -54,7 +54,22 @@
 
                     <div class="p-lr-30 p-tb-10 pm-lr-10">
 
-                        <form class="form-horizontal" method="post" action="{{ route($resource.'.store') }}" autocomplete="off">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#tab-general" data-toggle="tab">
+                                    <div class="text-small">Main Content</div>
+                                    <span class="text-uppercase">主要内容</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#tab-images-management" data-toggle="tab">
+                                    <div class="text-small">Photo Management</div>
+                                    <span class="text-uppercase">照片管理</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <form class="form-horizontal" method="post" action="{{ route($resource.'.store', $data->id) }}" autocomplete="off" style="padding:1em;border:1px solid #ddd;border-top:0;" accept-charset="UTF-8" enctype="multipart/form-data">
                             {{-- CSRF Token --}}
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
@@ -84,17 +99,64 @@
 
                                 </div>
 
+                                {{-- Images Management tab --}}
+                                <div class="tab-pane fade p-t-30" id="tab-images-management" style="margin:0 1em;">
+
+                                    <div class="table-responsive form-group">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:4em;text-align:center;">
+                                                        <div class="icheckbox_flat-blue" aria-checked="false" aria-disabled="false">
+                                                            <input type="checkbox" name="notification" value="" class="icheck">
+                                                            <ins class="iCheck-helper"></ins>
+                                                        </div>
+                                                    </th>
+                                                    <th>图片</th>
+                                                    <th style="width:5em;text-align:center;">操作</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($travel->pictures as $picture)
+                                                <tr>
+                                                    <td style="text-align:center; padding: 50px 0;">
+                                                        <div class="icheckbox_flat-blue" aria-checked="false" aria-disabled="false">
+                                                            <input type="checkbox" name="notification" value="" class="icheck">
+                                                            <ins class="iCheck-helper"></ins>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <img width="100" height="100" src="{{ route('home') }}/uploads/travel/{{ $picture->filename }}">
+                                                    </td>
+                                                    <td style="text-align:center; padding: 50px 0;">
+                                                        <a href="javascript:void(0)" class="btn btn-xs btn-danger"
+                                                        onclick="modal('{{ route($resource.'.deleteUpload', $picture->id) }}')">删除图片</a>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
                             </div>
 
                             {{-- Form Actions --}}
-                            <div class="control-group p-b-30">
+                            <div class="control-group p-b-10">
                                 <div class="controls">
                                     <button type="reset" class="btn btn-bordered text-gray-alt">清 空</button>
-                                    <button type="submit" class="btn btn-success">提 交</button>
+                                    <button type="submit" class="btn btn-success">保 存</button>
                                 </div>
                             </div>
                         </form>
 
+                    </div>
+
+                    <div class="p-lr-30 p-tb-10 pm-lr-10">上传创意图片，这些图片会显示在创意展示页面，推荐尺寸：1024px × 683px</div>
+                    <div class="p-lr-30 p-tb-10 pm-lr-10">
+                        <form action="{{ route($resource.'.postUpload', $data->id) }}" class="dropzone" id="upload" method="post">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                        </form>
                     </div>
 
                 </div>

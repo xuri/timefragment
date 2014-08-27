@@ -103,7 +103,7 @@
 						<div class="col-md-3 col-sm-3 col-xs-12">
 							<div class="element-line">
 								<div class="item_right">
-									<a href="#"> <i class="fa fa-bullhorn fa-5x"></i> <h3>发布职位信息</h3> </a>
+									<a href="{{ route('myjob.create') }}"> <i class="fa fa-bullhorn fa-5x"></i> <h3>发布职位信息</h3> </a>
 									<p>
 										为您提供人才招聘、猎头、培训、测评和人事外包在内的全方位的人力资源服务。
 									</p>

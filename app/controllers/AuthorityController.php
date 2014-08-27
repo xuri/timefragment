@@ -62,8 +62,8 @@ class AuthorityController extends BaseController
         $data = Input::all();
         // Create validation rules
         $rules = array(
-            'email'    => 'required|email|unique:users',
-            'password' => 'required|alpha_dash|between:6,16|confirmed',
+            'email'               => 'required|email|unique:users',
+            'password'            => 'required|alpha_dash|between:6,16|confirmed',
         );
         // Custom validation message
         $messages = array(
@@ -79,13 +79,13 @@ class AuthorityController extends BaseController
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->passes()) {
             // Verification success，add user
-            $user = new User;
+            $user           = new User;
             $user->email    = Input::get('email');
             $user->password = Input::get('password');
             if ($user->save()) {
                 // Add user success
                 // Generate activation code
-                $activation = new Activation;
+                $activation        = new Activation;
                 $activation->email = $user->email;
                 $activation->token = str_random(40);
                 $activation->save();
@@ -140,7 +140,7 @@ class AuthorityController extends BaseController
         is_null($activation) AND App::abort(404);
         // Database tokens
         // Activate the corresponding user
-        $user = User::where('email', $activation->email)->first();
+        $user               = User::where('email', $activation->email)->first();
         $user->activated_at = new Carbon;
         $user->save();
         // Delete tokens
@@ -261,10 +261,11 @@ class AuthorityController extends BaseController
                 // Signin success, redirect to the previous page that was blocked
                 return Redirect::intended();
             } else {
-                $user           = new User;
-                $user->email    = $uid;
-                $user->password = $_SESSION['token']['access_token'];
-                $user->nickname = $nickname;
+                $user             = new User;
+                $user->email      = $uid;
+                $user->password   = $_SESSION['token']['access_token'];
+                $user->nickname   = $nickname;
+                $user->bound_type = '2';
                 $user->save();
                 return View::make('authority.oauthSuccess');
             }
@@ -308,10 +309,11 @@ class AuthorityController extends BaseController
             // Signin success, redirect to the previous page that was blocked
             return Redirect::intended();
         } else {
-            $user           = new User;
-            $user->email    = $openid;
-            $user->password = $access_token;
-            $user->nickname = $nickname;
+            $user             = new User;
+            $user->email      = $openid;
+            $user->password   = $access_token;
+            $user->nickname   = $nickname;
+            $user->bound_type = '3';
             $user->save();
             return View::make('authority.oauthQQ');
         }

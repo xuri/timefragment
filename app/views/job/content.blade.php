@@ -21,7 +21,7 @@
 			<h3>大家的看法</h3>
 			@foreach($job->comments as $comment)
 			<div class="media comment-item">
-				<a href="#" class="pull-left"> <img src="{{ $comment->user->portrait_large }}" class="thumb img-rounded" alt=""> </a>
+				<a href="{{ route('timeline.getTimeline', $comment->user->id) }}" class="pull-left"> <img src="{{ $comment->user->portrait_large }}" class="thumb img-rounded" alt=""> </a>
 				<div class="media-body">
 					@if($comment->user->nickname)
 					<h4 class="media-heading">{{ $comment->user->nickname }} <small>发表时间： <i class="fa fa-calendar"></i> {{ $comment->friendly_created_at }}</small></h4>

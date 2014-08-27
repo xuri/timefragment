@@ -80,7 +80,7 @@
                             <div class="control-group p-l-30 p-b-30">
                                 <div class="controls">
                                     <a class="btn btn-bordered text-gray-alt" href="{{ route($resource.'.edit', $data->id) }}">重 置</a>
-                                    <button type="submit" class="btn btn-success">提 交</button>
+                                    <button type="submit" class="btn btn-success">更 新</button>
                                 </div>
                             </div>
                         </form>

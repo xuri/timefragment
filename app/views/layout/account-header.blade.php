@@ -27,7 +27,7 @@
         <link rel="apple-touch-icon" href="{{ route('home')}}/images/icon/ico-144.png" sizes="144x144">
         {{ HTML::style('assets/css/fonts.googleapis.css') }}
         {{ HTML::style('assets/css/admin.css') }}
-
+        {{ style('font-awesome-4.1.0') }}
         {{-- Js Library --}}
 
         {{-- jQuery (necessary for Bootstrap's JavaScript plugins) --}}

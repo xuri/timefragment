@@ -30,7 +30,7 @@ class CreateArticlePictures extends Migration {
 	 */
 	public function down()
 	{
-		// Schema::drop('article_pictures');
+		Schema::drop('article_pictures');
 	}
 
 }

@@ -57,8 +57,8 @@
 			{{-- Text Widget --}}
 			<div class="widget">
 				<?php
-				$announce_category = Category::where('name', '站内简讯')->first();
-		        $announce          = Article::orderBy('created_at', 'desc')->first();
+				$announce_category = Category::where('cat_status', 'open')->where('name', '站内简讯')->first();
+		        $announce          = Article::where('post_status', 'open')->orderBy('created_at', 'desc')->first();
 		        ?>
 				@if( $announce_category )
 				<div class="widget-title">

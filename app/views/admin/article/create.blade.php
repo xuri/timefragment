@@ -55,9 +55,15 @@
                                     <span class="text-uppercase">搜索引擎优化</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="#tab-album-picture" data-toggle="tab">
+                                    <div class="text-small">Images Management</div>
+                                    <span class="text-uppercase">图片管理</span>
+                                </a>
+                            </li>
                         </ul>
 
-                        <form class="form-horizontal" method="post" action="{{ route($resource.'.store') }}" autocomplete="off" style="padding:1em;border:1px solid #ddd;border-top:0;">
+                        <form class="form-horizontal" method="post" action="{{ route($resource.'.store', $article->id) }}" autocomplete="off" style="padding:1em;border:1px solid #ddd;border-top:0;">
                             {{-- CSRF Token --}}
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
@@ -129,21 +135,82 @@
                                     </div>
                                 </div>
 
+                                {{-- Album Picture tab --}}
+                                <div class="tab-pane fade p-30" id="tab-album-picture" style="margin:0 1em;">
+
+                                    <div class="table-responsive form-group">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>图片</th>
+                                                    <th>文件名</th>
+                                                    <th style="width:5em;text-align:center;">操作</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($article->pictures as $picture)
+                                                <tr>
+                                                    <td>
+                                                        <img width="100" height="100" src="{{ route('home') }}/uploads/articles/{{ $picture->filename }}">
+                                                    </td>
+                                                    <td>
+                                                        {{ $picture->filename }}
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:void(0)" class="btn btn-xs btn-danger"
+                                                        onclick="modal('{{ route($resource.'.deleteArticlePicture', $picture->id) }}')">删除图片</a>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
                             </div>
 
                             {{-- Form actions --}}
                             <div class="control-group p-l-30 p-b-30">
                                 <div class="controls">
                                     <button type="reset" class="btn btn-bordered text-gray-alt">清 空</button>
-                                    <button type="submit" class="btn btn-success">提 交</button>
+                                    <button type="submit" class="btn btn-success">发 布</button>
                                 </div>
                             </div>
                         </form>
                     </div>
+
+                    <div class="p-lr-30 p-tb-10 pm-lr-10">上传创意图片，这些图片会显示在创意展示页面，推荐尺寸：1024px × 683px</div>
+                    <div class="p-lr-30 p-tb-10 pm-lr-10">
+                        <form action="{{ route($resource.'.postUpload', $data->id) }}" class="dropzone" id="upload">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                        </form>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
     {{-- /main content --}}
+
+    <?php
+    $modalData['modal'] = array(
+        'id'      => 'myModal',
+        'title'   => '系统提示',
+        'message' => '确认删除此图片？',
+        'footer'  =>
+            Form::open(array('id' => 'real-delete', 'method' => 'delete')).'
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">取消</button>
+                <button type="submit" class="btn btn-sm btn-danger">确认删除</button>'.
+            Form::close(),
+    );
+    ?>
+    @include('layout.modal', $modalData)
+    <script>
+        function modal(href)
+        {
+            $('#real-delete').attr('action', href);
+            $('#myModal').modal();
+        }
+    </script>
 </body>
 </html>

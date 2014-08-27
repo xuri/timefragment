@@ -1,26 +1,43 @@
-{{-- Blog Section --}}
-		<section id="timeline" class="section-content timeline-content bgdark">
+@include('layout.header')
+@yield('content')
+	<body data-spy="scroll" data-target=".navbar" data-offset="75">
+
+		{{-- Intro loader --}}
+		<div class="mask">
+			<div id="intro-loader"></div>
+		</div>
+		{{-- Intro loader --}}
+
+		@include('layout.navigation')
+		@yield('content')
+
+		{{-- Blog Section --}}
+		<section id="blog" class="section-content timeline-content bgdark">
 			<div class="container">
 
 				{{-- Section title --}}
 				<div class="section-title text-center">
 					<div>
 						<span class="line big"></span>
-						<span>记录·分享·回忆</span>
+						<span><a href="{{ route('home') }}">时光碎片</a></span>
 						<span class="line big"></span>
 					</div>
-					<a href="{{ route('timeline') }}"><h1 class="item_right">时间线</h1></a>
+					@if($user->nickname)
+					<h1 class="item_right">{{ $user->nickname }}的时间线</h1>
+					@else
+					<h1 class="item_right">TA的时间线</h1>
+					@endif
 					<div>
 						<span class="line"></span>
 						<span>记录生活点滴, 捕捉感动瞬间</span>
 						<span class="line"></span>
 					</div>
 					<p class="lead">
-						时光不老，我们不散
+
 					</p>
 				</div>
 				{{-- Section title --}}
-				@if(Auth::user())
+
 				<div class="element-line">
 					<ol id="timeline">
 						@foreach($timeline as $event)
@@ -67,7 +84,7 @@
 									</div>
 									<div class="post-body clearfix">
 										<div class="blog-title">
-											<h1><a href="{{ route($show, $event->slug) }}" target="_blank">{{ $event->title }}</a></h1>
+											<h1><a href="{{ route($show, $event->slug) }}">{{ close_tags(Str::limit($event->title, 40)) }}</a></h1>
 										</div>
 										@if($event->thumbnails)
 										<a href="{{ route($show, $event->slug) }}" class="zoom" title="{{ $event->title }}" alt="{{ $event->title }}">
@@ -77,7 +94,7 @@
 										@endif
 										<div class="post-text" style="text-align: left;">
 											<p class="lead">
-												{{ close_tags(Str::limit($event->content, 200)) }}
+												{{ close_tags(Str::limit($event->content, 250)) }}
 											</p>
 										</div>
 									</div>
@@ -89,13 +106,16 @@
 						@endforeach
 					</ol>
 				</div>
-				@else
-				@endif
-				<div class="mybutton small">
-					<a href="{{ route('timeline') }}">
-						<span data-hover="查看更多">我的时间线</span>
-					</a>
+				<div class="col-md-12">
+					<div class="element-line">
+						{{ pagination($timeline->appends(Input::except('page')), 'layout.home-paginator') }}
+					</div>
 				</div>
 			</div>
 		</section>
+		<br />
+		<br />
 		{{-- Blog Section --}}
+		{{-- Parallax Container --}}
+		@include('layout.footer')
+		@yield('content')

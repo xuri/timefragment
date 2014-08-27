@@ -61,8 +61,8 @@
                             </li>
                             <li>
                                 <a href="#tab-images-management" data-toggle="tab">
-                                    <div class="text-small">Photo Management</div>
-                                    <span class="text-uppercase">照片管理</span>
+                                    <div class="text-small">Goods Photo</div>
+                                    <span class="text-uppercase">商品图片</span>
                                 </a>
                             </li>
                             <li>

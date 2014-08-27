@@ -36,4 +36,5 @@ class Admin_ServerResource extends BaseResource
         return View::make($this->resourceView.'.index')->with('stime');
     }
 
+
 }

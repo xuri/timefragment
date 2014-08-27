@@ -37,6 +37,7 @@ class AccountController extends BaseController
             'username'      => Input::get('username'),
             'nickname'      => Input::get('nickname'),
             'alipay'        => Input::get('alipay'),
+            'phone'         => Input::get('phone'),
             'bio'           => Input::get('bio'),
             'sex'           => Input::get('sex'),
             'born_year'     => Input::get('born_year'),
@@ -49,9 +50,10 @@ class AccountController extends BaseController
         // $info = Input::all();
         // Create validation rules
         $rules = array(
-            'nickname' => 'required|between:1,30',
-            'bio'      => 'between:1,60',
-            'address'  => 'between:1,80',
+            'nickname'      => 'required|between:1,30',
+            'bio'           => 'between:1,60',
+            'address'       => 'between:1,80',
+            'phone'         => 'numeric',
         );
         // Custom validation message
         $messages = array(
@@ -61,13 +63,14 @@ class AccountController extends BaseController
             'nickname.between'  => '昵称长度请保持在:min到:max字之间',
             'bio.between'       => '个人简介长度请保持在:min到:max字之间',
             'address.between'   => '长度请保持在:min到:max字之间',
+            'phone.numeric'     => '请填写正确的手机号码',
         );
         // Begin verification
         $validator = Validator::make($info, $rules, $messages);
         if ($validator->passes()) {
             // Verification success
             // Update account
-            $user = Auth::user();
+            $user                = Auth::user();
             $user->username      = Input::get('username');
             $user->nickname      = Input::get('nickname');
             $user->alipay        = Input::get('alipay');
@@ -79,6 +82,7 @@ class AccountController extends BaseController
             $user->home_province = Input::get('province');
             $user->home_city     = Input::get('city');
             $user->home_address  = Input::get('address');
+            $user->phone         = Input::get('phone');
             if ($user->save()) {
                 // Update success
                 return Redirect::back()
@@ -136,7 +140,7 @@ class AccountController extends BaseController
         if ($validator->passes()) {
             // Verification success
             // Update account
-            $user = Auth::user();
+            $user           = Auth::user();
             $user->password = Input::get('password');
             if ($user->save()) {
                 // Update success
@@ -185,17 +189,17 @@ class AccountController extends BaseController
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->passes()) {
             // Verification success
-            $image    = Input::file('portrait');
-            $ext      = $image->guessClientExtension();  // 根据 mime 类型取得真实拓展名
-            $fullname = $image->getClientOriginalName(); // 客户端文件名，包括客户端拓展名
-            $hashname = date('H.i.s').'-'.md5($fullname).'.'.$ext; // 哈希处理过的文件名，包括真实拓展名
+            $image          = Input::file('portrait');
+            $ext            = $image->guessClientExtension();  // 根据 mime 类型取得真实拓展名
+            $fullname       = $image->getClientOriginalName(); // 客户端文件名，包括客户端拓展名
+            $hashname       = date('H.i.s').'-'.md5($fullname).'.'.$ext; // 哈希处理过的文件名，包括真实拓展名
             // Picture information storage
             $user           = Auth::user();
             $oldImage       = $user->portrait;
             $user->portrait = $hashname;
             $user->save();
             // Storing images of different sizes
-            $portrait = Image::make($image->getRealPath());
+            $portrait       = Image::make($image->getRealPath());
             // crop the best fitting 1:1 ratio and resize to custom pixel
             $portrait->fit(220)->save(public_path('portrait/large/'.$hashname));
             $portrait->fit(128)->save(public_path('portrait/medium/'.$hashname));
@@ -239,5 +243,6 @@ class AccountController extends BaseController
         else
             return Redirect::back()->with('warning', '评论删除失败。');
     }
+
 
 }

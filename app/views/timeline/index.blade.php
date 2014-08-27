@@ -72,7 +72,7 @@
 								<div class="well post">
 									<div class="post-info bgdark text-center">
 										<h5 class="info-date">{{ date("M d, Y",strtotime($event->created_at)) }}<small>{{ date("H:m",strtotime($event->created_at)) }}</small></h5>
-										<a href="#" class="box-inner rotate">
+										<a href="{{ route('timeline') }}" class="box-inner rotate">
 											<img src="
 											 {{ $event->user->portrait_large }}" class="img-circle img-responsive" alt="{{ $event->user->nickname }}" title="{{ $event->user->nickname }}">
 										</a>
@@ -83,7 +83,7 @@
 											<h1><a href="{{ route($show, $event->slug) }}">{{ close_tags(Str::limit($event->title, 40)) }}</a></h1>
 										</div>
 										@if($event->thumbnails)
-										<a href="#" class="zoom">
+										<a href="{{ route($show, $event->slug) }}" class="zoom" title="{{ $event->title }}" alt="{{ $event->title }}">
 											{{ HTML::image($uploads.$event->thumbnails, '', array('class' => 'img-responsive')); }}
 										</a>
 										@else
@@ -102,12 +102,15 @@
 						@endforeach
 					</ol>
 				</div>
-
+				<div class="col-md-12">
+					<div class="element-line">
+						{{ pagination($timeline->appends(Input::except('page')), 'layout.home-paginator') }}
+					</div>
+				</div>
 			</div>
 		</section>
 		<br />
 		<br />
-
 		{{-- Blog Section --}}
 		{{-- Parallax Container --}}
 		@include('layout.footer')

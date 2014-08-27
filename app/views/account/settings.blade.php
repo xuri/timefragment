@@ -29,9 +29,31 @@
                                 <h3 class="m-b-0">{{ Auth::user()->nickname }}</h3>
                             </div>
                         </div>
+
+                        <?php
+                            $bound_type =  Auth::user()->bound_type;
+                            switch ($bound_type)
+                            {
+                                case "1":
+                                    $user_bound_type = '<i class="fa fa-envelope-o"></i> '.Auth::user()->email;
+                                break;
+                                case "2":
+                                    $user_bound_type = '<i class="fa fa-weibo"></i> 已连接新浪微博';
+                                break;
+                                case "3":
+                                    $user_bound_type = '<i class="fa fa-qq"></i> 您已连接腾讯QQ账号';
+                                break;
+                                case "4":
+                                    $user_bound_type = '<i class="fa fa-github"></i> 您已连接Github账号';
+                                break;
+                                default:
+                                    $user_bound_type = '<i class="fa fa-info-circle"></i> 未知渠道注册';
+                            }
+                        ?>
+
                         <div>
                             <div class="editable text-gray-alt i-block" contenteditable>
-                                <span class="m-t-10 d-block">{{ Auth::user()->email }}</span>
+                                <span class="m-t-10 d-block">{{ $user_bound_type }}</span>
                             </div>
                         </div>
                     </div>
@@ -99,7 +121,7 @@
                         <input type="text" name="alipay" value="{{ Auth::user()->alipay }}" class="input-large input-light brad col-sm-12">
                     </div>
 
-                    <label class="col-sm-12 m-t-10">手机号码</label>
+                    <label class="col-sm-12 m-t-10">手机号码 {{ $errors->first('phone', '<strong class="error" style="color: #cc0000">:message</strong>') }}</label>
                     <div class="col-sm-12">
                         <input type="text" name="phone" value="{{ Auth::user()->phone }}" class="input-large input-light brad col-sm-12">
                     </div>

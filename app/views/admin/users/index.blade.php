@@ -87,6 +87,7 @@
                                     <th>身份 {{ order_by('is_admin') }}</th>
                                     <th>邮箱 / ID {{ order_by('email') }}</th>
                                     <th>昵称 {{ order_by('nickname') }}</th>
+                                    <th>注册方式 {{ order_by('bound_type') }}</th>
                                     <th>注册时间 {{ order_by('created_at', 'desc') }}</th>
                                     <th>最后登录时间 {{ order_by('signin_at') }}</th>
                                     <th style="width:7em;text-align:center;">操作</th>
@@ -95,16 +96,37 @@
                             <tbody>
                                 <?php $currentId = Auth::user()->id; ?>
                                 @foreach ($datas as $data)
+                                <?php
+                                    $bound_type =  $data->bound_type;
+                                    switch ($bound_type)
+                                    {
+                                        case "1":
+                                            $user_bound_type = '<i class="fa fa-envelope-o"></i> E-mail';
+                                        break;
+                                        case "2":
+                                            $user_bound_type = '<i class="fa fa-weibo"></i> 新浪微博';
+                                        break;
+                                        case "3":
+                                            $user_bound_type = '<i class="fa fa-qq"></i> 腾讯QQ';
+                                        break;
+                                        case "4":
+                                            $user_bound_type = '<i class="fa fa-github"></i> Github';
+                                        break;
+                                        default:
+                                            $user_bound_type = '<i class="fa fa-info-circle"></i> 未知渠道';
+                                    }
+                                ?>
                                 <tr>
                                     <td>{{ $data->is_admin ? '管理员' : '普通用户' }}</td>
                                     <td>
                                         <a href="mailto:{{ $data->email }}" target="_blank">
-                                            <i class="glyphicon glyphicon-envelope" style="font-size:0.8em;"></i>
+                                            <i class="fa fa-envelope-o"></i>
                                         </a>
                                         {{ $data->email }}</td>
                                     <td>{{ $data->nickname }}</td>
-                                    <td>{{ $data->created_at }}（{{ $data->friendly_created_at }}）</td>
-                                    <td>{{ $data->signin_at }}（{{ $data->friendly_signin_at }}）</td>
+                                    <td>{{ $user_bound_type }}</td>
+                                    <td>{{ $data->created_at }}</td>
+                                    <td>{{ $data->signin_at }}</td>
                                     <td>
                                         @if($data->id!=$currentId)
                                         <a href="{{ route($resource.'.edit', $data->id) }}" class="btn btn-xs">编辑</a>

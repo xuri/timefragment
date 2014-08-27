@@ -41,6 +41,7 @@ class Admin_JobCategoriesResource extends BaseResource
         'name.unique'         => '已有同名分类。',
         'sort_order.required' => '请填写分类排序。',
         'sort_order.integer'  => '请填写一个整数。',
+        'content.required'    => '请填写简介。',
     );
 
     /**
@@ -50,8 +51,40 @@ class Admin_JobCategoriesResource extends BaseResource
      */
     public function index()
     {
-        $datas = $this->model->orderBy('sort_order')->paginate(15);
+        $datas = $this->model->where('cat_status', 'open')->orderBy('sort_order')->paginate(15);
         return View::make($this->resourceView.'.index')->with(compact('datas'));
+    }
+
+    /**
+     * Resource create view
+     * GET         /resource/create
+     * @return Response
+     */
+    public function create()
+    {
+        $exist = $this->model->where('cat_status', 'close')->first();
+        if($exist)
+        {
+            return Redirect::route($this->resource.'.newCat', $exist->id);
+        } else {
+            $model             = $this->model;
+            $model->name       = '';
+            $model->sort_order = '';
+            $model->content    = '';
+            $model->save();
+            return Redirect::route($this->resource.'.newCat', $model->id);
+        }
+    }
+
+    /**
+     * Resource create view
+     * GET         /resource/create
+     * @return Response
+     */
+    public function newCat($id)
+    {
+        $data = $this->model->find($id);
+        return View::make($this->resourceView.'.create')->with('data', $data);
     }
 
     /**
@@ -59,7 +92,7 @@ class Admin_JobCategoriesResource extends BaseResource
      * POST        /resource
      * @return Response
      */
-    public function store()
+    public function store($id)
     {
         // Get all form data.
         $data   = Input::all();
@@ -77,14 +110,15 @@ class Admin_JobCategoriesResource extends BaseResource
         if ($validator->passes()) {
             // Verification success
             // Add resource
-            $model = $this->model;
+            $model             = $this->model->find($id);
             $model->name       = e($data['name']);
             $model->sort_order = e($data['sort_order']);
             $model->content    = e($data['content']);
+            $model->cat_status = 'open';
             if ($model->save()) {
                 // Add success
-                return Redirect::back()
-                    ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续添加新'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
+                return Redirect::route($this->resource.'.edit', $model->id)
+                    ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续添编辑'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
             } else {
                 // Add fail
                 return Redirect::back()
@@ -120,7 +154,7 @@ class Admin_JobCategoriesResource extends BaseResource
         if ($validator->passes()) {
             // Verification success
             // Update resource
-            $model = $this->model->find($id);
+            $model             = $this->model->find($id);
             $model->name       = e($data['name']);
             $model->sort_order = e($data['sort_order']);
             $model->content    = e($data['content']);
@@ -191,15 +225,17 @@ class Admin_JobCategoriesResource extends BaseResource
         $model      = $this->model->find($id);
         $thumbnails = $model->thumbnails;
 
-        if (is_null($thumbnails))
+        if (is_null($thumbnails)) {
             return Redirect::back()->with('error', '没有找到对应的图片');
-        elseif ($thumbnails) {
-        File::delete(public_path('uploads/job_category_thumbnails/'.$thumbnails));
-        $model->thumbnails = NULL;
-        $model->save();
+        } elseif ($thumbnails) {
+            File::delete(public_path('uploads/job_category_thumbnails/'.$thumbnails));
+            $model->thumbnails = NULL;
+            $model->save();
             return Redirect::back()->with('success', '图片删除成功。');
-        }
-        else
+        } else {
             return Redirect::back()->with('warning', '图片删除失败。');
+        }
     }
+
+
 }

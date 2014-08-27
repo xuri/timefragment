@@ -61,10 +61,36 @@ class CreativeController extends BaseResource
                 break;
         }
         // Construct query statement
-        $query = $this->model->orderBy($orderColumn, $direction)->where('user_id', Auth::user()->id)->paginate(15);
+        $query = $this->model->orderBy($orderColumn, $direction);
         isset($title) AND $query->where('title', 'like', "%{$title}%");
-        $datas = $query;
+        $datas = $query->where('user_id', Auth::user()->id)->where('post_status', 'open')->paginate(15);
         return View::make($this->resourceView.'.index')->with(compact('datas'));
+    }
+
+    /**
+     * Resource create
+     * Redirect         {id}/new-post
+     * @return Response
+     */
+    public function create()
+    {
+        $exist = $this->model->where('user_id', Auth::user()->id)->where('post_status', 'close')->first();
+        if($exist)
+        {
+            return Redirect::route($this->resource.'.newPost', $exist->id);
+        } else {
+            $model                   = $this->model;
+            $model->user_id          = Auth::user()->id;
+            $model->category_id      = '';
+            $model->title            = '';
+            $model->slug             = '';
+            $model->content          = '';
+            $model->meta_title       = '';
+            $model->meta_description = '';
+            $model->meta_keywords    = '';
+            $model->save();
+            return Redirect::route($this->resource.'.newPost', $model->id);
+        }
     }
 
     /**
@@ -72,10 +98,12 @@ class CreativeController extends BaseResource
      * GET         /resource/create
      * @return Response
      */
-    public function create()
+    public function newPost($id)
     {
+        $data          = $this->model->find($id);
         $categoryLists = CreativeCategories::lists('name', 'id');
-        return View::make($this->resourceView.'.create')->with(compact('categoryLists'));
+        $creative      = $this->model->where('id', $id)->first();
+        return View::make($this->resourceView.'.create')->with(compact('data', 'categoryLists', 'creative'));
     }
 
     /**
@@ -83,7 +111,7 @@ class CreativeController extends BaseResource
      * POST        /resource
      * @return Response
      */
-    public function store()
+    public function store($id)
     {
         // Get all form data.
         $data   = Input::all();
@@ -103,8 +131,7 @@ class CreativeController extends BaseResource
         if ($validator->passes()) {
             // Verification success
             // Add resource
-            $model                   = $this->model;
-            $model->user_id          = Auth::user()->id;
+            $model                   = $this->model->find($id);
             $model->category_id      = $data['category'];
             $model->title            = e($data['title']);
             $model->slug             = $hashslug;
@@ -112,18 +139,18 @@ class CreativeController extends BaseResource
             $model->meta_title       = e($data['title']);
             $model->meta_description = e($data['title']);
             $model->meta_keywords    = e($data['title']);
-            $model->save();
+            $model->post_status      = 'open';
 
             $timeline                = new Timeline;
             $timeline->slug          = $hashslug;
             $timeline->model         = 'Creative';
             $timeline->user_id       = Auth::user()->id;
 
-            if ($timeline->save()) {
+            if ($model->save() && $timeline->save()) {
 
                 // Add success
-                return Redirect::back()
-                    ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续添加新'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
+                return Redirect::route($this->resource.'.edit', $model->id)
+                    ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续编辑'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
             } else {
                 // Add fail
                 return Redirect::back()
@@ -144,9 +171,9 @@ class CreativeController extends BaseResource
      */
     public function edit($id)
     {
-        $data = $this->model->find($id);
+        $data          = $this->model->find($id);
         $categoryLists = CreativeCategories::lists('name', 'id');
-        $creative = Creative::where('slug', $data->slug)->first();
+        $creative      = $this->model->where('slug', $data->slug)->first();
         return View::make($this->resourceView.'.edit')->with(compact('data', 'categoryLists', 'creative'));
     }
 
@@ -174,7 +201,7 @@ class CreativeController extends BaseResource
 
             // Verification success
             // Update resource
-            $model = $this->model->find($id);
+            $model                   = $this->model->find($id);
             $model->user_id          = Auth::user()->id;
             $model->category_id      = $data['category'];
             $model->title            = e($data['title']);
@@ -182,7 +209,6 @@ class CreativeController extends BaseResource
             $model->meta_title       = e($data['title']);
             $model->meta_description = e($data['title']);
             $model->meta_keywords    = e($data['title']);
-            $model->save();
 
             if ($model->save()) {
                 // Update success
@@ -286,18 +312,16 @@ class CreativeController extends BaseResource
         $filename = CreativePictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
         $oldImage = $filename->filename;
 
-        if (is_null($filename))
+        if (is_null($filename)) {
             return Redirect::back()->with('error', '没有找到对应的图片');
-        elseif ($filename->delete()) {
-
-        File::delete(
-            public_path('uploads/creative/'.$oldImage)
-        );
+        } elseif ($filename->delete()) {
+            File::delete(
+                public_path('uploads/creative/'.$oldImage)
+            );
             return Redirect::back()->with('success', '图片删除成功。');
-        }
-
-        else
+        } else {
             return Redirect::back()->with('warning', '图片删除失败。');
+        }
     }
 
     /**
@@ -332,7 +356,7 @@ class CreativeController extends BaseResource
      */
     public function getIndex()
     {
-        $creative   = Creative::orderBy('created_at', 'desc')->paginate(12);
+        $creative   =  $this->model->where('post_status', 'open')->orderBy('created_at', 'desc')->paginate(12);
         return View::make('creative.index')->with(compact('creative'));
     }
 
@@ -342,7 +366,7 @@ class CreativeController extends BaseResource
      */
     public function category($category_id)
     {
-        $creative          = Creative::where('category_id', $category_id)->orderBy('created_at', 'desc')->paginate(12);
+        $creative          = $this->model->where('category_id', $category_id)->orderBy('created_at', 'desc')->paginate(12);
         $categories        = CreativeCategories::orderBy('sort_order')->get();
         $current_category  = CreativeCategories::where('id', $category_id)->first();
         return View::make('creative.category')->with(compact('creative', 'categories', 'category_id', 'current_category'));
@@ -354,7 +378,7 @@ class CreativeController extends BaseResource
      */
     public function getArticles($category_id)
     {
-        $articles   = Creative::where('category_id', $category_id)->orderBy('created_at', 'desc')->paginate(5);
+        $articles   =  $this->model->where('category_id', $category_id)->orderBy('created_at', 'desc')->paginate(5);
         $categories = CreativeCategories::orderBy('sort_order')->get();
         return View::make('home.category')->with(compact('articles', 'categories', 'category_id'));
     }
@@ -366,7 +390,7 @@ class CreativeController extends BaseResource
      */
     public function show($slug)
     {
-        $creative    = Creative::where('slug', $slug)->first();
+        $creative   = $this->model->where('slug', $slug)->first();
         is_null($creative) AND App::abort(404);
         $categories = CreativeCategories::orderBy('sort_order')->get();
         return View::make('creative.show')->with(compact('creative', 'categories'));
@@ -380,12 +404,12 @@ class CreativeController extends BaseResource
         if (mb_strlen($content)<3)
             return Redirect::back()->withInput()->withErrors($this->messages->add('content', '评论不得少于3个字符。'));
         // Find article
-        $creative = Creative::where('slug', $slug)->first();
+        $creative =  $this->model->where('slug', $slug)->first();
         // Create comment
-        $comment = new CreativeComment;
-        $comment->content    = $content;
+        $comment              = new CreativeComment;
+        $comment->content     = $content;
         $comment->creative_id = $creative->id;
-        $comment->user_id    = Auth::user()->id;
+        $comment->user_id     = Auth::user()->id;
         if ($comment->save()) {
             // Create success
             // Updated comments
@@ -405,7 +429,7 @@ class CreativeController extends BaseResource
      */
     public function search()
     {
-        $query             = Creative::orderBy('created_at', 'desc');
+        $query             =  $this->model->orderBy('created_at', 'desc');
         $categories        = CreativeCategories::orderBy('sort_order')->get();
         // Get search conditions
         switch (Input::get('target')) {
@@ -418,4 +442,6 @@ class CreativeController extends BaseResource
         $datas = $query->paginate(6);
         return View::make('creative.search')->with(compact('datas', 'categories'));
     }
+
+
 }

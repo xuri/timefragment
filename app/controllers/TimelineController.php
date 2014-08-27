@@ -1,6 +1,6 @@
 <?php
 
-class TimelineController extends BaseController
+class TimelineController extends BaseResource
 {
 
     /*
@@ -40,8 +40,19 @@ class TimelineController extends BaseController
      */
     public function getIndex()
     {
-        $timeline = Timeline::orderBy('created_at', 'desc')->where('user_id', Auth::user()->id)->get();
+        $timeline = $this->model->orderBy('created_at', 'desc')->where('user_id', Auth::user()->id)->paginate(8);
         return View::make('timeline.index')->with(compact('timeline'));
     }
 
+
+    /**
+     * View: User timeline
+     * @return Respanse
+     */
+    public function getTimeline($id)
+    {
+        $timeline = $this->model->where('user_id', $id)->paginate(8);
+        $user     = User::where('id', $id)->first();
+        return View::make('timeline.timeline')->with(compact('timeline', 'user'));
+    }
 }

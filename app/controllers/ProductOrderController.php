@@ -1,6 +1,6 @@
 <?php
 
-class ProductOrderController extends BaseController
+class ProductOrderController extends BaseResource
 {
     /**
      * Resource view directory
@@ -55,9 +55,9 @@ class ProductOrderController extends BaseController
                 break;
         }
 		// Construct query statement
-		$unpayment_order = ProductOrder::orderBy($orderColumn, $direction)->where('customer_id', Auth::user()->id)->where('is_payment', 0)->paginate(15);
-		$payment_order   = ProductOrder::orderBy($orderColumn, $direction)->where('customer_id', Auth::user()->id)->where('is_payment', 1)->where('is_checkout', 0)->paginate(15);
-		$checkout_order  = ProductOrder::orderBy($orderColumn, $direction)->where('customer_id', Auth::user()->id)->where('is_checkout', 1)->paginate(15);
+		$unpayment_order = $this->model->orderBy($orderColumn, $direction)->where('customer_id', Auth::user()->id)->where('is_payment', 0)->paginate(15);
+		$payment_order   = $this->model->orderBy($orderColumn, $direction)->where('customer_id', Auth::user()->id)->where('is_payment', 1)->where('is_checkout', 0)->paginate(15);
+		$checkout_order  = $this->model->orderBy($orderColumn, $direction)->where('customer_id', Auth::user()->id)->where('is_checkout', 1)->paginate(15);
 		isset($title) AND $query->where('title', 'like', "%{$title}%");
 		$resourceName    = '订单';
 		$resource        = 'order';
@@ -70,7 +70,7 @@ class ProductOrderController extends BaseController
      */
     public function customerOrderDetails($id)
     {
-    	$data         = ProductOrder::where('customer_id', Auth::user()->id)->where('id', $id)->first();
+    	$data         = $this->model->where('customer_id', Auth::user()->id)->where('id', $id)->first();
 		$resourceName = '订单';
 		$resource     = 'order';
         return View::make($this->resourceView.'.customerOrderDetails')->with(compact('data', 'resourceName', 'resource'));
@@ -82,7 +82,7 @@ class ProductOrderController extends BaseController
      */
     public function sellerOrderDetails($id)
     {
-    	$data         = ProductOrder::where('seller_id', Auth::user()->id)->where('id', $id)->first();
+    	$data         = $this->model->where('seller_id', Auth::user()->id)->where('id', $id)->first();
 		$resourceName = '订单';
 		$resource     = 'order';
         return View::make($this->resourceView.'.sellerOrderDetails')->with(compact('data', 'resourceName', 'resource'));
@@ -161,7 +161,7 @@ class ProductOrderController extends BaseController
 				$customer_address                = Input::input('customer_address');
 				$customer_phone                  = Input::input('customer_phone');
 				// Create product order
-				$product_order                   = new ProductOrder;
+				$product_order                   = $this->model;
 				$product_order->order_id         = $order_id;
 				$product_order->seller_id        = $seller_id;
 				$product_order->product_id       = $product_id;
@@ -239,7 +239,7 @@ class ProductOrderController extends BaseController
 		$resourceName = '订单';
 		$resource     = 'order';
 		// Get all form data.
-		$data         = ProductOrder::where('id', Input::get('order_id'))->first();
+		$data         = $this->model->where('id', Input::get('order_id'))->first();
 		$product_id   = $data->product_id;
 		$product      = Product::where('id', $product_id)->first();
 
@@ -322,7 +322,7 @@ class ProductOrderController extends BaseController
      */
     public function destroyOrder($id)
     {
-        $data = ProductOrder::find($id);
+        $data = $this->model->find($id);
         if (is_null($data))
             return Redirect::back()->with('error', '没有找到对应的'.$this->resourceName.'。');
         elseif ($data)
@@ -353,7 +353,7 @@ class ProductOrderController extends BaseController
             $trade_no     = $_GET['trade_no'];      // Alipay order ID
             $trade_status = $_GET['trade_status'];  // Alipay trade status
 
-			$product_order               = ProductOrder::where('order_id', $out_trade_no)->first();
+			$product_order               = $this->model->where('order_id', $out_trade_no)->first();
 			$product_order->is_payment   = true;
 			$product_order->alipay_trade = $trade_no;
 			$product_order->save();
@@ -382,8 +382,8 @@ class ProductOrderController extends BaseController
                 break;
         }
 		// Construct query statement
-		$trading_order  = ProductOrder::orderBy($orderColumn, $direction)->where('seller_id', Auth::user()->id)->where('is_payment', 1)->where('is_checkout', 0)->paginate(15);
-		$checkout_order = ProductOrder::orderBy($orderColumn, $direction)->where('seller_id', Auth::user()->id)->where('is_checkout', 1)->paginate(15);
+		$trading_order  = $this->model->orderBy($orderColumn, $direction)->where('seller_id', Auth::user()->id)->where('is_payment', 1)->where('is_checkout', 0)->paginate(15);
+		$checkout_order = $this->model->orderBy($orderColumn, $direction)->where('seller_id', Auth::user()->id)->where('is_checkout', 1)->paginate(15);
 		isset($title) AND $query->where('title', 'like', "%{$title}%");
 		$resourceName   = '订单';
 		$resource       = 'order';
@@ -413,7 +413,7 @@ class ProductOrderController extends BaseController
         $validator = Validator::make($data, $rules, $messages);
 
         if ($validator->passes()) {
-			$product_order               = ProductOrder::find(Input::get('id'));
+			$product_order               = $this->model->find(Input::get('id'));
 			$product_order->is_express   = true;
 			$product_order->express_name = Input::get('express_name');
 			$product_order->invoice_no   = Input::get('invoice_no');
@@ -422,7 +422,7 @@ class ProductOrderController extends BaseController
 	    	require_once( app_path('api/alipay/alipay.config.php' ));
 			require_once( app_path('api/alipay/lib/alipay_submit.class.php' ));
 
-			$trade_no       = ProductOrder::where('id', Input::get('id'))->first()->alipay_trade; 	// Alipay trade number (required)
+			$trade_no       = $this->model->where('id', Input::get('id'))->first()->alipay_trade; 	// Alipay trade number (required)
             $logistics_name = Input::get('express_name');   										// Express company name (required)
             $invoice_no     = Input::get('invoice_no');     										// Express billing number
             $transport_type = "EXPRESS";                    										// Express type: POST, EXPRESS or EMS
@@ -458,7 +458,7 @@ class ProductOrderController extends BaseController
     public function checkout()
     {
     	if (Input::get('id')) {
-			$product_order               = ProductOrder::find(Input::get('id'));
+			$product_order               = $this->model->find(Input::get('id'));
 			$product_order->is_checkout  = true;
 			$product_order->save();
 			return Redirect::back()->with('success', '确认收货成功！欢迎再次使用时光碎片尚品汇购物。');
@@ -467,5 +467,6 @@ class ProductOrderController extends BaseController
         }
 
     }
+
 
 }

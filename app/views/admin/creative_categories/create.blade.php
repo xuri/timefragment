@@ -50,7 +50,7 @@
                             </li>
                         </ul>
 
-                        <form class="form-horizontal" method="post" action="{{ route($resource.'.store') }}" autocomplete="off" style="padding:1em;border:1px solid #ddd;border-top:0;">
+                        <form class="form-horizontal" method="post" action="{{ route($resource.'.store', $data->id) }}" autocomplete="off" style="padding:1em;border:1px solid #ddd;border-top:0;">
                             {{-- CSRF Token --}}
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
@@ -80,7 +80,7 @@
                             <div class="control-group p-l-30 p-b-30">
                                 <div class="controls">
                                     <button type="reset" class="btn btn-bordered text-gray-alt">清 空</button>
-                                    <button type="submit" class="btn btn-success">提 交</button>
+                                    <button type="submit" class="btn btn-success">保 存</button>
                                 </div>
                             </div>
                         </form>

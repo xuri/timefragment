@@ -19,9 +19,9 @@ class Timeline extends BaseModel
      * Soft delete
      * @var boolean
      */
-    use SoftDeletingTrait;
+    // use SoftDeletingTrait;
 
-    protected $softDelete = ['deleted_at'];
+    // protected $softDelete = ['deleted_at'];
 
 
     /**

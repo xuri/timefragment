@@ -1,12 +1,14 @@
  <nav class="navbar navbar-fixed-top not-collapse bg-g-ln-gray" role="navigation">
     <div class="navbar-header">
         <a class="navbar-brand" href="{{ route('account') }}" class="hover-white-shade-bg">
-            仪表盘
-            <small class="font-w-100 text-gray-alt hidden-xs hidden-sm">时光碎片 | TimeFragment</small>
+            <i class="fa fa-dashboard"></i> 仪表盘
+            <small class="font-w-100 text-gray-alt hidden-xs hidden-sm">时光碎片 | Time Fragment</small>
         </a>
     </div>
     <div id="top-nav">
-        <a href="{{ route('home') }}" type="button" class="btn btn-default navbar-btn navbar-right btn-primary m-r-30 mm-r-10">返回首页</a>
+        <a href="{{ route('home') }}" type="button" class="btn btn-default navbar-btn navbar-right btn-primary m-r-30 mm-r-10">
+            <i class="fa fa-home"></i> 返回首页
+        </a>
         <div class="navbar-dropdown navbar-right navbar-avatar">
             <a href="{{ route('account.changePortrait') }}" data-target="#topavatar-toggle" class="hover-no-underline dropdown-toggle m-lr-30 mm-lr-10" data-toggle="dropdown">
                 <img class="img-circle" width="25" src="{{ Auth::user()->portrait_large }}" alt="Avatar Large">
@@ -19,12 +21,12 @@
             </a>
             <ul id="topavatar-toggle" class="dropdown-menu avatar-dropdown">
                 @if(! Auth::user()->is_admin){{--普通登录用户--}}
-                <li><a href="{{ route('account.settings') }}">偏好设置</a></li>
-                <li><a href="{{ route('signout') }}">退出登录</a></li>
+                <li><a href="{{ route('account.settings') }}"><i class="fa fa-dashboard"></i> &nbsp; 偏好设置</a></li>
+                <li><a href="{{ route('signout') }}"><i class="fa fa-sign-out"></i> &nbsp; 退出登录</a></li>
                 @elseif(Auth::user()->is_admin){{--管理员--}}
-                <li><a href="{{ route('account') }}">仪表盘</a></li>
-                <li><a href="{{ route('admin') }}">控制面板</a></li>
-                <li><a href="{{ route('signout') }}">退出登录</a></li>
+                <li><a href="{{ route('account') }}"><i class="fa fa-dashboard"></i> &nbsp; 仪表盘</a></li>
+                <li><a href="{{ route('admin') }}"><i class="fa fa-cogs"></i> &nbsp; 控制面板</a></li>
+                <li><a href="{{ route('signout') }}"><i class="fa fa-sign-out"></i> &nbsp; 退出登录</a></li>
                 @endif
             </ul>
         </div>

@@ -15,16 +15,17 @@ class CreatTravelTable extends Migration {
 		Schema::create('travel', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('category_id');
 	        $table->string('user_id');
+	        $table->string('post_status')->default('close');
+	        $table->string('thumbnails')->nullable();
+	        $table->string('category_id');
 	        $table->text('title', 100);
 	        $table->text('slug', 255);
 	        $table->text('content');
-	        $table->string('thumbnails')->nullable();
-	        $table->smallInteger('comments_count')->default('0');
 	        $table->text('meta_title', 100);
 	        $table->text('meta_description', 255);
 	        $table->text('meta_keywords', 255);
+	        $table->smallInteger('comments_count')->default('0');
 	        $table->timestamp('deleted_at')->nullable();
 			$table->timestamps();
 		});

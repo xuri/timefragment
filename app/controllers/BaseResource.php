@@ -81,45 +81,6 @@ class BaseResource extends BaseController
     }
 
     /**
-     * Resource create action
-     * POST        /resource
-     * @return Response
-     */
-    public function store()
-    {
-        // Get all form data.
-        $data   = Input::all();
-        // Create validation rules
-        $unique = $this->unique();
-        $rules  = array(
-            # --- --- --- --- --- --- --- --- --- --- Add a validation rule here #
-        );
-        // Custom validation message
-        $messages = $this->validatorMessages;
-        // Begin verification
-        $validator = Validator::make($data, $rules, $messages);
-        if ($validator->passes()) {
-            // Verification success
-            // Add resource
-            $model = $this->model;
-            # --- --- --- --- --- --- --- --- --- --- Assigned to the model object property values here #
-            if ($model->save()) {
-                // Add resource success
-                return Redirect::back()
-                    ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续添加新'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
-            } else {
-                // Add resource fail
-                return Redirect::back()
-                    ->withInput()
-                    ->with('error', '<strong>'.$this->resourceName.'添加失败。</strong>');
-            }
-        } else {
-            // Validation fail
-            return Redirect::back()->withInput()->withErrors($validator);
-        }
-    }
-
-    /**
      * Resource show view
      * GET         /resource/{id}
      * @param  int  $id

@@ -66,8 +66,43 @@ class Admin_ProductResource extends BaseResource
         // Construct query statement
         $query = $this->model->orderBy($orderColumn, $direction);
         isset($title) AND $query->where('title', 'like', "%{$title}%");
-        $datas = $query->paginate(15);
+        $datas = $query->where('post_status', 'open')->paginate(15);
         return View::make($this->resourceView.'.index')->with(compact('datas'));
+    }
+
+    /**
+     * Resource create
+     * Redirect         {id}/new-post
+     * @return Response
+     */
+    public function create()
+    {
+        if( Auth::user()->alipay == null ){
+            return Redirect::route('account.settings')
+                    ->with('info', '提示：您需要设定支付宝收款账户才可以发布'.$this->resourceName.'出售信息');
+        } else {
+            $exist = $this->model->where('user_id', Auth::user()->id)->where('post_status', 'close')->first();
+            if($exist)
+            {
+                return Redirect::route($this->resource.'.newPost', $exist->id);
+            } else {
+                $model                   = $this->model;
+                $model->user_id          = Auth::user()->id;
+                $model->category_id      = '';
+                $model->title            = '';
+                $model->slug             = '';
+                $model->quantity         = '';
+                $model->province         = '';
+                $model->city             = '';
+                $model->content          = '';
+                $model->price            = '';
+                $model->meta_title       = '';
+                $model->meta_description = '';
+                $model->meta_keywords    = '';
+                $model->save();
+                return Redirect::route($this->resource.'.newPost', $model->id);
+            }
+        }
     }
 
     /**
@@ -75,15 +110,12 @@ class Admin_ProductResource extends BaseResource
      * GET         /resource/create
      * @return Response
      */
-    public function create()
+    public function newPost($id)
     {
-        if( Auth::user()->alipay == null ){
-            return Redirect::route('account.settings')
-                    ->with('info', '提示：您需要设定支付宝收款账户才可以发布商品出售信息');
-        } else {
-            $categoryLists = ProductCategories::lists('name', 'id');
-            return View::make($this->resourceView.'.create')->with(compact('categoryLists'));
-        }
+        $data          = $this->model->find($id);
+        $categoryLists = ProductCategories::lists('name', 'id');
+        $product       = $this->model->where('id', $id)->first();
+        return View::make($this->resourceView.'.create')->with(compact('data', 'categoryLists', 'product'));
     }
 
     /**
@@ -91,7 +123,7 @@ class Admin_ProductResource extends BaseResource
      * POST        /resource
      * @return Response
      */
-    public function store()
+    public function store($id)
     {
         // Get all form data.
         $data   = Input::all();
@@ -114,8 +146,7 @@ class Admin_ProductResource extends BaseResource
         if ($validator->passes()) {
             // Verification success
             // Add recource
-            $model                   = $this->model;
-            $model->user_id          = Auth::user()->id;
+            $model                   = $this->model->find($id);
             $model->category_id      = $data['category'];
             $model->title            = e($data['title']);
             $model->province         = e($data['province']);
@@ -127,16 +158,16 @@ class Admin_ProductResource extends BaseResource
             $model->meta_title       = e($data['title']);
             $model->meta_description = e($data['title']);
             $model->meta_keywords    = e($data['title']);
-            $model->save();
+            $model->post_status      = 'open';
 
             $timeline                = new Timeline;
             $timeline->slug          = $hashslug;
             $timeline->model         = 'Product';
             $timeline->user_id       = Auth::user()->id;
-            if ($timeline->save()) {
+            if ($model->save() && $timeline->save()) {
                 // Add success
-                return Redirect::back()
-                    ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续添加新'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
+                return Redirect::route($this->resource.'.edit', $model->id)
+                    ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续编辑'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
             } else {
                 // Add fail
                 return Redirect::back()
@@ -159,7 +190,7 @@ class Admin_ProductResource extends BaseResource
     {
         $data          = $this->model->find($id);
         $categoryLists = ProductCategories::lists('name', 'id');
-        $product       = Product::where('slug', $data->slug)->first();
+        $product       = $this->model->where('slug', $data->slug)->first();
         return View::make($this->resourceView.'.edit')->with(compact('data', 'categoryLists', 'product'));
     }
 
@@ -181,17 +212,17 @@ class Admin_ProductResource extends BaseResource
             'category'     => 'exists:product_categories,id',
             'province'     => 'required',
         );
-        $model = $this->model->find($id);
-        $oldSlug = $model->slug;
+        $model     = $this->model->find($id);
+        $oldSlug   = $model->slug;
         // Custom validation message
-        $messages = $this->validatorMessages;
+        $messages  = $this->validatorMessages;
         // Begin verification
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->passes()) {
 
             // Verification success
             // Update resource
-            $model = $this->model->find($id);
+            $model                   = $this->model->find($id);
             $model->user_id          = Auth::user()->id;
             $model->category_id      = $data['category'];
             $model->title            = e($data['title']);
@@ -202,12 +233,11 @@ class Admin_ProductResource extends BaseResource
             $model->meta_title       = e($data['title']);
             $model->meta_description = e($data['title']);
             $model->meta_keywords    = e($data['title']);
-            $model->save();
 
-            $timeline = Timeline::where('slug', $oldSlug)->where('user_id', Auth::user()->id)->first();
-            $timeline->slug = e($data['slug']);
+            $timeline                = Timeline::where('slug', $oldSlug)->where('user_id', Auth::user()->id)->first();
+            $timeline->slug          = e($data['slug']);
 
-            if ($timeline->save()) {
+            if ($model->save() && $timeline->save()) {
                 // Update success
                 return Redirect::back()
                     ->with('success', '<strong>'.$this->resourceName.'更新成功：</strong>您可以继续编辑'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
@@ -236,15 +266,22 @@ class Admin_ProductResource extends BaseResource
             return Redirect::back()->with('error', '没有找到对应的'.$this->resourceName.'。');
         elseif ($data)
         {
-            $model      = $this->model->find($id);
-            $thumbnails = $model->thumbnails;
-            File::delete(public_path('uploads/product_thumbnails/'.$thumbnails));
+            $trading = ProductOrder::where('product_id', $id)->where('is_payment', true)->where('is_checkout', false)->first();
+            if($trading)
+            {
+                return Redirect::back()->with('warning', $this->resourceName.'正在交易中，暂时不能删除。');
+            } else {
+                $model      = $this->model->find($id);
+                $thumbnails = $model->thumbnails;
+                File::delete(public_path('uploads/product_thumbnails/'.$thumbnails));
 
-            $timeline = Timeline::where('slug', $model->slug)->where('user_id', Auth::user()->id)->first();
-            $timeline->delete();
+                $timeline   = Timeline::where('slug', $model->slug)->where('user_id', Auth::user()->id)->first();
+                $timeline->delete();
 
-            $data->delete();
-            return Redirect::back()->with('success', $this->resourceName.'删除成功。');
+                $data->delete();
+
+                return Redirect::back()->with('success', $this->resourceName.'删除成功。');
+            }
         }
         else
             return Redirect::back()->with('warning', $this->resourceName.'删除失败。');
@@ -281,7 +318,6 @@ class Admin_ProductResource extends BaseResource
         $model               = $this->model->find($id);
         $oldThumbnails       = $model->thumbnails;
         $model->thumbnails   = $hashname;
-        $model->save();
 
         File::delete(public_path('uploads/product_thumbnails/'.$oldThumbnails));
 
@@ -289,9 +325,8 @@ class Admin_ProductResource extends BaseResource
         $models->filename    = $hashname;
         $models->product_id  = $id;
         $models->user_id     = Auth::user()->id;
-        $models->save();
 
-        if( $models->save() ) {
+        if($model->save() && $models->save()) {
            return Response::json('success', 200);
         } else {
            return Response::json('error', 400);
@@ -308,18 +343,17 @@ class Admin_ProductResource extends BaseResource
         $filename = ProductPictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
         $oldImage = $filename->filename;
 
-        if (is_null($filename))
+        if (is_null($filename)) {
             return Redirect::back()->with('error', '没有找到对应的图片');
-        elseif ($filename->delete()) {
-
-        File::delete(
-            public_path('uploads/products/'.$oldImage)
-        );
+        } elseif ($filename->delete()) {
+            File::delete(
+                public_path('uploads/products/'.$oldImage)
+            );
             return Redirect::back()->with('success', '图片删除成功。');
-        }
-
-        else
+        } else {
             return Redirect::back()->with('warning', '图片删除失败。');
+        }
     }
+
 
 }

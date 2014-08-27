@@ -61,10 +61,36 @@ class TravelController extends BaseResource
                 break;
         }
         // Construct query statement
-        $query = $this->model->orderBy($orderColumn, $direction)->where('user_id', Auth::user()->id)->paginate(15);
+        $query = $this->model->orderBy($orderColumn, $direction);
         isset($title) AND $query->where('title', 'like', "%{$title}%");
-        $datas = $query;
+        $datas = $query->where('user_id', Auth::user()->id)->where('post_status', 'open')->paginate(15);
         return View::make($this->resourceView.'.index')->with(compact('datas'));
+    }
+
+    /**
+     * Resource create
+     * Redirect         {id}/new-post
+     * @return Response
+     */
+    public function create()
+    {
+        $exist = $this->model->where('user_id', Auth::user()->id)->where('post_status', 'close')->first();
+        if($exist)
+        {
+            return Redirect::route($this->resource.'.newPost', $exist->id);
+        } else {
+            $model                   = $this->model;
+            $model->user_id          = Auth::user()->id;
+            $model->category_id      = '';
+            $model->title            = '';
+            $model->slug             = '';
+            $model->content          = '';
+            $model->meta_title       = '';
+            $model->meta_description = '';
+            $model->meta_keywords    = '';
+            $model->save();
+            return Redirect::route($this->resource.'.newPost', $model->id);
+        }
     }
 
     /**
@@ -72,10 +98,12 @@ class TravelController extends BaseResource
      * GET         /resource/create
      * @return Response
      */
-    public function create()
+    public function newPost($id)
     {
+        $data          = $this->model->find($id);
         $categoryLists = TravelCategories::lists('name', 'id');
-        return View::make($this->resourceView.'.create')->with(compact('categoryLists'));
+        $travel        = $this->model->where('id', $id)->first();
+        return View::make($this->resourceView.'.create')->with(compact('data', 'categoryLists', 'travel'));
     }
 
     /**
@@ -83,7 +111,7 @@ class TravelController extends BaseResource
      * POST        /resource
      * @return Response
      */
-    public function store()
+    public function store($id)
     {
         // Get all form data.
         $data   = Input::all();
@@ -103,8 +131,7 @@ class TravelController extends BaseResource
         if ($validator->passes()) {
             // Verification success
             // Add resource
-            $model                   = $this->model;
-            $model->user_id          = Auth::user()->id;
+            $model                   = $this->model->find($id);
             $model->category_id      = $data['category'];
             $model->title            = e($data['title']);
             $model->slug             = $hashslug;
@@ -112,16 +139,16 @@ class TravelController extends BaseResource
             $model->meta_title       = e($data['title']);
             $model->meta_description = e($data['title']);
             $model->meta_keywords    = e($data['title']);
-            $model->save();
+            $model->post_status      = 'open';
 
             $timeline                = new Timeline;
             $timeline->slug          = $hashslug;
             $timeline->model         = 'Travel';
             $timeline->user_id       = Auth::user()->id;
-            if ($timeline->save()) {
+            if ($model->save() && $timeline->save()) {
                 // Add success
-                return Redirect::back()
-                    ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续添加新'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
+                return Redirect::route($this->resource.'.edit', $model->id)
+                    ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续编辑'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
             } else {
                 // Add fail
                 return Redirect::back()
@@ -144,7 +171,7 @@ class TravelController extends BaseResource
     {
         $data          = $this->model->find($id);
         $categoryLists = TravelCategories::lists('name', 'id');
-        $travel        = Travel::where('slug', $data->slug)->first();
+        $travel        = $this->model->where('slug', $data->slug)->first();
         return View::make($this->resourceView.'.edit')->with(compact('data', 'categoryLists', 'travel'));
     }
 
@@ -165,14 +192,14 @@ class TravelController extends BaseResource
             'category'     => 'exists:travel_categories,id',
         );
         // Custom validation message
-        $messages = $this->validatorMessages;
+        $messages  = $this->validatorMessages;
         // Begin verification
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->passes()) {
 
             // Verification success
             // Update resource
-            $model = $this->model->find($id);
+            $model                   = $this->model->find($id);
             $model->user_id          = Auth::user()->id;
             $model->category_id      = $data['category'];
             $model->title            = e($data['title']);
@@ -214,7 +241,7 @@ class TravelController extends BaseResource
             $thumbnails = $model->thumbnails;
             File::delete(public_path('uploads/travel_large_thumbnails/'.$thumbnails));
 
-            $timeline = Timeline::where('slug', $model->slug)->where('user_id', Auth::user()->id)->first();
+            $timeline   = Timeline::where('slug', $model->slug)->where('user_id', Auth::user()->id)->first();
             $timeline->delete();
 
             $data->delete();
@@ -257,7 +284,6 @@ class TravelController extends BaseResource
         $model               = $this->model->find($id);
         $oldThumbnails       = $model->thumbnails;
         $model->thumbnails   = $hashname;
-        $model->save();
 
         File::delete(
             public_path('uploads/travel_small_thumbnails/'.$oldThumbnails),
@@ -268,9 +294,8 @@ class TravelController extends BaseResource
         $models->filename    = $hashname;
         $models->travel_id   = $id;
         $models->user_id     = Auth::user()->id;
-        $models->save();
 
-        if( $models->save() ) {
+        if($model->save() && $models->save()) {
            return Response::json('success', 200);
         } else {
            return Response::json('error', 400);
@@ -287,18 +312,16 @@ class TravelController extends BaseResource
         $filename = TravelPictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
         $oldImage = $filename->filename;
 
-        if (is_null($filename))
+        if (is_null($filename)) {
             return Redirect::back()->with('error', '没有找到对应的图片');
-        elseif ($filename->delete()) {
-
-        File::delete(
-            public_path('uploads/travel/'.$oldImage)
-        );
+        } elseif ($filename->delete()) {
+            File::delete(
+                public_path('uploads/travel/'.$oldImage)
+            );
             return Redirect::back()->with('success', '图片删除成功。');
-        }
-
-        else
+        } else {
             return Redirect::back()->with('warning', '图片删除失败。');
+        }
     }
 
     /**
@@ -333,8 +356,8 @@ class TravelController extends BaseResource
      */
     public function getIndex()
     {
-        $travel     = Travel::orderBy('created_at', 'desc')->paginate(12);
-        $categories = TravelCategories::orderBy('sort_order')->paginate(6);
+        $travel     = $this->model->orderBy('created_at', 'desc')->where('post_status', 'open')->paginate(12);
+        $categories = TravelCategories::orderBy('sort_order')->where('cat_status', 'open')->paginate(6);
         return View::make('travel.index')->with(compact('travel', 'categories'));
     }
 
@@ -344,8 +367,8 @@ class TravelController extends BaseResource
      */
     public function category($category_id)
     {
-        $travel   = Travel::where('category_id', $category_id)->orderBy('created_at', 'desc')->paginate(6);
-        $categories = TravelCategories::orderBy('sort_order')->get();
+        $travel           = $this->model->where('category_id', $category_id)->orderBy('created_at', 'desc')->paginate(6);
+        $categories       = TravelCategories::orderBy('sort_order')->get();
         $current_category = TravelCategories::where('id', $category_id)->first();
         return View::make('travel.category')->with(compact('travel', 'categories', 'category_id', 'current_category'));
     }
@@ -357,7 +380,7 @@ class TravelController extends BaseResource
      */
     public function show($slug)
     {
-        $travel     = Travel::where('slug', $slug)->first();
+        $travel     = $this->model->where('slug', $slug)->first();
         is_null($travel) AND App::abort(404);
         $categories = TravelCategories::orderBy('sort_order')->get();
         return View::make('travel.show')->with(compact('travel', 'categories'));
@@ -368,12 +391,12 @@ class TravelController extends BaseResource
         // Get comment
         $content = e(Input::get('content'));
         // Check word
-        if (mb_strlen($content)<3)
+        if (mb_strlen($content) < 3)
             return Redirect::back()->withInput()->withErrors($this->messages->add('content', '评论不得少于3个字符。'));
         // Find article
-        $travel = Travel::where('slug', $slug)->first();
+        $travel             = $this->model->where('slug', $slug)->first();
         // Create comment
-        $comment = new TravelComment;
+        $comment            = new TravelComment;
         $comment->content   = $content;
         $comment->travel_id = $travel->id;
         $comment->user_id   = Auth::user()->id;
@@ -396,8 +419,8 @@ class TravelController extends BaseResource
      */
     public function search()
     {
-        $query             = Travel::orderBy('created_at', 'desc');
-        $categories        = TravelCategories::orderBy('sort_order')->get();
+        $query             = $this->model->where('post_status', 'open')->orderBy('created_at', 'desc');
+        $categories        = TravelCategories::where('cat_status', 'open')->orderBy('sort_order')->get();
         // Get search conditions
         switch (Input::get('target')) {
             case 'title':
@@ -409,4 +432,6 @@ class TravelController extends BaseResource
         $datas = $query->paginate(6);
         return View::make('travel.search')->with(compact('datas', 'categories'));
     }
+
+
 }

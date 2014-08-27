@@ -8,8 +8,8 @@ class ArticleController extends BaseController
      */
     public function index()
     {
-        $articles   = Article::orderBy('created_at', 'desc')->paginate(6);
-        $categories = Category::orderBy('sort_order')->paginate(6);
+        $articles   = Article::where('post_status', 'open')->orderBy('created_at', 'desc')->paginate(6);
+        $categories = Category::where('cat_status', 'open')->orderBy('sort_order')->paginate(6);
         return View::make('article.index')->with(compact('articles', 'categories'));
     }
 
@@ -19,7 +19,7 @@ class ArticleController extends BaseController
      */
     public function category($category_id)
     {
-        $articles          = Article::where('category_id', $category_id)->orderBy('created_at', 'desc')->paginate(6);
+        $articles          = Article::where('category_id', $category_id)->orderBy('created_at', 'desc')->where('post_status', 'open')->paginate(6);
         $categories        = Category::orderBy('sort_order')->get();
         $current_category  = Category::where('id', $category_id)->first();
         return View::make('article.category')->with(compact('articles', 'categories', 'category_id', 'current_category'));
@@ -32,7 +32,7 @@ class ArticleController extends BaseController
      */
     public function show($slug)
     {
-        $article           = Article::where('slug', $slug)->first();
+        $article           = Article::where('slug', $slug)->where('post_status', 'open')->first();
         is_null($article) AND App::abort(404);
         $categories        = Category::orderBy('sort_order')->get();
         return View::make('article.show')->with(compact('article', 'categories'));
@@ -44,7 +44,7 @@ class ArticleController extends BaseController
      */
     public function search()
     {
-        $query             = Article::orderBy('created_at', 'desc');
+        $query             = Article::orderBy('created_at', 'desc')->where('post_status', 'open');
         $categories        = Category::orderBy('sort_order')->get();
         // Get search conditions
         switch (Input::get('target')) {
@@ -57,4 +57,6 @@ class ArticleController extends BaseController
         $articles = $query->paginate(6);
         return View::make('article.search')->with(compact('articles', 'categories'));
     }
+
+
 }

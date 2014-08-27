@@ -48,9 +48,15 @@
                                     <span class="text-uppercase">主要内容</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="#tab-album-picture" data-toggle="tab">
+                                    <div class="text-small">Images Management</div>
+                                    <span class="text-uppercase">图片管理</span>
+                                </a>
+                            </li>
                         </ul>
 
-                        <form class="form-horizontal" method="post" action="{{ route($resource.'.store') }}" autocomplete="off" style="padding:1em;border:1px solid #ddd;border-top:0;">
+                        <form class="form-horizontal" method="post" action="{{ route($resource.'.store', $data->id) }}" autocomplete="off" style="padding:1em;border:1px solid #ddd;border-top:0;">
                             {{-- CSRF Token --}}
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
@@ -70,7 +76,6 @@
                                         <label for="sort_order">简介</label>
                                         {{ $errors->first('content', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
                                         <textarea class="form-control" type="text" name="content" id="content" placeholder="请在这里输入话题简介……" rows="9">{{ Input::old('content') }}</textarea>
-                                        {{ $errors->first('content', '<span style="color:#c7254e;margin-top:1em;float:left;">:message</span>') }}
                                     </div>
 
                                     <div class="form-group">
@@ -81,22 +86,82 @@
 
                                 </div>
 
+                                {{-- Album Picture tab --}}
+                                <div class="tab-pane fade p-30" id="tab-album-picture" style="margin:0 1em;">
+
+                                    <div class="table-responsive form-group">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>图片</th>
+                                                    <th>文件名</th>
+                                                    <th style="width:5em;text-align:center;">操作</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if($data->thumbnails)
+                                                <tr>
+                                                    <td>
+                                                        <img width="100" height="100" src="{{ route('home') }}/uploads/travel_category_thumbnails/{{ $data->thumbnails }}">
+                                                    </td>
+                                                    <td>
+                                                        {{ $data->thumbnails }}
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:void(0)" class="btn btn-xs btn-danger"
+                                                        onclick="modal('{{ route($resource.'.deleteUpload', $data->id) }}')">删除图片</a>
+                                                    </td>
+                                                </tr>
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
                             </div>
 
                             {{-- Form actions --}}
                             <div class="control-group p-l-30 p-b-30">
                                 <div class="controls">
                                     <button type="reset" class="btn btn-bordered text-gray-alt">清 空</button>
-                                    <button type="submit" class="btn btn-success">提 交</button>
+                                    <button type="submit" class="btn btn-success">保 存</button>
                                 </div>
                             </div>
                         </form>
                     </div>
+
+                    <div class="p-lr-30 p-tb-10 pm-lr-10">建议上传一张图片作为分类目录封面</div>
+                    <div class="p-lr-30 p-tb-10 pm-lr-10">
+                        <form action="{{ route($resource.'.postUpload', $data->id) }}" class="dropzone" id="upload">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                        </form>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
     {{-- /main content --}}
+    <?php
+    $modalData['modal'] = array(
+        'id'      => 'myModal',
+        'title'   => '系统提示',
+        'message' => '确认删除此图片？',
+        'footer'  =>
+            Form::open(array('id' => 'real-delete', 'method' => 'delete')).'
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">取消</button>
+                <button type="submit" class="btn btn-sm btn-danger">确认删除</button>'.
+            Form::close(),
+    );
+    ?>
+    @include('layout.modal', $modalData)
+    <script>
+        function modal(href)
+        {
+            $('#real-delete').attr('action', href);
+            $('#myModal').modal();
+        }
+    </script>
 </body>
 
 </html>

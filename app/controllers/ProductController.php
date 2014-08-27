@@ -64,15 +64,15 @@ class ProductController extends BaseResource
                 break;
         }
         // Construct query statement
-        $query = $this->model->orderBy($orderColumn, $direction)->where('user_id', Auth::user()->id)->paginate(15);
+        $query = $this->model->orderBy($orderColumn, $direction);
         isset($title) AND $query->where('title', 'like', "%{$title}%");
-        $datas = $query;
+        $datas = $query->where('user_id', Auth::user()->id)->where('post_status', 'open')->paginate(15);
         return View::make($this->resourceView.'.index')->with(compact('datas'));
     }
 
     /**
-     * Resource create view
-     * GET         /resource/create
+     * Resource create
+     * Redirect         {id}/new-post
      * @return Response
      */
     public function create()
@@ -81,9 +81,41 @@ class ProductController extends BaseResource
             return Redirect::route('account.settings')
                     ->with('info', '提示：您需要设定支付宝收款账户才可以发布商品出售信息');
         } else {
-            $categoryLists = ProductCategories::lists('name', 'id');
-            return View::make($this->resourceView.'.create')->with(compact('categoryLists'));
+            $exist = $this->model->where('user_id', Auth::user()->id)->where('post_status', 'close')->first();
+            if($exist)
+            {
+                return Redirect::route($this->resource.'.newPost', $exist->id);
+            } else {
+                $model                   = $this->model;
+                $model->user_id          = Auth::user()->id;
+                $model->category_id      = '';
+                $model->title            = '';
+                $model->slug             = '';
+                $model->quantity         = '';
+                $model->province         = '';
+                $model->city             = '';
+                $model->content          = '';
+                $model->price            = '';
+                $model->meta_title       = '';
+                $model->meta_description = '';
+                $model->meta_keywords    = '';
+                $model->save();
+                return Redirect::route($this->resource.'.newPost', $model->id);
+            }
         }
+    }
+
+    /**
+     * Resource create view
+     * GET         /resource/create
+     * @return Response
+     */
+    public function newPost($id)
+    {
+        $data          = $this->model->find($id);
+        $categoryLists = ProductCategories::lists('name', 'id');
+        $product       = $this->model->where('id', $id)->first();
+        return View::make($this->resourceView.'.create')->with(compact('data', 'categoryLists', 'product'));
     }
 
     /**
@@ -91,7 +123,7 @@ class ProductController extends BaseResource
      * POST        /resource
      * @return Response
      */
-    public function store()
+    public function store($id)
     {
         // Get all form data.
         $data    = Input::all();
@@ -114,8 +146,7 @@ class ProductController extends BaseResource
         if ($validator->passes()) {
             // Verification success
             // Add recource
-            $model                   = $this->model;
-            $model->user_id          = Auth::user()->id;
+            $model                   = $this->model->find($id);
             $model->category_id      = $data['category'];
             $model->title            = e($data['title']);
             $model->province         = e($data['province']);
@@ -127,16 +158,16 @@ class ProductController extends BaseResource
             $model->meta_title       = e($data['title']);
             $model->meta_description = e($data['title']);
             $model->meta_keywords    = e($data['title']);
-            $model->save();
+            $model->post_status      = 'open';
 
             $timeline                = new Timeline;
             $timeline->slug          = $hashslug;
             $timeline->model         = 'Product';
             $timeline->user_id       = Auth::user()->id;
-            if ($timeline->save()) {
+            if ($model->save() && $timeline->save()) {
                 // Add success
-                return Redirect::back()
-                    ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续添加新'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
+                return Redirect::route($this->resource.'.edit', $model->id)
+                    ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续编辑'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
             } else {
                 // Add fail
                 return Redirect::back()
@@ -159,7 +190,7 @@ class ProductController extends BaseResource
     {
         $data          = $this->model->find($id);
         $categoryLists = ProductCategories::lists('name', 'id');
-        $product       = Product::where('slug', $data->slug)->first();
+        $product       = $this->model->where('slug', $data->slug)->first();
         return View::make($this->resourceView.'.edit')->with(compact('data', 'categoryLists', 'product'));
     }
 
@@ -183,14 +214,14 @@ class ProductController extends BaseResource
             'province'     => 'required',
         );
         // Custom validation message
-        $messages = $this->validatorMessages;
+        $messages  = $this->validatorMessages;
         // Begin verification
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->passes()) {
 
             // Verification success
             // Update resource
-            $model = $this->model->find($id);
+            $model                   = $this->model->find($id);
             $model->user_id          = Auth::user()->id;
             $model->category_id      = $data['category'];
             $model->title            = e($data['title']);
@@ -232,16 +263,22 @@ class ProductController extends BaseResource
             return Redirect::back()->with('error', '没有找到对应的'.$this->resourceName.'。');
         elseif ($data)
         {
-            $model      = $this->model->find($id);
-            $thumbnails = $model->thumbnails;
-            File::delete(public_path('uploads/product_thumbnails/'.$thumbnails));
+            $trading = ProductOrder::where('product_id', $id)->where('is_payment', true)->where('is_checkout', false)->first();
+            if($trading)
+            {
+                return Redirect::back()->with('warning', $this->resourceName.'正在交易中，暂时不能删除。');
+            } else {
+                $model      = $this->model->find($id);
+                $thumbnails = $model->thumbnails;
+                File::delete(public_path('uploads/product_thumbnails/'.$thumbnails));
 
-            $timeline = Timeline::where('slug', $model->slug)->where('user_id', Auth::user()->id)->first();
-            $timeline->delete();
+                $timeline = Timeline::where('slug', $model->slug)->where('user_id', Auth::user()->id)->first();
+                $timeline->delete();
 
-            $data->delete();
+                $data->delete();
 
-            return Redirect::back()->with('success', $this->resourceName.'删除成功。');
+                return Redirect::back()->with('success', $this->resourceName.'删除成功。');
+            }
         }
         else
             return Redirect::back()->with('warning', $this->resourceName.'删除失败。');
@@ -278,7 +315,6 @@ class ProductController extends BaseResource
         $model               = $this->model->find($id);
         $oldThumbnails       = $model->thumbnails;
         $model->thumbnails   = $hashname;
-        $model->save();
 
         File::delete(public_path('uploads/product_thumbnails/'.$oldThumbnails));
 
@@ -286,9 +322,8 @@ class ProductController extends BaseResource
         $models->filename    = $hashname;
         $models->product_id  = $id;
         $models->user_id     = Auth::user()->id;
-        $models->save();
 
-        if( $models->save() ) {
+        if($model->save() && $models->save()) {
            return Response::json('success', 200);
         } else {
            return Response::json('error', 400);
@@ -305,18 +340,16 @@ class ProductController extends BaseResource
         $filename = ProductPictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
         $oldImage = $filename->filename;
 
-        if (is_null($filename))
+        if (is_null($filename)) {
             return Redirect::back()->with('error', '没有找到对应的图片');
-        elseif ($filename->delete()) {
-
-        File::delete(
-            public_path('uploads/products/'.$oldImage)
-        );
+        } elseif ($filename->delete()) {
+            File::delete(
+                public_path('uploads/products/'.$oldImage)
+            );
             return Redirect::back()->with('success', '图片删除成功。');
-        }
-
-        else
+        } else {
             return Redirect::back()->with('warning', '图片删除失败。');
+        }
     }
 
     /**
@@ -351,8 +384,8 @@ class ProductController extends BaseResource
      */
     public function getIndex()
     {
-        $product    = Product::orderBy('created_at', 'desc')->where('quantity', '>', '0')->paginate(12);
-        $categories = ProductCategories::orderBy('sort_order')->paginate(6);
+        $product    = $this->model->where('post_status', 'open')->orderBy('created_at', 'desc')->where('quantity', '>', '0')->paginate(12);
+        $categories = ProductCategories::where('cat_status', 'open')->orderBy('sort_order')->paginate(6);
         return View::make('product.index')->with(compact('product', 'categories', 'data'));
     }
 
@@ -362,7 +395,7 @@ class ProductController extends BaseResource
      */
     public function category($category_id)
     {
-        $product          = Product::where('category_id', $category_id)->orderBy('created_at', 'desc')->paginate(6);
+        $product          = $this->model->where('category_id', $category_id)->orderBy('created_at', 'desc')->paginate(6);
         $categories       = ProductCategories::orderBy('sort_order')->get();
         $current_category = ProductCategories::where('id', $category_id)->first();
         return View::make('product.category')->with(compact('product', 'categories', 'category_id', 'current_category'));
@@ -375,7 +408,7 @@ class ProductController extends BaseResource
      */
     public function show($slug)
     {
-        $product    = Product::where('slug', $slug)->first();
+        $product    = $this->model->where('slug', $slug)->first();
         is_null($product) AND App::abort(404);
         $categories = ProductCategories::orderBy('sort_order')->get();
         if (Auth::check())
@@ -445,12 +478,12 @@ class ProductController extends BaseResource
             // Get comment
             $content = e(Input::get('content'));
             // Check word
-            if (mb_strlen($content)<3)
+            if (mb_strlen($content) < 3)
                 return Redirect::back()->withInput()->withErrors($this->messages->add('content', '评论不得少于3个字符。'));
             // Find article
-            $product     = Product::where('slug', $slug)->first();
+            $product             = $this->model->where('slug', $slug)->first();
             // Create comment
-            $comment = new ProductComment;
+            $comment             = new ProductComment;
             $comment->content    = $content;
             $comment->product_id = $product->id;
             $comment->user_id    = Auth::user()->id;
@@ -476,10 +509,10 @@ class ProductController extends BaseResource
                 'inventory'    => 'required',
             );
 
-            if (e($data['inventory'])<e($data['quantity'])) {
+            if (e($data['inventory']) < e($data['quantity'])) {
                 return Redirect::back()
                 ->with('error', '<strong>请输入正确的'.$this->resourceName.'购买数量</strong>');
-            } elseif (Auth::user()->id==e($data['seller_id'])) {
+            } elseif (Auth::user()->id == e($data['seller_id'])) {
                 return Redirect::back()
                 ->with('error', '<strong>您不能购买自己出售的商品</strong>');
             } else {
@@ -494,13 +527,11 @@ class ProductController extends BaseResource
                 // Add recource
                 $model                   = new ShoppingCart;
                 $model->buyer_id         = Auth::user()->id;
-
                 $model->quantity         = e($data['quantity']);
                 $model->product_id       = e($data['product_id']);
                 $model->price            = e($data['price']);
                 $model->payment          = e($data['quantity']) * e($data['price']);
                 $model->seller_id        = e($data['seller_id']);
-                $model->save();
 
                 if ($model->save()) {
                     // Add success
@@ -520,5 +551,6 @@ class ProductController extends BaseResource
         }
 
     }
+
 
 }

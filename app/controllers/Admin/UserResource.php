@@ -146,7 +146,7 @@ class Admin_UserResource extends BaseResource
         if ($validator->passes()) {
             // Verification success
             // Update resource
-            $model = $this->model->find($id);
+            $model           = $this->model->find($id);
             $model->password = Input::get('password');
             $model->email    = Input::get('email');
             $model->is_admin = (int)Input::get('is_admin', 0);
@@ -165,5 +165,6 @@ class Admin_UserResource extends BaseResource
             return Redirect::back()->withInput()->withErrors($validator);
         }
     }
+
 
 }

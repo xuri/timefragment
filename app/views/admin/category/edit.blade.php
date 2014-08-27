@@ -125,12 +125,13 @@
                             <div class="control-group p-l-30 p-b-30">
                                 <div class="controls">
                                     <a class="btn btn-bordered text-gray-alt" href="{{ route($resource.'.edit', $data->id) }}">重 置</a>
-                                    <button type="submit" class="btn btn-success">提 交</button>
+                                    <button type="submit" class="btn btn-success">更 新</button>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div class="p-lr-30 p-tb-10 pm-lr-10">建议上传一张宽高比为1：1的图片作为分类目录封面</div>
+
+                    <div class="p-lr-30 p-tb-10 pm-lr-10">建议上传一张图片作为分类目录封面</div>
                     <div class="p-lr-30 p-tb-10 pm-lr-10">
                         <form action="{{ route($resource.'.postUpload', $data->id) }}" class="dropzone" id="upload">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />

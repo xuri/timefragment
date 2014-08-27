@@ -57,8 +57,8 @@
 			{{-- Text Widget --}}
 			<div class="widget">
 				<?php
-				$announce_category = Category::where('name', '站内简讯')->first();
-		        $announce          = Article::orderBy('created_at', 'desc')->first();
+				$announce_category = Category::where('cat_status', 'open')->where('name', '站内简讯')->first();
+		        $announce          = Article::where('post_status', 'open')->orderBy('created_at', 'desc')->first();
 		        ?>
 				@if( $announce_category )
 				<div class="widget-title">
@@ -83,11 +83,11 @@
 					<h4>热门分享</h4>
 				</div>
 				<?php
-				$posts = Travel::orderBy('comments_count', 'desc')->paginate(4);
+				$posts = Travel::where('post_status', 'open')->orderBy('comments_count', 'desc')->paginate(4);
 		        ?>
 		        @foreach($posts as $post)
 				<div class="post-box">
-					<a href="#"> <img class="img-rounded" src="{{ $post->user->portrait_large }}" width="50" height="50" alt=""> </a>
+					<a href="{{ route('timeline.getTimeline', $post->user->id) }}"> <img class="img-rounded" src="{{ $post->user->portrait_large }}" width="50" height="50" alt=""> </a>
 					<div>
 						<h5><a href="{{ route('travel.show', $post->slug) }}">{{ $post->title }}</a></h5>
 						<small>{{ date("M d, Y",strtotime($post->created_at)) }}</small>
@@ -104,7 +104,7 @@
 				</div>
 				<ul class="widget-tag">
 					<?php
-					$categories = TravelCategories::orderBy('sort_order')->get();
+					$categories = TravelCategories::where('cat_status', 'open')-.orderBy('sort_order')->get();
 					?>
 					@foreach($categories as $category)
 					<li>

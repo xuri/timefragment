@@ -43,19 +43,19 @@ class HomeController extends BaseController {
      */
     public function getIndex()
     {
-        $articles          = Article::orderBy('created_at', 'desc')->paginate(6);
-        $travel            = Travel::orderBy('created_at', 'desc')->paginate(4);
-        $product           = Product::orderBy('created_at', 'desc')->where('quantity', '>', '0')->paginate(12);
-        $productCategories = ProductCategories::orderBy('sort_order')->get();
-        $job               = Job::orderBy('created_at', 'desc')->paginate(4);
-        $categories        = Category::orderBy('sort_order')->get();
+        $articles          = Article::orderBy('created_at', 'desc')->where('post_status', 'open')->paginate(6);
+        $travel            = Travel::orderBy('created_at', 'desc')->where('post_status', 'open')->paginate(4);
+        $product           = Product::orderBy('created_at', 'desc')->where('post_status', 'open')->where('quantity', '>', '0')->paginate(12);
+        $productCategories = ProductCategories::orderBy('sort_order')->where('cat_status', 'open')->get();
+        $job               = Job::orderBy('created_at', 'desc')->where('post_status', 'open')->paginate(4);
+        $categories        = Category::orderBy('sort_order')->where('cat_status', 'open')->get();
         if(Auth::check())
         {
-            $timeline      = Timeline::orderBy('created_at', 'desc')->where('user_id', Auth::user()->id)->get();
+            $timeline      = Timeline::orderBy('created_at', 'desc')->where('user_id', Auth::user()->id)->paginate(6);
         }
         else
         {
-            $timeline      = Timeline::orderBy('created_at', 'desc')->get();
+            $timeline      = Timeline::orderBy('created_at', 'desc');
         }
         return View::make('home.index')->with(compact('articles', 'categories', 'travel', 'product', 'productCategories', 'job', 'timeline'));
     }
@@ -66,15 +66,15 @@ class HomeController extends BaseController {
      */
     public function getVideoIndex()
     {
-        $articles          = Article::orderBy('created_at', 'desc')->paginate(6);
-        $travel            = Travel::orderBy('created_at', 'desc')->paginate(4);
-        $product           = Product::orderBy('created_at', 'desc')->paginate(12);
-        $productCategories = ProductCategories::orderBy('sort_order')->get();
-        $job               = Job::orderBy('created_at', 'desc')->paginate(4);
-        $categories        = Category::orderBy('sort_order')->get();
+        $articles          = Article::orderBy('created_at', 'desc')->where('post_status', 'open')->paginate(6);
+        $travel            = Travel::orderBy('created_at', 'desc')->where('post_status', 'open')->paginate(4);
+        $product           = Product::orderBy('created_at', 'desc')->where('post_status', 'open')->where('quantity', '>', '0')->paginate(12);
+        $productCategories = ProductCategories::orderBy('sort_order')->where('cat_status', 'open')->get();
+        $job               = Job::orderBy('created_at', 'desc')->where('post_status', 'open')->paginate(4);
+        $categories        = Category::orderBy('sort_order')->where('cat_status', 'open')->get();
         if(Auth::check())
         {
-            $timeline      = Timeline::orderBy('created_at', 'desc')->where('user_id', Auth::user()->id)->get();
+            $timeline      = Timeline::orderBy('created_at', 'desc')->where('user_id', Auth::user()->id)->paginate(6);
         }
         else
         {
@@ -89,8 +89,8 @@ class HomeController extends BaseController {
      */
     public function getCategoryArticles($category_id)
     {
-        $articles   = Article::where('category_id', $category_id)->orderBy('created_at', 'desc')->paginate(5);
-        $categories = Category::orderBy('sort_order')->get();
+        $articles   = Article::where('category_id', $category_id)->orderBy('created_at', 'desc')->where('post_status', 'open')->paginate(5);
+        $categories = Category::orderBy('sort_order')->where('cat_status', 'open')->get();
         return View::make('home.category')->with(compact('articles', 'categories', 'category_id'));
     }
 
@@ -101,9 +101,9 @@ class HomeController extends BaseController {
      */
     public function getBlogShow($slug)
     {
-        $article    = Article::where('slug', $slug)->first();
+        $article    = Article::where('slug', $slug)->where('post_status', 'open')->first();
         is_null($article) AND App::abort(404);
-        $categories = Category::orderBy('sort_order')->get();
+        $categories = Category::orderBy('sort_order')->where('cat_status', 'open')->get();
         return View::make('about.show')->with(compact('article', 'categories'));
     }
 
@@ -120,9 +120,9 @@ class HomeController extends BaseController {
         if (mb_strlen($content)<3)
             return Redirect::back()->withInput()->withErrors($this->messages->add('content', '评论不得少于3个字符。'));
         // Find article
-        $article = Article::where('slug', $slug)->first();
+        $article             = Article::where('slug', $slug)->first();
         // Create comment
-        $comment = new Comment;
+        $comment             = new Comment;
         $comment->content    = $content;
         $comment->article_id = $article->id;
         $comment->user_id    = Auth::user()->id;
@@ -153,9 +153,9 @@ class HomeController extends BaseController {
         $verify_result = $alipayNotify->verifyNotify();
 
         if($verify_result) {
-            $out_trade_no = $_POST['out_trade_no']; // Order ID
-            $trade_no     = $_POST['trade_no'];     // Alipay order ID
-            $trade_status = $_POST['trade_status']; // Alipay trade status
+            $out_trade_no                = $_POST['out_trade_no']; // Order ID
+            $trade_no                    = $_POST['trade_no'];     // Alipay order ID
+            $trade_status                = $_POST['trade_status']; // Alipay trade status
 
             $product_order               = ProductOrder::where('order_id', $out_trade_no)->first();
             $product_order->is_payment   = true;

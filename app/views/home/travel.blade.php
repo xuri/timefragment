@@ -39,16 +39,16 @@
 											</p>
 											<ul>
 												<li>
-													<a href="" title="{{ $travel->user->nickname }}的Facebook" alt="{{ $travel->user->nickname }}的Facebook"><i class="fa fa-facebook fa-2x"></i></a>
+													<a href="http://www.linkedin.com/shareArticle?mini=true&url={{ route('travel.show', $travel->slug) }}" title="分享到Linkedin" alt="分享到Linkedin" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
 												</li>
 												<li>
-													<a href="" title="{{ $travel->user->nickname }}的Twitter" alt="{{ $travel->user->nickname }}的Twitter"><i class="fa fa-twitter fa-2x"></i></a>
+													<a href="http://widget.weibo.com/dialog/PublishWeb.php?default_text=分享内容：{{ route('travel.show', $travel->slug) }}（来自 @时光碎片网）&refer=y&language=zh_cn&app_src=2ohpjs&button=pubilish" target="_blank" title="分享到新浪微博" alt="分享到新浪微博"><i class="fa fa-weibo fa-2x"></i></a>
 												</li>
 												<li>
-													<a href="" title="{{ $travel->user->nickname }}的Google+" alt="{{ $travel->user->nickname }}的Google+"><i class="fa fa-google-plus fa-2x"></i></a>
+													<a href="http://v.t.qq.com/share/share.php?url={{ route('travel.show', $travel->slug) }}" title="分享到腾讯微博" alt="分享到腾讯微博" target="_blank"><i class="fa fa-tencent-weibo fa-2x"></i></a>
 												</li>
 												<li>
-													<a href="" title="{{ $travel->user->nickname }}的新浪微博" alt="{{ $travel->user->nickname }}的新浪微博"><i class="fa fa-weibo fa-2x"></i></a>
+													<a href="http://share.renren.com/share/buttonshare.do?link={{ route('travel.show', $travel->slug) }}" title="分享到人人网" alt="分享到人人网" target="_blank"><i class="fa fa-renren fa-2x"></i></a>
 												</li>
 											</ul>
 

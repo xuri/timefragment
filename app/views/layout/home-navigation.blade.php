@@ -25,8 +25,8 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">登陆 / 注册 <i class="fa fa-angle-down"></i></a>
 					<ul class="dropdown-menu">
-						<li><a href="{{ route('signup') }}">立即注册</a></li>
-						<li><a href="{{ route('signin') }}">已有账号登陆</a></li>
+						<li><a href="{{ route('signup') }}"><i class="fa fa-ellipsis-h"></i> &nbsp; 立即注册</a></li>
+						<li><a href="{{ route('signin') }}"><i class="fa fa-sign-in"></i> &nbsp; 已有账号登陆</a></li>
 					</ul>
 				</li>
 				@elseif(! Auth::user()->is_admin){{--普通登录用户--}}
@@ -37,8 +37,8 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> {{ Auth::user()->email }} <i class="fa fa-angle-down"></i></a>
 					@endif
 					<ul class="dropdown-menu">
-						<li><a href="{{ route('account') }}">仪表盘</a></li>
-						<li><a href="{{ route('signout') }}">退出登录</a></li>
+						<li><a href="{{ route('account') }}"><i class="fa fa-dashboard"></i> &nbsp; 仪表盘</a></li>
+						<li><a href="{{ route('signout') }}"><i class="fa fa-sign-out"></i> &nbsp; 退出登录</a></li>
 					</ul>
 				</li>
 				@elseif(Auth::user()->is_admin){{--管理员--}}
@@ -49,9 +49,9 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> {{ Auth::user()->email }} <i class="fa fa-angle-down"></i></a>
 					@endif
 					<ul class="dropdown-menu">
-			            <li><a href="{{ route('account') }}">仪表盘</a></li>
-			            <li><a href="{{ route('admin') }}">控制面板</a></li>
-			            <li><a href="{{ route('signout') }}">退出登录</a></li>
+			            <li><a href="{{ route('account') }}"><i class="fa fa-dashboard"></i> &nbsp; 仪表盘</a></li>
+			            <li><a href="{{ route('admin') }}"><i class="fa fa-cogs"></i> &nbsp; 控制面板</a></li>
+			            <li><a href="{{ route('signout') }}"><i class="fa fa-sign-out"></i> &nbsp; 退出登录</a></li>
 					</ul>
 				</li>
 				@endif

@@ -62,10 +62,37 @@ class JobController extends BaseResource
                 break;
         }
         // Construct query statement
-        $query = $this->model->orderBy($orderColumn, $direction)->where('user_id', Auth::user()->id)->paginate(15);
+        $query = $this->model->orderBy($orderColumn, $direction);
         isset($title) AND $query->where('title', 'like', "%{$title}%");
-        $datas = $query;
+        $datas = $query->where('user_id', Auth::user()->id)->where('post_status', 'open')->paginate(15);
         return View::make($this->resourceView.'.index')->with(compact('datas'));
+    }
+
+    /**
+     * Resource create
+     * Redirect         {id}/new-post
+     * @return Response
+     */
+    public function create()
+    {
+        $exist = $this->model->where('user_id', Auth::user()->id)->where('post_status', 'close')->first();
+        if($exist)
+        {
+            return Redirect::route($this->resource.'.newPost', $exist->id);
+        } else {
+            $model                   = $this->model;
+            $model->user_id          = Auth::user()->id;
+            $model->category_id      = '';
+            $model->location         = '';
+            $model->title            = '';
+            $model->slug             = '';
+            $model->content          = '';
+            $model->meta_title       = '';
+            $model->meta_description = '';
+            $model->meta_keywords    = '';
+            $model->save();
+            return Redirect::route($this->resource.'.newPost', $model->id);
+        }
     }
 
     /**
@@ -73,10 +100,12 @@ class JobController extends BaseResource
      * GET         /resource/create
      * @return Response
      */
-    public function create()
+    public function newPost($id)
     {
+        $data          = $this->model->find($id);
         $categoryLists = JobCategories::lists('name', 'id');
-        return View::make($this->resourceView.'.create')->with(compact('categoryLists'));
+        $job           = $this->model->where('id', $id)->first();
+        return View::make($this->resourceView.'.create')->with(compact('data', 'categoryLists', 'job'));
     }
 
     /**
@@ -84,7 +113,7 @@ class JobController extends BaseResource
      * POST        /resource
      * @return Response
      */
-    public function store()
+    public function store($id)
     {
         // Get all form data.
         $data   = Input::all();
@@ -105,8 +134,7 @@ class JobController extends BaseResource
         if ($validator->passes()) {
             // Verification success
             // Add resource
-            $model                   = $this->model;
-            $model->user_id          = Auth::user()->id;
+            $model                   = $this->model->find($id);
             $model->category_id      = $data['category'];
             $model->title            = e($data['title']);
             $model->location         = e($data['location']);
@@ -115,17 +143,17 @@ class JobController extends BaseResource
             $model->meta_title       = e($data['title']);
             $model->meta_description = e($data['title']);
             $model->meta_keywords    = e($data['title']);
-            $model->save();
+            $model->post_status      = 'open';
 
             $timeline                = new Timeline;
             $timeline->slug          = $hashslug;
             $timeline->model         = 'Job';
             $timeline->user_id       = Auth::user()->id;
 
-            if ($timeline->save()) {
+            if ($model->save() && $timeline->save()) {
                 // Add success
-                return Redirect::back()
-                    ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续添加新'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
+                return Redirect::route($this->resource.'.edit', $model->id)
+                    ->with('success', '<strong>'.$this->resourceName.'添加成功：</strong>您可以继续编辑'.$this->resourceName.'，或返回'.$this->resourceName.'列表。');
             } else {
                 // Add fail
                 return Redirect::back()
@@ -148,7 +176,7 @@ class JobController extends BaseResource
     {
         $data          = $this->model->find($id);
         $categoryLists = JobCategories::lists('name', 'id');
-        $job           = Job::where('slug', $data->slug)->first();
+        $job           = $this->model->where('slug', $data->slug)->first();
         return View::make($this->resourceView.'.edit')->with(compact('data', 'categoryLists', 'job'));
     }
 
@@ -177,7 +205,7 @@ class JobController extends BaseResource
 
             // Verification success
             // Update resource
-            $model = $this->model->find($id);
+            $model                   = $this->model->find($id);
             $model->user_id          = Auth::user()->id;
             $model->category_id      = $data['category'];
             $model->location         = e($data['location']);
@@ -220,7 +248,7 @@ class JobController extends BaseResource
             $thumbnails = $model->thumbnails;
             File::delete(public_path('uploads/job_thumbnails/'.$thumbnails));
 
-            $timeline = Timeline::where('slug', $model->slug)->where('user_id', Auth::user()->id)->first();
+            $timeline   = Timeline::where('slug', $model->slug)->where('user_id', Auth::user()->id)->first();
             $timeline->delete();
 
             $data->delete();
@@ -262,7 +290,6 @@ class JobController extends BaseResource
         $model               = $this->model->find($id);
         $oldThumbnails       = $model->thumbnails;
         $model->thumbnails   = $hashname;
-        $model->save();
 
         File::delete(public_path('uploads/job_thumbnails/'.$oldThumbnails));
 
@@ -270,9 +297,8 @@ class JobController extends BaseResource
         $models->filename    = $hashname;
         $models->job_id      = $id;
         $models->user_id     = Auth::user()->id;
-        $models->save();
 
-        if( $models->save() ) {
+        if($model->save() && $models->save()) {
            return Response::json('success', 200);
         } else {
            return Response::json('error', 400);
@@ -289,18 +315,16 @@ class JobController extends BaseResource
         $filename = JobPictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
         $oldImage = $filename->filename;
 
-        if (is_null($filename))
+        if (is_null($filename)) {
             return Redirect::back()->with('error', '没有找到对应的图片');
-        elseif ($filename->delete()) {
-
-        File::delete(
-            public_path('uploads/job/'.$oldImage)
-        );
+        } elseif ($filename->delete()) {
+            File::delete(
+                public_path('uploads/job/'.$oldImage)
+            );
             return Redirect::back()->with('success', '图片删除成功。');
-        }
-
-        else
+        } else {
             return Redirect::back()->with('warning', '图片删除失败。');
+        }
     }
 
     /**
@@ -335,8 +359,8 @@ class JobController extends BaseResource
      */
     public function getIndex()
     {
-        $job        = Job::orderBy('created_at', 'desc')->paginate(12);
-        $categories = JobCategories::orderBy('sort_order')->paginate(6);
+        $job        = $this->model->where('post_status', 'open')->orderBy('created_at', 'desc')->paginate(12);
+        $categories = JobCategories::where('cat_status', 'open')->orderBy('sort_order')->paginate(6);
         return View::make('job.index')->with(compact('job', 'categories', 'data'));
     }
 
@@ -346,7 +370,7 @@ class JobController extends BaseResource
      */
     public function category($category_id)
     {
-        $job              = Job::where('category_id', $category_id)->orderBy('created_at', 'desc')->paginate(6);
+        $job              = $this->model->where('category_id', $category_id)->orderBy('created_at', 'desc')->paginate(6);
         $categories       = JobCategories::orderBy('sort_order')->get();
         $current_category = JobCategories::where('id', $category_id)->first();
         return View::make('job.category')->with(compact('job', 'categories', 'category_id', 'current_category'));
@@ -359,7 +383,7 @@ class JobController extends BaseResource
      */
     public function show($slug)
     {
-        $job        = Job::where('slug', $slug)->first();
+        $job        = $this->model->where('slug', $slug)->first();
         is_null($job) AND App::abort(404);
         $categories = JobCategories::orderBy('sort_order')->get();
         return View::make('job.show')->with(compact('job', 'categories'));
@@ -373,12 +397,12 @@ class JobController extends BaseResource
         if (mb_strlen($content)<3)
             return Redirect::back()->withInput()->withErrors($this->messages->add('content', '评论不得少于3个字符。'));
         // Find article
-        $job     = Job::where('slug', $slug)->first();
+        $job              = $this->model->where('slug', $slug)->first();
         // Create comment
-        $comment = new JobComment;
-        $comment->content   = $content;
-        $comment->job_id    = $job->id;
-        $comment->user_id   = Auth::user()->id;
+        $comment          = new JobComment;
+        $comment->content = $content;
+        $comment->job_id  = $job->id;
+        $comment->user_id = Auth::user()->id;
         if ($comment->save()) {
             // Create success
             // Updated comments
@@ -398,7 +422,7 @@ class JobController extends BaseResource
      */
     public function search()
     {
-        $query             = Job::orderBy('created_at', 'desc');
+        $query             = $this->model->orderBy('created_at', 'desc');
         $categories        = JobCategories::orderBy('sort_order')->get();
         // Get search conditions
         switch (Input::get('target')) {
@@ -411,4 +435,6 @@ class JobController extends BaseResource
         $datas = $query->paginate(6);
         return View::make('job.search')->with(compact('datas', 'categories'));
     }
+
+
 }
