@@ -338,3 +338,10 @@
 		font-size: 60px;
 	}
 }
+
+/* Medium devices (Medium desktops, 767px and 1207px) */
+@media (min-width: 767px) and (max-width: 1207px){
+	#home .section-title h1 i{
+		font-size: 80%;
+	}
+}
