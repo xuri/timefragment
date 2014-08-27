@@ -58,9 +58,9 @@
 			<div class="widget">
 				<?php
 				$announce_category = Category::where('cat_status', 'open')->where('name', '站内简讯')->first();
-		        $announce          = Article::where('post_status', 'open')->orderBy('created_at', 'desc')->first();
+		        $announce          = Article::where('post_status', 'open')->where('category_id', $announce_category->id)->orderBy('created_at', 'desc')->first();
 		        ?>
-				@if( $announce_category )
+				@if($announce)
 				<div class="widget-title">
 					<h4><a href="{{ route('article.category'), $announce_category->id }}">站内简讯</a></h4>
 				</div>
