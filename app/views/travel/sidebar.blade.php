@@ -104,7 +104,7 @@
 				</div>
 				<ul class="widget-tag">
 					<?php
-					$categories = TravelCategories::where('cat_status', 'open')-.orderBy('sort_order')->get();
+					$categories = TravelCategories::where('cat_status', 'open')->orderBy('sort_order')->get();
 					?>
 					@foreach($categories as $category)
 					<li>
