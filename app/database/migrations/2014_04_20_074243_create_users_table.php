@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration {
 	        $table->text('home_province')->nullable();
 	        $table->text('home_city')->nullable();
 	        $table->text('home_address')->nullable();
-	        $table->string('bound_type')->default('0');
+	        $table->string('bound_type')->default('1');
 	        $table->string('alipay')->nullable();
 	        $table->string('phone')->nullable();
 	        $table->string('portrait')->nullable();
