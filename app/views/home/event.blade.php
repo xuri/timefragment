@@ -89,13 +89,13 @@
 						@endforeach
 					</ol>
 				</div>
-				@else
-				@endif
 				<div class="mybutton small">
 					<a href="{{ route('timeline') }}">
 						<span data-hover="查看更多">我的时间线</span>
 					</a>
 				</div>
+				@else
+				@endif
 			</div>
 		</section>
 		{{-- Blog Section --}}

@@ -22,9 +22,9 @@
 Route::group(array(), function () {
     $controller = 'HomeController@';
     # Homepage
-    # Route::get(            '/', array('as' => 'home'             , 'uses' => $controller.'getIndex'     ));
+    Route::get(            '/', array('as' => 'home'             , 'uses' => $controller.'getIndex'     ));
     # Homepage with Video
-    Route::get(          '/', array('as' => 'home'             , 'uses' => $controller.'getVideoIndex'));
+    # Route::get(          '/', array('as' => 'home'             , 'uses' => $controller.'getVideoIndex'));
     # Category
     Route::get(     'category', array('as' => 'category'         , 'uses' => $controller.'getCategory'  ));
     # Portfolio
