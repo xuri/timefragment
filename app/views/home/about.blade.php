@@ -21,7 +21,7 @@
 			</div>
 			{{-- Section title --}}
 
-			<div class="row">
+			<div class="col-m-12">
 				{{-- item media --}}
 				@foreach($articles as $article)
 				@if($article->article_icon)
