@@ -1,6 +1,6 @@
 @include('layout.header')
 @yield('content')
-	<meta content="15; {{ route('home') }}" http-equiv="refresh">
+	<meta content="600; {{ route('home') }}" http-equiv="refresh">
 	<body data-spy="scroll" data-target=".navbar" data-offset="75">
 
 		{{-- Intro loader --}}
