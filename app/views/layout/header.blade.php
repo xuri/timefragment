@@ -45,7 +45,7 @@
 
 		{{-- WARNING: Respond.js doesn't work if you view the page via file:// --}}
 
-		<!--[if lte IE 8]>
+		<!--[if lte IE 9]>
 		<script type=text/javascript>window.location.href="{{ route('browser_not_support') }}";  </script>
 		<![endif]-->
 
