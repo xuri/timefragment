@@ -1,4 +1,4 @@
-<div class="sidebar bg-gray-dark text-white text-center pushy pushy-left" style="left: 0; !important">
+<div class="sidebar bg-gray-dark text-white text-center pushy pushy-left">
     <header class="bg-g-ln-gray p-tb-30 pm-tb-10 p-lr-10 b-bot-2px-gray-dark hidden-xs">
         <a href="index.html#" data-target="#avatar-toggle" class="hover-no-underline dropdown-toggle" data-toggle="dropdown">
             <img class="img-circle" width="35" src="{{ Auth::user()->portrait_large }}">
