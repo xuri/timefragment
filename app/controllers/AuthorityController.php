@@ -91,10 +91,10 @@ class AuthorityController extends BaseController
                 $activation->save();
                 // Send activation mail
                 $with = array('activationCode' => $activation->token);
-                Mail::send('authority.email.activation', $with, function ($message) use ($user) {
+                Mail::later(10, 'authority.email.activation', $with, function ($message) use ($user) {
                     $message
                         ->to($user->email)
-                        ->subject('时光碎片 账号激活邮件'); // 标题
+                        ->subject('时光碎片 账号激活邮件'); // Subject
                 });
                 // Redirect to a registration page, prompts user to activate
                 return Redirect::route('signupSuccess', $user->email);

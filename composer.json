@@ -10,7 +10,9 @@
 		"michelf/php-markdown": "1.4.*@dev",
 		"nickcernis/html-to-markdown": "dev-master",
 		"symfony/validator": "2.6.*@dev",
-		"symfony/expression-language": "2.6.*@dev"
+		"symfony/expression-language": "2.6.*@dev",
+		"jenssegers/agent": "*",
+		"pda/pheanstalk": "2.0."
 	},
 	"autoload": {
 		"classmap": [

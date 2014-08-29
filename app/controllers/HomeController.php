@@ -15,27 +15,12 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	// public function showWelcome()
-	// {
-	// 	return View::make('hello');
-	// }
-
     /*
     |--------------------------------------------------------------------------
     | Homepage Controller
     |--------------------------------------------------------------------------
     |
     */
-
-    public function getCategory()
-    {
-       return View::make('home.category');
-    }
-
-    public function getPortfolio()
-    {
-       return View::make('home.portfolio');
-    }
 
     /**
      * View: Index
@@ -58,29 +43,6 @@ class HomeController extends BaseController {
             $timeline      = Timeline::orderBy('created_at', 'desc');
         }
         return View::make('home.index')->with(compact('articles', 'categories', 'travel', 'product', 'productCategories', 'job', 'timeline'));
-    }
-
-    /**
-     * View: Video index
-     * @return Respanse
-     */
-    public function getVideoIndex()
-    {
-        $articles          = Article::orderBy('created_at', 'desc')->where('post_status', 'open')->paginate(6);
-        $travel            = Travel::orderBy('created_at', 'desc')->where('post_status', 'open')->paginate(4);
-        $product           = Product::orderBy('created_at', 'desc')->where('post_status', 'open')->where('quantity', '>', '0')->paginate(12);
-        $productCategories = ProductCategories::orderBy('sort_order')->where('cat_status', 'open')->get();
-        $job               = Job::orderBy('created_at', 'desc')->where('post_status', 'open')->paginate(4);
-        $categories        = Category::orderBy('sort_order')->where('cat_status', 'open')->get();
-        if(Auth::check())
-        {
-            $timeline      = Timeline::orderBy('created_at', 'desc')->where('user_id', Auth::user()->id)->paginate(6);
-        }
-        else
-        {
-            $timeline      = Timeline::orderBy('created_at', 'desc')->get();
-        }
-        return View::make('home.videoindex')->with(compact('articles', 'categories', 'travel', 'product', 'productCategories', 'job', 'timeline'));
     }
 
     /**

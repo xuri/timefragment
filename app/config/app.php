@@ -107,6 +107,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         'Intervention\Image\ImageServiceProvider',
+        'Jenssegers\Agent\AgentServiceProvider',
 	),
 
 	/*
@@ -136,6 +137,7 @@ return array(
 	'aliases' => array(
 
 		'App'             => 'Illuminate\Support\Facades\App',
+		'Agent'           => 'Jenssegers\Agent\Facades\Agent',
 		'Artisan'         => 'Illuminate\Support\Facades\Artisan',
 		'Auth'            => 'Illuminate\Support\Facades\Auth',
 		'Blade'           => 'Illuminate\Support\Facades\Blade',
