@@ -236,7 +236,7 @@
 
                     </div>
 
-                    <div class="p-lr-30 p-tb-10 pm-lr-10">上传创意图片，这些图片会显示在创意展示页面，推荐尺寸：1024px × 683px</div>
+                    <div class="p-lr-30 p-tb-10 pm-lr-10">上传图片</div>
                     <div class="p-lr-30 p-tb-10 pm-lr-10">
                         <form action="{{ route($resource.'.postUpload', $data->id) }}" class="dropzone" id="upload" method="post">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
