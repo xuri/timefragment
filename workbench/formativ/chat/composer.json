@@ -3,9 +3,8 @@
     "description": "",
     "authors": [
         {
-            "name": "",
-            "email": ""
-        }
+            "name": "luxurioust"
+	}
     ],
     "require": {
         "php": ">=5.4.0",

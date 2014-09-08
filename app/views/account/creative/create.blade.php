@@ -34,8 +34,8 @@
                         </div>
 
                         <span class="text-gray-dark text-large align-with-button m-r-30">
-								添加新{{ $resourceName }}
-						</span>
+                                添加新{{ $resourceName }}
+                        </span>
 
                     </div>
 
@@ -167,9 +167,14 @@
             @yield('content')
 
         </div>
+
+
         {{-- /.row --}}
 
     </div>
+
+    @include('layout.account-chat')
+    @yield('content')
 
     <?php
     $modalData['modal'] = array(

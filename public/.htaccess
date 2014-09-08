@@ -1,4 +1,3 @@
-
 # BEGIN
 <IfModule mod_rewrite.c>
 RewriteEngine On
@@ -10,5 +9,4 @@ RewriteRule . /index.php [L]
 RewriteCond %{HTTP_HOST} ^(timefragment\.com)(:80)? [NC]
 RewriteRule ^(.*)$ http://www.timefragment.com/$1 [L,R=301]
 </IfModule>
-
 # END

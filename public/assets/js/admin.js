@@ -1,34 +1,12 @@
 (function() {
 	$(document).ready(function() {
 		var addMessage, animateSidebarChart, data, events, inboxMessages, listItem, listSortable, makeMessageString, makeReplyString, sidebarChart, someday, stats_shown, taskInput, today, tomorrow, uiChart1, uiChart2, uiChart3, uiPieChart, uiPieChart2;
-		return makeMessageString = function(content) {
-			return "<li class='right'><img src='placeholders/avatars/9.jpg' class='img-circle'><div class='message'>" + content + "</div></li>"
-		}, makeReplyString = function(content) {
-			return "<li><img src='placeholders/avatars/avatar.jpg' class='img-circle' width='26'><div class='message'>" + content + "</div></li>"
-		}, addMessage = function(content, reply) {
-			var message, messages;
-			return null == reply && (reply = !1), messages = $(".chat-messages"), message = reply ? makeReplyString(content) : makeMessageString(content), messages.append(message), messages.scrollTop(messages.height())
-		}, $(".messenger").length > 0 && (addMessage("Hey, how are you?"), setTimeout(function() {
-			return addMessage("You like Sugoi Admin?")
-		}, 5e3), setTimeout(function() {
-			return addMessage("Quiet slick, isn't it? Have a look at widgets page and remember - there's a lot more coming soon!")
-		}, 12e3), $("#message-input").keyup(function(e) {
+		$(".messenger").length > 0 && ( $("#message-input").keyup(function(e) {
 			return 13 === e.keyCode ? (addMessage($(this).val(), !0), $(this).val("")) : void 0
-		}), $("#chat-toggle").on("click", function() {
+		}),
+		$("#chat-toggle").on("click", function() {
 			return $(".messenger-body").toggleClass("open"), $("#chat-toggle .glyphicon").toggleClass("glyphicon-chevron-down glyphicon-chevron-up")
 		})),
-		// Messages Notification
-		// $("#inbox-page").length > 0 && $.notify("You've got 4 new messages", "success", {
-		// 	autoHide: !0,
-		// 	autoHideDelay: 5e3,
-		// 	arrowShow: !1
-		// }),
-		// Welcome Notification
-		// $("#dashboard-page").length > 0 && $.notify('欢迎回来 ' + $(".text-gray-light").html(), "info", {
-		// 	autoHide: !0,
-		// 	autoHideDelay: 5e3,
-		// 	arrowShow: !1
-		// }),
 		$(".mosaicflow__item").each(function() {
 			var path, pathConfig, s;
 			return s = Snap(this.querySelector("svg")), path = s.select("path"), pathConfig = {
@@ -70,9 +48,6 @@
 			}
 		}), animateSidebarChart = function() {
 			var random;
-			// return random = Math.round(99 * Math.random() + 1), setTimeout(function() {
-			// 	return $(".sidebar-chart").data("easyPieChart").update(random), animateSidebarChart()
-			// }, 5e3)
 		}, animateSidebarChart(), inboxMessages = $(".messages-selectable"), inboxMessages.length > 0 && inboxMessages.on("click", "a", function(e) {
 			return e.preventDefault(), $(this).toggleClass("active")
 		}), listSortable = $(".list-editable"), listSortable.length > 0 && (listItem = $("#item-template").clone(), taskInput = $("#task-content"), $("#task-toggle").on("click", function(e) {
@@ -116,19 +91,6 @@
 			description: "",
 			url: ""
 		},
-		// {
-		// 	date: tomorrow,
-		// 	type: "meeting",
-		// 	title: "Pellentesque Parturient Dolor",
-		// 	description: "Donec ullamcorper nulla non metus auctor fringilla.",
-		// 	url: "http://www.event1.com/"
-		// }, {
-		// 	date: someday,
-		// 	type: "meeting",
-		// 	title: "Ligula",
-		// 	description: "Nulla vitae elit libero, a pharetra augue.",
-		// 	url: "http://www.event1.com/"
-		// }
 		], $("#events-calendar").eventCalendar({
 			jsonData: events,
 			jsonDateFormat: "human"

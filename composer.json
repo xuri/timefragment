@@ -4,15 +4,17 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.2.*",
-		"yzalis/identicon": "1.0.*@dev",
-		"intervention/image": "dev-master",
-		"michelf/php-markdown": "1.4.*@dev",
+		"laravel/framework"          : "4.2.*",
+		"yzalis/identicon"           : "1.0.*@dev",
+		"intervention/image"         : "dev-master",
+		"michelf/php-markdown"       : "1.4.*@dev",
 		"nickcernis/html-to-markdown": "dev-master",
-		"symfony/validator": "2.6.*@dev",
+		"symfony/validator"          : "2.6.*@dev",
 		"symfony/expression-language": "2.6.*@dev",
-		"jenssegers/agent": "*",
-		"pda/pheanstalk": "2.0."
+		"jenssegers/agent"           : "*",
+		"pda/pheanstalk"             : "2.0.",
+		"cboden/ratchet"             : "0.3.*",
+		"brainboxlabs/brain-socket"  : "dev-master"
 	},
 	"autoload": {
 		"classmap": [
@@ -22,7 +24,10 @@
 			"app/database/migrations",
 			"app/database/seeds",
 			"app/tests/TestCase.php"
-		]
+		],
+		"psr-0": {
+            "Formativ\\Chat": "workbench/formativ/chat/src/"
+        }
 	},
 	"scripts": {
 		"post-install-cmd": [

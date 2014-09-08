@@ -112,6 +112,9 @@
 
     </div>
 
+    @include('layout.account-chat')
+    @yield('content')
+
 </body>
 
 </html>

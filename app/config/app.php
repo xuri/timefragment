@@ -108,6 +108,8 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         'Intervention\Image\ImageServiceProvider',
         'Jenssegers\Agent\AgentServiceProvider',
+        'Formativ\Chat\ChatServiceProvider',
+        'BrainSocket\BrainSocketServiceProvider',
 	),
 
 	/*
@@ -177,6 +179,7 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
+		'BrainSocket'     => 'BrainSocket\BrainSocketFacade',
 	),
 
 	/*

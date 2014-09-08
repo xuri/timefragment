@@ -62,6 +62,9 @@
         {{ HTML::script('assets/js/lib/city.js') }}
         {{ HTML::script('assets/js/lib/notify.js') }}
 
+        {{-- Real Time Chat --}}
+        {{ HTML::script('assets/brainsocket/lib/brain-socket.min.js') }}
+
         {{-- WARNING: Respond.js doesn't work if you view the page via file:// --}}
 
             <!--[if lt IE 9]>

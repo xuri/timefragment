@@ -269,6 +269,9 @@
         {{-- /.row --}}
     </div>
 
+    @include('layout.account-chat')
+    @yield('content')
+
     <?php
     $modalData['modal'] = array(
         'id'      => 'myModal',
