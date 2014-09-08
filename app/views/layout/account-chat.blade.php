@@ -26,7 +26,7 @@
         window.app = {};
 
         app.BrainSocket = new BrainSocket(
-                new WebSocket('ws://www.timefragment.com:8080'),
+                new WebSocket('ws://104.131.228.190:8080'),
                 // new WebSocket('ws://localhost:8080'),
                 new BrainSocketPubSub()
         );
