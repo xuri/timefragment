@@ -20,7 +20,7 @@
 
 <script type="text/javascript" charset="utf-8">
 
-    $(function(){
+    $(document).ready(function(){
 
         var fake_user_id = {{ Auth::user()->id }};
         // make sure to update the port number if your ws server is running on a different one.
