@@ -16,7 +16,7 @@
 			</div>
 		</div>
 		{{-- Intro loader --}}
-		@if(Agent::isMobile() || Agent::isTablet())
+
 		{{-- Home Section --}}
 		<section id="home">
 
@@ -97,142 +97,7 @@
 			</div>
 		</section>
 		{{-- Home Section --}}
-		@else
-		{{-- Home Section --}}
-		<section id="home">
-			<div>
-				<a id="video-volume" onclick="jQuery('#bgndVideo').toggleVolume()">
-					<i class="fa fa-volume-down"></i>
-				</a>
 
-				<div id="div" style="width:100%; height:100%; position:absolute; overflow:hidden;">
-					<video id="video" style="position:absolute; width:100%;">
-						<source src="{{ route('home') }}/uploads/video/media.webm" />
-						<source src="{{ route('home') }}/uploads/video/media.mp4" />
-						<source src="{{ route('home') }}/uploads/video/media.ogg" />
-						<source src="{{ route('home') }}/uploads/video/media.mpeg4" />
-						{{-- IE Support--}}
-					</video>
-				</div>
-
-				<div style="width:100%; height:100%; position:absolute; top:0px; background:rgba(0,0,0,0)" id="fullscreen-slider">
-
-					{{-- Slider item --}}
-					<div class="slider-item">
-						{{HTML::image('images/header_bg3.png')}}
-						<div class="pattern">
-							<div class="slide-content">
-
-								{{-- Section title --}}
-								<div class="section-title text-center">
-									<div>
-										<span class="line big"></span>
-										<span>欢迎来到</span>
-										<span class="line big"></span>
-									</div>
-									<h1>时光碎片<i>时光不老，我们不散</i></h1>
-									<div class="hidden-xs">
-					                  <span class="line"></span>
-					                  <span>有关琐碎时间的高效利用</span>
-					                  <span class="line"></span>
-					                </div>
-									<p class="lead">
-										一场关于新奇与创意的探险
-									</p>
-									<div class="mybutton ultra">
-										<a class="start-button" href="#about"> <span data-hover="从这里开始!">你，准备好了吗?</span> </a>
-									</div>
-								</div>
-								{{-- Section title --}}
-
-							</div>
-						</div>
-					</div>
-					{{-- Slider item --}}
-
-					{{-- Slider item --}}
-					<div class="slider-item">
-						{{HTML::image('images/header_bg3.png')}}
-						<div class="pattern">
-							<div class="slide-content">
-
-								{{-- Section title --}}
-								<div class="section-title text-center">
-									<div>
-										<span class="line big"></span>
-										<span>小智慧·大人生</span>
-										<span class="line big"></span>
-									</div>
-									<h1>时光碎片<i>岁月静好，年华无伤</i></h1>
-					                <div class="hidden-xs">
-					                  <span class="line"></span>
-					                  <span>有关琐碎时间的高效利用</span>
-					                  <span class="line"></span>
-					                </div>
-									<p class="lead">
-										时尚生活与创意设计的探索者
-									</p>
-									<div class="mybutton ultra">
-										<a class="start-button" href="#about"> <span data-hover="关于我们">从这里开始</span> </a>
-									</div>
-								</div>
-								{{-- Section title --}}
-
-							</div>
-						</div>
-					</div>
-					{{-- Slider item --}}
-				</div>
-
-			</div>
-		</section>
-		{{-- Home Section --}}
-		<script type="text/javascript">
-			var oDiv=document.getElementById('div');
-			var oV=document.getElementById('video');
-			var oW=document.getElementById('video-volume');
-			oW.onclick=function(){
-				if(oV.muted==false){
-					oV.muted=true;
-				}else{
-					oV.muted=false;
-				}
-			}
-			oV.muted=true;
-				if(oV.offsetHeight<oDiv.offsetHeight){
-					oV.style.height='100%';
-					oV.style.width='';
-					oV.style.top=0;
-
-				}else if(oV.offsetWidth<oDiv.offsetWidth){
-					oV.style.width='100%';
-					oV.style.height='';
-					oV.style.left=0;
-				}
-				oV.style.top=(oDiv.offsetHeight-oV.offsetHeight)/2+'px';
-				oV.style.left=(oDiv.offsetWidth-oV.offsetWidth)/2+'px';
-			window.onresize=function(){
-				if(oV.offsetHeight<oDiv.offsetHeight){
-					oV.style.height='100%';
-					oV.style.width='';
-					oV.style.top=0;
-
-				}else if(oV.offsetWidth<oDiv.offsetWidth){
-					oV.style.width='100%';
-					oV.style.height='';
-					oV.style.left=0;
-				}
-				oV.style.top=(oDiv.offsetHeight-oV.offsetHeight)/2+'px';
-				oV.style.left=(oDiv.offsetWidth-oV.offsetWidth)/2+'px';
-			}
-			var oI=document.getElementById('intro-loader');
-			setInterval(function(){
-				if(oI.style.display=='none'){
-					oV.play();
-				}
-			},1);
-		</script>
-		@endif
 
 		@include('layout.home-navigation')
 		@yield('content')

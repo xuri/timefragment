@@ -19,6 +19,7 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
+
     $(function(){
 
         var fake_user_id = {{ Auth::user()->id }};
@@ -27,17 +28,19 @@
 
         app.BrainSocket = new BrainSocket(
                 new WebSocket('ws://104.131.228.190:8080'),
-                // new WebSocket('ws://localhost:8080'),
                 new BrainSocketPubSub()
         );
 
         app.BrainSocket.Event.listen('generic.event',function(msg){
             console.log(msg);
             if(msg.client.data.user_id == fake_user_id){
-                $('#chat-log').append('<li><img src="{{ Auth::user()->portrait_small }}" class="img-circle" width="26"><div class="message">'+msg.client.data.message+'</div></li>');
+                var new_entry = '<li><img src="{{ Auth::user()->portrait_small }}" class="img-circle" width="26"><div class="message" style="min-height: 29px;">'+msg.client.data.message+'</div></li>';
+                $("#chat-log").append(new_entry);
+                $("#chat-log").fadeIn({ scrollTop: 50000 }, "slow");
             }else{
-                var str_test='<li class="right"><img src="'+msg.client.data.user_portrait+'" class="img-circle" width="26"><div class="message">'+msg.client.data.message+'</div></li>';
+                var str_test = '<li class="right"><img src="'+msg.client.data.user_portrait+'" class="img-circle" width="26"><div class="message" style="min-height: 29px;">'+msg.client.data.message+'</div></li>';
                 $('#chat-log').append(str_test);
+                $("#chat-log").animate({ scrollTop: 50000 }, "slow");
             }
         });
 
@@ -53,20 +56,20 @@
 
         $('#chat-message').keypress(function(event) {
 
-                    if(event.keyCode == 13){
+            if(event.keyCode == 13){
 
-                        app.BrainSocket.message('generic.event',
-                                {
-                                    'message':$(this).val(),
-                                    'user_id':fake_user_id,
-                                    'user_portrait':'{{ Auth::user()->portrait_small}}'
-                                }
-                        );
-                        $(this).val('');
+                app.BrainSocket.message('generic.event',
+                        {
+                            'message':$(this).val(),
+                            'user_id':fake_user_id,
+                            'user_portrait':'{{ Auth::user()->portrait_small}}'
+                        }
+                );
+                $(this).val('');
 
-                    }
+            }
 
-                    return event.keyCode != 13; }
+            return event.keyCode != 13; }
         );
     });
 </script>

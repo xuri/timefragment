@@ -23,7 +23,7 @@ Route::group(array(), function () {
     $controller = 'HomeController@';
     # Homepage
     Route::get(            '/', array('as' => 'home'             , 'uses' => $controller.'getIndex'     ));
-    # Homepage with Video
+    # Homepage with video
     # Route::get(          '/', array('as' => 'home'             , 'uses' => $controller.'getVideoIndex'));
     # Category
     Route::get(     'category', array('as' => 'category'         , 'uses' => $controller.'getCategory'  ));
