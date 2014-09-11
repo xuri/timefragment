@@ -36,7 +36,7 @@
             if(msg.client.data.user_id == fake_user_id){
                 var new_entry = '<li><img src="{{ Auth::user()->portrait_small }}" class="img-circle" width="26"><div class="message" style="min-height: 29px;">'+msg.client.data.message+'</div></li>';
                 $("#chat-log").append(new_entry);
-                $("#chat-log").fadeIn({ scrollTop: 50000 }, "slow");
+                $("#chat-log").animate({ scrollTop: 50000 }, "slow");
             }else{
                 var str_test = '<li class="right"><img src="'+msg.client.data.user_portrait+'" class="img-circle" width="26"><div class="message" style="min-height: 29px;">'+msg.client.data.message+'</div></li>';
                 $('#chat-log').append(str_test);
