@@ -93,7 +93,7 @@ if ($_GET['act'] == "rt")
 ?>
 @include('layout.account-header')
 @yield('content')
-<script type="text/javascript">
+<script>
 $(document).ready(function(){getJSONData();});
 var OutSpeed2=<?php echo floor($NetOutSpeed[2]) ?>;
 var OutSpeed3=<?php echo floor($NetOutSpeed[3]) ?>;

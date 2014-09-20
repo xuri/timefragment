@@ -42,8 +42,6 @@
 		{{ script('flexslider-2.2') }}
 		{{ script('bootstrap-3.0.3') }}
 
-		{{-- HTML::script('assets/js/eldarion-ajax.min.js') --}}
-
 		{{ HTML::script('assets/js/bootstrap-modal.js') }}
 		{{ script('modernizr-2.8.1') }}
 		{{ HTML::script('assets/js/skrollr.js') }}

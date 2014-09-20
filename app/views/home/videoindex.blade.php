@@ -187,7 +187,7 @@
 			</div>
 		</section>
 		{{-- Home Section --}}
-		<script type="text/javascript">
+		<script>
 			var oDiv=document.getElementById('div');
 			var oV=document.getElementById('video');
 			var oW=document.getElementById('video-volume');

@@ -18,7 +18,7 @@
     </div>
 </div>
 
-<script type="text/javascript" charset="utf-8">
+<script>
 
     $(document).ready(function(){
 
@@ -58,18 +58,21 @@
 
             if(event.keyCode == 13){
 
-                app.BrainSocket.message('generic.event',
-                        {
-                            'message':$(this).val(),
-                            'user_id':fake_user_id,
-                            'user_portrait':'{{ Auth::user()->portrait_small}}'
-                        }
-                );
-                $(this).val('');
+                if($('#chat-message').val() == ""){
+                    event.preventDefault();
+                } else {
+                    app.BrainSocket.message('generic.event',
+                            {
+                                'message':$(this).val(),
+                                'user_id':fake_user_id,
+                                'user_portrait':'{{ Auth::user()->portrait_small}}'
+                            }
+                    );
+                    $(this).val('');
+                }
 
             }
-
-            return event.keyCode != 13; }
-        );
+            return event.keyCode != 13;
+        });
     });
 </script>

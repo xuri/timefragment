@@ -377,7 +377,7 @@
             {{ Form::close() }}
         </div>
     </div>
-    <script type="text/javascript">
+    <script>
         $("#sex").val($("#sex").attr("rel"));
         $("#born_year").val($("#born_year").attr("rel"));
         $("#born_month").val($("#born_month").attr("rel"));
