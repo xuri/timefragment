@@ -30,9 +30,9 @@
 		{{-- Stylesheet --}}
 
 		{{ style('bootstrap-3.0.3') }}
+		{{ style('flexslider-2.2') }}
 
 		{{ Minify::stylesheet(array(
-			'/assets/flexslider-2.2/flexslider.min.css',
 			'/assets/normalize-3.0.1/normalize-3.0.1.min.css',
 			'/assets/css/loading.css',
 			'/assets/css/main.css',
