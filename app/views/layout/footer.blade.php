@@ -50,32 +50,7 @@
 			'/assets/js/script.min.js',
 			'/assets/js/retina-1.3.0.min.js'
 
-
 		)) }}
-
-		{{-- HTML::script('assets/js/jquery/min/jquery.sticky.min.js') --}}
-		{{-- HTML::script('assets/js/jquery/min/jquery.fitvids.min.js') --}}
-		{{-- HTML::script('assets/js/jquery/min/jquery.easing-1.3.pack.min.js') --}}
-
-		{{-- HTML::script('assets/js/jquery/min/jquery.parallax-1.1.3.min.js') --}}
-		{{-- HTML::script('assets/js/jquery/min/jquery-countTo.min.js') --}}
-		{{-- HTML::script('assets/js/jquery/min/jquery.appear.min.js') --}}
-		{{-- HTML::script('assets/js/jquery/min/jquery.easy-pie-chart.min.js') --}}
-		{{-- HTML::script('assets/js/jquery/min/jquery.cycle.all.min.js') --}}
-		{{-- HTML::script('assets/js/jquery/min/jquery.maximage.min.js') --}}
-		{{-- HTML::script('assets/js/jquery/min/jquery.isotope.min.js') --}}
-		{{-- HTML::script('assets/js/jquery/min/jquery.hoverdir.min.js') --}}
-		{{-- HTML::script('assets/js/jquery/min/jquery.validate.min.js') --}}
-
-		{{-- script('flexslider-2.2') --}}
-		{{-- script('bootstrap-3.0.3') --}}
-
-		{{-- HTML::script('assets/js/bootstrap-modal.min.js') --}}
-		{{-- script('modernizr-2.8.1') --}}
-		{{-- HTML::script('assets/js/skrollr.min.js') --}}
-		{{-- HTML::script('assets/js/portfolio_custom.min.js') --}}
-		{{-- HTML::script('assets/js/script.min.js') --}}
-		{{-- HTML::script('assets/js/retina-1.3.0.min.js') --}}
 
 		{{-- Js Library --}}
 

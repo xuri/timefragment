@@ -29,8 +29,10 @@
 
         {{-- Stylesheet --}}
 
-        {{ HTML::style('assets/css/style-1.min.css') }}
-        {{ HTML::style('assets/css/style-2.min.css') }}
+        {{ Minify::stylesheet(array(
+            '/assets/css/style-1.css',
+            '/assets/css/style-2.css'
+        )) }}
 
         {{ style('bootstrap-3.0.3') }}
         {{ style('font-awesome-4.1.0') }}
@@ -46,10 +48,13 @@
 
         {{-- Include all compiled plugins (below), or include individual files as needed --}}
 
-        {{ script('bootstrap-3.0.3') }}
 
-        {{ HTML::script('assets/js/js-1.min.js') }}
-        {{ HTML::script('assets/js/js-2.min.js') }}
+        {{ Minify::javascript(array(
+            '/assets/bootstrap-3.0.3/js/bootstrap.min.js',
+            '/assets/js/bootstrap-modal.min.js',
+            '/assets/js/js-1.min.js',
+            '/assets/js/js-2.min.js'
+        )) }}
 
         <!--[if lte IE 9]>
             <script type=text/javascript>window.location.href="{{ route('browser_not_support') }}";  </script>

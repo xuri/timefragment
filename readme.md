@@ -23,6 +23,12 @@
 ### Protect Personal Info
 
 ```
+git update-index --assume-unchanged app/config/app.php
+git update-index --no-assume-unchanged app/config/app.php
+
+git update-index --assume-unchanged public/.htaccess
+git update-index --no-assume-unchanged public/.htaccess
+
 git update-index --assume-unchanged app/config/mail.php
 git update-index --no-assume-unchanged app/config/mail.php
 
