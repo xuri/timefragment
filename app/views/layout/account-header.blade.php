@@ -36,34 +36,39 @@
 
         {{-- Include all compiled plugins (below), or include individual files as needed --}}
 
-        {{ script('bootstrap-3.0.3') }}
-        {{ script('bootstrap-select') }}
-        {{ script('modernizr-2.8.1') }}
+        {{-- script('bootstrap-3.0.3') --}}
+        {{-- script('bootstrap-select') --}}
+        {{-- script('modernizr-2.8.1') --}}
 
-        {{ HTML::script('assets/js/admin.min.js') }}
-        {{ HTML::script('assets/js/retina-1.3.0.min.js') }}
+        {{ Minify::javascript(array(
+            '/assets/bootstrap-3.0.3/js/bootstrap.min.js',
+            '/assets/bootstrap-select/js/bootstrap-select.min.js',
+            '/assets/modernizr-2.8.1/modernizr-2.8.1.min.js',
+            '/assets/js/admin.js',
+            '/assets/js/retina-1.3.0.min.js',
+
+            '/assets/js/lib/mosaicflow.js',
+            '/assets/js/lib/snap.svg-0.2.0.min.js',
+            '/assets/js/lib/dropzone-3.10.2.min.js',
+            '/assets/js/lib/pushy.js',
+            '/assets/js/lib/moment.js',
+            '/assets/js/lib/jquery.timeago.js',
+            '/assets/js/lib/jquery.eventCalendar.js',
+            '/assets/js/lib/icheck.js',
+            '/assets/js/lib/lifestream.js',
+            '/assets/js/lib/morris.js',
+            '/assets/js/lib/easypiechart.js',
+            '/assets/js/lib/sparkline.js',
+            '/assets/js/lib/backstretch.js',
+            '/assets/js/lib/city.js',
+            '/assets/js/lib/notify.js',
+
+            '/assets/brainsocket/lib/brain-socket.min.js'
+        )) }}
 
         {{-- Album Library --}}
 
-        {{ HTML::script('assets/js/lib/min/mosaicflow.min.js') }}
-        {{ HTML::script('assets/js/lib/min/snap.svg-0.2.0.min.js') }}
-        {{ HTML::script('assets/js/lib/min/dropzone-3.10.2.min.js') }}
-        {{ HTML::script('assets/js/lib/min/pushy.min.js') }}
-        {{ HTML::script('assets/js/lib/min/moment.min.js') }}
-        {{ HTML::script('assets/js/lib/min/jquery.timeago.min.js') }}
-        {{ HTML::script('assets/js/lib/min/jquery.eventCalendar.min.js') }}
-        {{ HTML::script('assets/js/lib/min/icheck.min.js') }}
-        {{ HTML::script('assets/js/lib/min/lifestream.min.js') }}
         {{ HTML::script('assets/js/lib/min/raphael-2.1.2.min.js') }}
-        {{ HTML::script('assets/js/lib/min/morris.min.js') }}
-        {{ HTML::script('assets/js/lib/min/easypiechart.min.js') }}
-        {{ HTML::script('assets/js/lib/min/sparkline.min.js') }}
-        {{ HTML::script('assets/js/lib/min/backstretch.min.js') }}
-        {{ HTML::script('assets/js/lib/min/city.min.js') }}
-        {{ HTML::script('assets/js/lib/min/notify.min.js') }}
-
-        {{-- Real Time Chat --}}
-        {{ HTML::script('assets/brainsocket/lib/brain-socket.min.js') }}
 
         {{-- WARNING: Respond.js doesn't work if you view the page via file:// --}}
 
