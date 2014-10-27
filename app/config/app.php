@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => true,
+	'debug' => false,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://localhost',
+	'url' => 'http://www.timefragment.com',
 
 
 	/*
@@ -111,7 +111,7 @@ return array(
         'Jenssegers\Agent\AgentServiceProvider',
         'Formativ\Chat\ChatServiceProvider',
         'BrainSocket\BrainSocketServiceProvider',
-        'CeesVanEgmond\Minify\MinifyServiceProvider',
+		'CeesVanEgmond\Minify\MinifyServiceProvider',
 	),
 
 	/*
