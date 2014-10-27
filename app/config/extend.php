@@ -78,6 +78,7 @@ return array(
             'canvas-to-blob'              => 'assets/jquery-file-upload-9.5.7/js/canvas-to-blob.min.js',
             'jquery-blueimp-gallery'      => 'assets/jquery-file-upload-9.5.7/js/jquery.blueimp-gallery.min.js',
             'ckeditor'                    => 'assets/ckeditor-4.4.1/ckeditor.js',
+            'analytics'                   => 'assets/js/analytics.min.js',
         ),
 
     ),

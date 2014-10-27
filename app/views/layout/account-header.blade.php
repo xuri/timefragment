@@ -40,27 +40,27 @@
         {{ script('bootstrap-select') }}
         {{ script('modernizr-2.8.1') }}
 
-        {{ HTML::script('assets/js/admin.js') }}
+        {{ HTML::script('assets/js/admin.min.js') }}
         {{ HTML::script('assets/js/retina-1.3.0.min.js') }}
 
         {{-- Album Library --}}
 
-        {{ HTML::script('assets/js/lib/mosaicflow.js') }}
-        {{ HTML::script('assets/js/lib/snap.svg-0.2.0.min.js') }}
-        {{ HTML::script('assets/js/lib/dropzone-3.10.2.min.js') }}
-        {{ HTML::script('assets/js/lib/pushy.js') }}
-        {{ HTML::script('assets/js/lib/moment.js') }}
-        {{ HTML::script('assets/js/lib/jquery.timeago.js') }}
-        {{ HTML::script('assets/js/lib/jquery.eventCalendar.js') }}
-        {{ HTML::script('assets/js/lib/icheck.js') }}
-        {{ HTML::script('assets/js/lib/lifestream.js') }}
-        {{ HTML::script('assets/js/lib/raphael-2.1.2.min.js') }}
-        {{ HTML::script('assets/js/lib/morris.js') }}
-        {{ HTML::script('assets/js/lib/easypiechart.js') }}
-        {{ HTML::script('assets/js/lib/sparkline.js') }}
-        {{ HTML::script('assets/js/lib/backstretch.js') }}
-        {{ HTML::script('assets/js/lib/city.js') }}
-        {{ HTML::script('assets/js/lib/notify.js') }}
+        {{ HTML::script('assets/js/lib/min/mosaicflow.min.js') }}
+        {{ HTML::script('assets/js/lib/min/snap.svg-0.2.0.min.js') }}
+        {{ HTML::script('assets/js/lib/min/dropzone-3.10.2.min.js') }}
+        {{ HTML::script('assets/js/lib/min/pushy.min.js') }}
+        {{ HTML::script('assets/js/lib/min/moment.min.js') }}
+        {{ HTML::script('assets/js/lib/min/jquery.timeago.min.js') }}
+        {{ HTML::script('assets/js/lib/min/jquery.eventCalendar.min.js') }}
+        {{ HTML::script('assets/js/lib/min/icheck.min.js') }}
+        {{ HTML::script('assets/js/lib/min/lifestream.min.js') }}
+        {{ HTML::script('assets/js/lib/min/raphael-2.1.2.min.js') }}
+        {{ HTML::script('assets/js/lib/min/morris.min.js') }}
+        {{ HTML::script('assets/js/lib/min/easypiechart.min.js') }}
+        {{ HTML::script('assets/js/lib/min/sparkline.min.js') }}
+        {{ HTML::script('assets/js/lib/min/backstretch.min.js') }}
+        {{ HTML::script('assets/js/lib/min/city.min.js') }}
+        {{ HTML::script('assets/js/lib/min/notify.min.js') }}
 
         {{-- Real Time Chat --}}
         {{ HTML::script('assets/brainsocket/lib/brain-socket.min.js') }}
