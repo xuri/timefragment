@@ -25,8 +25,8 @@
         <link rel="apple-touch-icon" href="{{ route('home')}}/images/icon/ico-72.png" sizes="72x72">
         <link rel="apple-touch-icon" href="{{ route('home')}}/images/icon/ico-114.png" sizes="114x114">
         <link rel="apple-touch-icon" href="{{ route('home')}}/images/icon/ico-144.png" sizes="144x144">
-        {{ HTML::style('assets/css/fonts.googleapis.css') }}
-        {{ HTML::style('assets/css/admin.css') }}
+        {{ HTML::style('assets/css/fonts.googleapis.min.css') }}
+        {{ HTML::style('assets/css/admin.min.css') }}
         {{ style('font-awesome-4.1.0') }}
         {{-- Js Library --}}
 

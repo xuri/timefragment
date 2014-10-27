@@ -29,14 +29,14 @@
 
         {{-- Stylesheet --}}
 
-        {{ HTML::style('assets/css/style-1.css') }}
-        {{ HTML::style('assets/css/style-2.css') }}
+        {{ HTML::style('assets/css/style-1.min.css') }}
+        {{ HTML::style('assets/css/style-2.min.css') }}
 
         {{ style('bootstrap-3.0.3') }}
         {{ style('font-awesome-4.1.0') }}
-        {{ HTML::style('assets/css/fonts.googleapis.css') }}
-        {{ HTML::style('assets/css/main.css') }}
-        {{ HTML::style('assets/css/style-responsive.css') }}
+        {{ HTML::style('assets/css/fonts.googleapis.min.css') }}
+        {{ HTML::style('assets/css/main.min.css') }}
+        {{ HTML::style('assets/css/style-responsive.min.css') }}
 
         {{-- Js Library --}}
 
@@ -48,8 +48,8 @@
 
         {{ script('bootstrap-3.0.3') }}
 
-        {{ HTML::script('assets/js/js-1.js') }}
-        {{ HTML::script('assets/js/js-2.js') }}
+        {{ HTML::script('assets/js/js-1.min.js') }}
+        {{ HTML::script('assets/js/js-2.min.js') }}
 
         <!--[if lte IE 9]>
             <script type=text/javascript>window.location.href="{{ route('browser_not_support') }}";  </script>
