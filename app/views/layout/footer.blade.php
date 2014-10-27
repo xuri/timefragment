@@ -26,28 +26,56 @@
 
 		{{-- Js Library --}}
 
-		{{ HTML::script('assets/js/jquery/min/jquery.sticky.min.js') }}
-		{{ HTML::script('assets/js/jquery/min/jquery.fitvids.min.js') }}
-		{{ HTML::script('assets/js/jquery/min/jquery.easing-1.3.pack.min.js') }}
-		{{ HTML::script('assets/js/jquery/min/jquery.parallax-1.1.3.min.js') }}
-		{{ HTML::script('assets/js/jquery/min/jquery-countTo.min.js') }}
-		{{ HTML::script('assets/js/jquery/min/jquery.appear.min.js') }}
-		{{ HTML::script('assets/js/jquery/min/jquery.easy-pie-chart.min.js') }}
-		{{ HTML::script('assets/js/jquery/min/jquery.cycle.all.min.js') }}
-		{{ HTML::script('assets/js/jquery/min/jquery.maximage.min.js') }}
-		{{ HTML::script('assets/js/jquery/min/jquery.isotope.min.js') }}
-		{{ HTML::script('assets/js/jquery/min/jquery.hoverdir.min.js') }}
-		{{ HTML::script('assets/js/jquery/min/jquery.validate.min.js') }}
+		{{ Minify::javascript(array(
+			'/assets/js/jquery/jquery.sticky.js',
+			'/assets/js/jquery/jquery.fitvids.js',
+			'/assets/js/jquery/jquery.easing-1.3.pack.js',
+			'/assets/js/jquery/jquery.parallax-1.1.3.js',
+			'/assets/js/jquery/jquery-countTo.js',
+			'/assets/js/jquery/jquery.appear.js',
+			'/assets/js/jquery/jquery.easy-pie-chart.js',
+			'/assets/js/jquery/jquery.cycle.all.js',
+			'/assets/js/jquery/jquery.maximage.js',
+			'/assets/js/jquery/jquery.isotope.js',
+			'/assets/js/jquery/jquery.hoverdir.js',
+			'/assets/js/jquery/jquery.validate.js',
 
-		{{ script('flexslider-2.2') }}
-		{{ script('bootstrap-3.0.3') }}
+			'/assets/flexslider-2.2/jquery.flexslider-min.js',
+			'/assets/bootstrap-3.0.3/js/bootstrap.min.js',
 
-		{{ HTML::script('assets/js/bootstrap-modal.min.js') }}
-		{{ script('modernizr-2.8.1') }}
-		{{ HTML::script('assets/js/skrollr.min.js') }}
-		{{ HTML::script('assets/js/portfolio_custom.min.js') }}
-		{{ HTML::script('assets/js/script.min.js') }}
-		{{ HTML::script('assets/js/retina-1.3.0.min.js') }}
+			'/assets/js/bootstrap-modal.min.js',
+			'/assets/modernizr-2.8.1/modernizr-2.8.1.min.js',
+			'/assets/js/skrollr.min.js',
+			'/assets/js/portfolio_custom.min.js',
+			'/assets/js/script.min.js',
+			'/assets/js/retina-1.3.0.min.js'
+
+
+		)) }}
+
+		{{-- HTML::script('assets/js/jquery/min/jquery.sticky.min.js') --}}
+		{{-- HTML::script('assets/js/jquery/min/jquery.fitvids.min.js') --}}
+		{{-- HTML::script('assets/js/jquery/min/jquery.easing-1.3.pack.min.js') --}}
+
+		{{-- HTML::script('assets/js/jquery/min/jquery.parallax-1.1.3.min.js') --}}
+		{{-- HTML::script('assets/js/jquery/min/jquery-countTo.min.js') --}}
+		{{-- HTML::script('assets/js/jquery/min/jquery.appear.min.js') --}}
+		{{-- HTML::script('assets/js/jquery/min/jquery.easy-pie-chart.min.js') --}}
+		{{-- HTML::script('assets/js/jquery/min/jquery.cycle.all.min.js') --}}
+		{{-- HTML::script('assets/js/jquery/min/jquery.maximage.min.js') --}}
+		{{-- HTML::script('assets/js/jquery/min/jquery.isotope.min.js') --}}
+		{{-- HTML::script('assets/js/jquery/min/jquery.hoverdir.min.js') --}}
+		{{-- HTML::script('assets/js/jquery/min/jquery.validate.min.js') --}}
+
+		{{-- script('flexslider-2.2') --}}
+		{{-- script('bootstrap-3.0.3') --}}
+
+		{{-- HTML::script('assets/js/bootstrap-modal.min.js') --}}
+		{{-- script('modernizr-2.8.1') --}}
+		{{-- HTML::script('assets/js/skrollr.min.js') --}}
+		{{-- HTML::script('assets/js/portfolio_custom.min.js') --}}
+		{{-- HTML::script('assets/js/script.min.js') --}}
+		{{-- HTML::script('assets/js/retina-1.3.0.min.js') --}}
 
 		{{-- Js Library --}}
 

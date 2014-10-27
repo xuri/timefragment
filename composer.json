@@ -14,7 +14,8 @@
 		"jenssegers/agent"           : "*",
 		"pda/pheanstalk"             : "2.0.",
 		"cboden/ratchet"             : "0.3.*",
-		"brainboxlabs/brain-socket"  : "dev-master"
+		"brainboxlabs/brain-socket"  : "dev-master",
+		"ceesvanegmond/minify" 		 : "2.0.*"
 	},
 	"autoload": {
 		"classmap": [

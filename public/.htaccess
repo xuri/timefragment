@@ -9,4 +9,23 @@ RewriteRule . /index.php [L]
 RewriteCond %{HTTP_HOST} ^(timefragment\.com)(:80)? [NC]
 RewriteRule ^(.*)$ http://www.timefragment.com/$1 [L,R=301]
 </IfModule>
+
+<IfModule mod_expires.c>
+# Enable expirations
+ExpiresActive On
+# Default directive
+ExpiresDefault "access plus 1 week"
+# My favicon
+ExpiresByType image/x-icon "access plus 1 week"
+ExpiresByType image/ico "access plus 1 week"
+# Images
+ExpiresByType image/gif "access plus 1 week"
+ExpiresByType image/png "access plus 1 week"                  
+ExpiresByType image/jpg "access plus 1 week"                  
+ExpiresByType image/jpeg "access plus 1 week"                 
+# CSS                                                         
+ExpiresByType text/css "access 1 week"                        
+# Javascript                                                  
+ExpiresByType application/javascript "access plus 1 week"     
+</IfModule>
 # END

@@ -28,6 +28,7 @@ return array(
 
 	'url' => 'http://localhost',
 
+
 	/*
 	|--------------------------------------------------------------------------
 	| Application Timezone
@@ -110,6 +111,7 @@ return array(
         'Jenssegers\Agent\AgentServiceProvider',
         'Formativ\Chat\ChatServiceProvider',
         'BrainSocket\BrainSocketServiceProvider',
+        'CeesVanEgmond\Minify\MinifyServiceProvider',
 	),
 
 	/*

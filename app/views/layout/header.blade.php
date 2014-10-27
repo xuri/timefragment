@@ -30,18 +30,19 @@
 		{{-- Stylesheet --}}
 
 		{{ style('bootstrap-3.0.3') }}
+
+		{{ Minify::stylesheet(array(
+			'/assets/flexslider-2.2/flexslider.min.css',
+			'/assets/normalize-3.0.1/normalize-3.0.1.min.css',
+			'/assets/css/loading.css',
+			'/assets/css/main.css',
+			'/assets/css/isotope.css',
+			'/assets/css/color/blu.css'
+		)) }}
+
 		{{ style('font-awesome-4.1.0') }}
-		{{ style('flexslider-2.2') }}
-		{{ style('normalize-3.0.1') }}
 
-		{{ HTML::style('assets/css/loading.min.css') }}
-		{{ HTML::style('assets/css/main.min.css') }}
 		{{ HTML::style('assets/css/style-responsive.min.css') }}
-		{{ HTML::style('assets/css/isotope.min.css') }}
-
-		{{-- Primary color theme --}}
-
-		{{ HTML::style('assets/css/color/blu.min.css') }}
 
 		{{-- WARNING: Respond.js doesn't work if you view the page via file:// --}}
 
