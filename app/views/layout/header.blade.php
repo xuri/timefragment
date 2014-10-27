@@ -25,7 +25,7 @@
 		<link rel="apple-touch-icon" href="{{ route('home')}}/images/icon/ico-72.png" sizes="72x72">
 		<link rel="apple-touch-icon" href="{{ route('home')}}/images/icon/ico-114.png" sizes="114x114">
 		<link rel="apple-touch-icon" href="{{ route('home')}}/images/icon/ico-144.png" sizes="144x144">
-		{{ HTML::style('assets/css/fonts.googleapis.css') }}
+		{{ HTML::style('assets/css/fonts.googleapis.min.css') }}
 
 		{{-- Stylesheet --}}
 
@@ -34,14 +34,14 @@
 		{{ style('flexslider-2.2') }}
 		{{ style('normalize-3.0.1') }}
 
-		{{ HTML::style('assets/css/loading.css') }}
-		{{ HTML::style('assets/css/main.css') }}
-		{{ HTML::style('assets/css/style-responsive.css') }}
-		{{ HTML::style('assets/css/isotope.css') }}
+		{{ HTML::style('assets/css/loading.min.css') }}
+		{{ HTML::style('assets/css/main.min.css') }}
+		{{ HTML::style('assets/css/style-responsive.min.css') }}
+		{{ HTML::style('assets/css/isotope.min.css') }}
 
 		{{-- Primary color theme --}}
 
-		{{ HTML::style('assets/css/color/blu.css') }}
+		{{ HTML::style('assets/css/color/blu.min.css') }}
 
 		{{-- WARNING: Respond.js doesn't work if you view the page via file:// --}}
 

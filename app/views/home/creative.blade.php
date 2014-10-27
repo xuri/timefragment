@@ -19,7 +19,7 @@
 						<div class="row">
 							<div class="col-md-10 col-md-offset-1">
 								<div class="element-line">
-									<img src="../readme/preview-1024x576.jpg" frameborder=0 allowfullscreen width="500" height="281"/>
+									<img src="./readme/preview-1024x576.jpg" frameborder=0 allowfullscreen width="500" height="281"/>
 								</div>
 							</div>
 						</div>

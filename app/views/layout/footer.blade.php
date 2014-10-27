@@ -26,27 +26,27 @@
 
 		{{-- Js Library --}}
 
-		{{ HTML::script('assets/js/jquery/jquery.sticky.js') }}
-		{{ HTML::script('assets/js/jquery/jquery.fitvids.js') }}
-		{{ HTML::script('assets/js/jquery/jquery.easing-1.3.pack.js') }}
-		{{ HTML::script('assets/js/jquery/jquery.parallax-1.1.3.js') }}
-		{{ HTML::script('assets/js/jquery/jquery-countTo.js') }}
-		{{ HTML::script('assets/js/jquery/jquery.appear.js') }}
-		{{ HTML::script('assets/js/jquery/jquery.easy-pie-chart.js') }}
-		{{ HTML::script('assets/js/jquery/jquery.cycle.all.js') }}
-		{{ HTML::script('assets/js/jquery/jquery.maximage.js') }}
-		{{ HTML::script('assets/js/jquery/jquery.isotope.min.js') }}
-		{{ HTML::script('assets/js/jquery/jquery.hoverdir.js') }}
-		{{ HTML::script('assets/js/jquery/jquery.validate.min.js') }}
+		{{ HTML::script('assets/js/jquery/min/jquery.sticky.min.js') }}
+		{{ HTML::script('assets/js/jquery/min/jquery.fitvids.min.js') }}
+		{{ HTML::script('assets/js/jquery/min/jquery.easing-1.3.pack.min.js') }}
+		{{ HTML::script('assets/js/jquery/min/jquery.parallax-1.1.3.min.js') }}
+		{{ HTML::script('assets/js/jquery/min/jquery-countTo.min.js') }}
+		{{ HTML::script('assets/js/jquery/min/jquery.appear.min.js') }}
+		{{ HTML::script('assets/js/jquery/min/jquery.easy-pie-chart.min.js') }}
+		{{ HTML::script('assets/js/jquery/min/jquery.cycle.all.min.js') }}
+		{{ HTML::script('assets/js/jquery/min/jquery.maximage.min.js') }}
+		{{ HTML::script('assets/js/jquery/min/jquery.isotope.min.js') }}
+		{{ HTML::script('assets/js/jquery/min/jquery.hoverdir.min.js') }}
+		{{ HTML::script('assets/js/jquery/min/jquery.validate.min.js') }}
 
 		{{ script('flexslider-2.2') }}
 		{{ script('bootstrap-3.0.3') }}
 
-		{{ HTML::script('assets/js/bootstrap-modal.js') }}
+		{{ HTML::script('assets/js/bootstrap-modal.min.js') }}
 		{{ script('modernizr-2.8.1') }}
-		{{ HTML::script('assets/js/skrollr.js') }}
-		{{ HTML::script('assets/js/portfolio_custom.js') }}
-		{{ HTML::script('assets/js/script.js') }}
+		{{ HTML::script('assets/js/skrollr.min.js') }}
+		{{ HTML::script('assets/js/portfolio_custom.min.js') }}
+		{{ HTML::script('assets/js/script.min.js') }}
 		{{ HTML::script('assets/js/retina-1.3.0.min.js') }}
 
 		{{-- Js Library --}}

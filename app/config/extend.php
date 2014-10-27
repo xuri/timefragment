@@ -27,8 +27,8 @@ return array(
             'bootstrap-markdown'             => 'assets/bootstrap-markdown/css/bootstrap-markdown.min.css',
 
             'font-awesome-4.1.0'             => 'assets/font-awesome-4.1.0/css/font-awesome.min.css',
-            'flexslider-2.2'                 => 'assets/flexslider-2.2/flexslider.css',
-            'normalize-3.0.1'                => 'assets/normalize-3.0.1/normalize-3.0.1.css',
+            'flexslider-2.2'                 => 'assets/flexslider-2.2/flexslider.min.css',
+            'normalize-3.0.1'                => 'assets/normalize-3.0.1/normalize-3.0.1.min.css',
 
             'jquery-file-upload'             => 'assets/jquery-file-upload-9.5.7/css/jquery.fileupload.css',
             'jquery-file-upload-ui'          => 'assets/jquery-file-upload-9.5.7/css/jquery.fileupload-ui.css',
@@ -81,6 +81,5 @@ return array(
         ),
 
     ),
-
 
 );
