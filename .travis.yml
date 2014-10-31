@@ -14,7 +14,7 @@ branches:
     - gh-pages
 
 before_script:
-  - "mysql -e 'create database `phphub`;'"
+  - "mysql -e 'create database `timefragment`;'"
   - composer install -n --prefer-source
   - php artisan migrate --seed -n
   - ./vendor/bin/codecept build
