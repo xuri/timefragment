@@ -31,15 +31,15 @@
 
 <?php
 $modalData['modal'] = array(
-    'id'      => 'myModal',
-    'title'   => '<center><div id="qrcodeCanvas"></div></center><script>jQuery(\'#qrcodeCanvas\').qrcode({text:encodeURI(window.location.href)});</script>',
-    'message' => '<center>打开微信，点击底部的“发现”，使用“扫一扫”即可将网页分享至朋友圈。</center>',
-    'footer'  => ''
+	'id'      => 'myModal',
+	'title'   => '<center><div id="qrcodeCanvas"></div></center><script>jQuery(\'#qrcodeCanvas\').qrcode({text:encodeURI(window.location.href)});</script>',
+	'message' => '<center>打开微信，点击底部的“发现”，使用“扫一扫”即可将网页分享至朋友圈。</center>',
+	'footer'  => ''
 );
 ?>
 @include('layout.modal', $modalData)
 <script>
-    function modal(href) {
-        $('#myModal').modal();
-    }
+	function modal(href) {
+		$('#myModal').modal();
+	}
 </script>

@@ -39,9 +39,9 @@
 						@foreach($timeline as $event)
 						<?php
 							$user_id = $event->user_id;
-						    $slug    = $event->slug;
-						    $model   = $event->model;
-						    $event   = $model::where('slug', $slug)->first();
+							$slug    = $event->slug;
+							$model   = $event->model;
+							$event   = $model::where('slug', $slug)->first();
 
 							switch ($model)
 							{
@@ -55,11 +55,11 @@
 								break;
 								case "Product":
 									$show = 'product.show';
-							        $uploads = 'uploads/products/';
+									$uploads = 'uploads/products/';
 								break;
 								case "Job":
 									$show = 'job.show';
-							        $uploads = 'uploads/jobs/';
+									$uploads = 'uploads/jobs/';
 								break;
 								default:
 									$show = 'none';

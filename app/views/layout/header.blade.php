@@ -11,13 +11,13 @@
 		<meta name="keywords" content="时光碎片 TimeFragment 创意汇 去旅行 酷工作 尚品汇 时间线 互动社区 爱生活 兼职信息 招聘 实习 工作机会 二手交易 创意分享 美文" />
 		<meta name="author" content="Ri Xu">
 		<meta name="og:description" content="时光碎片 | Time Fragment">
-        <meta name="og:image" content="images/timefragment.png">
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:site" content="@timefragment">
-        <meta name="twitter:title" content="时光碎片 | Time Fragment">
-        <meta name="twitter:creator" content="@timefragment">
-        <meta name="twitter:domain" content="timefragment.com">
-        <meta name="apple-mobile-web-app-capable" content="yes"/>
+		<meta name="og:image" content="images/timefragment.png">
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:site" content="@timefragment">
+		<meta name="twitter:title" content="时光碎片 | Time Fragment">
+		<meta name="twitter:creator" content="@timefragment">
+		<meta name="twitter:domain" content="timefragment.com">
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
 		{{-- Favicons --}}
 
 		<link rel="shortcut icon" href="{{ route('home')}}/images/icon/ico-16.ico" sizes="16x16">
@@ -50,16 +50,16 @@
 		<script type=text/javascript>window.location.href="{{ route('browser_not_support') }}";  </script>
 		<![endif]-->
 
-	    <!--[if lt IE 9]>
-	        {{ script('html5shiv-3.7.0') }}
-            {{ HTML::script('assets/js/respond.min.js') }}
-	    <![endif]-->
+		<!--[if lt IE 9]>
+			{{ script('html5shiv-3.7.0') }}
+			{{ HTML::script('assets/js/respond.min.js') }}
+		<![endif]-->
 
-	    {{-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries --}}
+		{{-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries --}}
 
-	    {{-- Js Library --}}
+		{{-- Js Library --}}
 
-	    {{ script('jquery-2.1.1') }}
+		{{ script('jquery-2.1.1') }}
 
-	    {{-- Js Library --}}
+		{{-- Js Library --}}
 	</head>

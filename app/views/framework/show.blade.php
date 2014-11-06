@@ -12,7 +12,7 @@
 
 @section('body')
 
-    @include('layout.header')
+	@include('layout.header')
 	@yield('content')
 
 @stop

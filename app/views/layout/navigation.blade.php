@@ -70,9 +70,9 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"> {{ Auth::user()->email }} <i class="fa fa-angle-down"></i></a>
 						@endif
 						<ul class="dropdown-menu">
-				            <li><a href="{{ route('account') }}"><i class="fa fa-dashboard"></i> &nbsp; 仪表盘</a></li>
-			            	<li><a href="{{ route('admin') }}"><i class="fa fa-cogs"></i> &nbsp; 控制面板</a></li>
-			            	<li><a href="{{ route('signout') }}"><i class="fa fa-sign-out"></i> &nbsp; 退出登录</a></li>
+							<li><a href="{{ route('account') }}"><i class="fa fa-dashboard"></i> &nbsp; 仪表盘</a></li>
+							<li><a href="{{ route('admin') }}"><i class="fa fa-cogs"></i> &nbsp; 控制面板</a></li>
+							<li><a href="{{ route('signout') }}"><i class="fa fa-sign-out"></i> &nbsp; 退出登录</a></li>
 						</ul>
 					</li>
 					@endif

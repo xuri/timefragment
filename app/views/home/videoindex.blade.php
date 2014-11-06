@@ -7,7 +7,7 @@
 		<div class="mask">
 			<div id="intro-loader">
 				<div class="container">
-   					<div class="box">
+					<div class="box">
 						<div class="clock"></div>
 							<p>时光碎片</p>
 						</div>
@@ -43,10 +43,10 @@
 								</div>
 								<h1>时光碎片<i>时光不老，我们不散</i></h1>
 								<div class="hidden-xs">
-				                  <span class="line"></span>
-				                  <span>有关琐碎时间的高效利用</span>
-				                  <span class="line"></span>
-				                </div>
+								  <span class="line"></span>
+								  <span>有关琐碎时间的高效利用</span>
+								  <span class="line"></span>
+								</div>
 								<p class="lead">
 									一场关于新奇与创意的探险
 								</p>
@@ -75,11 +75,11 @@
 									<span class="line big"></span>
 								</div>
 								<h1>时光碎片<i>岁月静好，年华无伤</i></h1>
-				                <div class="hidden-xs">
-				                  <span class="line"></span>
-				                  <span>有关琐碎时间的高效利用</span>
-				                  <span class="line"></span>
-				                </div>
+								<div class="hidden-xs">
+								  <span class="line"></span>
+								  <span>有关琐碎时间的高效利用</span>
+								  <span class="line"></span>
+								</div>
 								<p class="lead">
 									时尚生活与创意设计的探索者
 								</p>
@@ -132,10 +132,10 @@
 									</div>
 									<h1>时光碎片<i>时光不老，我们不散</i></h1>
 									<div class="hidden-xs">
-					                  <span class="line"></span>
-					                  <span>有关琐碎时间的高效利用</span>
-					                  <span class="line"></span>
-					                </div>
+									  <span class="line"></span>
+									  <span>有关琐碎时间的高效利用</span>
+									  <span class="line"></span>
+									</div>
 									<p class="lead">
 										一场关于新奇与创意的探险
 									</p>
@@ -164,11 +164,11 @@
 										<span class="line big"></span>
 									</div>
 									<h1>时光碎片<i>岁月静好，年华无伤</i></h1>
-					                <div class="hidden-xs">
-					                  <span class="line"></span>
-					                  <span>有关琐碎时间的高效利用</span>
-					                  <span class="line"></span>
-					                </div>
+									<div class="hidden-xs">
+										<span class="line"></span>
+										<span>有关琐碎时间的高效利用</span>
+										<span class="line"></span>
+									</div>
 									<p class="lead">
 										时尚生活与创意设计的探索者
 									</p>

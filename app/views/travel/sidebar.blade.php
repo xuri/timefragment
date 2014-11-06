@@ -10,7 +10,7 @@
 				<form method="POST" action="{{ route('travel.search') }}" accept-charset="UTF-8">
 					<div class="form-group">
 						{{-- CSRF Token --}}
-                		<input type="hidden" name="_token" value="{{ csrf_token() }}" />
+						<input type="hidden" name="_token" value="{{ csrf_token() }}" />
 						<input type="hidden" name="target" value="title">
 						<input class="form-control input-lg" type="text" placeholder="站内搜索" name="like" value="{{ Input::get('like') }}">
 					</div>
@@ -58,8 +58,8 @@
 			<div class="widget">
 				<?php
 				$announce_category = Category::where('cat_status', 'open')->where('name', '站内简讯')->first();
-		        $announce          = Article::where('post_status', 'open')->where('category_id', $announce_category->id)->orderBy('created_at', 'desc')->first();
-		        ?>
+				$announce          = Article::where('post_status', 'open')->where('category_id', $announce_category->id)->orderBy('created_at', 'desc')->first();
+				?>
 				@if($announce)
 				<div class="widget-title">
 					<h4><a href="{{ route('article.category'), $announce_category->id }}">站内简讯</a></h4>
@@ -84,8 +84,8 @@
 				</div>
 				<?php
 				$posts = Travel::where('post_status', 'open')->orderBy('comments_count', 'desc')->paginate(4);
-		        ?>
-		        @foreach($posts as $post)
+				?>
+				@foreach($posts as $post)
 				<div class="post-box">
 					<a href="{{ route('timeline.getTimeline', $post->user->id) }}"> <img class="img-rounded" src="{{ $post->user->portrait_large }}" width="50" height="50" alt=""> </a>
 					<div>

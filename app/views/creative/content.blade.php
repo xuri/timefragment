@@ -37,15 +37,15 @@
 		<div class="comment-formular">
 
 			@include('layout.share-button')
-           	@yield('content')
+			@yield('content')
 
 			<h3>评论</h3>
 			{{-- form contact --}}
 			@include('layout.notification')
-           	@if(Auth::check())
+			@if(Auth::check())
 			<form class="blog-comments" method="post" autocomplete="off" id="comment" class="validate" role="form">
-                {{-- CSRF Token --}}
-                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+				{{-- CSRF Token --}}
+				<input type="hidden" name="_token" value="{{ csrf_token() }}" />
 				<div class="row">
 					<div class="col-md-12">
 						{{-- Form group --}}
@@ -72,7 +72,7 @@
 				</div>
 			</form>
 			@else
-            <div class="row">
+			<div class="row">
 				<div class="col-md-12">
 					<hr>
 					登陆后才可以在这里发表您的看法哦。
@@ -91,7 +91,7 @@
 					</div>
 				</div>
 			</div>
-            @endif
+			@endif
 			{{-- form contact --}}
 
 		</div>

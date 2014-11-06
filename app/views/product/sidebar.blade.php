@@ -3,12 +3,12 @@
 		<div class="element-line">
 			<form method="post" autocomplete="off">
 				{{-- CSRF Token --}}
-            	<input type="hidden" name="_token" 		value="{{ csrf_token() }}" />
-            	<input type="hidden" name="addGoods"	value="addGoods" />
-            	<input type="hidden" name="product_id" 	value="{{ $product->id }}" />
-            	<input type="hidden" name="price" 		value="{{ $product->price }}" />
-            	<input type="hidden" name="seller_id" 	value="{{ $product->user->id }}" />
-            	<input type="hidden" name="inventory" 	value="{{ $product->quantity }}" />
+				<input type="hidden" name="_token" 		value="{{ csrf_token() }}" />
+				<input type="hidden" name="addGoods"	value="addGoods" />
+				<input type="hidden" name="product_id" 	value="{{ $product->id }}" />
+				<input type="hidden" name="price" 		value="{{ $product->price }}" />
+				<input type="hidden" name="seller_id" 	value="{{ $product->user->id }}" />
+				<input type="hidden" name="inventory" 	value="{{ $product->quantity }}" />
 				<ul style="border: solid 1px #eee;">
 					<li class="title-row">
 						<h4>商品详情</h4>
@@ -27,7 +27,7 @@
 					<li>上架时间：{{ $product->friendly_created_at }}</li>
 					<li class="navbar-form">购买数量：{{ $errors->first('quantity', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
 					  <div class="form-group">
-					    <input type="text" class="form-control" name="quantity" id="quantity" value="1" />
+						<input type="text" class="form-control" name="quantity" id="quantity" value="1" />
 					  </div>
 					</li>
 					@if($inCart)

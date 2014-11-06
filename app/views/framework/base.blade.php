@@ -3,9 +3,9 @@
 
 	<head>
 		<title>
-            @section('title')
-            @show{{-- 页面标题 --}}
-        </title>
+			@section('title')
+			@show{{-- 页面标题 --}}
+		</title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta charset="UTF-8" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -15,7 +15,7 @@
 
 		<meta name="description" content="@yield('description')">{{-- 页面描述 --}}
 
-        <meta name="keywords" content="@yield('keywords')" />    {{-- 页面关键词 --}}
+		<meta name="keywords" content="@yield('keywords')" />    {{-- 页面关键词 --}}
 
 		{{-- Favicons --}}
 
@@ -26,7 +26,7 @@
 		<link rel="apple-touch-icon" href="{{ route('home')}}/images/icon/ico-144.png" sizes="144x144">
 
 		@section('beforeStyle')
-        @show{{-- 页面内联样式之前 --}}
+		@show{{-- 页面内联样式之前 --}}
 
 		{{ HTML::style('assets/css/fonts.googleapis.css') }}
 
@@ -47,18 +47,18 @@
 		{{ HTML::style('assets/css/color/blu.css') }}
 
 		@section('afterStyle')
-        @show{{-- 页面内联样式之后 --}}
+		@show{{-- 页面内联样式之后 --}}
 
 		{{-- WARNING: Respond.js doesn't work if you view the page via file:// --}}
 
-	    <!--[if lt IE 9]>
-	        {{ script('html5shiv-3.7.0') }}
-            {{ HTML::script('assets/js/respond.min.js') }}
-	    <![endif]-->
+		<!--[if lt IE 9]>
+			{{ script('html5shiv-3.7.0') }}
+			{{ HTML::script('assets/js/respond.min.js') }}
+		<![endif]-->
 
-	    {{-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries --}}
+		{{-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries --}}
 	</head>
 	@yield('body')
 
-        @section('end')
-        @show{{-- 页面主体之后 --}}
+		@section('end')
+		@show{{-- 页面主体之后 --}}
