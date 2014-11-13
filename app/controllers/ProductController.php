@@ -60,14 +60,14 @@ class ProductController extends BaseResource
 		// Get search conditions
 		switch (Input::get('target')) {
 			case 'title':
-				$title = Input::get('like');
-				break;
+			$title = Input::get('like');
+			break;
 		}
-		// Construct query statement
-		$query = $this->model->orderBy($orderColumn, $direction);
-		isset($title) AND $query->where('title', 'like', "%{$title}%");
-		$datas = $query->where('user_id', Auth::user()->id)->where('post_status', 'open')->paginate(15);
-		return View::make($this->resourceView.'.index')->with(compact('datas'));
+	  // Construct query statement
+	  $query = $this->model->orderBy($orderColumn, $direction);
+	  isset($title) AND $query->where('title', 'like', "%{$title}%");
+	  $datas = $query->where('user_id', Auth::user()->id)->where('post_status', 'open')->paginate(15);
+	  return View::make($this->resourceView.'.index')->with(compact('datas'));
 	}
 
 	/**
@@ -79,7 +79,7 @@ class ProductController extends BaseResource
 	{
 		if( Auth::user()->alipay == NULL ){
 			return Redirect::route('account.settings')
-					->with('info', '提示：您需要设定支付宝收款账户才可以发布商品出售信息');
+				->with('info', '提示：您需要设定支付宝收款账户才可以发布商品出售信息');
 		} else {
 			$exist = $this->model->where('user_id', Auth::user()->id)->where('post_status', 'close')->first();
 			if($exist)
@@ -318,13 +318,15 @@ class ProductController extends BaseResource
 
 		$model               = $this->model->find($id);
 		$oldThumbnails       = $model->thumbnails;
-		$oldExt              = '.'.public_path('uploads/product_thumbnails/'.$oldThumbnails)->getMimeType();
-		$oldRetinaThumbnails = str_replace($oldExt, '@2x'.$oldExt, $oldThumbnails);
-
+		if($oldThumbnails != NULL){
+			$oldExt				 = str_replace('image/', '', mime_content_type(public_path('uploads/product_thumbnails/').$oldThumbnails));
+			$oldRetinaThumbnails = str_replace('.'.$oldExt, '@2x.'.$oldExt, $oldThumbnails);
+			File::delete(
+				public_path('uploads/product_thumbnails/'.$oldThumbnails),
+				public_path('uploads/product_thumbnails/'.$oldRetinaThumbnails)
+			);
+		}
 		$model->thumbnails   = $normal_name;
-
-		File::delete(public_path('uploads/product_thumbnails/'.$oldThumbnails));
-		File::delete(public_path('uploads/product_thumbnails/'.$oldRetinaThumbnails));
 
 		$models              = new ProductPictures;
 		$models->filename    = $normal_name;
@@ -332,9 +334,9 @@ class ProductController extends BaseResource
 		$models->user_id     = Auth::user()->id;
 
 		if($model->save() && $models->save()) {
-		   return Response::json('success', 200);
+			return Response::json('success', 200);
 		} else {
-		   return Response::json('error', 400);
+			return Response::json('error', 400);
 		}
 	}
 
@@ -430,9 +432,9 @@ class ProductController extends BaseResource
 	}
 
 	/**
-	 * View: Customer shopping cart
-	 * @return Response
-	 */
+	* View: Customer shopping cart
+	* @return Response
+	*/
 	public function cart()
 	{
 		// Get sort conditions
@@ -445,12 +447,12 @@ class ProductController extends BaseResource
 				break;
 		}
 		// Construct query statement
-		$query = ShoppingCart::orderBy($orderColumn, $direction)->where('buyer_id', Auth::user()->id)->paginate(15);
+		$query 		  = ShoppingCart::orderBy($orderColumn, $direction)->where('buyer_id', Auth::user()->id)->paginate(15);
 		isset($title) AND $query->where('title', 'like', "%{$title}%");
-		$datas = $query;
-		$payment = ShoppingCart::where('buyer_id', Auth::user()->id)->sum('payment');
+		$datas        = $query;
+		$payment      = ShoppingCart::where('buyer_id', Auth::user()->id)->sum('payment');
 
-		$resource = 'myproduct';
+		$resource     = 'myproduct';
 		$resourceName = '购物车';
 		return View::make($this->resourceView.'.cart')->with(compact('datas', 'resource', 'resourceName', 'payment'));
 	}
@@ -475,9 +477,9 @@ class ProductController extends BaseResource
 	}
 
 	/**
-	 * Action: Show page post action
-	 * @return Response
-	 */
+	* Action: Show page post action
+	* @return Response
+	*/
 	public function postAction($slug)
 	{
 		$postComment = e(Input::get('postComment'));
@@ -519,37 +521,37 @@ class ProductController extends BaseResource
 
 			if (e($data['inventory']) < e($data['quantity'])) {
 				return Redirect::back()
-				->with('error', '<strong>请输入正确的'.$this->resourceName.'购买数量</strong>');
+			  ->with('error', '<strong>请输入正确的'.$this->resourceName.'购买数量</strong>');
 			} elseif (Auth::user()->id == e($data['seller_id'])) {
 				return Redirect::back()
-				->with('error', '<strong>您不能购买自己出售的商品</strong>');
+			  ->with('error', '<strong>您不能购买自己出售的商品</strong>');
 			} else {
 
-				// Custom validation message
-				$messages  = $this->validatorMessages;
-				// Begin verification
-				$validator = Validator::make($data, $rules, $messages);
+			// Custom validation message
+			$messages  = $this->validatorMessages;
+			// Begin verification
+			$validator = Validator::make($data, $rules, $messages);
 
-				if ($validator->passes()) {
-				// Verification success
-				// Add recource
-				$model                   = new ShoppingCart;
-				$model->buyer_id         = Auth::user()->id;
-				$model->quantity         = e($data['quantity']);
-				$model->product_id       = e($data['product_id']);
-				$model->price            = e($data['price']);
-				$model->payment          = e($data['quantity']) * e($data['price']);
-				$model->seller_id        = e($data['seller_id']);
+			if ($validator->passes()) {
+			// Verification success
+			// Add recource
+			$model                   = new ShoppingCart;
+			$model->buyer_id         = Auth::user()->id;
+			$model->quantity         = e($data['quantity']);
+			$model->product_id       = e($data['product_id']);
+			$model->price            = e($data['price']);
+			$model->payment          = e($data['quantity']) * e($data['price']);
+			$model->seller_id        = e($data['seller_id']);
 
 				if ($model->save()) {
 					// Add success
 					return Redirect::back()
-						->with('success', '<strong>'.$this->resourceName.'已添加到购物车：</strong>您可以继续选购'.$this->resourceName.'，或立即结算。');
+					  ->with('success', '<strong>'.$this->resourceName.'已添加到购物车：</strong>您可以继续选购'.$this->resourceName.'，或立即结算。');
 					} else {
-						// Add fail
-						return Redirect::back()
-							->withInput()
-							->with('error', '<strong>'.$this->resourceName.'添加到购物车失败。</strong>');
+					  // Add fail
+					  return Redirect::back()
+						  ->withInput()
+						  ->with('error', '<strong>'.$this->resourceName.'添加到购物车失败。</strong>');
 					}
 				} else {
 					// Verification fail
@@ -557,8 +559,6 @@ class ProductController extends BaseResource
 				}
 			}
 		}
-
 	}
-
 
 }

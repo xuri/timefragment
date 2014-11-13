@@ -21,11 +21,8 @@
 					path: pathConfig.from
 				}, 300, mina.easeinout)
 			})
-		}), $(".dropzone").length > 0 && (Dropzone.options.demoUpload = {
-			paramName: "file",
-			maxFilesize: 2,
-			addRemoveLinks: !0
-		}), sidebarChart = $(".sidebar-chart"), sidebarChart.easyPieChart({
+		}),
+		sidebarChart = $(".sidebar-chart"), sidebarChart.easyPieChart({
 			barColor: "#2CC0D5",
 			trackColor: "rgba(255,255,255,.06)",
 			lineWidth: 10,

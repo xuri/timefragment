@@ -262,6 +262,8 @@
 			$('#real-delete').attr('action', href);
 			$('#myModal').modal();
 		}
+
+		var Dropzone = require("dropzone");
 	</script>
 </body>
 

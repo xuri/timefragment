@@ -49,7 +49,6 @@
 
 			'/assets/js/lib/mosaicflow.js',
 			'/assets/js/lib/snap.svg-0.2.0.min.js',
-			'/assets/js/lib/dropzone-3.10.2.min.js',
 			'/assets/js/lib/pushy.js',
 			'/assets/js/lib/moment.js',
 			'/assets/js/lib/jquery.timeago.js',
@@ -68,6 +67,7 @@
 
 		{{-- Album Library --}}
 
+		{{ HTML::script('assets/js/lib/dropzone-3.10.2.js') }}
 		{{ HTML::script('assets/js/lib/min/raphael-2.1.2.min.js') }}
 
 		{{-- WARNING: Respond.js doesn't work if you view the page via file:// --}}
