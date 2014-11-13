@@ -311,8 +311,8 @@ class ProductController extends BaseResource
 		$retina_name         = $hashname.'@2x.'.$ext;
 		$picture             = Image::make($file->getRealPath());
 		// crop the best fitting ratio and resize image
-		$picture->fit(840, 566)->save(public_path($destinationPath.$normal_name));
-		$picture->fit(1680, 1132)->save(public_path($destinationPath.$retina_name));
+		$picture->fit(848, 566)->save(public_path($destinationPath.$normal_name));
+		$picture->fit(1696, 1132)->save(public_path($destinationPath.$retina_name));
 		$picture->fit(360, 214)->save(public_path('uploads/product_thumbnails/'.$normal_name));
 		$picture->fit(720, 428)->save(public_path('uploads/product_thumbnails/'.$retina_name));
 
