@@ -270,8 +270,14 @@ class ProductController extends BaseResource
 			} else {
 				$model      = $this->model->find($id);
 				$thumbnails = $model->thumbnails;
-				File::delete(public_path('uploads/product_thumbnails/'.$thumbnails));
-
+				if($thumbnails != NULL){
+					$ext			  = str_replace('image/', '', mime_content_type(public_path('uploads/product_thumbnails/').$thumbnails));
+					$RetinaThumbnails = str_replace('.'.$ext, '@2x.'.$ext, $thumbnails);
+					File::delete(
+						public_path('uploads/product_thumbnails/'.$thumbnails),
+						public_path('uploads/product_thumbnails/'.$RetinaThumbnails)
+					);
+				}
 				$timeline = Timeline::where('slug', $model->slug)->where('user_id', Auth::user()->id)->first();
 				$timeline->delete();
 
@@ -353,8 +359,11 @@ class ProductController extends BaseResource
 		if (is_null($filename)) {
 			return Redirect::back()->with('error', '没有找到对应的图片');
 		} elseif ($filename->delete()) {
+			$oldExt				 = str_replace('image/', '', mime_content_type(public_path('uploads/product_thumbnails/').$oldImage));
+			$oldRetinaImage = str_replace('.'.$oldExt, '@2x.'.$oldExt, $oldImage);
 			File::delete(
-				public_path('uploads/products/'.$oldImage)
+				public_path('uploads/products/'.$oldImage),
+				public_path('uploads/products/'.$oldRetinaImage)
 			);
 			return Redirect::back()->with('success', '图片删除成功。');
 		} else {
