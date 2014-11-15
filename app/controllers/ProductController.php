@@ -276,6 +276,10 @@ class ProductController extends BaseResource
 				$thumbnails = $model->thumbnails;
 				if($thumbnails != NULL){
 					destoryUploadImages($this->thumbnailsPath, $thumbnails);
+					$images = ProductPictures::where('product_id', $id)->get();
+					foreach ($images as $singleImage) {
+						destoryUploadImages($this->destinationPath, $singleImage->filename);
+					}
 				}
 				$timeline = Timeline::where('slug', $model->slug)->where('user_id', Auth::user()->id)->first();
 				$timeline->delete();
