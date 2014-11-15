@@ -47,6 +47,10 @@ class ProductController extends BaseResource
 		'category.exists'       => '请填选择正确的商品分类',
 	);
 
+
+	protected $destinationPath = 'uploads/products/';
+	protected $thumbnailsPath  = 'uploads/product_thumbnails/';
+
 	/**
 	 * Resource list view
 	 * GET         /resource
@@ -271,12 +275,7 @@ class ProductController extends BaseResource
 				$model      = $this->model->find($id);
 				$thumbnails = $model->thumbnails;
 				if($thumbnails != NULL){
-					$ext			  = str_replace('image/', '', mime_content_type(public_path('uploads/product_thumbnails/').$thumbnails));
-					$RetinaThumbnails = str_replace('.'.$ext, '@2x.'.$ext, $thumbnails);
-					File::delete(
-						public_path('uploads/product_thumbnails/'.$thumbnails),
-						public_path('uploads/product_thumbnails/'.$RetinaThumbnails)
-					);
+					destoryUploadImages($this->thumbnailsPath, $thumbnails);
 				}
 				$timeline = Timeline::where('slug', $model->slug)->where('user_id', Auth::user()->id)->first();
 				$timeline->delete();
@@ -307,30 +306,13 @@ class ProductController extends BaseResource
 		{
 			return Response::make($validation->errors->first(), 400);
 		}
-
 		$file                = Input::file('file');
-		$destinationPath     = 'uploads/products/';
-		$ext                 = $file->guessClientExtension();  // Get real extension according to mime type
-		$fullname            = $file->getClientOriginalName(); // Client file name, including the extension of the client
-		$hashname            = date('H.i.s').'-'.md5($fullname); // Hash processed file name, including the real extension
-		$normal_name         = $hashname.'.'.$ext;
-		$retina_name         = $hashname.'@2x.'.$ext;
-		$picture             = Image::make($file->getRealPath());
-		// crop the best fitting ratio and resize image
-		$picture->fit(848, 566)->save(public_path($destinationPath.$normal_name));
-		$picture->fit(1696, 1132)->save(public_path($destinationPath.$retina_name));
-		$picture->fit(360, 214)->save(public_path('uploads/product_thumbnails/'.$normal_name));
-		$picture->fit(720, 428)->save(public_path('uploads/product_thumbnails/'.$retina_name));
+		$normal_name		 = uploadImagesProcess($file, $this->destinationPath, 848, 556, 1696, 1132, $this->thumbnailsPath, 360, 214, 720, 428);
 
 		$model               = $this->model->find($id);
 		$oldThumbnails       = $model->thumbnails;
 		if($oldThumbnails != NULL){
-			$oldExt				 = str_replace('image/', '', mime_content_type(public_path('uploads/product_thumbnails/').$oldThumbnails));
-			$oldRetinaThumbnails = str_replace('.'.$oldExt, '@2x.'.$oldExt, $oldThumbnails);
-			File::delete(
-				public_path('uploads/product_thumbnails/'.$oldThumbnails),
-				public_path('uploads/product_thumbnails/'.$oldRetinaThumbnails)
-			);
+			destoryUploadImages($this->thumbnailsPath, $oldThumbnails);
 		}
 		$model->thumbnails   = $normal_name;
 
@@ -355,16 +337,17 @@ class ProductController extends BaseResource
 		// Only allows you to share pictures on the cover of the current resource being deleted
 		$filename = ProductPictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
 		$oldImage = $filename->filename;
-
+		$model               = $this->model->find($filename->product_id);
+		$oldThumbnails       = $model->thumbnails;
 		if (is_null($filename)) {
 			return Redirect::back()->with('error', '没有找到对应的图片');
 		} elseif ($filename->delete()) {
-			$oldExt				 = str_replace('image/', '', mime_content_type(public_path('uploads/product_thumbnails/').$oldImage));
-			$oldRetinaImage = str_replace('.'.$oldExt, '@2x.'.$oldExt, $oldImage);
-			File::delete(
-				public_path('uploads/products/'.$oldImage),
-				public_path('uploads/products/'.$oldRetinaImage)
-			);
+			destoryUploadImages($this->destinationPath, $oldImage);
+			if($oldImage == $oldThumbnails) {
+				$model->thumbnails = NULL;
+				$model->save();
+				destoryUploadImages($this->thumbnailsPath, $oldThumbnails);
+			}
 			return Redirect::back()->with('success', '图片删除成功。');
 		} else {
 			return Redirect::back()->with('warning', '图片删除失败。');

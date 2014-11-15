@@ -588,3 +588,68 @@ function GetWMI($wmi,$strClass, $strValue = array())
 	}
 	return $arrData;
 }
+
+/*
+|--------------------------------------------------------------------------
+| Upload Function
+|--------------------------------------------------------------------------
+|
+*/
+
+/**
+ * Upload Proccess Function
+ * @param  input 	$file                    Get upload file
+ * @param  string 	$destinationPath         Set destination path
+ * @param  digit 	$destinationWidth        Set destination image width
+ * @param  digit 	$destinationHeight       Set destination image height
+ * @param  digit 	$destinationRetinaWidth  Set destination retina image width
+ * @param  digit 	$destinationRetinaHeight Set destination retina image height
+ * @param  string 	$thumbnailsPath          Set thumbnails path
+ * @param  digit 	$thumbnailsWidth         Set thumbnails image width
+ * @param  digit 	$thumbnailsHeight        Set thumbnails image height
+ * @param  digit 	$thumbnailsRetinaWidth   Set thumbnails retina width
+ * @param  digit 	$thumbnailsRetinaHeight  Set thumbnails retina height
+ * @return string 	$normal_name			 Return uploaded file name
+ */
+function uploadImagesProcess(
+		$file,
+		$destinationPath,
+		$destinationWidth,
+		$destinationHeight,
+		$destinationRetinaWidth,
+		$destinationRetinaHeight,
+		$thumbnailsPath,
+		$thumbnailsWidth,
+		$thumbnailsHeight,
+		$thumbnailsRetinaWidth,
+		$thumbnailsRetinaHeight)
+{
+	$ext                 = $file->guessClientExtension();  // Get real extension according to mime type
+	$fullname            = $file->getClientOriginalName(); // Client file name, including the extension of the client
+	$hashname            = date('H.i.s').'-'.md5($fullname); // Hash processed file name, including the real extension
+	$normal_name         = $hashname.'.'.$ext;
+	$retina_name         = $hashname.'@2x.'.$ext;
+	$picture             = Image::make($file->getRealPath());
+	// crop the best fitting ratio and resize image
+	$picture->fit($destinationWidth, $destinationHeight)->save(public_path($destinationPath.$normal_name));
+	$picture->fit($destinationRetinaWidth, $destinationRetinaHeight)->save(public_path($destinationPath.$retina_name));
+	$picture->fit($thumbnailsWidth, $thumbnailsHeight)->save(public_path($thumbnailsPath.$normal_name));
+	$picture->fit($thumbnailsRetinaWidth, $thumbnailsRetinaHeight)->save(public_path($thumbnailsPath.$retina_name));
+
+	return $normal_name;
+}
+
+/**
+ * Destory Thumbnails
+ * @param  string $path Path
+ * @param  string $filename  File name
+ */
+function destoryUploadImages($path, $filename)
+{
+	$ext         = str_replace('image/', '', mime_content_type(public_path($path.$filename)));
+	$retinaImage = str_replace('.'.$ext, '@2x.'.$ext, $filename);
+	File::delete(
+		public_path($path.$filename),
+		public_path($path.$retinaImage)
+	);
+}

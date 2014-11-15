@@ -195,5 +195,4 @@ class BaseResource extends BaseController
             return 'unique:'.$this->resourceTable.','.$column.','.$id;
     }
 
-
 }
