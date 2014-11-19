@@ -640,7 +640,34 @@ function uploadImagesProcess(
 }
 
 /**
- * Destory Thumbnails
+ * Create retina reday photo processer
+ * @param  Input 	$file       	Get upload file
+ * @param  String 	$hashname    	File hashname
+ * @param  String 	$storagePath 	Set image storge path
+ * @param  String 	$scaleWidth  	Set image width
+ * @param  String	$scaleHeight  	Set image height
+ * @return String 					Out put filename
+ */
+function uploadImagesProcesser(
+		$file,
+		$hashname,
+		$storagePath,
+		$scaleWidth,
+		$scaleHeight)
+{
+	$ext                 = $file->guessClientExtension();  // Get real extension according to mime type
+	$normal_name         = $hashname.'.'.$ext;
+	$retina_name         = $hashname.'@2x.'.$ext;
+	$picture             = Image::make($file->getRealPath());
+	// crop the best fitting ratio and resize image
+	$picture->fit($scaleWidth, $scaleHeight)->save(public_path($storagePath.$normal_name));
+	$picture->fit($scaleWidth*2, $scaleHeight*2)->save(public_path($storagePath.$retina_name));
+
+	return $normal_name;
+}
+
+/**
+ * Destory retina ready image processer
  * @param  string $path Path
  * @param  string $filename  File name
  */

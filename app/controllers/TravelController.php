@@ -44,6 +44,10 @@ class TravelController extends BaseResource
 		'category.exists'       => '请填选择正确的话题。',
 	);
 
+	protected $destinationPath = 'uploads/travel/';
+	protected $largeThumbnailsPath  = 'uploads/travel_large_thumbnails/';
+	protected $smallThumbnailsPath  = 'uploads/travel_small_thumbnails/';
+
 	/**
 	 * Resource list view
 	 * GET         /resource
@@ -239,9 +243,15 @@ class TravelController extends BaseResource
 		{
 			$model      = $this->model->find($id);
 			$thumbnails = $model->thumbnails;
-			File::delete(public_path('uploads/travel_large_thumbnails/'.$thumbnails));
-
-			$timeline   = Timeline::where('slug', $model->slug)->where('user_id', Auth::user()->id)->first();
+			if($thumbnails != NULL){
+				destoryUploadImages($this->largeThumbnailsPath, $thumbnails);
+				destoryUploadImages($this->smallThumbnailsPath, $thumbnails);
+				$images = TravelPictures::where('travel_id', $id)->get();
+				foreach ($images as $singleImage) {
+					destoryUploadImages($this->destinationPath, $singleImage->filename);
+				}
+			}
+			$timeline = Timeline::where('slug', $model->slug)->where('user_id', Auth::user()->id)->first();
 			$timeline->delete();
 
 			$data->delete();
@@ -269,36 +279,30 @@ class TravelController extends BaseResource
 		{
 			return Response::make($validation->errors->first(), 400);
 		}
-
 		$file                = Input::file('file');
-		$destinationPath     = 'uploads/travel/';
-		$ext                 = $file->guessClientExtension();  // Get real extension according to mime type
 		$fullname            = $file->getClientOriginalName(); // Client file name, including the extension of the client
-		$hashname            = date('H.i.s').'-'.md5($fullname).'.'.$ext; // Hash processed file name, including the real extension
-		$picture             = Image::make($file->getRealPath());
-		// Crop the best fitting ratio and resize image
-		$picture->fit(1024, 683)->save(public_path($destinationPath.$hashname));
-		$picture->fit(430, 645)->save(public_path('uploads/travel_small_thumbnails/'.$hashname));
-		$picture->fit(585, 1086)->save(public_path('uploads/travel_large_thumbnails/'.$hashname));
+		$hashname            = date('H.i.s').'-'.md5($fullname); // Hash processed file name, including the real extension
+		$normal_name 		 = uploadImagesProcesser($file, $hashname, $this->destinationPath, 848, 556);
+		$normal_name 		 = uploadImagesProcesser($file, $hashname, $this->largeThumbnailsPath, 263, 486);
+		$normal_name 		 = uploadImagesProcesser($file, $hashname, $this->smallThumbnailsPath, 263, 390);
 
 		$model               = $this->model->find($id);
 		$oldThumbnails       = $model->thumbnails;
-		$model->thumbnails   = $hashname;
-
-		File::delete(
-			public_path('uploads/travel_small_thumbnails/'.$oldThumbnails),
-			public_path('uploads/travel_large_thumbnails/'.$oldThumbnails)
-		);
+		if($oldThumbnails != NULL){
+			destoryUploadImages($this->largeThumbnailsPath, $oldThumbnails);
+			destoryUploadImages($this->smallThumbnailsPath, $oldThumbnails);
+		}
+		$model->thumbnails   = $normal_name;
 
 		$models              = new TravelPictures;
-		$models->filename    = $hashname;
+		$models->filename    = $normal_name;
 		$models->travel_id   = $id;
 		$models->user_id     = Auth::user()->id;
 
 		if($model->save() && $models->save()) {
-		   return Response::json('success', 200);
+			return Response::json('success', 200);
 		} else {
-		   return Response::json('error', 400);
+			return Response::json('error', 400);
 		}
 	}
 
@@ -309,15 +313,20 @@ class TravelController extends BaseResource
 	public function deleteUpload($id)
 	{
 		// Only allows you to share pictures on the cover of the current resource being deleted
-		$filename = TravelPictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
-		$oldImage = $filename->filename;
-
+		$filename      = TravelPictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
+		$oldImage      = $filename->filename;
+		$model         = $this->model->find($filename->travel_id);
+		$oldThumbnails = $model->thumbnails;
 		if (is_null($filename)) {
 			return Redirect::back()->with('error', '没有找到对应的图片');
 		} elseif ($filename->delete()) {
-			File::delete(
-				public_path('uploads/travel/'.$oldImage)
-			);
+			destoryUploadImages($this->destinationPath, $oldImage);
+			if($oldImage == $oldThumbnails) {
+				$model->thumbnails = NULL;
+				$model->save();
+				destoryUploadImages($this->largeThumbnailsPath, $oldThumbnails);
+				destoryUploadImages($this->smallThumbnailsPath, $oldThumbnails);
+			}
 			return Redirect::back()->with('success', '图片删除成功。');
 		} else {
 			return Redirect::back()->with('warning', '图片删除失败。');
