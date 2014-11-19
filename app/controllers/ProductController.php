@@ -339,10 +339,10 @@ class ProductController extends BaseResource
 	public function deleteUpload($id)
 	{
 		// Only allows you to share pictures on the cover of the current resource being deleted
-		$filename = ProductPictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
-		$oldImage = $filename->filename;
-		$model               = $this->model->find($filename->product_id);
-		$oldThumbnails       = $model->thumbnails;
+		$filename      = ProductPictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
+		$oldImage      = $filename->filename;
+		$model         = $this->model->find($filename->product_id);
+		$oldThumbnails = $model->thumbnails;
 		if (is_null($filename)) {
 			return Redirect::back()->with('error', '没有找到对应的图片');
 		} elseif ($filename->delete()) {
