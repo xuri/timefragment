@@ -45,6 +45,9 @@ class JobController extends BaseResource
 		'category.exists'       => '请填选择正确的标题。',
 	);
 
+	protected $destinationPath = 'uploads/jobs/';
+	protected $thumbnailsPath  = 'uploads/job_thumbnails/';
+
 	/**
 	 * Resource list view
 	 * GET         /resource
@@ -246,9 +249,14 @@ class JobController extends BaseResource
 		{
 			$model      = $this->model->find($id);
 			$thumbnails = $model->thumbnails;
-			File::delete(public_path('uploads/job_thumbnails/'.$thumbnails));
-
-			$timeline   = Timeline::where('slug', $model->slug)->where('user_id', Auth::user()->id)->first();
+			if($thumbnails != NULL){
+				destoryUploadImages($this->thumbnailsPath, $thumbnails);
+				$images = JobPictures::where('job_id', $id)->get();
+				foreach ($images as $singleImage) {
+					destoryUploadImages($this->destinationPath, $singleImage->filename);
+				}
+			}
+			$timeline = Timeline::where('slug', $model->slug)->where('user_id', Auth::user()->id)->first();
 			$timeline->delete();
 
 			$data->delete();
@@ -276,32 +284,25 @@ class JobController extends BaseResource
 		{
 			return Response::make($validation->errors->first(), 400);
 		}
-
 		$file                = Input::file('file');
-		$destinationPath     = 'uploads/jobs/';
-		$ext                 = $file->guessClientExtension();  // Get real extension according to mime type
-		$fullname            = $file->getClientOriginalName(); // Client file name, including the extension of the client
-		$hashname            = date('H.i.s').'-'.md5($fullname).'.'.$ext; // Hash processed file name, including the real extension
-		$picture             = Image::make($file->getRealPath());
-		// Crop the best fitting ratio and resize image
-		$picture->fit(1024, 683)->save(public_path($destinationPath.$hashname));
-		$picture->fit(585, 432)->save(public_path('uploads/job_thumbnails/'.$hashname));
+		$normal_name         = uploadImagesProcess($file, $this->destinationPath, 848, 556, 1696, 1132, $this->thumbnailsPath, 360, 214, 720, 428);
 
 		$model               = $this->model->find($id);
 		$oldThumbnails       = $model->thumbnails;
-		$model->thumbnails   = $hashname;
-
-		File::delete(public_path('uploads/job_thumbnails/'.$oldThumbnails));
+		if($oldThumbnails != NULL){
+			destoryUploadImages($this->thumbnailsPath, $oldThumbnails);
+		}
+		$model->thumbnails   = $normal_name;
 
 		$models              = new JobPictures;
-		$models->filename    = $hashname;
-		$models->job_id      = $id;
+		$models->filename    = $normal_name;
+		$models->job_id 	 = $id;
 		$models->user_id     = Auth::user()->id;
 
 		if($model->save() && $models->save()) {
-		   return Response::json('success', 200);
+			return Response::json('success', 200);
 		} else {
-		   return Response::json('error', 400);
+			return Response::json('error', 400);
 		}
 	}
 
@@ -312,15 +313,19 @@ class JobController extends BaseResource
 	public function deleteUpload($id)
 	{
 		// Only allows you to share pictures on the cover of the current resource being deleted
-		$filename = JobPictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
-		$oldImage = $filename->filename;
-
+		$filename      = JobPictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
+		$oldImage      = $filename->filename;
+		$model         = $this->model->find($filename->job_id);
+		$oldThumbnails = $model->thumbnails;
 		if (is_null($filename)) {
 			return Redirect::back()->with('error', '没有找到对应的图片');
 		} elseif ($filename->delete()) {
-			File::delete(
-				public_path('uploads/job/'.$oldImage)
-			);
+			destoryUploadImages($this->destinationPath, $oldImage);
+			if($oldImage == $oldThumbnails) {
+				$model->thumbnails = NULL;
+				$model->save();
+				destoryUploadImages($this->thumbnailsPath, $oldThumbnails);
+			}
 			return Redirect::back()->with('success', '图片删除成功。');
 		} else {
 			return Redirect::back()->with('warning', '图片删除失败。');
