@@ -66,7 +66,7 @@
 				<input type="submit" value="注册">
 			</fieldset>
 			<fieldset class="forgotLink">注册即表示您已接受并同意
-				<a id="{{-- forgot --}}" href="{{ route('home') }}/article/users-terms.html">服务条款</a>
+				<a id="{{-- forgot --}}" href="{{ route('home') }}/article/users-terms.html" target="_blank">服务条款</a>
 			</fieldset>
 			<fieldset id="quotes" style="font-family: '楷体';">
 				<p>时光不老，我们不散

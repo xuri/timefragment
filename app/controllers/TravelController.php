@@ -282,7 +282,7 @@ class TravelController extends BaseResource
 		$file                = Input::file('file');
 		$fullname            = $file->getClientOriginalName(); // Client file name, including the extension of the client
 		$hashname            = date('H.i.s').'-'.md5($fullname); // Hash processed file name, including the real extension
-		$normal_name 		 = uploadImagesProcesser($file, $hashname, $this->destinationPath, 848, 556);
+		$normal_name 		 = uploadImagesProcesser($file, $hashname, $this->destinationPath, 848, 566);
 		$normal_name 		 = uploadImagesProcesser($file, $hashname, $this->largeThumbnailsPath, 263, 486);
 		$normal_name 		 = uploadImagesProcesser($file, $hashname, $this->smallThumbnailsPath, 263, 390);
 
