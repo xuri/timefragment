@@ -43,6 +43,6 @@ git update-index --no-assume-unchanged app/api/alipay/alipay.config.php
 ```
 
 ###Preview
-![TimeFragment](/public/readme/preview-1024x576.jpg "TimeFragment")
+![TimeFragment](/public/readme/preview.jpg "TimeFragment")
 
 [More Info](http://xuri.me/2014/03/08/timefragment.html)
