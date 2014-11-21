@@ -28,8 +28,8 @@
 			"app/tests/TestCase.php"
 		],
 		"psr-0": {
-            "Formativ\\Chat": "workbench/formativ/chat/src/"
-        }
+			"Formativ\\Chat": "workbench/formativ/chat/src/"
+		}
 	},
 	"scripts": {
 		"post-install-cmd": [
@@ -47,5 +47,9 @@
 	"config": {
 		"preferred-install": "dist"
 	},
-	"minimum-stability": "stable"
+	"minimum-stability": "stable",
+	"repositories": [
+			{"type": "composer", "url": "http://pkg.phpcomposer.com/repo/packagist/"},
+			{"packagist": false}
+		]
 }
