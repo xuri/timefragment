@@ -476,8 +476,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
 
 	# Jobs category management
 	Route::group(array('prefix' => 'job-categories'), function () {
-		$resource   = 'job_categories';
-		$controller = 'Admin_JobCategoriesResource@';
+		$resource	= 'job_categories';
+		$controller	= 'Admin_JobCategoriesResource@';
 		Route::get(           '/', array('as' => $resource.'.index'        , 'uses' => $controller.'index'       ));
 		Route::get(      'create', array('as' => $resource.'.create'       , 'uses' => $controller.'create'      ));
 		Route::get('{id}/new-cat', array('as' => $resource.'.newCat'       , 'uses' => $controller.'newCat'      ));
@@ -491,8 +491,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth|admin'), function () {
 
 	# Job management
 	Route::group(array('prefix' => 'job'), function () {
-		$resource   = 'job';
-		$controller = 'Admin_JobResource@';
+		$resource	= 'job';
+		$controller	= 'Admin_JobResource@';
 		Route::get(            '/', array('as' => $resource.'.index'        , 'uses' => $controller.'index'       ));
 		Route::get(       'create', array('as' => $resource.'.create'       , 'uses' => $controller.'create'      ));
 		Route::get('{id}/new-post', array('as' => $resource.'.newPost'      , 'uses' => $controller.'newPost'     ));

@@ -51,16 +51,16 @@ class TravelController extends BaseResource
 	 * @var array
 	 */
 	protected $validatorMessages = array(
-		'title.required'        => '请填写标题。',
-		'title.unique'          => '已有同名标题。',
-		'slug.unique'           => '已有同名 sulg。',
-		'content.required'      => '请填写内容。',
-		'category.exists'       => '请填选择正确的话题。',
+		'title.required'	=> '请填写标题。',
+		'title.unique'		=> '已有同名标题。',
+		'slug.unique'		=> '已有同名 sulg。',
+		'content.required'	=> '请填写内容。',
+		'category.exists'	=> '请填选择正确的话题。',
 	);
 
-	protected $destinationPath = 'uploads/travel/';
-	protected $largeThumbnailsPath  = 'uploads/travel_large_thumbnails/';
-	protected $smallThumbnailsPath  = 'uploads/travel_small_thumbnails/';
+	protected $destinationPath		= 'uploads/travel/';
+	protected $largeThumbnailsPath	= 'uploads/travel_large_thumbnails/';
+	protected $smallThumbnailsPath	= 'uploads/travel_small_thumbnails/';
 
 	/**
 	 * Resource list view
@@ -97,15 +97,15 @@ class TravelController extends BaseResource
 		{
 			return Redirect::route($this->resource.'.newPost', $exist->id);
 		} else {
-			$model                   = $this->model;
-			$model->user_id          = Auth::user()->id;
-			$model->category_id      = '';
-			$model->title            = '';
-			$model->slug             = '';
-			$model->content          = '';
-			$model->meta_title       = '';
-			$model->meta_description = '';
-			$model->meta_keywords    = '';
+			$model						= $this->model;
+			$model->user_id				= Auth::user()->id;
+			$model->category_id			= '';
+			$model->title				= '';
+			$model->slug				= '';
+			$model->content				= '';
+			$model->meta_title			= '';
+			$model->meta_description	= '';
+			$model->meta_keywords		= '';
 			$model->save();
 			return Redirect::route($this->resource.'.newPost', $model->id);
 		}
@@ -118,9 +118,9 @@ class TravelController extends BaseResource
 	 */
 	public function newPost($id)
 	{
-		$data          = $this->model->find($id);
-		$categoryLists = TravelCategories::lists('name', 'id');
-		$travel        = $this->model->where('id', $id)->first();
+		$data			= $this->model->find($id);
+		$categoryLists	= TravelCategories::lists('name', 'id');
+		$travel			= $this->model->where('id', $id)->first();
 		return View::make($this->resourceView.'.create')->with(compact('data', 'categoryLists', 'travel'));
 	}
 
@@ -132,37 +132,37 @@ class TravelController extends BaseResource
 	public function store($id)
 	{
 		// Get all form data.
-		$data   = Input::all();
+		$data	= Input::all();
 		// Create validation rules
 		$unique = $this->unique();
 		$rules  = array(
-			'title'        => 'required|'.$unique,
-			'content'      => 'required',
-			'category'     => 'exists:travel_categories,id',
+			'title'		=> 'required|'.$unique,
+			'content'	=> 'required',
+			'category'	=> 'exists:travel_categories,id',
 		);
-		$slug      = Input::input('title');
-		$hashslug  = date('H.i.s').'-'.md5($slug).'.html';
+		$slug		= Input::input('title');
+		$hashslug	= date('H.i.s').'-'.md5($slug).'.html';
 		// Custom validation message
-		$messages  = $this->validatorMessages;
+		$messages	= $this->validatorMessages;
 		// Begin verification
-		$validator = Validator::make($data, $rules, $messages);
+		$validator	= Validator::make($data, $rules, $messages);
 		if ($validator->passes()) {
 			// Verification success
 			// Add resource
-			$model                   = $this->model->find($id);
-			$model->category_id      = $data['category'];
-			$model->title            = e($data['title']);
-			$model->slug             = $hashslug;
-			$model->content          = e($data['content']);
-			$model->meta_title       = e($data['title']);
-			$model->meta_description = e($data['title']);
-			$model->meta_keywords    = e($data['title']);
-			$model->post_status      = 'open';
+			$model						= $this->model->find($id);
+			$model->category_id			= $data['category'];
+			$model->title				= e($data['title']);
+			$model->slug				= $hashslug;
+			$model->content				= e($data['content']);
+			$model->meta_title			= e($data['title']);
+			$model->meta_description	= e($data['title']);
+			$model->meta_keywords		= e($data['title']);
+			$model->post_status			= 'open';
 
-			$timeline                = new Timeline;
-			$timeline->slug          = $hashslug;
-			$timeline->model         = 'Travel';
-			$timeline->user_id       = Auth::user()->id;
+			$timeline					= new Timeline;
+			$timeline->slug				= $hashslug;
+			$timeline->model			= 'Travel';
+			$timeline->user_id			= Auth::user()->id;
 			if ($model->save() && $timeline->save()) {
 				// Add success
 				return Redirect::route($this->resource.'.edit', $model->id)
@@ -187,9 +187,9 @@ class TravelController extends BaseResource
 	 */
 	public function edit($id)
 	{
-		$data          = $this->model->find($id);
-		$categoryLists = TravelCategories::lists('name', 'id');
-		$travel        = $this->model->where('slug', $data->slug)->first();
+		$data			= $this->model->find($id);
+		$categoryLists	= TravelCategories::lists('name', 'id');
+		$travel			= $this->model->where('slug', $data->slug)->first();
 		return View::make($this->resourceView.'.edit')->with(compact('data', 'categoryLists', 'travel'));
 	}
 
@@ -202,29 +202,29 @@ class TravelController extends BaseResource
 	public function update($id)
 	{
 		// Get all form data.
-		$data = Input::all();
+		$data 	= Input::all();
 		// Create validation rules
 		$rules  = array(
-			'title'        => 'required',
-			'content'      => 'required',
-			'category'     => 'exists:travel_categories,id',
+			'title'		=> 'required',
+			'content'	=> 'required',
+			'category'	=> 'exists:travel_categories,id',
 		);
 		// Custom validation message
-		$messages  = $this->validatorMessages;
+		$messages	= $this->validatorMessages;
 		// Begin verification
-		$validator = Validator::make($data, $rules, $messages);
+		$validator	= Validator::make($data, $rules, $messages);
 		if ($validator->passes()) {
 
 			// Verification success
 			// Update resource
-			$model                   = $this->model->find($id);
-			$model->user_id          = Auth::user()->id;
-			$model->category_id      = $data['category'];
-			$model->title            = e($data['title']);
-			$model->content          = e($data['content']);
-			$model->meta_title       = e($data['title']);
-			$model->meta_description = e($data['title']);
-			$model->meta_keywords    = e($data['title']);
+			$model						= $this->model->find($id);
+			$model->user_id				= Auth::user()->id;
+			$model->category_id			= $data['category'];
+			$model->title				= e($data['title']);
+			$model->content				= e($data['content']);
+			$model->meta_title			= e($data['title']);
+			$model->meta_description	= e($data['title']);
+			$model->meta_keywords		= e($data['title']);
 
 			if ($model->save()) {
 				// Update success
@@ -255,8 +255,8 @@ class TravelController extends BaseResource
 			return Redirect::back()->with('error', '没有找到对应的'.$this->resourceName.'。');
 		elseif ($data)
 		{
-			$model      = $this->model->find($id);
-			$thumbnails = $model->thumbnails;
+			$model		= $this->model->find($id);
+			$thumbnails	= $model->thumbnails;
 			if($thumbnails != NULL){
 				destoryUploadImages($this->largeThumbnailsPath, $thumbnails);
 				destoryUploadImages($this->smallThumbnailsPath, $thumbnails);
@@ -293,25 +293,25 @@ class TravelController extends BaseResource
 		{
 			return Response::make($validation->errors->first(), 400);
 		}
-		$file                = Input::file('file');
-		$fullname            = $file->getClientOriginalName(); // Client file name, including the extension of the client
-		$hashname            = date('H.i.s').'-'.md5($fullname); // Hash processed file name, including the real extension
-		$normal_name 		 = uploadImagesProcesser($file, $hashname, $this->destinationPath, 848, 566);
-		$normal_name 		 = uploadImagesProcesser($file, $hashname, $this->largeThumbnailsPath, 263, 486);
-		$normal_name 		 = uploadImagesProcesser($file, $hashname, $this->smallThumbnailsPath, 263, 390);
+		$file			= Input::file('file');
+		$fullname		= $file->getClientOriginalName(); // Client file name, including the extension of the client
+		$hashname		= date('H.i.s').'-'.md5($fullname); // Hash processed file name, including the real extension
+		$normal_name	= uploadImagesProcesser($file, $hashname, $this->destinationPath, 848, 566);
+		$normal_name	= uploadImagesProcesser($file, $hashname, $this->largeThumbnailsPath, 263, 486);
+		$normal_name	= uploadImagesProcesser($file, $hashname, $this->smallThumbnailsPath, 263, 390);
 
-		$model               = $this->model->find($id);
-		$oldThumbnails       = $model->thumbnails;
+		$model			= $this->model->find($id);
+		$oldThumbnails	= $model->thumbnails;
 		if($oldThumbnails != NULL){
 			destoryUploadImages($this->largeThumbnailsPath, $oldThumbnails);
 			destoryUploadImages($this->smallThumbnailsPath, $oldThumbnails);
 		}
-		$model->thumbnails   = $normal_name;
+		$model->thumbnails	= $normal_name;
 
-		$models              = new TravelPictures;
-		$models->filename    = $normal_name;
-		$models->travel_id   = $id;
-		$models->user_id     = Auth::user()->id;
+		$models				= new TravelPictures;
+		$models->filename	= $normal_name;
+		$models->travel_id	= $id;
+		$models->user_id	= Auth::user()->id;
 
 		if($model->save() && $models->save()) {
 			return Response::json('success', 200);
@@ -327,10 +327,10 @@ class TravelController extends BaseResource
 	public function deleteUpload($id)
 	{
 		// Only allows you to share pictures on the cover of the current resource being deleted
-		$filename      = TravelPictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
-		$oldImage      = $filename->filename;
-		$model         = $this->model->find($filename->travel_id);
-		$oldThumbnails = $model->thumbnails;
+		$filename		= TravelPictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
+		$oldImage		= $filename->filename;
+		$model			= $this->model->find($filename->travel_id);
+		$oldThumbnails	= $model->thumbnails;
 		if (is_null($filename)) {
 			return Redirect::back()->with('error', '没有找到对应的图片');
 		} elseif ($filename->delete()) {
@@ -379,8 +379,8 @@ class TravelController extends BaseResource
 	 */
 	public function getIndex()
 	{
-		$travel     = $this->model->orderBy('created_at', 'desc')->where('post_status', 'open')->paginate(12);
-		$categories = TravelCategories::orderBy('sort_order')->where('cat_status', 'open')->paginate(6);
+		$travel		= $this->model->orderBy('created_at', 'desc')->where('post_status', 'open')->paginate(12);
+		$categories	= TravelCategories::orderBy('sort_order')->where('cat_status', 'open')->paginate(6);
 		return View::make('travel.index')->with(compact('travel', 'categories'));
 	}
 
@@ -390,9 +390,9 @@ class TravelController extends BaseResource
 	 */
 	public function category($category_id)
 	{
-		$travel           = $this->model->where('category_id', $category_id)->orderBy('created_at', 'desc')->paginate(6);
-		$categories       = TravelCategories::orderBy('sort_order')->get();
-		$current_category = TravelCategories::where('id', $category_id)->first();
+		$travel				= $this->model->where('category_id', $category_id)->orderBy('created_at', 'desc')->paginate(6);
+		$categories			= TravelCategories::orderBy('sort_order')->get();
+		$current_category	= TravelCategories::where('id', $category_id)->first();
 		return View::make('travel.category')->with(compact('travel', 'categories', 'category_id', 'current_category'));
 	}
 
@@ -417,12 +417,12 @@ class TravelController extends BaseResource
 		if (mb_strlen($content) < 3)
 			return Redirect::back()->withInput()->withErrors($this->messages->add('content', '评论不得少于3个字符。'));
 		// Find article
-		$travel             = $this->model->where('slug', $slug)->first();
+		$travel				= $this->model->where('slug', $slug)->first();
 		// Create comment
-		$comment            = new TravelComment;
-		$comment->content   = $content;
-		$comment->travel_id = $travel->id;
-		$comment->user_id   = Auth::user()->id;
+		$comment			= new TravelComment;
+		$comment->content	= $content;
+		$comment->travel_id	= $travel->id;
+		$comment->user_id	= Auth::user()->id;
 		if ($comment->save()) {
 			// Create success
 			// Updated comments
@@ -442,8 +442,8 @@ class TravelController extends BaseResource
 	 */
 	public function search()
 	{
-		$query             = $this->model->where('post_status', 'open')->orderBy('created_at', 'desc');
-		$categories        = TravelCategories::where('cat_status', 'open')->orderBy('sort_order')->get();
+		$query		= $this->model->where('post_status', 'open')->orderBy('created_at', 'desc');
+		$categories	= TravelCategories::where('cat_status', 'open')->orderBy('sort_order')->get();
 		// Get search conditions
 		switch (Input::get('target')) {
 			case 'title':

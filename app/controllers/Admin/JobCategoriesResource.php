@@ -37,11 +37,11 @@ class Admin_JobCategoriesResource extends BaseResource
 	 * @var array
 	 */
 	protected $validatorMessages = array(
-		'name.required'       => '请填写工作分类名称。',
-		'name.unique'         => '已有同名分类。',
-		'sort_order.required' => '请填写分类排序。',
-		'sort_order.integer'  => '请填写一个整数。',
-		'content.required'    => '请填写简介。',
+		'name.required'			=> '请填写工作分类名称。',
+		'name.unique'			=> '已有同名分类。',
+		'sort_order.required'	=> '请填写分类排序。',
+		'sort_order.integer'	=> '请填写一个整数。',
+		'content.required'		=> '请填写简介。',
 	);
 
 	/**
@@ -67,10 +67,10 @@ class Admin_JobCategoriesResource extends BaseResource
 		{
 			return Redirect::route($this->resource.'.newCat', $exist->id);
 		} else {
-			$model             = $this->model;
-			$model->name       = '';
-			$model->sort_order = '';
-			$model->content    = '';
+			$model				= $this->model;
+			$model->name		= '';
+			$model->sort_order	= '';
+			$model->content		= '';
 			$model->save();
 			return Redirect::route($this->resource.'.newCat', $model->id);
 		}
@@ -95,26 +95,26 @@ class Admin_JobCategoriesResource extends BaseResource
 	public function store($id)
 	{
 		// Get all form data.
-		$data   = Input::all();
+		$data	= Input::all();
 		// Create validation rules
-		$unique = $this->unique();
-		$rules  = array(
-			'name'       => 'required|'.$unique,
-			'sort_order' => 'required|integer',
-			'content'    => 'required|',
+		$unique	= $this->unique();
+		$rules	= array(
+			'name'			=> 'required|'.$unique,
+			'sort_order'	=> 'required|integer',
+			'content'		=> 'required|',
 		);
 		// Custom validation message
-		$messages  = $this->validatorMessages;
+		$messages	= $this->validatorMessages;
 		// Begin verification
-		$validator = Validator::make($data, $rules, $messages);
+		$validator	= Validator::make($data, $rules, $messages);
 		if ($validator->passes()) {
 			// Verification success
 			// Add resource
-			$model             = $this->model->find($id);
-			$model->name       = e($data['name']);
-			$model->sort_order = e($data['sort_order']);
-			$model->content    = e($data['content']);
-			$model->cat_status = 'open';
+			$model				= $this->model->find($id);
+			$model->name		= e($data['name']);
+			$model->sort_order	= e($data['sort_order']);
+			$model->content		= e($data['content']);
+			$model->cat_status	= 'open';
 			if ($model->save()) {
 				// Add success
 				return Redirect::route($this->resource.'.edit', $model->id)
@@ -140,24 +140,24 @@ class Admin_JobCategoriesResource extends BaseResource
 	public function update($id)
 	{
 		// Get all form data.
-		$data = Input::all();
+		$data	= Input::all();
 		// Create validation rules
-		$rules = array(
-			'name'       => 'required|'.$this->unique('name', $id),
-			'sort_order' => 'required|integer',
-			'content'    => 'required|',
+		$rules	= array(
+			'name'			=> 'required|'.$this->unique('name', $id),
+			'sort_order'	=> 'required|integer',
+			'content'		=> 'required|',
 		);
 		// Custom validation message
-		$messages  = $this->validatorMessages;
+		$messages	= $this->validatorMessages;
 		// Begin verification
-		$validator = Validator::make($data, $rules, $messages);
+		$validator	= Validator::make($data, $rules, $messages);
 		if ($validator->passes()) {
 			// Verification success
 			// Update resource
-			$model             = $this->model->find($id);
-			$model->name       = e($data['name']);
-			$model->sort_order = e($data['sort_order']);
-			$model->content    = e($data['content']);
+			$model				= $this->model->find($id);
+			$model->name		= e($data['name']);
+			$model->sort_order	= e($data['sort_order']);
+			$model->content		= e($data['content']);
 			if ($model->save()) {
 				// Update success
 				return Redirect::back()
@@ -180,8 +180,8 @@ class Admin_JobCategoriesResource extends BaseResource
 	 */
 	public function postUpload($id)
 	{
-		$input = Input::all();
-		$rules = array(
+		$input	= Input::all();
+		$rules	= array(
 			'file' => 'image|max:3000',
 		);
 
@@ -192,19 +192,19 @@ class Admin_JobCategoriesResource extends BaseResource
 			return Response::make($validation->errors->first(), 400);
 		}
 
-		$file              = Input::file('file');
-		$destinationPath   = 'uploads/job_category_thumbnails/';
-		$ext               = $file->guessClientExtension();  // Get real extension according to mime type
-		$fullname          = $file->getClientOriginalName(); // Client file name, including the extension of the client
-		$hashname          = date('H.i.s').'-'.md5($fullname).'.'.$ext; // Hash processed file name, including the real extension
+		$file				= Input::file('file');
+		$destinationPath	= 'uploads/job_category_thumbnails/';
+		$ext				= $file->guessClientExtension();  // Get real extension according to mime type
+		$fullname			= $file->getClientOriginalName(); // Client file name, including the extension of the client
+		$hashname			= date('H.i.s').'-'.md5($fullname).'.'.$ext; // Hash processed file name, including the real extension
 
-		$model             = $this->model->find($id);
-		$oldThumbnails     = $model->thumbnails;
-		$model->thumbnails = $hashname;
+		$model				= $this->model->find($id);
+		$oldThumbnails		= $model->thumbnails;
+		$model->thumbnails	= $hashname;
 		$model->save();
 
-		$thumbnails        = Image::make($file->getRealPath());
-		$upload_success    = $thumbnails->fit(105, 105)->save(public_path($destinationPath.$hashname));
+		$thumbnails			= Image::make($file->getRealPath());
+		$upload_success		= $thumbnails->fit(105, 105)->save(public_path($destinationPath.$hashname));
 
 		File::delete(public_path('uploads/job_category_thumbnails/'.$oldThumbnails));
 
@@ -222,8 +222,8 @@ class Admin_JobCategoriesResource extends BaseResource
 	public function deleteUpload($id)
 	{
 		// Only allow delete operations to the picture on the cover of the current resource
-		$model      = $this->model->find($id);
-		$thumbnails = $model->thumbnails;
+		$model		= $this->model->find($id);
+		$thumbnails	= $model->thumbnails;
 
 		if (is_null($thumbnails)) {
 			return Redirect::back()->with('error', '没有找到对应的图片');

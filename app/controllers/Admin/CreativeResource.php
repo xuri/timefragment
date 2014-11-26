@@ -37,15 +37,15 @@ class Admin_CreativeResource extends BaseResource
 	 * @var array
 	 */
 	protected $validatorMessages = array(
-		'title.required'        => '请填写创意标题。',
-		'title.unique'          => '已有同名创意。',
-		'slug.unique'           => '已有同名 sulg。',
-		'content.required'      => '请填写创意内容。',
-		'category.exists'       => '请填选择正确的创意分类。',
+		'title.required'	=> '请填写创意标题。',
+		'title.unique'		=> '已有同名创意。',
+		'slug.unique'		=> '已有同名 sulg。',
+		'content.required'	=> '请填写创意内容。',
+		'category.exists'	=> '请填选择正确的创意分类。',
 	);
 
-	protected $destinationPath = 'uploads/creative/';
-	protected $thumbnailsPath  = 'uploads/creative_thumbnails/';
+	protected $destinationPath	= 'uploads/creative/';
+	protected $thumbnailsPath	= 'uploads/creative_thumbnails/';
 
 	/**
 	 * Resource list view
@@ -55,8 +55,8 @@ class Admin_CreativeResource extends BaseResource
 	public function index()
 	{
 		// Get sort conditions
-		$orderColumn = Input::get('sort_up', Input::get('sort_down', 'created_at'));
-		$direction   = Input::get('sort_up') ? 'asc' : 'desc' ;
+		$orderColumn	= Input::get('sort_up', Input::get('sort_down', 'created_at'));
+		$direction		= Input::get('sort_up') ? 'asc' : 'desc' ;
 		// Get search conditions
 		switch (Input::get('target')) {
 			case 'title':
@@ -82,15 +82,15 @@ class Admin_CreativeResource extends BaseResource
 		{
 			return Redirect::route($this->resource.'.newPost', $exist->id);
 		} else {
-			$model                   = $this->model;
-			$model->user_id          = Auth::user()->id;
-			$model->category_id      = '';
-			$model->title            = '';
-			$model->slug             = '';
-			$model->content          = '';
-			$model->meta_title       = '';
-			$model->meta_description = '';
-			$model->meta_keywords    = '';
+			$model						= $this->model;
+			$model->user_id				= Auth::user()->id;
+			$model->category_id			= '';
+			$model->title				= '';
+			$model->slug				= '';
+			$model->content				= '';
+			$model->meta_title			= '';
+			$model->meta_description	= '';
+			$model->meta_keywords		= '';
 			$model->save();
 			return Redirect::route($this->resource.'.newPost', $model->id);
 		}
@@ -103,9 +103,9 @@ class Admin_CreativeResource extends BaseResource
 	 */
 	public function newPost($id)
 	{
-		$data          = $this->model->find($id);
-		$categoryLists = CreativeCategories::lists('name', 'id');
-		$creative      = $this->model->where('id', $id)->first();
+		$data			= $this->model->find($id);
+		$categoryLists	= CreativeCategories::lists('name', 'id');
+		$creative		= $this->model->where('id', $id)->first();
 		return View::make($this->resourceView.'.create')->with(compact('data', 'categoryLists', 'creative'));
 	}
 
@@ -117,38 +117,38 @@ class Admin_CreativeResource extends BaseResource
 	public function store($id)
 	{
 		// Get all form data.
-		$data   = Input::all();
+		$data	= Input::all();
 		// Create validation rules
-		$unique = $this->unique();
-		$rules  = array(
-			'title'        => 'required|'.$unique,
-			'content'      => 'required',
-			'category'     => 'exists:creative_categories,id',
+		$unique	= $this->unique();
+		$rules	= array(
+			'title'		=> 'required|'.$unique,
+			'content'	=> 'required',
+			'category'	=> 'exists:creative_categories,id',
 		);
-		$slug      = Input::input('title');
-		$hashslug  = date('H.i.s').'-'.md5($slug).'.html';
+		$slug		= Input::input('title');
+		$hashslug	= date('H.i.s').'-'.md5($slug).'.html';
 		// Custom validation message
-		$messages  = $this->validatorMessages;
+		$messages	= $this->validatorMessages;
 		// Begin verification
-		$validator = Validator::make($data, $rules, $messages);
+		$validator	= Validator::make($data, $rules, $messages);
 		if ($validator->passes()) {
 			// Verification success
 			// Add resource
-			$model                   = $this->model->find($id);
-			$model->category_id      = $data['category'];
-			$model->title            = e($data['title']);
-			$model->slug             = $hashslug;
-			$model->content          = e($data['content']);
-			$model->meta_title       = e($data['title']);
-			$model->meta_description = e($data['title']);
-			$model->meta_keywords    = e($data['title']);
-			$model->post_status      = 'open';
+			$model						= $this->model->find($id);
+			$model->category_id			= $data['category'];
+			$model->title				= e($data['title']);
+			$model->slug				= $hashslug;
+			$model->content				= e($data['content']);
+			$model->meta_title			= e($data['title']);
+			$model->meta_description	= e($data['title']);
+			$model->meta_keywords		= e($data['title']);
+			$model->post_status			= 'open';
 			$model->save();
 
-			$timeline                = new Timeline;
-			$timeline->slug          = $hashslug;
-			$timeline->model         = 'Creative';
-			$timeline->user_id       = Auth::user()->id;
+			$timeline					= new Timeline;
+			$timeline->slug				= $hashslug;
+			$timeline->model			= 'Creative';
+			$timeline->user_id			= Auth::user()->id;
 			if ($timeline->save()) {
 				// Add success
 				return Redirect::route($this->resource.'.edit', $model->id)
@@ -173,9 +173,9 @@ class Admin_CreativeResource extends BaseResource
 	 */
 	public function edit($id)
 	{
-		$data          = $this->model->find($id);
-		$categoryLists = CreativeCategories::lists('name', 'id');
-		$creative      = $this->model->where('slug', $data->slug)->first();
+		$data			= $this->model->find($id);
+		$categoryLists	= CreativeCategories::lists('name', 'id');
+		$creative		= $this->model->where('slug', $data->slug)->first();
 		return View::make($this->resourceView.'.edit')->with(compact('data', 'categoryLists', 'creative'));
 	}
 
@@ -191,35 +191,35 @@ class Admin_CreativeResource extends BaseResource
 		$data = Input::all();
 		// Create validation rules
 		$rules  = array(
-			'title'        => 'required',
-			'slug'         => 'required|'.$this->unique('slug', $id),
-			'category'     => 'exists:creative_categories,id',
-			'content'      => 'required',
+			'title'		=> 'required',
+			'slug'		=> 'required|'.$this->unique('slug', $id),
+			'category'	=> 'exists:creative_categories,id',
+			'content'	=> 'required',
 		);
 
-		$model     = $this->model->find($id);
-		$oldSlug   = $model->slug;
+		$model		= $this->model->find($id);
+		$oldSlug	= $model->slug;
 		// Custom validation message
-		$messages  = $this->validatorMessages;
+		$messages	= $this->validatorMessages;
 		// Begin verification
-		$validator = Validator::make($data, $rules, $messages);
+		$validator	= Validator::make($data, $rules, $messages);
 		if ($validator->passes()) {
 
 			// Verification success
 			// Update success
-			$model = $this->model->find($id);
-			$model->user_id          = Auth::user()->id;
-			$model->category_id      = $data['category'];
-			$model->title            = e($data['title']);
-			$model->slug             = e($data['slug']);
-			$model->content          = e($data['content']);
-			$model->meta_title       = e($data['title']);
-			$model->meta_description = e($data['title']);
-			$model->meta_keywords    = e($data['title']);
+			$model						= $this->model->find($id);
+			$model->user_id				= Auth::user()->id;
+			$model->category_id			= $data['category'];
+			$model->title				= e($data['title']);
+			$model->slug				= e($data['slug']);
+			$model->content				= e($data['content']);
+			$model->meta_title			= e($data['title']);
+			$model->meta_description	= e($data['title']);
+			$model->meta_keywords		= e($data['title']);
 			$model->save();
 
-			$timeline = Timeline::where('slug', $oldSlug)->where('user_id', Auth::user()->id)->first();
-			$timeline->slug = e($data['slug']);
+			$timeline					= Timeline::where('slug', $oldSlug)->where('user_id', Auth::user()->id)->first();
+			$timeline->slug				= e($data['slug']);
 
 			if ($timeline->save()) {
 				// Update success
@@ -250,8 +250,8 @@ class Admin_CreativeResource extends BaseResource
 			return Redirect::back()->with('error', '没有找到对应的'.$this->resourceName.'。');
 		elseif ($data)
 		{
-			$model      = $this->model->find($id);
-			$thumbnails = $model->thumbnails;
+			$model		= $this->model->find($id);
+			$thumbnails	= $model->thumbnails;
 			if($thumbnails != NULL){
 				destoryUploadImages($this->thumbnailsPath, $thumbnails);
 				$images = CreativePictures::where('creative_id', $id)->get();
@@ -287,20 +287,20 @@ class Admin_CreativeResource extends BaseResource
 		{
 			return Response::make($validation->errors->first(), 400);
 		}
-		$file                = Input::file('file');
-		$normal_name         = uploadImagesProcess($file, $this->destinationPath, 848, 556, 1696, 1132, $this->thumbnailsPath, 360, 214, 720, 428);
+		$file					= Input::file('file');
+		$normal_name			= uploadImagesProcess($file, $this->destinationPath, 848, 556, 1696, 1132, $this->thumbnailsPath, 360, 214, 720, 428);
 
-		$model               = $this->model->find($id);
-		$oldThumbnails       = $model->thumbnails;
-		if($oldThumbnails != NULL){
+		$model					= $this->model->find($id);
+		$oldThumbnails			= $model->thumbnails;
+		if($oldThumbnails		!= NULL){
 			destoryUploadImages($this->thumbnailsPath, $oldThumbnails);
 		}
-		$model->thumbnails   = $normal_name;
+		$model->thumbnails		= $normal_name;
 
-		$models              = new CreativePictures;
-		$models->filename    = $normal_name;
-		$models->creative_id = $id;
-		$models->user_id     = Auth::user()->id;
+		$models					= new CreativePictures;
+		$models->filename		= $normal_name;
+		$models->creative_id	= $id;
+		$models->user_id		= Auth::user()->id;
 
 		if($model->save() && $models->save()) {
 			return Response::json('success', 200);
@@ -316,10 +316,10 @@ class Admin_CreativeResource extends BaseResource
 	public function deleteUpload($id)
 	{
 		// Only allows you to share pictures on the cover of the current resource being deleted
-		$filename      = CreativePictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
-		$oldImage      = $filename->filename;
-		$model         = $this->model->find($filename->creative_id);
-		$oldThumbnails = $model->thumbnails;
+		$filename		= CreativePictures::where('id', $id)->where('user_id', Auth::user()->id)->first();
+		$oldImage		= $filename->filename;
+		$model			= $this->model->find($filename->creative_id);
+		$oldThumbnails	= $model->thumbnails;
 		if (is_null($filename)) {
 			return Redirect::back()->with('error', '没有找到对应的图片');
 		} elseif ($filename->delete()) {
