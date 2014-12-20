@@ -280,6 +280,7 @@ class AuthorityController extends BaseController
 				$user->password		= $_SESSION['token']['access_token'];
 				$user->nickname		= $nickname;
 				$user->bound_type	= '2';
+				$user->activated_at	= date('Y-m-d H:m:s');
 				$user->save();
 				return View::make('authority.oauthSuccess');
 			}
@@ -328,6 +329,7 @@ class AuthorityController extends BaseController
 			$user->password		= $access_token;
 			$user->nickname		= $nickname;
 			$user->bound_type	= '3';
+			$user->activated_at	= date('Y-m-d H:m:s');
 			$user->save();
 			return View::make('authority.oauthQQ');
 		}
