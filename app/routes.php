@@ -159,7 +159,7 @@ Route::group(array('prefix' => 'job'), function () {
 |
 */
 
-Route::group(array('prefix' => 'timeline', 'before' => 'auth.activated'), function () {
+Route::group(array('prefix' => 'timeline', 'before' => 'auth|auth.activated'), function () {
 	$resource   = 'timeline';
 	$controller = 'TimelineController@';
 	# Timeline Index
@@ -214,7 +214,7 @@ Route::group(array('prefix' => 'auth'), function () {
 |
 */
 
-Route::group(array('prefix' => 'account', 'before' => 'auth.activated'), function () {
+Route::group(array('prefix' => 'account', 'before' => 'auth|auth.activated'), function () {
 	$Account = 'AccountController@';
 
 	# Account Index
@@ -333,7 +333,7 @@ Route::group(array('prefix' => 'account', 'before' => 'auth.activated'), functio
 |--------------------------------------------------------------------------
 */
 
-Route::group(array('prefix' => 'admin', 'before' => 'auth.activated|admin'), function () {
+Route::group(array('prefix' => 'admin', 'before' => 'auth|auth.activated|admin'), function () {
 	$Admin = 'AdminController@';
 	# Admin index
 	Route::get('/', array('as' => 'admin', 'uses' => $Admin.'getIndex'));
