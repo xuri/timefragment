@@ -43,7 +43,7 @@
 
 		{{-- Stylesheet --}}
 
-		{{ style('bootstrap-3.0.3') }}
+		{{ style('cdn::bootstrap') }}
 		{{ style('flexslider-2.2') }}
 
 		{{ Minify::stylesheet(array(
@@ -54,7 +54,7 @@
 			'/assets/css/color/blu.css'
 		)) }}
 
-		{{ style('font-awesome-4.1.0') }}
+		{{ style('cdn::font-awaresome') }}
 
 		{{ HTML::style('assets/css/style-responsive.min.css') }}
 
@@ -73,7 +73,7 @@
 
 		{{-- Js Library --}}
 
-		{{ script('jquery-2.1.1') }}
+		{{ script('cdn::jquery') }}
 
 		{{-- Js Library --}}
 	</head>

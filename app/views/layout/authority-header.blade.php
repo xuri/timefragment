@@ -47,8 +47,8 @@
 			'/assets/css/style-2.css'
 		)) }}
 
-		{{ style('bootstrap-3.0.3') }}
-		{{ style('font-awesome-4.1.0') }}
+		{{ style('cdn::bootstrap') }}
+		{{ style('cdn::font-awaresome') }}
 		{{ HTML::style('assets/css/fonts.googleapis.min.css') }}
 		{{ HTML::style('assets/css/main.min.css') }}
 		{{ HTML::style('assets/css/style-responsive.min.css') }}
@@ -57,13 +57,13 @@
 
 		{{-- jQuery (necessary for Bootstrap's JavaScript plugins) --}}
 
-		{{ script('jquery-2.1.1') }}
+		{{ script('cdn::jquery') }}
 
 		{{-- Include all compiled plugins (below), or include individual files as needed --}}
 
 
 		{{ Minify::javascript(array(
-			'/assets/bootstrap-3.0.3/js/bootstrap.min.js',
+			'/assets/bootstrap-3.3.1/js/bootstrap.min.js',
 			'/assets/js/bootstrap-modal.min.js',
 			'/assets/js/js-1.min.js',
 			'/assets/js/js-2.min.js'

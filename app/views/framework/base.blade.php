@@ -32,8 +32,8 @@
 
 		{{-- Stylesheet --}}
 
-		{{ style('bootstrap-3.0.3') }}
-		{{ style('font-awesome-4.0.3') }}
+		{{ style('cdn::bootstrap') }}
+		{{ style('cdn::font-awesome') }}
 		{{ style('flexslider-2.2') }}
 		{{ style('normalize-3.0.1') }}
 

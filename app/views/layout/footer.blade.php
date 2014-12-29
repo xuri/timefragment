@@ -41,7 +41,7 @@
 			'/assets/js/jquery/jquery.validate.js',
 
 			'/assets/flexslider-2.2/jquery.flexslider-min.js',
-			'/assets/bootstrap-3.0.3/js/bootstrap.min.js',
+			'/assets/bootstrap-3.3.1/js/bootstrap.min.js',
 
 			'/assets/js/bootstrap-modal.min.js',
 			'/assets/modernizr-2.8.1/modernizr-2.8.1.min.js',

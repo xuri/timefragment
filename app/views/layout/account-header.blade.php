@@ -41,21 +41,17 @@
 
 		{{ HTML::style('assets/css/fonts.googleapis.min.css') }}
 		{{ HTML::style('assets/css/admin.min.css') }}
-		{{ style('font-awesome-4.1.0') }}
+		{{ style('cdn::font-awaresome') }}
 		{{-- Js Library --}}
 
 		{{-- jQuery (necessary for Bootstrap's JavaScript plugins) --}}
 
-		{{ script('jquery-2.1.1') }}
+		{{ script('cdn::jquery') }}
 
 		{{-- Include all compiled plugins (below), or include individual files as needed --}}
 
-		{{-- script('bootstrap-3.0.3') --}}
-		{{-- script('bootstrap-select') --}}
-		{{-- script('modernizr-2.8.1') --}}
-
 		{{ Minify::javascript(array(
-			'/assets/bootstrap-3.0.3/js/bootstrap.min.js',
+			'/assets/bootstrap-3.3.1/js/bootstrap.min.js',
 			'/assets/bootstrap-select/js/bootstrap-select.min.js',
 			'/assets/modernizr-2.8.1/modernizr-2.8.1.min.js',
 			'/assets/js/admin.js',
