@@ -3,10 +3,10 @@
 	<div class="navbar-inner">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span>
+				<span class="sr-only">导航菜单</span>
 				<i class="fa fa-bars fa-2x"></i>
 			</button>
-			<a id="brand" class="navbar-brand" href="{{ route('home') }}">
+			<a id="brand" href="{{ route('home') }}">
 				{{ HTML::image('assets/img/logo.png', '', array('width'=>'80', 'height'=>'40')); }}
 			</a>
 		</div>

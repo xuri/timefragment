@@ -252,10 +252,12 @@ blockquote {
 }
 
 /* ##### NAV BAR ##### */
-.navbar-brand {
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-right: 0;
+#brand {
+	margin: 10px;
+	float: left;
+	height: 40px;
+	font-size: 18px;
+	line-height: 20px;
 }
 
 #navigation-sticky-wrapper {
@@ -315,6 +317,11 @@ blockquote {
 	height: 100%;
 	transition: all 0.3s ease-out 0s;
 }
+
+.navbar-nav {
+	background-color:#222;
+}
+
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
 	background: #fff;
 }
@@ -326,8 +333,8 @@ blockquote {
 }
 .navbar-default .navbar-toggle {
 	padding: 0;
-	margin: 15px 15px 0 0;
 	border: 0;
+	height: 43px;
 	background: none;
 	-webkit-border-radius: 0;
 	-moz-border-radius: 0;
