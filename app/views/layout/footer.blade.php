@@ -19,7 +19,7 @@
 			<div class="copyright">
 				<p>Copyright &copy; <?php echo date('Y');?> <a href="{{ route('home') }}" target="_blank">TimeFragment.com</a> All rights reserved. ♥ Lovingly made by <a href="https://xuri.me" target="_blank">Luxurioust</a> <a href="http://www.miitbeian.gov.cn/" target="_blank">黑ICP备14007596号-2</a></p>
 				<p>
-					<a href="{{ route('home') }}" target="_blank">关于我们</a> | <a href="{{ route('home') }}" target="_blank">合作伙伴</a> | <a href="{{ route('home') }}" target="_blank">联系我们</a> | <a href="{{ route('home') }}/article/users-terms.html" target="_blank">服务条款</a> | <a href="{{ route('home') }}/article/users-privacy.html" target="_blank">隐私权政策</a>
+					<a href="{{ route('home') }}" target="_blank">关于我们</a> | <a href="{{ route('home') }}" target="_blank">合作伙伴</a> | <a href="{{ route('home') }}" target="_blank">联系我们</a> | <a href="{{ route('home') }}/article/users-terms.html" target="_blank">服务条款</a> | <a href="{{ route('home') }}/article/users-privacy.html" target="_blank">隐私权政策</a><a  key ="54bdad2defbfb01423063308"  logo_size="83x30"  logo_type="personal"  href="http://www.anquan.org" ><script src="http://static.anquan.org/static/outer/js/aq_auth.js"></script></a>
 				</p>
 			</div>
 		</footer>

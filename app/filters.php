@@ -49,7 +49,7 @@
 # CSRF protection filters to prevent cross-site request forgery
 Route::filter('csrf', function()
 {
-	if (Session::token() != Input::get('_token'))
+	if (Session::token() !== Input::get('_token'))
 		throw new Illuminate\Session\TokenMismatchException;
 });
 
