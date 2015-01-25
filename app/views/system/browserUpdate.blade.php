@@ -89,37 +89,37 @@
 </head>
 
 <body>
-	<!-- Content -->
+	{{-- Content --}}
 	<div class="not-support-browser">
 		<div class="rixuonline-logo">
-			<img src="{{ route('home') }}/images/browser_not_support/timefragment.png">
+			{{ HTML::image('images/browser_not_support/timefragment.png') }}
 		</div>
 		<div class="not-support-browser-contant">
 			<span>欢迎来到时光碎片，为了获得更好的用户体验，我们建议您使用下列浏览器的最新版本浏览。</span>
 			<ul>
 				<li>
 					<a href="http://www.google.com/chrome/eula.html?hl=en&standalone=1" target="_blank">
-						<img alt="Google Chrome" title="Google Chrome" src="{{ route('home') }}/images/browser_not_support/chromelogo.png" border="0">
+						{{ HTML::image('images/browser_not_support/chromelogo.png', 'Google Chrome', array('border' => '0', 'title' => 'Google Chrome')) }}
 					</a>
 				</li>
 				<li>
 					<a href="http://www.mozilla.org/en-US/firefox/fx/" target="_blank">
-						<img alt="Mozilla Firefox" title="Mozilla Firefox" src="{{ route('home') }}/images/browser_not_support/firefoxlogo.png" border="0">
+						{{ HTML::image('images/browser_not_support/firefoxlogo.png', 'Mozilla Firefox', array('border' => '0', 'title' => 'Mozilla Firefox')) }}
 					</a>
 				</li>
 				<li>
 					<a href="http://www.apple.com/safari/download/" target="_blank">
-						<img alt="Apple Safari" title="Apple Safari" src="{{ route('home') }}/images/browser_not_support/safari_logo.png" border="0">
+						{{ HTML::image('images/browser_not_support/safari_logo.png', 'Apple Safari', array('border' => '0', 'title' => 'Apple Safari')) }}
 					</a>
 				</li>
 				<li>
 					<a href="http://www.opera.com/products/" target="_blank">
-						<img alt="Opera" title="Opera" src="{{ route('home') }}/images/browser_not_support/operalogo.png" border="0">
+						{{ HTML::image('images/browser_not_support/operalogo.png', 'Opera', array('border' => '0', 'title' => 'Opera')) }}
 					</a>
 				</li>
 				<li>
 					<a href="http://windows.microsoft.com/en-us/internet-explorer/products/ie/home" target="_blank">
-						<img alt="Internet Explorer 9+" title="Internet Explorer 9+" src="{{ route('home') }}/images/browser_not_support/ielogo.png" border="0">
+						{{ HTML::image('images/browser_not_support/ielogo.png', 'Internet Explorer 9+', array('border' => '0', 'title' => 'Internet Explorer 9+')) }}
 					</a>
 				</li>
 			</ul>
