@@ -27,7 +27,7 @@
 		window.app = {};
 
 		app.BrainSocket = new BrainSocket(
-				new WebSocket('ws://104.131.228.190:8080'),
+				new WebSocket('ws://104.236.113.145:8080'),
 				new BrainSocketPubSub()
 		);
 
