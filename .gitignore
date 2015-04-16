@@ -14,6 +14,3 @@ app/config/email.php
 # OAuth API
 app/api/qq/comm/inc.php
 app/api/weibo/config.php
-# Minify
-public/css/builds/*
-public/js/builds/*
