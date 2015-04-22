@@ -22,7 +22,7 @@
 					<a href="{{ route('home') }}" target="_blank">关于我们</a> | <a href="{{ route('home') }}" target="_blank">合作伙伴</a> | <a href="{{ route('home') }}" target="_blank">联系我们</a> | <a href="{{ route('home') }}/article/users-terms.html" target="_blank">服务条款</a> | <a href="{{ route('home') }}/article/users-privacy.html" target="_blank">隐私权政策</a>
 				</p>
 				<p>
-					<a key ="54bdad2defbfb01423063308" logo_size="83x30" logo_type="personal" href="http://www.anquan.org" alt="安全联盟站长验证" title="安全联盟站长验证">{{ HTML::image('images/verified_logo/china_pinpaibao.png', '安全联盟站长验证', array('width' => '75', 'border' => '0')) }}</a> <a href="http://webscan.360.cn/index/checkwebsite/url/timefragment.com" target="_blank" alt="360网站安全检测" title="360网站安全检测">
+					<a href="http://www.anquan.org/authenticate/cert/?site=timefragment.com&at=personal" alt="安全联盟站长验证" title="安全联盟站长验证">{{ HTML::image('images/verified_logo/china_pinpaibao.png', '安全联盟站长验证', array('width' => '75', 'border' => '0')) }}</a> <a href="http://webscan.360.cn/index/checkwebsite/url/timefragment.com" target="_blank" alt="360网站安全检测" title="360网站安全检测">
 					{{ HTML::image('images/verified_logo/china_360.png', '360网站安全检测', array('width' => '75', 'border' => '0')) }}</a>
 				</p>
 			</div>
