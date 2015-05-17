@@ -4,11 +4,10 @@ php:
   - 5.5
 
 install:
-  - travis_retry composer install --no-interaction --prefer-source
+  - travis_retry composer install
 
 before_script:
   - "mysql -e 'create database `timefragment`;'"
-  - composer install -n --prefer-source
   - php artisan migrate -n
   - php artisan dump-autoload
 
