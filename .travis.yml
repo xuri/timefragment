@@ -4,7 +4,11 @@ php:
   - 5.5
 
 before_script:
+  - "mysql -e 'create database `timefragment`;'"
+  - composer install -n --prefer-source
+  - php artisan migrate -n
   - composer self-update
   - composer install
+  - php artisan dump-autoload
 
-script: phpunit
+script: phpunit ./app/tests/ExampleTest.php
