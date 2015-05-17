@@ -250,5 +250,4 @@ class Admin_CategoryResource extends BaseResource
 		}
 	}
 
-
 }

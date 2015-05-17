@@ -1,4 +1,5 @@
 <?php
+
 Event::listen('generic.event',function($client_data){
 	return BrainSocket::message('generic.event',array('message'=>'A message from a generic event fired in Laravel!'));
 });

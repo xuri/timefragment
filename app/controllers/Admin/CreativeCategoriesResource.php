@@ -182,5 +182,4 @@ class Admin_CreativeCategoriesResource extends BaseResource
 		}
 	}
 
-
 }
