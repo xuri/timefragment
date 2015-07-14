@@ -97,7 +97,7 @@ return array(
     */
 
     // 'cookie' => 'laravel_session',
-    'cookie' => 'timefragment_session',
+    'cookie' => 'timefragments_session',
 
     /*
     |--------------------------------------------------------------------------
