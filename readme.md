@@ -3,12 +3,12 @@
 [![Build Status](https://travis-ci.org/Luxurioust/timefragment.svg?branch=master)](https://travis-ci.org/Luxurioust/timefragment) [![Stories in Ready](https://badge.waffle.io/Luxurioust/timefragment.svg?label=ready&title=Ready)](http://waffle.io/Luxurioust/timefragment) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Luxurioust/timefragment/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 - This is a Laravel Framework project, develope by luxurioust, if you interest in this, you can e-mail me xuri.me[at]gmail.com.
-	- Route, Filter
-	- Eloquent ORM, paging, searching, sorting
-	- Controller, blade
-	- Mail Server
-	- Auth Class
-	- Validator Class
+  - Route, Filter
+  - Eloquent ORM, paging, searching, sorting
+  - Controller, blade
+  - Mail Server
+  - Auth Class
+  - Validator Class
 
 - Require
   - laravel/framework
