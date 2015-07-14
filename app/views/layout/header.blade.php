@@ -4,7 +4,7 @@
         <title>时光碎片 | Time Fragment</title>
         <meta charset="UTF-8" />
         <meta property="wb:webmaster" content="0bef5d636dcc43bc" />
-        <meta property="qc:admins" content="174222754064155621755646375" />
+        <meta property="qc:admins" content="1742227622562175564360521655" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="renderer" content="webkit">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">

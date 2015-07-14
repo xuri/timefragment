@@ -3,7 +3,7 @@
 
     <head>
         <title>时光碎片 | Time Fragment</title>
-        <meta property="qc:admins" content="174222754064155621755646375" />
+        <meta property="qc:admins" content="1742227622562175564360521655" />
         <meta property="wb:webmaster" content="0bef5d636dcc43bc" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta charset="UTF-8" />
