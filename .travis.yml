@@ -30,9 +30,6 @@ before_script:
 
 script: phpunit ./app/tests/ExampleTest.php
 
-service_name: travis-pro
-repo_token: 5hG3uN7ZFJ7JuD2yG4qzSz3lc6TXYEbSC
-
 build:
     tests:
         override:
