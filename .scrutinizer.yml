@@ -16,12 +16,3 @@ checks:
 tools:
     external_code_coverage:
         timeout: 600
-
-build:
-    tests:
-        override:
-            -
-                command: 'phpunit --coverage-clover build/logs/clover.xml'
-                coverage:
-                    file: 'logs/clover.xml'
-                    format: 'php-clover'
