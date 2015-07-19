@@ -12,3 +12,15 @@ before_script:
   - php artisan dump-autoload
 
 script: phpunit ./app/tests/ExampleTest.php
+
+service_name: travis-pro
+repo_token: 5hG3uN7ZFJ7JuD2yG4qzSz3lc6TXYEbSC
+
+build:
+    tests:
+        override:
+            -
+                command: 'phpunit --coverage-clover=public/index.php'
+                coverage:
+                    file: 'index.php'
+                    format: 'php-clover'
