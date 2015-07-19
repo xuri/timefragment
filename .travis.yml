@@ -4,6 +4,7 @@ php:
   - 5.5
 
 install:
+  - /home/travis/.phpenv/versions/5.5/bin/composer self-update
   - travis_retry composer install
 
 before_script:
