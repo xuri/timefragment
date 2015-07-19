@@ -4,15 +4,16 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "laravel/framework"          : "4.2.*",
-        "yzalis/identicon"           : "1.0.*@dev",
-        "intervention/image"         : "dev-master",
-        "jenssegers/agent"           : "*",
-        "pda/pheanstalk"             : "2.0.*",
-        "cboden/ratchet"             : "0.3.*",
-        "brainboxlabs/brain-socket"  : "dev-master",
-        "ceesvanegmond/minify"       : "2.0.*",
-        "guzzle/guzzle"              : "*"
+        "laravel/framework"        : "4.2.*",
+        "yzalis/identicon"         : "1.0.*@dev",
+        "intervention/image"       : "dev-master",
+        "jenssegers/agent"         : "*",
+        "pda/pheanstalk"           : "2.0.*",
+        "cboden/ratchet"           : "0.3.*",
+        "brainboxlabs/brain-socket": "dev-master",
+        "ceesvanegmond/minify"     : "2.0.*",
+        "guzzle/guzzle"            : "*",
+        "satooshi/php-coveralls"   : "dev-master"
     },
     "autoload": {
         "classmap": [

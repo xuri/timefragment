@@ -1,7 +1,13 @@
 language: php
 
 php:
+  - 5.6
   - 5.5
+  - hhvm
+
+matrix:
+    allow_failures:
+        - php: hhvm
 
 # environment variable used in test suite
 env: TEST_ENVIRONMENT=travis
@@ -18,7 +24,7 @@ cache:
 # install dependencies
 install:
     - travis_retry composer self-update
-    - travis_retry composer install --prefer-dist
+    - travis_retry composer install --dev --no-interaction --prefer-source
 
 # faster builds on new travis setup not using sudo
 sudo: false
@@ -28,13 +34,11 @@ before_script:
     - php artisan migrate -n
     - php artisan dump-autoload
 
-script: phpunit ./app/tests/ExampleTest.php
+script:
+    - mkdir -p build/logs
+    - phpunit ./app/tests/ExampleTest.php
 
-build:
-    tests:
-        override:
-            -
-                command: 'phpunit --coverage-clover=public/index.php'
-                coverage:
-                    file: 'index.php'
-                    format: 'php-clover'
+after_script:
+  - php vendor/bin/coveralls
+  # or enable logging
+  - php vendor/bin/coveralls -v
