@@ -15,6 +15,7 @@ checks:
 
 tools:
     external_code_coverage: true
+        timeout: 600    # Timeout in seconds.
 
 build:
     tests:
