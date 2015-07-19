@@ -39,6 +39,4 @@ script:
     - phpunit ./app/tests/ExampleTest.php
 
 after_script:
-  - php vendor/bin/coveralls
-  # or enable logging
   - php vendor/bin/coveralls -v

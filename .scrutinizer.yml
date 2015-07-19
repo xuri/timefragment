@@ -12,3 +12,15 @@ checks:
     ruby:
         code_rating: true
         duplicate_code: true
+
+tools:
+    external_code_coverage: true
+
+build:
+    tests:
+        override:
+            -
+                command: 'phpunit --coverage-clover build/logs/clover.xml'
+                coverage:
+                    file: 'clover.xml'
+                    format: 'php-clover'
