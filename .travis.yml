@@ -3,14 +3,30 @@ language: php
 php:
   - 5.5
 
+# environment variable used in test suite
+env: TEST_ENVIRONMENT=travis
+
+# faster builds on new travis setup not using sudo
+sudo: false
+
+# cache vendor dirs
+cache:
+  directories:
+    - vendor
+    - $HOME/.composer/cache
+
+# install dependencies
 install:
-  - /home/travis/.phpenv/versions/5.5/bin/composer self-update
-  - travis_retry composer install
+    - travis_retry composer self-update
+    - travis_retry composer install --prefer-dist
+
+# faster builds on new travis setup not using sudo
+sudo: false
 
 before_script:
-  - "mysql -e 'create database `timefragment`;'"
-  - php artisan migrate -n
-  - php artisan dump-autoload
+    - "mysql -e 'create database `timefragment`;'"
+    - php artisan migrate -n
+    - php artisan dump-autoload
 
 script: phpunit ./app/tests/ExampleTest.php
 
