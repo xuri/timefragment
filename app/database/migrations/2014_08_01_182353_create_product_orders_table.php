@@ -15,7 +15,6 @@ class CreateProductOrdersTable extends Migration {
         Schema::create('product_orders', function(Blueprint $table)
         {
             $table->engine = "InnoDB";
-
             $table->increments('id');
             $table->text('order_id');
             $table->text('alipay_trade')->nullable();;

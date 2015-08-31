@@ -233,7 +233,7 @@ class ProductOrderController extends BaseResource
                     "receive_mobile"    => $receive_mobile,
                     "_input_charset"    => trim(strtolower($alipay_config['input_charset']))
                 );
-                //建立请求
+                // Establishing request
                 $alipaySubmit   = new AlipaySubmit($alipay_config);
                 $html_text      = $alipaySubmit->buildRequestForm($parameter,"get", "确认付款");
                 echo $html_text;
