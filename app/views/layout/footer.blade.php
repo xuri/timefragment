@@ -6,7 +6,7 @@
                 <a href="https://www.facebook.com/timebelief" target="_blank" title="关注时光碎片网Facebook专页" alt="关注时光碎片网Facebook专页">
                     <i class="fa fa-facebook fa-3x"></i>
                 </a>
-                <a href="https://twitter.com/timefragment" target="_blank" title="关注时光碎片网的官方Twitter" alt="关注时光碎片网的官方Twitter">
+                <a href="https://twitter.com/timefragments" target="_blank" title="关注时光碎片网的官方Twitter" alt="关注时光碎片网的官方Twitter">
                     <i class="fa fa-twitter fa-3x"></i>
                 </a>
                 <a href="https://plus.google.com/110276394392356638418/" target="_blank" title="关注时光碎片网Google+" alt="关注时光碎片网Google+">
@@ -17,13 +17,9 @@
                 </a>
             </div>
             <div class="copyright">
-                <p>Copyright &copy; 2014 - <?php echo date('Y');?> <a href="{{ route('home') }}" target="_blank">TimeFragment.com</a> All rights reserved. ♥ Lovingly made by <a href="https://xuri.me" target="_blank">Luxurioust</a> <a href="http://www.miitbeian.gov.cn/" target="_blank">黑ICP备14007596号-2</a></p>
+                <p>Copyright &copy; 2014 - <?php echo date('Y');?> <a href="{{ route('home') }}" target="_blank">TimeFragments.xuri.me</a> All rights reserved. ♥ Lovingly made by <a href="https://xuri.me" target="_blank">Luxurioust</a> </p>
                 <p>
                     <a href="{{ route('home') }}" target="_blank">关于我们</a> | <a href="{{ route('home') }}" target="_blank">合作伙伴</a> | <a href="{{ route('home') }}" target="_blank">联系我们</a> | <a href="{{ route('home') }}/article/users-terms.html" target="_blank">服务条款</a> | <a href="{{ route('home') }}/article/users-privacy.html" target="_blank">隐私权政策</a>
-                </p>
-                <p>
-                    <a href="http://www.anquan.org/authenticate/cert/?site=timefragment.com&at=personal" target="_blank" alt="安全联盟站长验证" title="安全联盟站长验证">{{ HTML::image('images/verified_logo/china_pinpaibao.png', '安全联盟站长验证', array('width' => '75', 'border' => '0')) }}</a> <a href="http://webscan.360.cn/index/checkwebsite/url/timefragment.com" target="_blank" alt="360网站安全检测" title="360网站安全检测">
-                    {{ HTML::image('images/verified_logo/china_360.png', '360网站安全检测', array('width' => '75', 'border' => '0')) }}</a>
                 </p>
             </div>
         </footer>
