@@ -8,15 +8,15 @@
         <meta name="renderer" content="webkit">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta name="description" content="时光碎片网 -是一个集创意分享,商品交易及职位信息发布,经验分享等为一体的综合服务社区,旨在让我们的生活更加充实。" />
-        <meta name="keywords" content="时光碎片 TimeFragment 创意汇 去旅行 酷工作 尚品汇 时间线 互动社区 爱生活 兼职信息 招聘 实习 工作机会 二手交易 创意分享 美文" />
+        <meta name="keywords" content="时光碎片 TimeFragments 创意汇 去旅行 酷工作 尚品汇 时间线 互动社区 爱生活 兼职信息 招聘 实习 工作机会 二手交易 创意分享 美文" />
         <meta name="author" content="Ri Xu">
-        <meta name="og:description" content="时光碎片 | Time Fragment">
+        <meta name="og:description" content="时光碎片 | Time Fragments">
         <meta name="og:image" content="images/timefragment.png">
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:site" content="@timefragment">
-        <meta name="twitter:title" content="时光碎片 | Time Fragment">
-        <meta name="twitter:creator" content="@timefragment">
-        <meta name="twitter:domain" content="timefragment.com">
+        <meta name="twitter:site" content="@timefragments">
+        <meta name="twitter:title" content="时光碎片 | Time Fragments">
+        <meta name="twitter:creator" content="@timefragments">
+        <meta name="twitter:domain" content="timefragments.xuri.me">
         <meta name="apple-mobile-web-app-capable" content="yes"/>
         {{-- Favicons --}}
 

@@ -13,7 +13,7 @@
                 <p class="center">欢迎加入时光碎片</p></fieldset>
             <fieldset id="quotes">
                 <p>时光不老，我们不散
-                    <cite>&ndash; TimeFragment</cite>
+                    <cite>&ndash; TimeFragments</cite>
                 </p>
             </fieldset>
         </form>

@@ -9,7 +9,7 @@
         <meta name="renderer" content="webkit">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta name="description" content="时光碎片 -是一个集创意分享,商品交易及职位信息发布,经验分享等为一体的综合服务社区,旨在让我们的生活更加充实。" />
-        <meta name="keywords" content="时光碎片 TimeFragment 创意汇 去旅行 酷工作 尚品汇 时间线 互动社区 爱生活 兼职信息 招聘 实习 工作机会 二手交易 创意分享 美文" />
+        <meta name="keywords" content="时光碎片 TimeFragments 创意汇 去旅行 酷工作 尚品汇 时间线 互动社区 爱生活 兼职信息 招聘 实习 工作机会 二手交易 创意分享 美文" />
         <meta name="author" content="Ri Xu">
         <meta property="og:title" content="时光碎片 | Time Fragment"/>
         <meta property="og:type" content="website"/>
@@ -17,8 +17,8 @@
         <meta property="og:image" content="{{ route('home') }}/images/icons/apple-touch-icon-180x180-precomposed.png"/>
         <meta property="og:description" content="时光碎片 -是一个集创意分享,商品交易及职位信息发布,经验分享等为一体的综合服务社区,旨在让我们的生活更加充实。">
         <meta name="twitter:card" content="{{ route('home') }}/images/icons/apple-touch-icon-180x180-precomposed.png">
-        <meta name="twitter:site" content="@timefragment">
-        <meta name="twitter:title" content="时光碎片 | Time Fragment">
+        <meta name="twitter:site" content="@timefragments">
+        <meta name="twitter:title" content="时光碎片 | Time Fragments">
         <meta name="twitter:creator" content="@timefragment">
         <meta name="twitter:domain" content="{{ route('home') }}">
         <meta name="apple-mobile-web-app-capable" content="yes"/>

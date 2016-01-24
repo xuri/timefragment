@@ -169,7 +169,7 @@
 
                             {{-- Parallax title --}}
                             <h1><i class="fa fa-envelope-o fa-5x"></i></h1>
-                            <span class="call-number" >support@timefragment.com</span>
+                            <span class="call-number" >support@timefragments.xuri.me</span>
                             <p class="lead">
                                 发送 E-mail 联系我们 您将在一个工作日内收到回复
                             </p>

@@ -13,7 +13,7 @@
                 <p class="center">激活邮件已发送，请登录您的邮箱 {{ $email }} 激活账号。</p></fieldset>
             <fieldset id="quotes">
                 <p>时光不老，我们不散
-                    <cite>&ndash; TimeFragment</cite>
+                    <cite>&ndash; TimeFragments</cite>
                 </p>
             </fieldset>
         </form>

@@ -10,7 +10,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta name="description" content="TimeFragment" />
+        <meta name="description" content="TimeFragments" />
         <meta name="author" content="Luxurioust">
 
         <meta name="description" content="@yield('description')">{{-- 页面描述 --}}

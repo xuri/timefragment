@@ -70,7 +70,7 @@
             </fieldset>
             <fieldset id="quotes" style="font-family: '楷体';">
                 <p>时光不老，我们不散
-                    <cite>&ndash; TimeFragment</cite>
+                    <cite>&ndash; TimeFragments</cite>
                 </p>
             </fieldset>
         {{ Form::close() }}

@@ -2,7 +2,7 @@
     <div class="navbar-header">
         <a class="navbar-brand" href="{{ route('account') }}" class="hover-white-shade-bg">
             <i class="fa fa-cogs"></i> 控制面板
-            <small class="font-w-100 text-gray-alt hidden-xs hidden-sm">时光碎片 | TimeFragment</small>
+            <small class="font-w-100 text-gray-alt hidden-xs hidden-sm">时光碎片 | TimeFragments</small>
         </a>
     </div>
     <div id="top-nav">
