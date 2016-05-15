@@ -28,7 +28,7 @@ class Timeline extends BaseModel
      * ORM (Object-relational model): User
      * @return object User
      */
-    public function timeline()
+    public function timelines()
     {
         return $this->belongsTo('User', 'user_id');
     }
