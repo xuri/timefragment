@@ -17,7 +17,7 @@
                 </a>
             </div>
             <div class="copyright">
-                <p>Copyright &copy; 2014 - <?php echo date('Y');?> <a href="{{ route('home') }}" target="_blank">TimeFragments.xuri.me</a> All rights reserved. ♥ Lovingly made by <a href="https://xuri.me" target="_blank">Luxurioust</a> </p>
+                <p>Copyright &copy; 2014 - <?php echo date('Y');?> <a href="{{ route('home') }}" target="_blank">{{ route('home') }}</a> All rights reserved. ♥ Lovingly made by <a href="https://xuri.me" target="_blank">Ri Xu</a> </p>
                 <p>
                     <a href="{{ route('home') }}" target="_blank">关于我们</a> | <a href="{{ route('home') }}" target="_blank">合作伙伴</a> | <a href="{{ route('home') }}" target="_blank">联系我们</a> | <a href="{{ route('home') }}/article/users-terms.html" target="_blank">服务条款</a> | <a href="{{ route('home') }}/article/users-privacy.html" target="_blank">隐私权政策</a>
                 </p>

@@ -65,28 +65,28 @@
                 </div>
 
                 <div class="post-box first">
-                    <a href="blog-details.html#"> <img class="img-rounded" src="http://localhost/~luxurioust/laravel/public/images/details-blog1.jpg" width="50" height="50" alt=""> </a>
+                    <a href="blog-details.html#"> <img class="img-rounded" src="/images/details-blog1.jpg" width="50" height="50" alt=""> </a>
                     <div>
                         <h5><a href="blog-details.html#">Media heading</a></h5>
                         <small>July 15, 2013</small>
                     </div>
                 </div>
                 <div class="post-box">
-                    <a href="blog-details.html#"> <img class="img-rounded" src="http://localhost/~luxurioust/laravel/public/images/details-blog2.jpg" width="50" height="50" alt=""> </a>
+                    <a href="blog-details.html#"> <img class="img-rounded" src="/images/details-blog2.jpg" width="50" height="50" alt=""> </a>
                     <div>
                         <h5>Media heading</h5>
                         <small>July 15, 2013</small>
                     </div>
                 </div>
                 <div class="post-box">
-                    <a href="blog-details.html#"> <img class="img-rounded" src="http://localhost/~luxurioust/laravel/public/images/details-blog3.jpg" width="50" height="50" alt=""> </a>
+                    <a href="blog-details.html#"> <img class="img-rounded" src="/images/details-blog3.jpg" width="50" height="50" alt=""> </a>
                     <div>
                         <h5>Media heading</h5>
                         <small>July 15, 2013</small>
                     </div>
                 </div>
                 <div class="post-box">
-                    <a href="blog-details.html#"> <img class="img-rounded" src="http://localhost/~luxurioust/laravel/public/images/details-blog4.jpg" width="50" height="50" alt=""> </a>
+                    <a href="blog-details.html#"> <img class="img-rounded" src="/images/details-blog4.jpg" width="50" height="50" alt=""> </a>
                     <div>
                         <h5>Media heading</h5>
                         <small>July 15, 2013</small>

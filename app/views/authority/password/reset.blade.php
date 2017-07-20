@@ -47,7 +47,7 @@
                     <cite>&ndash; 时光碎片</cite>
                 </p>
                 <p>&ldquo;编织梦想，程就未来&rdquo;
-                    <cite>&ndash; luxurioust</cite>
+                    <cite>&ndash; Ri Xu</cite>
                 </p>
             </fieldset>
         {{ Form::close() }}
