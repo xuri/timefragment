@@ -1,14 +1,16 @@
-# TimeFragment ![Chinese version](https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/22px-Flag_of_the_People%27s_Republic_of_China.svg.png)
+# TimeFragment
 
-[![Build Status](https://travis-ci.org/Luxurioust/timefragment.svg?branch=master)](https://travis-ci.org/Luxurioust/timefragment)
+[![Join the chat at https://gitter.im/xuri/timefragment](https://badges.gitter.im/xuri/timefragment.svg)](https://gitter.im/xuri/timefragment?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-- This is a Laravel Framework project, develope by luxurioust, if you interest in this, you can e-mail me xuri.me[at]gmail.com.
-	- Route, Filter
-	- Eloquent ORM, paging, searching, sorting
-	- Controller, blade
-	- Mail Server
-	- Auth Class
-	- Validator Class
+[![Build Status](https://travis-ci.org/xuri/timefragment.svg?branch=master)](https://travis-ci.org/xuri/timefragment) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/xuri/timefragment/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/xuri/timefragment/?branch=master) [![Join the chat at https://gitter.im/xuri/timefragment](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/xuri/timefragment) [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/xuri/timefragment/blob/master/LICENSE)
+
+- This project base on the Laravel Framework.
+  - Route, Filter
+  - Eloquent ORM, paging, searching, sorting
+  - Controller, blade
+  - Mail Server
+  - Auth Class
+  - Validator Class
 
 - Require
   - laravel/framework
@@ -16,6 +18,7 @@
   - yzalis/identicon
   - michelf/php-markdown
   - nickcernis/html-to-markdown
+
 - Debug
   - barryvdh/laravel-debugbar
   - five-say/vendor-cleaner
@@ -42,7 +45,11 @@ git update-index --assume-unchanged app/api/alipay/alipay.config.php
 git update-index --no-assume-unchanged app/api/alipay/alipay.config.php
 ```
 
-###Preview
+### Preview
 ![TimeFragment](/public/readme/preview.jpg "TimeFragment")
 
 [More Info](http://xuri.me/2014/03/08/timefragment.html)
+
+### Licenses
+
+This program is under the terms of the MIT license. See [LICENSE](https://github.com/xuri/timefragment/blob/master/LICENSE) for the full license text.
